@@ -1,0 +1,13 @@
+Python library used for developing Web Kundli program.
+
+1. pip install python-whois
+2. pip install requests
+3. pip install asyncio
+4. pip install aiohttp
+5. pip install configparser
+6. pip install colorama
+7. pip install dnspython
+8. pip install httpx
+9. pip install dohq-artifactory
+10.pip install dohq-tfs
+11.pip install scapy

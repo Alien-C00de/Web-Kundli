@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Automated VirusTotal Analysis Report | API v3</title>
+            <style>
+                body {
+                font-family: Sans-Serif;
+                color: #1d262e;
+                }
+                h1 {
+                    font-size: 3.25em;
+                    margin: 50px 0 0 50px;
+                }
+                h2 {
+                    font-size: .75em;
+                    font-weight:normal;
+                    margin: 5px 0 15px 50px;
+                    color: #7d888b;
+                }
+                h3 {
+                    font-size: 1.50em;
+                    font-weight:normal;
+                    margin: 0 0 20px 50px;
+                    color: #7d888b;
+                }
+                h4 {
+                    font-size: .750em;
+                    font-weight:normal;
+                    margin: 0 0 20px 50px;
+                    text-align:right;
+                    color: orange;
+                }
+                table {
+                    text-align: left;
+                    width: 100%;
+                    border-collapse: collapse;
+                    border: none;
+                    padding: 0;
+                    margin-left: 50px;
+                    margin-bottom: 40px;
+                    max-width: 1200px;
+                }
+                th { 
+                    text-align: left;
+                    border:none;
+                    padding: 10px 0 5px 10px;
+                    margin-left: 10px;
+                }
+                tr { 
+                    text-align: left;
+                    border-bottom: 1px solid #ddd;
+                    border-top: none;
+                    border-left: none;
+                    border-right: none;
+                    padding-left: 10px;
+                    margin-left: 0;
+                }
+                td { 
+                    border-bottom: none;
+                    border-top: none;
+                    border-left: none;
+                    border-right: none;
+                    padding-left: 10px;
+                }
+                tr th {
+                    padding: 10px 10px 5px 10px;
+                }
+
+            </style>
+        </head>
+        <body>
+        <h1 class="reportHeader">WEB KUNDLI</h1>
+        <h2>In-depth analysis of the website.</h2>
+        <h3>Mon Jul 22 11:28:04 2024</h3>
+                <table style="border-collapse: collapse; width: 100%; height: 252px;" border="1">
+                <tbody>
+                <tr style="height: 54px;">
+                <td style="width: 20%; height: 54px;">
+                <h3 id="server-location" class="sc-bczSft dfkxtP inner-heading" style="text-align: center;" align="left">Server Location</h3>
+                <p> <table style="border-collapse: collapse; width: 100%; height: 90px;" border="1">
+                <tbody>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">City</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">Toronto</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">Country</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">Canada</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Timezone</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">America/Toronto</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Languages</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">en-CA,fr-CA,iu</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Currency</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">Dollar</span></strong></td>
+                </tr>
+                </tbody>
+                </table></p> </td>
+                <td style="width: 20%; height: 54px;">
+                <h3 id="ssl-certificate" class="sc-bczSft dfkxtP inner-heading" style="text-align: center;" align="left">SSL Certificate</h3>
+                <p> <table style="border-collapse: collapse; width: 100%; height: 90px;" border="1">
+                <tbody>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Subject</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">www.broadcom.com</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">Issuer</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">DigiCert TLS RSA SHA256 2020 CA1</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Expires</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">2025-04-24 23:59:59</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Renewed</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">2024-04-25 00:00:00</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Serial Num</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">6624749642959574572637839367110330490</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;"><span class="lbl">Fingerprint</span><span class="lbl"><br /></span></span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">C8:04:A1:27:86:AE:A8:F4:91:35:1B:6D:78:BA:8D:E7:A2:EE:01:81:AB:6B:84:B0:59:D1:DD:E4:E6:DD:47:35</span></strong></td>
+                </tr>
+                </tbody>
+                </table></p> </td>
+                <td style="width: 20%; height: 54px;">
+                <h3 id="domain-whois" class="sc-bczSft dfkxtP inner-heading" style="text-align: center;" align="left">Domain Whois</h3>
+                <p> <table style="border-collapse: collapse; width: 100%; height: 90px;" border="1">
+                <tbody>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Registered Domain</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">broadcom.com</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">Creation Date</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">[datetime.datetime(1994, 5, 9, 4, 0), datetime.datetime(1994, 5, 9, 0, 0)]</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Updated Date</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">[datetime.datetime(2024, 5, 20, 17, 24, 38), datetime.datetime(2024, 5, 17, 20, 7, 8)]</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Registry Expiry Date</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">2025-05-10 04:00:00</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Registry Domain ID</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;"> </span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Registrar WHOIS Server</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">whois.corporatedomains.com</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Registrar</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">CSC CORPORATE DOMAINS, INC.</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Registrar IANA ID</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">None</span></strong></td>
+                </tr>
+                </tbody>
+                </table></p> </td>
+                </tr>
+                <tr style="height: 54px;">
+                <td style="width: 33.3333%; height: 54px;">
+                <h3 id="server-info" class="sc-bczSft dfkxtP inner-heading" style="text-align: center;" align="left">Server Info</h3>
+                <p> <table style="border-collapse: collapse; width: 100%; height: 90px;" border="1">
+                <tbody>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Organization</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">Google LLC</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">ASN Code</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">AS15169</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Ports</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">[443, 53]</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">IP</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">8.8.8.8</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Type</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">[]</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Location</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">Mountain View, United States</span></strong></td>
+                </tr>
+                </tbody>
+                </table></p> </td>
+                <td style="width: 33.3333%; height: 54px;">
+                <h3 id="headers" class="sc-bczSft dfkxtP inner-heading" style="text-align: center;" align="left">HTTP Security</h3>
+                <p> <table style="border-collapse: collapse; width: 100%; height: 90px;" border="1">
+                    <tbody>
+                    <tr style="height: 18px;">
+                    <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Content Security Policy</span></strong></td>
+                    <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">Yes</span></strong></td>
+                    </tr>
+                    <tr style="height: 18px;">
+                    <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">Strict Transport Policy</span></strong></td>
+                    <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">Yes</span></strong></td>
+                    </tr>
+                    <tr style="height: 18px;">
+                    <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">X-Content-Type-Options</span></strong></td>
+                    <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">Yes</span></strong></td>
+                    </tr>
+                    <tr style="height: 18px;">
+                    <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">X-Frame-Options</span></strong></td>
+                    <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">Yes</span></strong></td>
+                    </tr>
+                    <tr style="height: 18px;">
+                    <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">X-XSS-Protection</span></strong></td>
+                    <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">Yes</span></strong></td>
+                    </tr>
+                    </tbody>
+                    </table></p> </td>
+                <td style="width: 33.3333%; height: 54px;">
+                <h3 id="host-names" class="sc-bczSft dfkxtP inner-heading" style="text-align: center;" align="left">Headers</h3>
+                <p> <table style="border-collapse: collapse; width: 100%; height: 90px;" border="1">
+                <tbody>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Server</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">cloudflare</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">Date</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">Mon, 22 Jul 2024 05:58:03 GMT</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Content-Type</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">text/html; charset=utf-8</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">transfer-encoding</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">chunked</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">connection</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">keep-alive</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">x-frame-options</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">SAMEORIGIN</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">x-content-type-options</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">nosniff</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">referrer-policy</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">None</span></strong></td>
+                </tr>
+                </tbody>
+                </table></p> </td>
+                </tr>
+                <td style="width: 33.3333%; height: 54px;">
+                <h3 id="host-names" class="sc-bczSft dfkxtP inner-heading" style="text-align: center;" align="left">COOKIES</h3>
+                <p> <table style="border-collapse: collapse; width: 100%; height: 90px;" border="1"><tbody><tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;"> __cf_bm </span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;"></span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">Expires</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">2024-07-22 06:27:50</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Path</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">/</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Domain</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">.www.broadcom.com</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Secure</span></strong></td>
+                <td style="width: 69.4676%; height: 18px; text-align: right; background-color: gray;"><strong><span style="color: #ffffff;">True</span></strong></td></tbody></table></p> </td>
+                <td style="width: 33.3333%; height: 54px;">
+                <h3 id="host-names" class="sc-bczSft dfkxtP inner-heading" style="text-align: center;" align="left">DNS Server</h3>
+                <p> </p> </td>
+                <td style="width: 33.3333%; height: 54px;">
+                <h3 id="host-names" class="sc-bczSft dfkxtP inner-heading" style="text-align: center;" align="left">TLS Cipher Suites</h3>
+                <p><table style="border-collapse: collapse; width: 100%; height: 90px;" border="1">
+                <tbody>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Domain Name</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">www.broadcom.com</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">Issuing Organization</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">DigiCert Inc</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Issue Date</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">Apr 25 00:00:00 2024 GMT</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Expire Date</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">Apr 24 23:59:59 2025 GMT</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Serial Number</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">04FBE16000D9C09548E8EAA2C18F087A</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Protocol Version</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">TLSv1.3</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Cipher Suite</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">TLS_AES_256_GCM_SHA384</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Public key length</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">256</span></strong></td>
+                </tr>
+                </tbody>
+                </table></p></td>
+                </tr>
+                <td style="width: 33.3333%; height: 54px;">
+                <h3 id="host-names" class="sc-bczSft dfkxtP inner-heading" style="text-align: center;" align="left">DNS RECORD INFO</h3>
+                <p><table style="border-collapse: collapse; width: 100%; height: 90px;" border="1">
+                <tbody>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Domain Name</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">www.broadcom.com</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">A RECORD</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">104.18.37.111 ,
+172.64.150.145 ,
+</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">AAAA RECORD</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">2606:4700:4400::ac40:9691 ,
+2606:4700:4400::6812:256f ,
+</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">MX RECORD</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">None</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">NS RECORD</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">None</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">CNAME RECORD</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">cdn.broadcom.com.</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">TXT RECORD</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">None</span></strong></td>
+                </tr>
+                </tbody>
+                </table></p></td>
+                <td style="width: 33.3333%; height: 54px;">
+                <h3 id="host-names" class="sc-bczSft dfkxtP inner-heading" style="text-align: center;" align="left">TXT RECORD INFO</h3>
+                <p><table style="border-collapse: collapse; width: 100%; height: 90px;" border="1">
+                <tbody>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Domain Name</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">www.broadcom.com</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">TXT RECORD</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">None</span></strong></td>
+                </tr>
+                </tbody>
+                </table></p></td>
+            <td style="width: 33.3333%; height: 54px;">
+                <h3 id="host-names" class="sc-bczSft dfkxtP inner-heading" style="text-align: center;" align="left">SERVER STATUS</h3>
+                <p><table style="border-collapse: collapse; width: 100%; height: 90px;" border="1">
+                <tbody>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Domain Name</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">www.broadcom.com</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">SERVER STATUS</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">Server is Up</span></strong></td>
+                </tr>
+                </tbody>
+                </table></p></td>
+                </tr>
+                <td style="width: 33.3333%; height: 54px;">
+                <h3 id="host-names" class="sc-bczSft dfkxtP inner-heading" style="text-align: center;" align="left">EMAIL CONFIGURATION</h3>
+                <p><table style="border-collapse: collapse; width: 100%; height: 90px;" border="1">
+                <tbody>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Domain Name</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">www.broadcom.com</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">MAIL RECORDS</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">None</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">EXTERNAL MAIL RECORDS</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">None</span></strong></td>
+                </tr> 
+                </tbody>
+                </table></p></td>
+                <td style="width: 33.3333%; height: 54px;">
+                <h3 id="host-names" class="sc-bczSft dfkxtP inner-heading" style="text-align: center;" align="left">REDIRECT CHAIN INFO</h3>
+                <p><table style="border-collapse: collapse; width: 100%; height: 90px;" border="1">
+                <tbody>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Domain Name</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">www.broadcom.com</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">NUMBER OF REDIRECTS</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">1</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">REDIRECT LINK</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">https://www.broadcom.com/</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">FINAL PAGE</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">https://www.broadcom.com/</span></strong></td>
+                </tr>
+                </tbody>
+                </table></p></td>
+                <td style="width: 33.3333%; height: 54px;">
+                <h3 id="host-names" class="sc-bczSft dfkxtP inner-heading" style="text-align: center;" align="left">REDIRECT CHAIN INFO</h3>
+                <p><table style="border-collapse: collapse; width: 100%; height: 90px;" border="1">
+                <tbody>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span class="lbl" style="color: #ffffff;">Domain Name</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">www.broadcom.com</span></strong></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">IP ADDRESS</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">172.64.150.145</span></strong></td>
+                </tr>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 30.5324%; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">OPEN PORTS</span></strong></td>
+                <td style="width: 69.4676%; text-align: right; height: 18px; background-color: gray;"><strong><span style="color: #ffffff;">[]</span></strong></td>
+                </tr>
+                </tbody>
+                </table></p></td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                </tr>
+                <tr style="height: 18px;">
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                <td style="width: 33.3333%; height: 18px;">&nbsp;</td>
+                </tr>
+                </tbody>
+                </table> 
+             <script>
+                const td_ele = document.querySelectorAll("td");
+                function change_td_ele_color() {
+                    for (let i = 0; i < td_ele.length; i++) { // iterate all thorugh td
+                        if(td_ele[i].innerText.includes("malicious")){
+                            var ele = td_ele[i];
+                            var html = ele.innerHTML;
+                            td_ele[i].innerHTML = html.replace(/malicious/g,'<span style="color:red">malicious</span>');                            
+                        }
+                        if(td_ele[i].innerText.includes("malware")){
+                            var ele = td_ele[i];
+                            var html = ele.innerHTML;
+                            td_ele[i].innerHTML = html.replace(/malware/g,'<span style="color:red">malware</span>');                            
+                        }
+                        if(td_ele[i].innerText.includes("suspicious")){
+                            var ele = td_ele[i];
+                            var html = ele.innerHTML;
+                            td_ele[i].innerHTML = html.replace(/suspicious/g,'<span style="color:orange">suspicious</span>');                            
+                        }
+                        if(td_ele[i].innerText.includes("undetected")){
+                            var ele = td_ele[i];
+                            var html = ele.innerHTML;
+                            td_ele[i].innerHTML = html.replace(/undetected/g,'<span style="color:grey">undetected</span>');                            
+                        }
+                        if(td_ele[i].innerText.includes("unrated")){
+                            var ele = td_ele[i];
+                            var html = ele.innerHTML;
+                            td_ele[i].innerHTML = html.replace(/unrated/g,'<span style="color:grey">unrated</span>');                
+                        }
+                        if(td_ele[i].innerText.includes("harmless")){
+                            var ele = td_ele[i];
+                            var html = ele.innerHTML;
+                            td_ele[i].innerHTML = html.replace(/harmless/g,'<span style="color:green">harmless</span>');                            
+                        }
+                        if(td_ele[i].innerText.includes("clean")){
+                            var ele = td_ele[i];
+                            var html = ele.innerHTML;
+                            td_ele[i].innerHTML = html.replace(/clean/g,'<span style="color:green">clean</span>');                            
+                        }
+                    }
+                }        
+                change_td_ele_color();
+            </script>
+            <h2 align="right">Developed by : Alien C00de  2024 ver: 1.0.0</h2>
+            </body>
+            </html>
+        
