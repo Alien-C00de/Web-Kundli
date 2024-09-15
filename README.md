@@ -13,24 +13,24 @@ Explore the internal mechanisms of a website: identify possible vulnerabilities,
   `4. Crawl Rules`
   `5. Headers`
   `6. Server Location`
-  `7. Associated Hosts`   
+  `7. Associated Hosts`
   `8. Redirect Chain`
   `9. TXT Records`
   `10. Server Status`
   `11. Open Ports`
   `12. Carbon Footprint`
-  `13. Server Info`  
+  `13. Server Info`
   `14. Whois Lookup`
   `15. DNS Security Extensions`
   `16. Site Features`
   `17. DNS Server`
   `18. Tech Stack`
-  `19. Security.txt`  
+  `19. Security.txt`
   `20. Social Tags`
   `21. Mail Configuration`
   `22. Firewall Detection`
   `23. HTTP Security Features`
-  `24. Archive History`  
+  `24. Archive History`
   `25. Global Ranking`
   `26. Block Detection`
   `27. Malware & Phishing Detection`
