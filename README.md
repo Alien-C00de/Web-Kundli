@@ -26,8 +26,8 @@ Explore the internal mechanisms of a website: identify possible vulnerabilities,
   `17. DNS Server`
   `18. Tech Stack`
   `19. Security.txt`
-  `20. Social Tags`
-  `21. Mail Configuration`  
+  `20. Social Tags`  
+  `21. Mail Configuration`
   `22. Firewall Detection`
   `23. HTTP Security Features`
   `24. Archive History`
