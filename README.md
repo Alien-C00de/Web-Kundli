@@ -60,7 +60,7 @@ Install the required Python libraries:
 
 Execute the tool using the following commands:
 
-- For a single website **WitOut Nmap** details search:
+- For a single website **WithOut Nmap** details search:
     ```bash
     python main.py -s https://google.com
     ```
