@@ -5,7 +5,7 @@ Explore the internal mechanisms of a website: identify possible vulnerabilities,
 ## Features
 - Based on the details of each module, it calculates the percentage for that module and then determines the overall performance percentage across all modules. This data is used to **Rank the website** accordingly.
 - The **NMAP scan feature** is also available. Reports can be generated with or without the NMAP scan to avoid network scanning.
-- It supports asynchronous programming, allowing modules to run in parallel and achieve faster results.
+- It supports **asynchronous programming**, allowing modules to run in parallel and achieve faster results.
 - At present, the dashboard **supports 30 modules**. More features will be added soon!
   
   `1. SSL certificates`
