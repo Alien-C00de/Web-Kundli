@@ -17,7 +17,7 @@ Explore the internal mechanisms of a website: identify possible vulnerabilities,
   `8. Redirect Chain`
   `9. TXT Records`
   `10. Server Status`
-  `11. Open Ports`
+  `11. Open Ports`  
   `12. Carbon Footprint`
   `13. Server Info`
   `14. Whois Lookup`
@@ -27,7 +27,7 @@ Explore the internal mechanisms of a website: identify possible vulnerabilities,
   `18. Tech Stack`
   `19. Security.txt`
   `20. Social Tags`
-  `21. Mail Configuration`
+  `21. Mail Configuration`  
   `22. Firewall Detection`
   `23. HTTP Security Features`
   `24. Archive History`
