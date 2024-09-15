@@ -21,7 +21,7 @@ Explore the internal mechanisms of a website: identify possible vulnerabilities,
   `12. Carbon Footprint`
   `13. Server Info`
   `14. Whois Lookup`
-  `15. DNS Security Extensions`
+  `15. DNS Security Extensions`  
   `16. Site Features`
   `17. DNS Server`
   `18. Tech Stack`
