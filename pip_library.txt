@@ -1,0 +1,14 @@
+Python library used for developing Web Kundli program.
+
+1.  pip install python-whois
+2.  pip install requests
+3.  pip install asyncio
+4.  pip install aiohttp
+5.  pip install configparser
+6.  pip install colorama
+7. pip install scapy
+8. pip install tldextract
+9. pip install beautifulsoup4
+10. pip install python3-nmap - Ensure that the `nmap` software is installed on your machine.
+11. pip install pybase64
+12.  pip install dnspython

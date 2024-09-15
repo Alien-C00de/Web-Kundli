@@ -1,0 +1,41 @@
+Sr. Module Name	                    Project Module Name		    Status
+1	SSL certificates	            SSL_Certificate		        Completed
+2	DNS Records	                    DNS_Records		            Completed
+3	Cookies	                        Cookies		                Completed
+4	Crawl Rules	                    Crawl_Rules		            Completed
+5	Headers	                        HTTP_Security 		        Completed
+6	Server Location	                Server_Location		        Completed   
+7	Associated Hosts	            Associated_Hosts		    Completed   
+8	Redirect Chain	                Redirect_Chain		        Completed   
+9	TXT Records	                    TXT_Records	in	            Completed   
+10	Server Status	                Server_Status		        Completed   
+11	Open Ports	                    Open_Ports		            Completed   
+12	Carbon Footprint	            Carbon_Footprint		    Completed   
+13	Server Info	                    Server_Info		            Completed   
+14	Whois Lookup	                Domain_Whois		        Completed   
+15	DNS Security Extensions	        DNS_Security_Ext		    Completed   
+16	Site Features	                Site_Features		        Completed   
+17	DNS Server	                    DNS_Server		            Completed   
+18	Tech Stack	                    Tech_Stack		            Completed   
+19	Security.txt	                Security_TXT		        Completed   
+20	Social Tags	                    Social_Tags		            Completed   
+21	Email Configuration	            Mail_Records		        Completed   
+22	Firewall Detection	            Firewall Detection		    Completed   
+23	HTTP Security Features	        HTTP_Security 		        Completed   
+24	Archive History	                Archive_History		        Completed   
+25	Global Ranking	                Global_Rankg		        Completed   
+26	Block Detection	                Block_Detection		        Completed   
+27	Malware & Phishing Detection	Threats		                Completed   
+28	TLS Cipher Suites	            TLS_Cipher_Suit		        Completed  
+29  Nmap Scan OS Detection          Nmap_Scan                   Completed
+30	Nmap_Scan Version Result        Nmap_Scan                   Completed
+31	Quality Metrics			
+32	IP Info			
+33	Traceroute			
+34	Listed Pages			
+35	Linked Pages			
+36	TLS Security Config			
+37	TLS Handshake Simulation			
+38	HTTP Strict Transport Security			
+39	Screenshot		
+
