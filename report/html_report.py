@@ -117,6 +117,8 @@ class HTML_Report:
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
+                    margin-right: 20px;
+                    margin-left: 20px;
                 }
                 .header h1 {
                     color: #FFA500;
@@ -138,6 +140,8 @@ class HTML_Report:
                     display: flex;
                     align-items: center; /* Vertically align items */
                     justify-content: space-between; /* Space between header and progress bar */
+                    margin-right: 20px;
+                    margin-left: 20px;
                 }
                 .ranking-container h1 {
                     margin: 20px;
@@ -249,7 +253,7 @@ class HTML_Report:
                 <h3 align="right"; margin-right: 20px; style="color:blue;">""" + report_timestamp + """</h3>
             </div>
             <div class="ranking-container">
-                <h1>Ranking</h1>
+                <h1>Website Health</h1>
                 <div class="progress-bar-container">
                     <div class="progress-bar" style="width: """ + str(percent) + """%;">""" + str(percent) + """%</div>
                 </div>
