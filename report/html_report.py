@@ -1,9 +1,7 @@
 import datetime
 import os
 import time
-import asyncio
 from bs4 import BeautifulSoup
-import re
 from colorama import Back, Fore, Style
 from util.config_uti import Configuration
 
@@ -180,7 +178,7 @@ class HTML_Report:
                 }
                 .date {
                     padding: 5px;
-                    margin-right: 20px;
+                    margin-right: 30px;
                 }
                 .date h3 {
                     color: #FFA500;
