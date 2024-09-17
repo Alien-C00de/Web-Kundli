@@ -251,7 +251,7 @@ class HTML_Report:
                 <h3 align="right"; margin-right: 20px; style="color:blue;">""" + report_timestamp + """</h3>
             </div>
             <div class="ranking-container">
-                <h1>Website Health</h1>
+                <h1>Website Health <i class="fas fa-heartbeat"></i></h1>
                 <div class="progress-bar-container">
                     <div class="progress-bar" style="width: """ + str(percent) + """%;">""" + str(percent) + """%</div>
                 </div>
