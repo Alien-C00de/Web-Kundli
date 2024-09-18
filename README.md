@@ -86,7 +86,7 @@ HTML report files are located under the `./output` directory:
 
 - **Output HTML Report Screenshot:**
   
-![Screenshot from 2024-09-15 15-39-06](https://github.com/user-attachments/assets/ce41b92d-2e31-4841-b91b-f9144a273f95)
+![Report](https://github.com/user-attachments/assets/d7b00878-39e6-4d1c-80f2-aadb342cd019)
 
 - **Report with NMAP Result**
 
