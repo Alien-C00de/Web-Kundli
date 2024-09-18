@@ -1,6 +1,7 @@
 import aiohttp
 import socket
 from util.config_uti import Configuration
+from urllib.parse import urlparse
 from colorama import Fore, Style
 
 
@@ -20,7 +21,8 @@ class DNS_Server():
 
         try:
             # print("dns_server_info.py: start)
-            hostname = socket.gethostbyaddr(self.ip_address)[0].encode('idna').decode('utf-8')
+            # hostname = socket.gethostbyaddr(self.ip_address)[0].encode('idna').decode('utf-8')
+            hostname = urlparse(self.url).netloc
             doh_url = f"https://{self.ip_address}/dns-query"
 
             async with aiohttp.ClientSession() as session:

@@ -74,8 +74,12 @@ class Archive_History:
     async def __get_scan_frequency(self, first_scan, last_scan, total_scans, change_count):
         days_between_scans = (last_scan - first_scan).days / total_scans
         days_between_changes = (last_scan - first_scan).days / change_count
-        scans_per_day = (total_scans - 1) / (last_scan - first_scan).days
-        changes_per_day = change_count / (last_scan - first_scan).days
+        if (last_scan - first_scan).days > 0:
+            scans_per_day = (total_scans - 1) / (last_scan - first_scan).days
+            changes_per_day = change_count / (last_scan - first_scan).days
+        else:
+            scans_per_day = 0
+            changes_per_day = 0
         return {
             'Days Between Scans': round(days_between_scans, 2),
             'Days Between Changes': round(days_between_changes, 2),
