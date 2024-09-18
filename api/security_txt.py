@@ -78,9 +78,7 @@ class Security_TXT:
 
         if result:
             if result["isPresent"]:
-                present = "Yes"
                 file_location = result["foundIn"]
-                PGP_Signed = "Yes" if result["isPgpSigned"] else "No"
 
                 percentage = 100
                 table = ( f"""<table>
