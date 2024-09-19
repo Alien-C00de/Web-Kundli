@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+        Web Kundli
+        </title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+        <style>
+        body {
+                    background-color: #1e1e1e;
+                    color: #d4d4d4;
+                    font-family: 'Courier New', Courier, monospace;
+                    margin: 0;
+                    padding: 0;
+                }
+                .header {
+                    background-color: #333;
+                    padding: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-right: 20px;
+                    margin-left: 20px;
+                }
+                .header h1 {
+                    color: #FFA500;
+                    margin: 0;
+                    font-size: 3em;
+                }
+                .header h2 {
+                    color: #FFA500;
+                    margin: 0;
+                    font-size: 1.5em;
+                }
+                .header h3 {
+                    color: #FFA500;
+                    margin: 0;
+                    font-size: 1em;
+                }
+                .ranking-container {
+                    background-color: #333;
+                    display: flex;
+                    align-items: center; /* Vertically align items */
+                    justify-content: space-between; /* Space between header and progress bar */
+                    margin-right: 20px;
+                    margin-left: 20px;
+                }
+                .ranking-container h1 {
+                    margin: 20px;
+                    padding: 10px;
+                    color: #00FF00;
+                }
+                .progress-bar-container {
+                    flex: 1; /* Allow progress bar to take available space */
+                    background-color: #A9A9A9;
+                    border-radius: 4px;
+                    margin-left: 20px; /* Space between header and progress bar */
+                    margin-right: 20px;
+                    overflow: hidden;
+                }
+                .progress-bar {
+                    height: 40px;
+                    color: #FFFF00;
+                    text-align: center;
+                    line-height: 40px;
+                    border-radius: 4px;
+                    background-color: #8F00FF;  /* #76c7c0 Default color, adjust as needed */
+                    transition: width 0.5s, background-color 0.5s;
+                    font-size: 20px; /* Adjust font size as needed */
+                    font-weight: bold; /* Makes the percentage text bold */
+                }
+                .progress {
+                    height: 20px;
+                    color: red;
+                    text-align: center;
+                    line-height: 20px;
+                    border-radius: 4px;
+                    background-color: #FFFF00; /* #76c7c0 Default color, adjust as needed */
+                    transition: width 0.5s, background-color 0.5s;
+                    font-size: 16px; /* Adjust font size as needed */
+                    font-weight: bold; /* Makes the percentage text bold */
+                }
+                .date {
+                    padding: 5px;
+                    margin-right: 30px;
+                }
+                .date h3 {
+                    color: #FFA500;
+                    margin: 0;
+                    font-size: 1em;
+                }
+                .content {
+                    display: flex;
+                    flex-wrap: wrap;
+                    padding: 10px;
+                }
+                .card {
+                    background-color: #2d2d2d;
+                    margin: 10px;
+                    padding: 10px;
+                    flex: 1;
+                    min-width: 300px;
+                    max-width: 100%;
+                    border-radius: 5px;
+                    position: relative;
+                    overflow: auto;
+                    height: 450px; 
+                    word-wrap: break-word;
+                }
+                .card h2 {
+                    color: #FFA500;
+                    margin-top: 0;
+                }
+                .card .refresh {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    color: #d4d4d4;
+                    cursor: pointer;
+                }
+                .card table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    table-layout: fixed;
+                }
+                .card table td {
+                    padding: 5px;
+                    border-bottom: 1px solid #444;
+                    text-overflow: ellipsis; 
+                    overflow: hidden;
+                    word-wrap: break-word;
+                }
+                .card table td:last-child {
+                    text-align: right;
+                }
+                .card .map {
+                    width: 100%;
+                    height: 100px;
+                    background: url('https://placehold.co/300x200') no-repeat center center;
+                    background-size: cover;
+                 .icon-color {
+                        color: #F0F8FF;
+                    }
+                }
+        </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>
+                    <i class="fas fa-user-secret" icon-color></i> Web Kundli
+                </h1>
+                <h2 align="right"; margin-right: 40px; style="color:#a6e22e;">https://atos.net</h2>
+            </div>
+            <div class="date">
+                <h3 align="right"; margin-right: 20px; style="color:blue;">Thursday 19-Sep-2024 17:14:37</h3>
+            </div>
+            <div class="ranking-container">
+                <h1>Website Health <i class="fas fa-heartbeat"></i></h1>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 92.11%;">92.11%</div>
+                </div>
+            </div><div class="content">
+                <div class="card">
+                    <h2> Server Location </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>City</td>
+                            <td>London</td>
+                        </tr>
+                        <tr>
+                            <td>Country</td>
+                            <td>United Kingdom</td>
+                        </tr>
+                        <tr>
+                            <td>Timezone</td>
+                            <td>Europe/London</td>
+                        </tr>
+                        <tr>
+                            <td>Languages</td>
+                            <td>en-GB,cy-GB,gd</td>
+                        </tr>
+                        <tr>
+                            <td>Currency</td>
+                            <td>Pound</td>
+                        </tr>
+                </table></div>
+                <div class="card">
+                    <h2> SSL Certificate </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Subject</td>
+                        <td>atos.net</td>
+                    </tr>
+                    <tr>
+                        <td>Issuer</td>
+                        <td>Entrust Certification Authority - L1K</td>
+                    </tr>
+                    <tr>
+                        <td>Expires</td>
+                        <td>2025-07-22 17:12:09</td>
+                    </tr>
+                    <tr>
+                        <td>Renewed</td>
+                        <td>2024-07-22 17:12:10</td>
+                    </tr>
+                    <tr>
+                        <td>Serial Num</td>
+                        <td>105864529164951142497801174778690640035</td>
+                    </tr>
+                    <tr>
+                        <td>Fingerprint</td>
+                        <td>F9:F2:01:FC:36:AF:83:EE:A3:33:94:8C:B8:D8:34:2D:73:46:0F:C9:F3:7F:30:E2:DB:47:59:21:9F:55:F6:95</td>
+                    </tr>
+            </table></div>
+                <div class="card">
+                    <h2> Domain Whois </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 90%;">90%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Registered Domain</td>
+                        <td>atos.net</td>
+                    </tr>
+                    <tr>
+                        <td>Creation Date</td>
+                        <td>[datetime.datetime(1997, 6, 6, 4, 0), datetime.datetime(1997, 6, 6, 0, 0)]</td>
+                    </tr>
+                    <tr>
+                        <td>Updated Date</td>
+                        <td>[datetime.datetime(2024, 6, 1, 5, 6, 34), datetime.datetime(2024, 6, 1, 1, 6, 34)]</td>
+                    </tr>
+                    <tr>
+                        <td>Registry Expiry Date</td>
+                        <td>2025-06-05 04:00:00</td>
+                    </tr>
+                    <tr>
+                        <td>Registry Domain ID</td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td>Registrar WHOIS Server</td>
+                        <td>whois.corporatedomains.com</td>
+                    </tr>
+                    <tr>
+                        <td>Registrar</td>
+                        <td>CSC CORPORATE DOMAINS, INC.</td>
+                    </tr>
+                    <tr>
+                        <td>Registrar IANA ID</td>
+                        <td>None</td>
+                    </tr>
+                </table></div>
+                <div class="card">
+                    <h2> Server Info </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Organization</td>
+                            <td>Google LLC</td>
+                        </tr>
+                        <tr>
+                            <td>ASN Code</td>
+                            <td>AS15169</td>
+                        </tr>
+                        <tr>
+                            <td>Ports</td>
+                            <td>[443, 53]</td>
+                        </tr>
+                        <tr>
+                            <td>IP</td>
+                            <td>8.8.8.8</td>
+                        </tr>
+                        <tr>
+                            <td>Type</td>
+                            <td>[]</td>
+                        </tr>
+                        <tr>
+                            <td>Location</td>
+                            <td>Mountain View, United States</td>
+                        </tr>
+                </table></div>
+                <div class="card">
+                    <h2> Headers </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 50%;">50%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Server</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td>Thu, 19 Sep 2024 09:21:07 GMT</td>
+                    </tr>
+                    <tr>
+                        <td>Content-Type</td>
+                        <td>text/html; charset=UTF-8</td>
+                    </tr>
+                    <tr>
+                        <td>transfer-encoding</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>connection</td>
+                        <td>Keep-Alive</td>
+                    </tr>
+                    <tr>
+                        <td>x-frame-options</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>x-content-type-options</td>
+                        <td>nosniff</td>
+                    </tr>
+                    <tr>
+                        <td>referrer-policy</td>
+                        <td>None</td>
+                    </tr>
+                </table></div>
+                <div class="card">
+                    <h2> Cookies </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: 0%;">0%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>No Cookies Details Found</td>
+                            </tr>
+                    </table></div>
+                <div class="card">
+                    <h2> HTTP Security </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Content Security Policy</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Strict Transport Policy</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>X-Content-Type-Options</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>X-Frame-Options</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>X-XSS-Protection</td>
+                        <td>Yes</td>
+                    </tr>
+            </table></div>
+                <div class="card">
+                    <h2> DNS Server </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>IP Address</td>
+                        <td>146.185.43.103</td>
+                    </tr>
+                    <tr>
+                        <td>Hostname</td>
+                        <td>atos.net</td>
+                    </tr>
+                    <tr>
+                        <td>DoH Support</td>
+                        <td>No</td>
+                    </tr>
+                </table></div>
+                <div class="card">
+                    <h2> TLS Cipher Suites </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width:100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Domain Name</td>
+                        <td>atos.net</td>
+                    </tr>
+                    <tr>
+                        <td>Issuing Organization</td>
+                        <td>Entrust, Inc.</td>
+                    </tr>
+                    <tr>
+                        <td>Issue Date</td>
+                        <td>>Jul 22 17:12:10 2024 GMT</td>
+                    </tr>
+                    <tr>
+                        <td>Expire Date</td>
+                        <td>Jul 22 17:12:09 2025 GMT</td>
+                    </tr>
+                    <tr>
+                        <td>Serial Number</td>
+                        <td>4FA4C444ECFE26402F43FCE4D3BF98A3</td>
+                    </tr>
+                    <tr>
+                        <td>Protocol Version</td>
+                        <td >TLSv1.2</td>
+                    </tr>
+                    <tr>
+                        <td>Cipher Suite</td>
+                        <td >ECDHE-RSA-AES128-GCM-SHA256</td>
+                    </tr>
+                    <tr>
+                        <td>Public key length</td>
+                        <td>128</td>
+                    </tr>
+            </table></div>
+                <div class="card">
+                    <h2> DNS Records </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 75%;">75%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Domain Name</td>
+                        <td>atos.net</td>
+                    </tr>
+                    <tr>
+                        <td>A RECORD</td>
+                        <td>146.185.43.103</td>
+                    </tr>
+                    <tr>
+                        <td>AAAA RECORD</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>MX RECORD</td>
+                        <td>10 atos-net.mail.protection.outlook.com.</td>
+                    </tr>
+                    <tr>
+                        <td>NS RECORD</td>
+                        <td>ns2-ext.my-it-solutions.net. ,
+ns2.atos-services.net. ,
+ns1.atos.fr. ,
+ns2.sbs-inter.net. ,
+ns2.atos.fr. ,
+ns1.sbs-inter.net. ,
+ns1-ext.my-it-solutions.net. ,
+ns1.atos-services.net. ,
+</td>
+                    </tr>
+                    <tr>
+                        <td>CNAME RECORD</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>TXT RECORD</td>
+                        <td>"dBWMPUFR6BRPBt6mapcPQkmsi4eY19m8" ,
+"flexera-domain-verification-xghdwygmrpxngume" ,
+"onetrust-domain-verification=40f14bcc8aa144fd98455a74c1132e90" ,
+"hcp-domain-verification=02b3814c3901c1c4e130ce37fa18db5885b3368a519326f78c441ec21aecce9e" ,
+"ThhJZNJafdn0pRmgGUHuQwucnPLMxJWp" ,
+"dell-technologies-domain-verification=atos.net_81483595-b34f-49df-a43b-d25d780094cd_1673701870" ,
+"g7CuF0rKSpUH2wxML5j85hASqdaWfNer" ,
+"flexera-domain-verification-hbwntdyceaoqhrnb" ,
+"jwvhJdDeDBFaj9QEdct3xU5ZetmsNaij" ,
+"75W5GNu5DuigefEW8cTyXeQgQ5xwm3sn" ,
+"atlassian-domain-verification=LA8nvrj5U8jKFuoaUtRnuDTi78KzcTEbueohVWm2ia6EUX7bjo6Cnn7Hl0UI/guP" ,
+"mH1Rn9h3riBvfGruJErTrv0fYVRtzm9p" ,
+"Z8kEe#DTuEgdicoN8E#q!RdsIg68Ek!YME#r^295vRMBsD0J^iUrMAhIBXK7UnYjH8*h8mhpzas#W9*pu9Wlx^z2v9Vq6gqqL1p" ,
+"v=spf1 ip4:155.45.167.44 ip4:155.45.167.68 ip4:160.92.141.148/30 ip4:160.92.21.196 ip4:160.92.108.230/30 ip4:160.92.140.180/31 " "ip4:160.92.177.1 ip4:160.92.177.2 ip4:160.92.177.3 ip4:193.56.114.164/30 ip4:193.56.114.176/31 ip4:212.170.156.132 ip4:91.103.172.158 " "ip4:62.134.46.8/30 ip4:160.92.152.2 ip4:160.92.186.94 ip4:80.78.5.227 ip4:80.78.0.212 ip4:80.78.5.228  ip4:68.232.145.191 ip4:216.71.152.242 include:spf.protection.outlook.com include:spf.messagelabs.com include:message-business.com -all" ,
+"google-site-verification=E1br6u_-KmcR8RJjna62HarfgmXNXrHJoT8bVcFLebw" ,
+"google-site-verification=UuS20qJHKNSmyQsDKYtJGdoN-BtgtQBVRq8rCWrj5Mk" ,
+"kNKucTNuYKvcEGjAyKEkpVshbi4xUFX5" ,
+"uDpxaf09NtE151JnMZT9jUkrhyAPLmCv" ,
+"AUyWFzNeTfCFixwxEfd5sw80AXkt6zdZ" ,
+"atlassian-domain-verification=ya5SmvkJmafqz57oHy/k/DdujzUAZK6H3VHaLIGO6ERL4P/V2fSrKIdsO1AhgPwI" ,
+"google-site-verification=6JDp0c8UnYdygOIU-d9nTSYznqTRsRJHgYNW2mSbRyA" ,
+"google-site-verification=pabbvf08v585Vxkvxlod-03UP1678XMFL3rNpCZIYng" ,
+"HXHgh4EVy5CsL6DiFfYvXWfnqRZjutq4" ,
+"ZgB1NqB5mF2we9wPxMyrnzsAdXr6vHqG" ,
+"MS=ms54076156" ,
+"duo_sso_verification=4t8R5hblwKoyM0HGpM0dIJkPyTfPx9TFzA0he6wg9L3srzv5H2BvwSIZ7QG4V4KZ" ,
+"crxTQOL0kTBseGMMi/VSblX5q538AvfCEasjsPPDIHUNzT1hix27KSCS9ecoPYyOzyP6JI8btjkeBlSL2kBWeA==" ,
+"atlassian-domain-verification=/dupNWInO19QIbkYWWJSz5GVuuiIfzFcSzW2ZoN8TNd5tbys8RaIX3xdzmIzaaim" ,
+"apple-domain-verification=DdRWtSXx52XZQIw2" ,
+"atlassian-domain-verification=dVCdanTAWfkm0nIZmo4DWpy4Dm/WDkXku2DsulBs5qRgKTM2RO/i6UhXpto9agjq" ,
+"onetrust-domain-verification=4a010e7dc8ea4a7684052ffdf496f2d5" ,
+"pardot467241=8b9637f73bddcb3c6be4cd464d3b5510c4a641be7b7c4077b8c88286b70e3e3d" ,
+"docusign=b46f6d98-f426-4f29-8f4d-b335955cbb48" ,
+</td>
+                    </tr>
+                </table></div>    
+                <div class="card">
+                    <h2> TXT Records </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Domain Name</td>
+                        <td>atos.net</td>
+                    </tr>
+                    <tr>
+                        <td>TXT RECORD</td>
+                        <td>
+"google-site-verification=UuS20qJHKNSmyQsDKYtJGdoN-BtgtQBVRq8rCWrj5Mk" ,
+ 
+"hcp-domain-verification=02b3814c3901c1c4e130ce37fa18db5885b3368a519326f78c441ec21aecce9e" ,
+ 
+"dBWMPUFR6BRPBt6mapcPQkmsi4eY19m8" ,
+ 
+"atlassian-domain-verification=LA8nvrj5U8jKFuoaUtRnuDTi78KzcTEbueohVWm2ia6EUX7bjo6Cnn7Hl0UI/guP" ,
+ 
+"onetrust-domain-verification=40f14bcc8aa144fd98455a74c1132e90" ,
+ 
+"v=spf1 ip4:155.45.167.44 ip4:155.45.167.68 ip4:160.92.141.148/30 ip4:160.92.21.196 ip4:160.92.108.230/30 ip4:160.92.140.180/31 " "ip4:160.92.177.1 ip4:160.92.177.2 ip4:160.92.177.3 ip4:193.56.114.164/30 ip4:193.56.114.176/31 ip4:212.170.156.132 ip4:91.103.172.158 " "ip4:62.134.46.8/30 ip4:160.92.152.2 ip4:160.92.186.94 ip4:80.78.5.227 ip4:80.78.0.212 ip4:80.78.5.228  ip4:68.232.145.191 ip4:216.71.152.242 include:spf.protection.outlook.com include:spf.messagelabs.com include:message-business.com -all" ,
+ 
+"apple-domain-verification=DdRWtSXx52XZQIw2" ,
+ 
+"flexera-domain-verification-xghdwygmrpxngume" ,
+ 
+"atlassian-domain-verification=dVCdanTAWfkm0nIZmo4DWpy4Dm/WDkXku2DsulBs5qRgKTM2RO/i6UhXpto9agjq" ,
+ 
+"kNKucTNuYKvcEGjAyKEkpVshbi4xUFX5" ,
+ 
+"docusign=b46f6d98-f426-4f29-8f4d-b335955cbb48" ,
+ 
+"onetrust-domain-verification=4a010e7dc8ea4a7684052ffdf496f2d5" ,
+ 
+"75W5GNu5DuigefEW8cTyXeQgQ5xwm3sn" ,
+ 
+"google-site-verification=pabbvf08v585Vxkvxlod-03UP1678XMFL3rNpCZIYng" ,
+ 
+"mH1Rn9h3riBvfGruJErTrv0fYVRtzm9p" ,
+ 
+"uDpxaf09NtE151JnMZT9jUkrhyAPLmCv" ,
+ 
+"google-site-verification=E1br6u_-KmcR8RJjna62HarfgmXNXrHJoT8bVcFLebw" ,
+ 
+"dell-technologies-domain-verification=atos.net_81483595-b34f-49df-a43b-d25d780094cd_1673701870" ,
+ 
+"atlassian-domain-verification=ya5SmvkJmafqz57oHy/k/DdujzUAZK6H3VHaLIGO6ERL4P/V2fSrKIdsO1AhgPwI" ,
+ 
+"jwvhJdDeDBFaj9QEdct3xU5ZetmsNaij" ,
+ 
+"AUyWFzNeTfCFixwxEfd5sw80AXkt6zdZ" ,
+ 
+"flexera-domain-verification-hbwntdyceaoqhrnb" ,
+ 
+"ThhJZNJafdn0pRmgGUHuQwucnPLMxJWp" ,
+ 
+"google-site-verification=6JDp0c8UnYdygOIU-d9nTSYznqTRsRJHgYNW2mSbRyA" ,
+ 
+"HXHgh4EVy5CsL6DiFfYvXWfnqRZjutq4" ,
+ 
+"Z8kEe#DTuEgdicoN8E#q!RdsIg68Ek!YME#r^295vRMBsD0J^iUrMAhIBXK7UnYjH8*h8mhpzas#W9*pu9Wlx^z2v9Vq6gqqL1p" ,
+ 
+"duo_sso_verification=4t8R5hblwKoyM0HGpM0dIJkPyTfPx9TFzA0he6wg9L3srzv5H2BvwSIZ7QG4V4KZ" ,
+ 
+"pardot467241=8b9637f73bddcb3c6be4cd464d3b5510c4a641be7b7c4077b8c88286b70e3e3d" ,
+ 
+"atlassian-domain-verification=/dupNWInO19QIbkYWWJSz5GVuuiIfzFcSzW2ZoN8TNd5tbys8RaIX3xdzmIzaaim" ,
+ 
+"crxTQOL0kTBseGMMi/VSblX5q538AvfCEasjsPPDIHUNzT1hix27KSCS9ecoPYyOzyP6JI8btjkeBlSL2kBWeA==" ,
+ 
+"ZgB1NqB5mF2we9wPxMyrnzsAdXr6vHqG" ,
+ 
+"g7CuF0rKSpUH2wxML5j85hASqdaWfNer" ,
+ 
+"MS=ms54076156" ,
+ </td>
+                    </tr>
+            </table></div>    
+                <div class="card">
+                    <h2> Server Status </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width:100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Domain Name</td>
+                        <td>atos.net</td>
+                    </tr>
+                    <tr>
+                    <td>SERVER STATUS</td>
+                        <td >Server is Up</td>
+                    </tr>
+            </table></div>    
+                <div class="card">
+                    <h2> Email Configuration </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width:100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Domain Name</td>
+                        <td>atos.net</td>
+                    </tr>
+                    <tr>
+                        <td>MAIL RECORDS</td>
+                        <td>10 atos-net.mail.protection.outlook.com.</td>
+                    </tr>
+                    <tr>
+                        <td>EXTERNAL MAIL RECORDS</td>
+                        <td>
+	"kNKucTNuYKvcEGjAyKEkpVshbi4xUFX5"	 
+,
+
+	"g7CuF0rKSpUH2wxML5j85hASqdaWfNer"	 
+,
+
+	"ThhJZNJafdn0pRmgGUHuQwucnPLMxJWp"	 
+,
+
+	"google-site-verification=UuS20qJHKNSmyQsDKYtJGdoN-BtgtQBVRq8rCWrj5Mk"	 
+,
+
+	"docusign=b46f6d98-f426-4f29-8f4d-b335955cbb48"	 
+,
+
+	"v=spf1 ip4:155.45.167.44 ip4:155.45.167.68 ip4:160.92.141.148/30 ip4:160.92.21.196 ip4:160.92.108.230/30 ip4:160.92.140.180/31 " "ip4:160.92.177.1 ip4:160.92.177.2 ip4:160.92.177.3 ip4:193.56.114.164/30 ip4:193.56.114.176/31 ip4:212.170.156.132 ip4:91.103.172.158 " "ip4:62.134.46.8/30 ip4:160.92.152.2 ip4:160.92.186.94 ip4:80.78.5.227 ip4:80.78.0.212 ip4:80.78.5.228  ip4:68.232.145.191 ip4:216.71.152.242 include:spf.protection.outlook.com include:spf.messagelabs.com include:message-business.com -all"	 
+,
+
+	"flexera-domain-verification-xghdwygmrpxngume"	 
+,
+
+	"onetrust-domain-verification=40f14bcc8aa144fd98455a74c1132e90"	 
+,
+
+	"AUyWFzNeTfCFixwxEfd5sw80AXkt6zdZ"	 
+,
+
+	"jwvhJdDeDBFaj9QEdct3xU5ZetmsNaij"	 
+,
+
+	"crxTQOL0kTBseGMMi/VSblX5q538AvfCEasjsPPDIHUNzT1hix27KSCS9ecoPYyOzyP6JI8btjkeBlSL2kBWeA=="	 
+,
+
+	"apple-domain-verification=DdRWtSXx52XZQIw2"	 
+,
+
+	"pardot467241=8b9637f73bddcb3c6be4cd464d3b5510c4a641be7b7c4077b8c88286b70e3e3d"	 
+,
+
+	"MS=ms54076156"	 
+,
+
+	"atlassian-domain-verification=LA8nvrj5U8jKFuoaUtRnuDTi78KzcTEbueohVWm2ia6EUX7bjo6Cnn7Hl0UI/guP"	 
+,
+
+	"Z8kEe#DTuEgdicoN8E#q!RdsIg68Ek!YME#r^295vRMBsD0J^iUrMAhIBXK7UnYjH8*h8mhpzas#W9*pu9Wlx^z2v9Vq6gqqL1p"	 
+,
+
+	"google-site-verification=E1br6u_-KmcR8RJjna62HarfgmXNXrHJoT8bVcFLebw"	 
+,
+
+	"dBWMPUFR6BRPBt6mapcPQkmsi4eY19m8"	 
+,
+
+	"ZgB1NqB5mF2we9wPxMyrnzsAdXr6vHqG"	 
+,
+
+	"onetrust-domain-verification=4a010e7dc8ea4a7684052ffdf496f2d5"	 
+,
+
+	"mH1Rn9h3riBvfGruJErTrv0fYVRtzm9p"	 
+,
+
+	"uDpxaf09NtE151JnMZT9jUkrhyAPLmCv"	 
+,
+
+	"atlassian-domain-verification=/dupNWInO19QIbkYWWJSz5GVuuiIfzFcSzW2ZoN8TNd5tbys8RaIX3xdzmIzaaim"	 
+,
+
+	"atlassian-domain-verification=dVCdanTAWfkm0nIZmo4DWpy4Dm/WDkXku2DsulBs5qRgKTM2RO/i6UhXpto9agjq"	 
+,
+
+	"google-site-verification=pabbvf08v585Vxkvxlod-03UP1678XMFL3rNpCZIYng"	 
+,
+
+	"dell-technologies-domain-verification=atos.net_81483595-b34f-49df-a43b-d25d780094cd_1673701870"	 
+,
+
+	"75W5GNu5DuigefEW8cTyXeQgQ5xwm3sn"	 
+,
+
+	"HXHgh4EVy5CsL6DiFfYvXWfnqRZjutq4"	 
+,
+
+	"google-site-verification=6JDp0c8UnYdygOIU-d9nTSYznqTRsRJHgYNW2mSbRyA"	 
+,
+
+	"flexera-domain-verification-hbwntdyceaoqhrnb"	 
+,
+
+	"hcp-domain-verification=02b3814c3901c1c4e130ce37fa18db5885b3368a519326f78c441ec21aecce9e"	 
+,
+
+	"atlassian-domain-verification=ya5SmvkJmafqz57oHy/k/DdujzUAZK6H3VHaLIGO6ERL4P/V2fSrKIdsO1AhgPwI"	 
+,
+
+	"duo_sso_verification=4t8R5hblwKoyM0HGpM0dIJkPyTfPx9TFzA0he6wg9L3srzv5H2BvwSIZ7QG4V4KZ"	 
+,
+</td>
+                    </tr> 
+                </table></div>    
+                <div class="card">
+                    <h2> Redirect Chain </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width:100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Domain Name</td>
+                        <td>atos.net</td>
+                    </tr>
+                    <tr>
+                        <td>Number of Redirects</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>Redirect Link</td>
+                        <td>https://atos.net/,
+https://atos.net/en/,
+</td>
+                    </tr>
+                    <tr>
+                        <td>Final Page</td>
+                        <td>https://atos.net/en/</td>
+                    </tr>
+                </table></div>    
+                <div class="card">
+                    <h2> Open Ports </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width:100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Domain Name</td>
+                        <td>atos.net</td>
+                    </tr>
+                    <tr>
+                        <td>IP ADDRESS</td>
+                        <td>146.185.43.103</td>
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>OPEN PORTS</td>
+                        <td>[]</td>
+                    </tr>
+                </table></div>    
+                <div class="card">
+                    <h2>  Archive History </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>First Scan</td>
+                            <td>2011-06-28 00:11:02</td>
+                        </tr>
+                        <tr>
+                            <td>Last Scan</td>
+                            <td>2024-09-18 14:51:05</td>
+                        </tr>
+                        <tr>
+                            <td>Last Scan</td>
+                        <td>7644</td>
+                        </tr>
+                        <tr>
+                            <td>Last Scan</td>
+                            <td>5084</td>
+                        </tr>
+                        <tr>
+                            <td>Last Scan</td>
+                        <td>874</td>
+                        </tr>
+                        <tr>
+                            <td>Last Scan</td>
+                            <td>{'Days Between Scans': 0.63, 'Days Between Changes': 0.95, 'Scans Per Day': 1.58, 'Changes Per Day': 1.05}</td>
+                        </tr>
+                    </table></div>    
+                <div class="card">
+                    <h2> Associated Hosts </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                <tr>
+                    <td colspan="1">
+                        <div class="progress-bar-container">
+                            <div class="progress" style="width: 100%;">100%</div>
+                        </div>
+                    </td>
+            </tr>
+            <tr><td>*.acme-dev.atos.net</td></tr><tr><td>*.acp.cloud.atos.net</td></tr><tr><td>*.adh.atos.net</td></tr><tr><td>*.adminhosting.auwest1.azscloudau.atos.net</td></tr><tr><td>*.adminvault.auwest1.azscloudau.atos.net</td></tr><tr><td>*.aida.atos.net</td></tr><tr><td>*.aida.mev.atos.net</td></tr><tr><td>*.aisaac.atos.net</td></tr><tr><td>*.atos.net</td></tr><tr><td>*.azsacr.auwest1.azscloudau.atos.net</td></tr><tr><td>*.be.atos.net</td></tr><tr><td>*.bfk.de.atos.net</td></tr><tr><td>*.blob.auwest1.azscloudau.atos.net</td></tr><tr><td>*.bts.uk.atos.net</td></tr><tr><td>*.cert.atos.net</td></tr><tr><td>*.cloud.sps.atos.net</td></tr><tr><td>*.cneopsin1clu01.cnam-ens.atos.net</td></tr><tr><td>*.ctms.it-solutions.atos.net</td></tr><tr><td>*.dev.pl.atos.net</td></tr><tr><td>*.dynamic3d.atos.net</td></tr><tr><td>*.fastea.cloud.atos.net</td></tr><tr><td>*.g.sicloud.atos.net</td></tr><tr><td>*.gsa.mpcaws.idm.atos.net</td></tr><tr><td>*.hosting.auwest1.azscloudau.atos.net</td></tr><tr><td>*.it.atos.net</td></tr><tr><td>*.k8s.cmo.agea.atos.net</td></tr><tr><td>*.kpo.atos.net</td></tr><tr><td>*.mev.atos.net</td></tr><tr><td>*.mscc.atos.net</td></tr><tr><td>*.myatos.net</td></tr><tr><td>*.normandy.bps.fr.atos.net</td></tr><tr><td>*.pl.atos.net</td></tr><tr><td>*.pl.it-solutions.atos.net</td></tr><tr><td>*.preprod.bps.uk.atos.net</td></tr><tr><td>*.queue.auwest1.azscloudau.atos.net</td></tr><tr><td>*.raws.de.atos.net</td></tr><tr><td>*.sc.bs.fr.atos.net</td></tr><tr><td>*.scm.bps.uk.atos.net</td></tr><tr><td>*.sdc.atos.net</td></tr><tr><td>*.sicloud.atos.net</td></tr><tr><td>*.siouh2.bs.fr.atos.net</td></tr><tr><td>*.smartcloud.br.atos.net</td></tr><tr><td>*.table.auwest1.azscloudau.atos.net</td></tr><tr><td>*.techlab.atos.net</td></tr><tr><td>*.toolingdev.mpcaws.idm.atos.net</td></tr><tr><td>*.uy.atos.net</td></tr><tr><td>*.vault.auwest1.azscloudau.atos.net</td></tr><tr><td>*.velo.pl.atos.net</td></tr><tr><td>*.wifi.es.atos.net</td></tr><tr><td>BTSUBBPINT308.bps.uk.atos.net</td></tr><tr><td>BTSUBBPINT314.bps.uk.atos.net</td></tr><tr><td>BTSUBBPINT329.bps.uk.atos.net</td></tr><tr><td>BTSUBBPINT344.bps.uk.atos.net</td></tr><tr><td>BTSUBBPINT345.bps.uk.atos.net</td></tr><tr><td>BTSUBBPINT374.bps.uk.atos.net</td></tr><tr><td>BTSUBBPINT375.bps.uk.atos.net</td></tr><tr><td>BTSUBBPINT401.bps.uk.atos.net</td></tr><tr><td>BTSUBBPINT405.bps.uk.atos.net</td></tr><tr><td>BTSUBBPINT411.bps.uk.atos.net</td></tr><tr><td>BTSUBBPINT412.bps.uk.atos.net</td></tr><tr><td>BTSULBGESB101.bps.uk.atos.net</td></tr><tr><td>BTSULBGINT101.bps.uk.atos.net</td></tr><tr><td>BTSULBGINT102.bps.uk.atos.net</td></tr><tr><td>BTSULBGINT103.bps.uk.atos.net</td></tr><tr><td>BTSULBGINT116.bps.uk.atos.net</td></tr><tr><td>BTSULBGINT117.bps.uk.atos.net</td></tr><tr><td>BTSULBGINT126.bps.uk.atos.net</td></tr><tr><td>BTSULBGINT127.bps.uk.atos.net</td></tr><tr><td>REPSOL.MAS.es.atos.net</td></tr><tr><td>aap.ap1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>aap.ap2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>aap.develop.dev-bm4gcp.agea.atos.net</td></tr><tr><td>aap.eu1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>aap.eu1.test.bm4gcp.agea.atos.net</td></tr><tr><td>aap.eu1.uat.bm4gcp.agea.atos.net</td></tr><tr><td>aap.eu2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>aap.eu2.test.bm4gcp.agea.atos.net</td></tr><tr><td>aap.eu2.uat.bm4gcp.agea.atos.net</td></tr><tr><td>aap.global.bm4gcp.agea.atos.net</td></tr><tr><td>aap.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>aap.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>aap.us1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>aap.us2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>acat-bkend.dev.nzt.atos.net</td></tr><tr><td>acca-bkendv2.dev.nzt.atos.net</td></tr><tr><td>acca-ftendv2.dev.nzt.atos.net</td></tr><tr><td>access2eolsystems.atos.net</td></tr><tr><td>acp.cloud.atos.net</td></tr><tr><td>acpess01.asis.uk.atos.net</td></tr><tr><td>adfs.ng911.agea.atos.net</td></tr><tr><td>admin.sps.atos.net</td></tr><tr><td>adminmanagement.auwest1.azscloudau.atos.net</td></tr><tr><td>adminportal.auwest1.azscloudau.atos.net</td></tr><tr><td>adn-bps.es.atos.net</td></tr><tr><td>aea.atos.net</td></tr><tr><td>airflow.a901712.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>airflow.a903446.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>airflow.devstub.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>airflow.eu1.test.bm4gcp.agea.atos.net</td></tr><tr><td>airflow.eu1.uat.bm4gcp.agea.atos.net</td></tr><tr><td>airflow.eu2.uat.bm4gcp.agea.atos.net</td></tr><tr><td>anm.atos.net</td></tr><tr><td>anmcat.atos.net</td></tr><tr><td>apfws-rel.atos.net</td></tr><tr><td>apfws.atos.net</td></tr><tr><td>api-dev.dev-bm4gcp.agea.atos.net</td></tr><tr><td>api-dev2.dev-bm4gcp.agea.atos.net</td></tr><tr><td>api-dev3.dev-bm4gcp.agea.atos.net</td></tr><tr><td>api.a550680.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a550680.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a558151.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a563420eu1.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a563420eu1.eu2-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a575641.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a591575.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a591575eu1.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a623365.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a627380eu1.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a637723.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a648115.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a704057.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a760497.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a824636.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a845972.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a895728.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a901712.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a901712.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a903446.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a915074.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a919037.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.a919037.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.acc1.ct2.atos.net</td></tr><tr><td>api.acc2.ct2.atos.net</td></tr><tr><td>api.acc3.ct2.atos.net</td></tr><tr><td>api.analyzebox.atos.net</td></tr><tr><td>api.ap1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>api.ap2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>api.bm4gcp.agea.atos.net</td></tr><tr><td>api.dev-bm4gcp.agea.atos.net</td></tr><tr><td>api.dev2vpod1.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.dev2vpod3.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.dev2vpod4.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.develop.dev-bm4gcp.agea.atos.net</td></tr><tr><td>api.devstub.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.devstubc.global-c.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.eu1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>api.eu1.test.bm4gcp.agea.atos.net</td></tr><tr><td>api.eu1.uat.bm4gcp.agea.atos.net</td></tr><tr><td>api.eu2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>api.eu2.test.bm4gcp.agea.atos.net</td></tr><tr><td>api.eu2.uat.bm4gcp.agea.atos.net</td></tr><tr><td>api.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>api.native.agea.atos.net</td></tr><tr><td>api.prod.ct2.atos.net</td></tr><tr><td>api.regstubeu1.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.tst1.ct2.atos.net</td></tr><tr><td>api.tst2.ct2.atos.net</td></tr><tr><td>api.us1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>api.us2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>api.v0.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.v1.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.v1.eu1.uat.bm4gcp.agea.atos.net</td></tr><tr><td>api.v1.eu2-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.v2.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.v3.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.v4.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.v5.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api.v7.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>api2.global.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.a550680.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.a558151.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.a563420.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.a563657.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.a575641.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.a591575.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.a627380.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.a648115.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.a704057.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.a901712.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.a903446.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.a919037.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.a919037.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.dev2vpod0.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.dev2vpod1.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.dev2vpod2.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.dev2vpod3.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.dev2vpod4.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.dev2vpod5.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.dev2vpod7.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.devstub.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.global.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.regstub.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>apiproxy.uatvpod1.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>apollon.sparta.atos.net</td></tr><tr><td>applepay.des.es.atos.net</td></tr><tr><td>argoworkflows.factory.fr.atos.net</td></tr><tr><td>as-dynplm.it-solutions.atos.net</td></tr><tr><td>atbr2s4hpvx1.atos.net</td></tr><tr><td>atf-fex-cat.it-solutions.atos.net</td></tr><tr><td>atf-fex.it-solutions.atos.net</td></tr><tr><td>atos-handyline.it-solutions.atos.net</td></tr><tr><td>atos.net</td></tr><tr><td>atosauth01.au.atos.net</td></tr><tr><td>atosbcpvpnconnect.kpo.atos.net</td></tr><tr><td>au-mlg-fems-01.atos.net</td></tr><tr><td>auregis.it-solutions.atos.net</td></tr><tr><td>auth-dev.factory.fr.atos.net</td></tr><tr><td>auth.bridge.atos.net</td></tr><tr><td>auth.factory.fr.atos.net</td></tr><tr><td>auth01.au.atos.net</td></tr><tr><td>auth01EAP.au.atos.net</td></tr><tr><td>autheap.au.atos.net</td></tr><tr><td>awgf-dt-proxyrev.si.fr.atos.net</td></tr><tr><td>awx.a550680.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.a558151.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.a563420eu1.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.a563420eu1.eu2-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.a575641.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.a575641.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.a591575eu1.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.a637723.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.a901712.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.a901712.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.custsim.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.custsim.test.bm4gcp.agea.atos.net</td></tr><tr><td>awx.dev2vpod0.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.dev2vpod1.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.dev2vpod2.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.dev2vpod3.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.dev2vpod4.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.dev2vpod7.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.develop.dev-bm4gcp.agea.atos.net</td></tr><tr><td>awx.devstub1.dev-bm4gcp.agea.atos.net</td></tr><tr><td>awx.devstubc.global-c.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.eu1.test.bm4gcp.agea.atos.net</td></tr><tr><td>awx.eu1.uat.bm4gcp.agea.atos.net</td></tr><tr><td>awx.factory.fr.atos.net</td></tr><tr><td>awx.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>awx.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>awx.prod.acaho4gcp.agea.atos.net</td></tr><tr><td>awx.regstubeu1.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.regstubeu1b.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.v0.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.v1.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.v1.eu1.uat.bm4gcp.agea.atos.net</td></tr><tr><td>awx.v1.eu2-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.v2.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.v3.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.v4.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.v5.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>awx.v7.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>azure.auregis.it-solutions.atos.net</td></tr><tr><td>bm-emitter.bm4gcp.agea.atos.net</td></tr><tr><td>bm-emitter.dev-bm4gcp.agea.atos.net</td></tr><tr><td>bm-emitter.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>bm-emitter.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>bm-emitter.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>booster-stg.bs.fr.atos.net</td></tr><tr><td>booster.bs.fr.atos.net</td></tr><tr><td>bpa-dev.atos.net</td></tr><tr><td>bpa-eu.atos.net</td></tr><tr><td>bps-eu.atos.net</td></tr><tr><td>bps.uk.atos.net</td></tr><tr><td>brandportal.atos.net</td></tr><tr><td>brandportalacc.atos.net</td></tr><tr><td>bridge.atos.net</td></tr><tr><td>btsubbpint331.bps.uk.atos.net</td></tr><tr><td>btsubbpint358.bps.uk.atos.net</td></tr><tr><td>btsubbpint359.bps.uk.atos.net</td></tr><tr><td>bw4hanademo.de.atos.net</td></tr><tr><td>caloes-dashboard.ng911.agea.atos.net</td></tr><tr><td>camunda-cerba.factory.fr.atos.net</td></tr><tr><td>cc.atos.net</td></tr><tr><td>ccc.ng911.agea.atos.net</td></tr><tr><td>cci.cloud.atos.net</td></tr><tr><td>ccitest.cloud.atos.net</td></tr><tr><td>cdsweb.bs.fr.atos.net</td></tr><tr><td>cerba-client-app.factory.fr.atos.net</td></tr><tr><td>cerba-enregistrement-backend.factory.fr.atos.net</td></tr><tr><td>cerba-enregistrement-frontend.factory.fr.atos.net</td></tr><tr><td>cerba-qrscanner-frontend.factory.fr.atos.net</td></tr><tr><td>cerba-secretaire-backend.factory.fr.atos.net</td></tr><tr><td>cerba-secretaire-frontend.factory.fr.atos.net</td></tr><tr><td>cexclient.asis.uk.atos.net</td></tr><tr><td>cgs-dr.es.atos.net</td></tr><tr><td>cgs.es.atos.net</td></tr><tr><td>changexperience.atos.net</td></tr><tr><td>charging.csi.atos.net</td></tr><tr><td>chargingdev.csi.atos.net</td></tr><tr><td>circe1-barna.es.atos.net</td></tr><tr><td>cis-dpwt.wpd.mev.atos.net</td></tr><tr><td>cita-eu-cat.it-solutions.atos.net</td></tr><tr><td>cita-eu-dev.it-solutions.atos.net</td></tr><tr><td>cita-eu.it-solutions.atos.net</td></tr><tr><td>cjoc.tooling-qa.agea.atos.net</td></tr><tr><td>cjoc.tooling.agea.atos.net</td></tr><tr><td>click2procure.atos.net</td></tr><tr><td>cloud.atos.net</td></tr><tr><td>cluster.admin.bridge.atos.net</td></tr><tr><td>cmo-moco.it-solutions.atos.net</td></tr><tr><td>cmp.be.atos.net</td></tr><tr><td>codevtt.pfau.fr.atos.net</td></tr><tr><td>coldsnap.na.atos.net</td></tr><tr><td>connect.atos.net</td></tr><tr><td>consultation-ecriture-ui-dev.factory.fr.atos.net</td></tr><tr><td>consultation-pjd-ui-dev.factory.fr.atos.net</td></tr><tr><td>consultation-repartition-ui-dev.factory.fr.atos.net</td></tr><tr><td>contactcenter-sd.br.atos.net</td></tr><tr><td>controle-declaration-da-teledep-dev.factory.fr.atos.net</td></tr><tr><td>controle-declaration-kibana-dev.factory.fr.atos.net</td></tr><tr><td>controle-declaration-opendistro-kibana-dev.factory.fr.atos.net</td></tr><tr><td>controle-declaration-opensearch-kibana-dev.factory.fr.atos.net</td></tr><tr><td>controle-declaration-simulateur.factory.fr.atos.net</td></tr><tr><td>controle-declaration-web-calcul.factory.fr.atos.net</td></tr><tr><td>controle-declaration-web-lot.factory.fr.atos.net</td></tr><tr><td>controle-declaration-web.factory.fr.atos.net</td></tr><tr><td>controle-gce-be-dev.factory.fr.atos.net</td></tr><tr><td>cortex-admin-dev.factory.fr.atos.net</td></tr><tr><td>cortex-admin.factory.fr.atos.net</td></tr><tr><td>cortex-dev.factory.fr.atos.net</td></tr><tr><td>cortex.factory.fr.atos.net</td></tr><tr><td>costreporting.it-solutions.atos.net</td></tr><tr><td>ctrplaneworkflows.a901712.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>cvc.egk-tsp.de.atos.net</td></tr><tr><td>czf-handyline.it-solutions.atos.net</td></tr><tr><td>dabag.it-solutions.atos.net</td></tr><tr><td>dafct-con1-d-euwe-cdp-nifi-vm1.r2k.ct2.atos.net</td></tr><tr><td>dafct-con1-d-euwe-cdp-nifi-vm2.r2k.ct2.atos.net</td></tr><tr><td>dafct-con1-d-euwe-cdp-nifi-vm3.r2k.ct2.atos.net</td></tr><tr><td>dafct-lan5-d-euwe-cdp-flinkh-new-vm5.cdp.acc3.ct2.atos.net</td></tr><tr><td>dafct-lan5-d-euwe-cdp-flinkh-new-vm6.cdp.acc3.ct2.atos.net</td></tr><tr><td>dafct-lan5-d-euwe-cdp-flinkh-vm1.cdp.acc3.ct2.atos.net</td></tr><tr><td>dafct-lan5-d-euwe-cdp-flinkh-vm2.cdp.acc3.ct2.atos.net</td></tr><tr><td>dafct-lan5-d-euwe-cdp-flinkh2-vm1.cdp.acc3.ct2.atos.net</td></tr><tr><td>dafct-lan5-d-euwe-cdp-flinkh2-vm2.cdp.acc3.ct2.atos.net</td></tr><tr><td>dafct-lan7-d-euwe-cdp-flinkh-new1-vm1.cdp.acc1.ct2.atos.net</td></tr><tr><td>dafct-lan7-d-euwe-cdp-flinkh-new2-vm1.cdp.acc1.ct2.atos.net</td></tr><tr><td>dafct-lan7-d-euwe-cdp-nifi-vm1.cdp.acc1.ct2.atos.net</td></tr><tr><td>dafct-lan7-d-euwe-cdp-nifi-vm2.cdp.acc1.ct2.atos.net</td></tr><tr><td>dafct-lan7-d-euwe-cdp-nifi-vm3.cdp.acc1.ct2.atos.net</td></tr><tr><td>dafct-lan7-d-euwe-cdp-nifi-vm4.cdp.acc1.ct2.atos.net</td></tr><tr><td>dafct-lan7-d-euwe-cdp-nifi-vm5.cdp.acc1.ct2.atos.net</td></tr><tr><td>dafct-prd1-p-euwe-cdp-flinkh-nw1-vm1.cdp.prod.ct2.atos.net</td></tr><tr><td>dafct-prd1-p-euwe-cdp-flinkh-nw2-vm1.cdp.prod.ct2.atos.net</td></tr><tr><td>dafct-prd1-p-euwe-cdp-flinkh-vm1.cdp.prod.ct2.atos.net</td></tr><tr><td>dafct-prd1-p-euwe-cdp-flinkh-vm2.cdp.prod.ct2.atos.net</td></tr><tr><td>dafct-prd1-p-euwe-cdp-flinkh-vm3.cdp.prod.ct2.atos.net</td></tr><tr><td>dafct-prd1-p-euwe-cdp-flinkh2-vm1.cdp.prod.ct2.atos.net</td></tr><tr><td>dafct-prd1-p-euwe-cdp-flinkh2-vm2.cdp.prod.ct2.atos.net</td></tr><tr><td>dafct-prd1-p-euwe-cdp-flinkh2-vm3.cdp.prod.ct2.atos.net</td></tr><tr><td>dafct-prd1-p-euwe-cdp-nifi-s3-vm1.cdp.prod.ct2.atos.net</td></tr><tr><td>dafct-prd1-p-euwe-cdp-nifi-s3-vm2.cdp.prod.ct2.atos.net</td></tr><tr><td>dafct-prd1-p-euwe-cdp-nifi-s3-vm3.cdp.prod.ct2.atos.net</td></tr><tr><td>dafct-prd1-p-euwe-cdp-nifi-s3-vm4.cdp.prod.ct2.atos.net</td></tr><tr><td>dafct-prd1-p-euwe-cdp-nifi-s3-vm5.cdp.prod.ct2.atos.net</td></tr><tr><td>dafct-prd1-p-euwe-cdp-nifi2-nw-vm1.cdp.prod.ct2.atos.net</td></tr><tr><td>dafct-prd1-p-euwe-cdp-nifi2-nw-vm2.cdp.prod.ct2.atos.net</td></tr><tr><td>dafct-prd1-p-euwe-cdp-nifi2-nw-vm3.cdp.prod.ct2.atos.net</td></tr><tr><td>dashy.auregis.it-solutions.atos.net</td></tr><tr><td>dc1.pla.fr.atos.net</td></tr><tr><td>dc3.pla.fr.atos.net</td></tr><tr><td>dda-bkend.dev.nzt.atos.net</td></tr><tr><td>dda.dev.nzt.atos.net</td></tr><tr><td>de-asdp-test.atos.net</td></tr><tr><td>de-asdp.atos.net</td></tr><tr><td>defthovoc001.it-solutions.atos.net</td></tr><tr><td>demo.codex.de.atos.net</td></tr><tr><td>demo1.pla.fr.atos.net</td></tr><tr><td>demo2.pla.fr.atos.net</td></tr><tr><td>demo3.pla.fr.atos.net</td></tr><tr><td>demo4.pla.fr.atos.net</td></tr><tr><td>deployer.acaho4gcp.agea.atos.net</td></tr><tr><td>deployer.dev2vpod0.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>deployer.develop.dev-bm4gcp.agea.atos.net</td></tr><tr><td>deployer.tooling.bm4gcp.agea.atos.net</td></tr><tr><td>deployment.pcs.aws.atos.net</td></tr><tr><td>deployment.pcsdev.aws.atos.net</td></tr><tr><td>depot.pla.fr.atos.net</td></tr><tr><td>dev-dynplm.it-solutions.atos.net</td></tr><tr><td>dev.codex.de.atos.net</td></tr><tr><td>devops.1.global-nga.prod.bm4gcp.agea.atos.net</td></tr><tr><td>devops.a575641.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>devops.dev2vpod0.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>devops.dev2vpod1.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>devops.dev2vpod7.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>devops.develop.dev-bm4gcp.agea.atos.net</td></tr><tr><td>devops.global.bm4gcp.agea.atos.net</td></tr><tr><td>devops.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>devops.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>devops.prod.acaho4gcp.agea.atos.net</td></tr><tr><td>devops.testvpod1.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>devops.uatvpod1.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>devops2.develop.dev-bm4gcp.agea.atos.net</td></tr><tr><td>devopsmaturity.atos.net</td></tr><tr><td>dgcs-grafana.auregis.it-solutions.atos.net</td></tr><tr><td>dgw-glb-cat.it-solutions.atos.net</td></tr><tr><td>dgw-glb.it-solutions.atos.net</td></tr><tr><td>dgw-nam-dev.it-services.atos.net</td></tr><tr><td>dgw-nam.it-services.atos.net</td></tr><tr><td>digitalconservationtools.atos.net</td></tr><tr><td>digitalevents.atos.net</td></tr><tr><td>discovery.a550680.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.a558151.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.a563420.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.a575641.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.a591575.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.a627380.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.a627380eu1.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.a648115.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.a704057.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.a845972.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.a901712.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.a903446.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.a919037.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.a919037.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.dev2vpod0.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.dev2vpod1.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.dev2vpod2.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.dev2vpod3.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.dev2vpod4.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.dev2vpod5.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.dev2vpod7.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.devstub.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.global.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.regstub.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>discovery.uatvpod1.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>dkbalpfwmgt101.atos.net</td></tr><tr><td>docker.auregis.it-solutions.atos.net</td></tr><tr><td>docs.3pa.test.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a474459.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a555709.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a558151.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a575641.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a591575.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a623365.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a637723.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a704057.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a704059.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a824636.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a825381.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a829410.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a845972.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a867214.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a895728.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a903446.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a919037.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.a919037.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.bridge.atos.net</td></tr><tr><td>docs.dev2vpod0.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.dev2vpod2.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.dev2vpod3.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.dev2vpod7.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.develop.dev-bm4gcp.agea.atos.net</td></tr><tr><td>docs.devstub.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.devstubc.global-c.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.global-c.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.global.bm4gcp.agea.atos.net</td></tr><tr><td>docs.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>docs.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>docs.pcs.aws.atos.net</td></tr><tr><td>docs.pcsdev.aws.atos.net</td></tr><tr><td>docs.testvpod1.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>docs.uatvpod1.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>docs.uk08206.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.v0.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>docs.v0.eu2-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>dokuwiki-dvp.dinam.de.atos.net</td></tr><tr><td>dokuwiki.dinam.de.atos.net</td></tr><tr><td>dpa-be.it-solutions.atos.net</td></tr><tr><td>dpceap.au.atos.net</td></tr><tr><td>easytravel1.demo.dpm.atos.net</td></tr><tr><td>eft.it-solutions.atos.net</td></tr><tr><td>enroll-test.pki.atos.net</td></tr><tr><td>enroll.pki.atos.net</td></tr><tr><td>etime.es.atos.net</td></tr><tr><td>eviden-handyline.it-solutions.atos.net</td></tr><tr><td>eviden-techfoundations-separation.atos.net</td></tr><tr><td>famia.es.atos.net</td></tr><tr><td>fciodcsslvpn.in.atos.net</td></tr><tr><td>fitbanet.ar.atos.net</td></tr><tr><td>flexiparking.es.atos.net</td></tr><tr><td>ftp.si.fr.atos.net</td></tr><tr><td>gateway2.es.atos.net</td></tr><tr><td>gdb1.it-solutions.atos.net</td></tr><tr><td>gim.agea.atos.net</td></tr><tr><td>gitlab-black.factory.fr.atos.net</td></tr><tr><td>gitlab-ee-ts.fr.atos.net</td></tr><tr><td>gitlab-server-ts.atos.net</td></tr><tr><td>gitlab.auregis.it-solutions.atos.net</td></tr><tr><td>gitlab.factory.fr.atos.net</td></tr><tr><td>gitlab.pfau.fr.atos.net</td></tr><tr><td>gitlabee.cmo.agea.atos.net</td></tr><tr><td>global-service-now.atos.net</td></tr><tr><td>globalview.it-solutions.atos.net</td></tr><tr><td>golf.ascs.uk.atos.net</td></tr><tr><td>golfnp.ascs.uk.atos.net</td></tr><tr><td>goodies.fr.atos.net</td></tr><tr><td>grafana.auregis.it-solutions.atos.net</td></tr><tr><td>grafana.dev.nzt.atos.net</td></tr><tr><td>gsaanalytics.de.atos.net</td></tr><tr><td>guacamole.a474459.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.a474459.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.a550680.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.a563420eu1.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.a563420eu1.eu2-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.a575641.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.a575641.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.a653056.eu2-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.a901712.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.a903446.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.a919037.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.a919037.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.ap1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.ap2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.custsim.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.custsim.test.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.dev2vpod0.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.dev2vpod3.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.devstub.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.eu1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.eu1.test.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.eu1.uat.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.eu2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.eu2.test.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.eu2.uat.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.global.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.us1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.us2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.v0.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.v0.eu2-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.v1.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.v1.eu2-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.v2.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.v3.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.v4.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.v5.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>guacamole.v7.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>gudnet.atos.net</td></tr><tr><td>handyline.it-solutions.atos.net</td></tr><tr><td>helloworld.a637723.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>helloworld.dinam.de.atos.net</td></tr><tr><td>hermes.sparta.atos.net</td></tr><tr><td>hrit.atos.net</td></tr><tr><td>hyperion-isis.bs.fr.atos.net</td></tr><tr><td>iam-support.it-solutions.atos.net</td></tr><tr><td>inventory.slm.pl.it-solutions.atos.net</td></tr><tr><td>itc-us.it-solutions.atos.net</td></tr><tr><td>itcc-bkend.dev.nzt.atos.net</td></tr><tr><td>itcc.dev.nzt.atos.net</td></tr><tr><td>itcdb.it-solutions.atos.net</td></tr><tr><td>itco2cal-bkend.dev.nzt.atos.net</td></tr><tr><td>itco2cal.dev.nzt.atos.net</td></tr><tr><td>itop.ar.atos.net</td></tr><tr><td>janus.sparta.atos.net</td></tr><tr><td>jenkins.factory.fr.atos.net</td></tr><tr><td>jenkins.tooling.bm4gcp.agea.atos.net</td></tr><tr><td>jfrog.sf.bds.atos.net</td></tr><tr><td>jfrog.sfstg.bds.atos.net</td></tr><tr><td>jobs.atos.net</td></tr><tr><td>justiz-bk.it-solutions.atos.net</td></tr><tr><td>kafka-ui.factory.fr.atos.net</td></tr><tr><td>keycloak.a825381.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>keycloak.dev2vpod0.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>keycloak.global.bm4gcp.agea.atos.net</td></tr><tr><td>keycloak.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>keycloak.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>lab.it-solutions.atos.net</td></tr><tr><td>landingpage.auregis.it-solutions.atos.net</td></tr><tr><td>lecam-in.aisaac.atos.net</td></tr><tr><td>lecam-stg.aisaac.atos.net</td></tr><tr><td>links.dialogue.atos.net</td></tr><tr><td>mail.monitoring.atos.net</td></tr><tr><td>mail01.agcs.atos.net</td></tr><tr><td>mail01.ascs.uk.atos.net</td></tr><tr><td>mail01.qs.agcs.atos.net</td></tr><tr><td>mail02.agcs.atos.net</td></tr><tr><td>mail02.ascs.uk.atos.net</td></tr><tr><td>mail03.ascs.uk.atos.net</td></tr><tr><td>mail04.ascs.uk.atos.net</td></tr><tr><td>management.auwest1.azscloudau.atos.net</td></tr><tr><td>mantis-ror-ir.fr.atos.net</td></tr><tr><td>mantis.pfau.fr.atos.net</td></tr><tr><td>mb.communications.atos.net</td></tr><tr><td>mde.idam.agea.atos.net</td></tr><tr><td>mdr-demo.aisaac.atos.net</td></tr><tr><td>mdr-poc.aisaac.atos.net</td></tr><tr><td>mdrtm.aisaac.atos.net</td></tr><tr><td>meije.si.fr.atos.net</td></tr><tr><td>mmic-bkend.dev.nzt.atos.net</td></tr><tr><td>mmic.dev.nzt.atos.net</td></tr><tr><td>mnt-dpwt.wpd.mev.atos.net</td></tr><tr><td>mq.ms.atos.net</td></tr><tr><td>msrsbtclient.asis.uk.atos.net</td></tr><tr><td>mx1.atos.net</td></tr><tr><td>myhrdocext.it-solutions.atos.net</td></tr><tr><td>mysupport.it-solutions.atos.net</td></tr><tr><td>natixis.apollo.si.fr.atos.net</td></tr><tr><td>nc1.saas.cloud.atos.net</td></tr><tr><td>nc2.saas.cloud.atos.net</td></tr><tr><td>nc3.saas.cloud.atos.net</td></tr><tr><td>netbox.a550680.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.a558151.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.a563420.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.a575641.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.a591575.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.a591575eu1.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.a623365.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.a627380.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.a627380eu1.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.a637723.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.a704057.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.a824636.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.a895728.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.a901712.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.a903446.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.a915074.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.a919037.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.a919037.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.dev2vpod0.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.dev2vpod1.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.dev2vpod2.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.dev2vpod3.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.dev2vpod4.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.dev2vpod5.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.dev2vpod7.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.develop.dev-bm4gcp.agea.atos.net</td></tr><tr><td>netbox.devstub.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.devstub1.dev-bm4gcp.agea.atos.net</td></tr><tr><td>netbox.devstubc.global-c.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.global.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.prod.acaho4gcp.agea.atos.net</td></tr><tr><td>netbox.regstub.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.uatvpod1.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>netbox.v1.eu2-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>nexus.factory.fr.atos.net</td></tr><tr><td>nexus.tooling-qa.agea.atos.net</td></tr><tr><td>nomina.es.atos.net</td></tr><tr><td>np-splunk-search.ng911.agea.atos.net</td></tr><tr><td>nrse.atos.net</td></tr><tr><td>o2.fr.atos.net</td></tr><tr><td>obelix.atos.net</td></tr><tr><td>ocum.a575641.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>ocum.a653056.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>ocum.ap1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>ocum.ap2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>ocum.dev2vpod0.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>ocum.eu1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>ocum.eu1.test.bm4gcp.agea.atos.net</td></tr><tr><td>ocum.eu1.uat.bm4gcp.agea.atos.net</td></tr><tr><td>ocum.eu2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>ocum.eu2.uat.bm4gcp.agea.atos.net</td></tr><tr><td>ocum.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>ocum.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>ocum.us1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>ocum.us2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>ocum.v0.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>ocum.v4.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>ok.atos.net</td></tr><tr><td>omstracking.it-solutions.myatos.net</td></tr><tr><td>onsite.it-solutions.atos.net</td></tr><tr><td>p2f.efs.atos.net</td></tr><tr><td>pages.atos.net</td></tr><tr><td>panoramix.atos.net</td></tr><tr><td>pasrau-ws-reception.factory.fr.atos.net</td></tr><tr><td>pega.eb.preprod.bps.uk.atos.net</td></tr><tr><td>pega.eb.prod.bps.uk.atos.net</td></tr><tr><td>pega.eb.techtest.bps.uk.atos.net</td></tr><tr><td>pega.stream1.dev.bps.uk.atos.net</td></tr><tr><td>pega.stream1.sit.bps.uk.atos.net</td></tr><tr><td>pega.stream2.sit.bps.uk.atos.net</td></tr><tr><td>pesit-obelix.atos.net</td></tr><tr><td>pesit-panoramix.atos.net</td></tr><tr><td>pfau1.pla.fr.atos.net</td></tr><tr><td>pfau2.pla.fr.atos.net</td></tr><tr><td>pki-crl.atos.net</td></tr><tr><td>pki-ldap.atos.net</td></tr><tr><td>pki-nsc.atos.net</td></tr><tr><td>pki-revoked.atos.net</td></tr><tr><td>pki-valid.atos.net</td></tr><tr><td>pki.atos.net</td></tr><tr><td>platform.smartcity.atos.net</td></tr><tr><td>portail-mco.bs.fr.atos.net</td></tr><tr><td>portainer-sovereign-01.saas.cloud.atos.net</td></tr><tr><td>portal-rnlt.fr.atos.net</td></tr><tr><td>portal.acc1.ct2.atos.net</td></tr><tr><td>portal.acc2.ct2.atos.net</td></tr><tr><td>portal.acc3.ct2.atos.net</td></tr><tr><td>portal.auwest1.azscloudau.atos.net</td></tr><tr><td>portal.prod.ct2.atos.net</td></tr><tr><td>portal.se.atos.net</td></tr><tr><td>portal.smartcloud.br.atos.net</td></tr><tr><td>portal.sps.atos.net</td></tr><tr><td>portal.tst1.ct2.atos.net</td></tr><tr><td>portal.tst2.ct2.atos.net</td></tr><tr><td>postal.na.atos.net</td></tr><tr><td>pre-ccc.ng911.agea.atos.net</td></tr><tr><td>pre-igw.ng911.agea.atos.net</td></tr><tr><td>pre.repsol.mas.es.atos.net</td></tr><tr><td>premove.es.atos.net</td></tr><tr><td>prometheus.3pa.dev-bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.3pa.test.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.3pa.uat.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.a573084.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.a575641.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.a760497.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.ap1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.ap2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.dev2vpod0.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.dev2vpod1.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.dev2vpod7.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.develop.dev-bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.eu1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.eu1.test.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.eu1.uat.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.eu2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.eu2.test.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.eu2.uat.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.global.3pa.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.global.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.ng.3pa.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.ng.3pa.dev-bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.ng.3pa.test.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.ng.3pa.uat.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.prod.acaho4gcp.agea.atos.net</td></tr><tr><td>prometheus.testvpod1.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.uatvpod1.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.us1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.us2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.v0.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.v0.eu2-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.v1.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.v1.eu1.uat.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.v1.eu2-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.v4.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>prometheus.v7.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>promove.es.atos.net</td></tr><tr><td>proxy.admin.bridge.atos.net</td></tr><tr><td>pscc-bkend.dev.nzt.atos.net</td></tr><tr><td>pscc-bkend.nzt.atos.net</td></tr><tr><td>pscc-uat-bkend.dev.nzt.atos.net</td></tr><tr><td>pscc.dev.nzt.atos.net</td></tr><tr><td>pscc.nzt.atos.net</td></tr><tr><td>pssf2.cloud.atos.net</td></tr><tr><td>pw.sps.atos.net</td></tr><tr><td>pwpush.auregis.it-solutions.atos.net</td></tr><tr><td>qa.repsol.mas.es.atos.net</td></tr><tr><td>qamove.es.atos.net</td></tr><tr><td>qual.api.analyzebox.atos.net</td></tr><tr><td>quicksight.dcs.aws.atos.net</td></tr><tr><td>quicksight3.dcsdev.aws.atos.net</td></tr><tr><td>quicksight4.dcsdev.aws.atos.net</td></tr><tr><td>ras4sopra.it-solutions.atos.net</td></tr><tr><td>ravpn.dk.atos.net</td></tr><tr><td>ravpn.fi.atos.net</td></tr><tr><td>raws.de.atos.net</td></tr><tr><td>rdg.bps.uk.atos.net</td></tr><tr><td>rdg1.bps.uk.atos.net</td></tr><tr><td>recette.apollo-saas.atos.net</td></tr><tr><td>redmine-tst.dinam.de.atos.net</td></tr><tr><td>redmine.dinam.de.atos.net</td></tr><tr><td>referentiel-controle-lot.factory.fr.atos.net</td></tr><tr><td>referentiel-controle.factory.fr.atos.net</td></tr><tr><td>regtest.a550680.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.a558151.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.a563420.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.a575641.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.a591575.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.a627380.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.a704057.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.a760497.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.a824636.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.a895728.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.a901712.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.a903446.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.a919037.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.dev2vpod0.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.dev2vpod1.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.dev2vpod2.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.dev2vpod3.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.dev2vpod4.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.dev2vpod5.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.dev2vpod7.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.devstub.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.devstubc.global-c.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.regstub.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.uatvpod1.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>regtest.v1.eu2-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>regtest2.a903446.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>relay.eb.bps.uk.atos.net</td></tr><tr><td>reporting.egk-tsp.de.atos.net</td></tr><tr><td>repsol.mais.es.atos.net</td></tr><tr><td>resca-clp.in.atos.net</td></tr><tr><td>resca.in.atos.net</td></tr><tr><td>rmt.cloud.atos.net</td></tr><tr><td>rmttest.cloud.atos.net</td></tr><tr><td>rocky-mirror.factory.fr.atos.net</td></tr><tr><td>rr-cso.ts.fr.atos.net</td></tr><tr><td>s3.bridge.atos.net</td></tr><tr><td>s3.docs.bridge.atos.net</td></tr><tr><td>sact.monitoring.atos.net</td></tr><tr><td>saml.top.br.atos.net</td></tr><tr><td>sap-support.it-solutions.atos.net</td></tr><tr><td>sapeducation.atos.net</td></tr><tr><td>sbxcaloes-dashboard.ng911.agea.atos.net</td></tr><tr><td>scanner.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>scanner.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>scanner.prod.acaho4gcp.agea.atos.net</td></tr><tr><td>schenker-citrix.atos.net</td></tr><tr><td>sctd.es.atos.net</td></tr><tr><td>sctgdi01.es.atos.net</td></tr><tr><td>seeed.fr.atos.net</td></tr><tr><td>selenium.dev2vpod0.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>self-serv.na.atos.net</td></tr><tr><td>serv-handyline.it-solutions.atos.net</td></tr><tr><td>serviceadvisor.bs.fr.atos.net</td></tr><tr><td>servicenow.atos.net</td></tr><tr><td>sf.bds.atos.net</td></tr><tr><td>sfdev.bds.atos.net</td></tr><tr><td>sfstg.bds.atos.net</td></tr><tr><td>sh1orfi000.aems000.atos.net</td></tr><tr><td>shop.atos.net</td></tr><tr><td>siemens-account.it-solutions.atos.net</td></tr><tr><td>sm-pki.atos.net</td></tr><tr><td>sm-pkibeta.atos.net</td></tr><tr><td>sm-pkitest.atos.net</td></tr><tr><td>smartcity.atos.net</td></tr><tr><td>smartdemandportalbe.it-solutions.atos.net</td></tr><tr><td>smartenrol.eb.bps.uk.atos.net</td></tr><tr><td>smarthost.atos.net</td></tr><tr><td>smc-collaboration.atos.net</td></tr><tr><td>smtp.mod.atos.net</td></tr><tr><td>smtppost.atos.net</td></tr><tr><td>smtprelay1.bps.uk.atos.net</td></tr><tr><td>smtprelaypreprod1.bps.uk.atos.net</td></tr><tr><td>solman.practicesap.fr.atos.net</td></tr><tr><td>sonarqube.factory.fr.atos.net</td></tr><tr><td>sonarqube.sf.bds.atos.net</td></tr><tr><td>sp1orfi000.aems000.atos.net</td></tr><tr><td>splunk-np-index.ng911.agea.atos.net</td></tr><tr><td>splunk-search.ng911.agea.atos.net</td></tr><tr><td>sponsor-new.au.atos.net</td></tr><tr><td>sponsorauth.au.atos.net</td></tr><tr><td>ssc.apps.cne1opsin1clu01.cnam-ens.atos.net</td></tr><tr><td>ssl-prd-lbp-fo-m2m-internal.sea.aw.atos.net</td></tr><tr><td>sslvpn-osp-emea.it-solutions.atos.net</td></tr><tr><td>sslvpn-tba.it-solutions.atos.net</td></tr><tr><td>sslvpn1.si.fr.atos.net</td></tr><tr><td>sso.mpcaws.idm.atos.net</td></tr><tr><td>startstopmachines.mev.atos.net</td></tr><tr><td>state-db-api-service-v2.bm4gcp.agea.atos.net</td></tr><tr><td>state-db-ci-service.dev-bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.a550680.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.a558151.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.a563420eu1.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.a563420eu1.eu2-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.a563657.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.a575641.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.a575641.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.a591575.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.a591575eu1.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.a627380eu1.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.a637723.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.a648115.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.a760497.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.a901712.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.a903446.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.a919037.eu1-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.a919037.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.ap1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.ap2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.dev2vpod0.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.dev2vpod1.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.devstub.global-a.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.devstubc.global-c.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.eu1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.eu1.test.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.eu1.uat.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.eu2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.eu2.test.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.eu2.uat.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.regstubeu1.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.regstubeu1b.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.us1.prod.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.us2.prod.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.v0.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.v1.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.v1.eu1.uat.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.v1.eu2-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.v2.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.v3.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.v4.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.v5.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>statedbapi.v7.eu1-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>stats.atos.net</td></tr><tr><td>stg.top.br.atos.net</td></tr><tr><td>stub.pfau.fr.atos.net</td></tr><tr><td>support-toulouse-ts.fr.atos.net</td></tr><tr><td>survey.atos.net</td></tr><tr><td>tdk-handyline.it-solutions.atos.net</td></tr><tr><td>teamweb.sps.atos.net</td></tr><tr><td>tenablesc.dev2vpod0.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>tenablesc.global.bm4gcp.agea.atos.net</td></tr><tr><td>tenablesc.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>tenablesc.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>tiber.it-solutions.atos.net</td></tr><tr><td>tls-ecc-root-2021-pki-revoked.atos.net</td></tr><tr><td>tls-ecc-root-2021-pki-valid.atos.net</td></tr><tr><td>tls-rsa-root-2021-pki-revoked.atos.net</td></tr><tr><td>tls-rsa-root-2021-pki-valid.atos.net</td></tr><tr><td>tma-79921.bs.fr.atos.net</td></tr><tr><td>tma-aelb.bs.fr.atos.net</td></tr><tr><td>tools.it-solutions.atos.net</td></tr><tr><td>top.br.atos.net</td></tr><tr><td>tosca-siemens.it-solutions.atos.net</td></tr><tr><td>totalapm.idm.atos.net</td></tr><tr><td>tpd.nl.atos.net</td></tr><tr><td>traka.dev2vpod0.global-b.dev.bm4gcp.agea.atos.net</td></tr><tr><td>traka.develop.dev-bm4gcp.agea.atos.net</td></tr><tr><td>traka.eu1.uat.bm4gcp.agea.atos.net</td></tr><tr><td>traka.global.bm4gcp.agea.atos.net</td></tr><tr><td>traka.global.test.bm4gcp.agea.atos.net</td></tr><tr><td>traka.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>tse.pki-crl.atos.net</td></tr><tr><td>ttrs.es.atos.net</td></tr><tr><td>uamcentral.atos.net</td></tr><tr><td>ucloud.atos.net</td></tr><tr><td>uk-ss-oob-acp.uk.atos.net</td></tr><tr><td>uk-ss-oob-bbp.uk.atos.net</td></tr><tr><td>uksp.uk.myatos.net</td></tr><tr><td>uptime.auregis.it-solutions.atos.net</td></tr><tr><td>ura-aa.it-solution.atos.net</td></tr><tr><td>ura-aa.it-solutions.atos.net</td></tr><tr><td>ura-ch.it-solutions.atos.net</td></tr><tr><td>ura-cn.it-solutions.atos.net</td></tr><tr><td>ura-eu.it-solutions.atos.net</td></tr><tr><td>ura-fr.it-solutions.atos.net</td></tr><tr><td>ura-latam.it-solutions.atos.net</td></tr><tr><td>ura-pl.it-solutions.atos.net</td></tr><tr><td>ura-uk.it-solutions.atos.net</td></tr><tr><td>ura-us.it-solutions.atos.net</td></tr><tr><td>uratest-eu-ics.it-solutions.atos.net</td></tr><tr><td>uratest-eu.it-solutions.atos.net</td></tr><tr><td>uratest-fr.it-solutions.atos.net</td></tr><tr><td>url-monitoring.sps.atos.net</td></tr><tr><td>vault.factory.fr.atos.net</td></tr><tr><td>vcc.it-solutions.atos.net</td></tr><tr><td>virusprotection.it-solutions.atos.net</td></tr><tr><td>vlaamse-overheid.auth.be.atos.net</td></tr><tr><td>vmo2.pp.fr.atos.net</td></tr><tr><td>vmo2.stg1.fr.atos.net</td></tr><tr><td>vpn.academy.atos.net</td></tr><tr><td>vpn.admin.bridge.atos.net</td></tr><tr><td>webae-dev.factory.fr.atos.net</td></tr><tr><td>webae-fix.factory.fr.atos.net</td></tr><tr><td>webmail.it-solutions.atos.net</td></tr><tr><td>whoami.dinam.de.atos.net</td></tr><tr><td>wifi-guest.es.atos.net</td></tr><tr><td>wire-mock-dev.factory.fr.atos.net</td></tr><tr><td>wizyou.atos.net</td></tr><tr><td>ws-gce-common-dev.factory.fr.atos.net</td></tr><tr><td>ws-obde-dev.factory.fr.atos.net</td></tr><tr><td>ws-obpa-dev.factory.fr.atos.net</td></tr><tr><td>ws-pasrau-stockage.factory.fr.atos.net</td></tr><tr><td>ws-racine-dev.factory.fr.atos.net</td></tr><tr><td>ws-services.cloud.sps.atos.net</td></tr><tr><td>ws-tnr-wiremock-stub-server.factory.fr.atos.net</td></tr><tr><td>www.changexperience.atos.net</td></tr><tr><td>www.gim.agea.atos.net</td></tr><tr><td>zabbix.global.uat.bm4gcp.agea.atos.net</td></tr><tr><td>zabbix.prod.acaho4gcp.agea.atos.net</td></tr><tr><td>zeebe-camunda-cerba.factory.fr.atos.net</td></tr><tr><td>zenoss.ng911.agea.atos.net</td></tr><tr><td>zsa-test.egk-tsp.de.atos.net</td></tr><tr><td>zsa.egk-tsp.de.atos.net</td></tr><tr><td>zulip-tst-01.dinam.de.atos.net</td></tr><tr><td>zulip.dinam.de.atos.net</td></tr>
+        </table></div>    
+                <div class="card">
+                    <h2> Block Detection </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                <tr>
+                    <td colspan="2">
+                        <div class="progress-bar-container">
+                            <div class="progress" style="width: 100%;">100%</div>
+                        </div>
+                    </td>
+                </tr><tr>
+                    <td> AdGuard </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> AdGuard Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CleanBrowsing Adult </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CleanBrowsing Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CleanBrowsing Security </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CloudFlare </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CloudFlare Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Comodo Secure </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Google DNS </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Neustar Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Neustar Protection </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Norton Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> OpenDNS </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> OpenDNS Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Quad9 </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Yandex Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Yandex Safe </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr></table></div>    
+                <div class="card">
+                    <h2> Carbon Footprint </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>HTML Initial Size</td>
+                        <td>95127.735 bytes</td>
+                    </tr>
+                    <tr>
+                        <td>CO2 for Initial Load:</td>
+                        <td>0.0317186412259005 grams</td>
+                    </tr>
+                    <tr>
+                        <td>Energy Usage for Load:</td>
+                        <td>0.0001 KWg</td>
+                    </tr>
+                    <tr>
+                        <td>CO2 Emitted:</td>
+                        <td>0.02749905728001148 grams</td>
+                    </tr>
+                </table></div>    
+                <div class="card">
+                    <h2> Crawl Rules </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: 100%;">100%</div>
+                                    </div>
+                                </td>
+                            </tr><tr>
+                                <td>User Agent : *</td>
+                                <td>/demo/</td>
+                        </tr><tr>
+                                <td>User Agent : *</td>
+                                <td>/*?s</td>
+                        </tr></table></div>    
+                <div class="card">
+                    <h2> Site Features </h2>
+                    <i class="fas fa-sync-alt refresh"> </i>
+        <table>
+            <tr>
+                <td colspan="2">
+                    <div class="progress-bar-container">
+                        <div class="progress" style="width: 100%;">100%</div>
+                    </div>
+                </td>
+            </tr>
+                
+            <tr>
+                <td>ssl</td>
+                <td>Dead</td>
+            </tr>
+            <tr>
+                <td>javascript</td>
+                <td>Live</td>
+            </tr>
+            <tr>
+                <td>framework</td>
+                <td>Dead</td>
+            </tr>
+            <tr>
+                <td>us-hosting</td>
+                <td>Dead</td>
+            </tr>
+            <tr>
+                <td>cloud-hosting</td>
+                <td>Dead</td>
+            </tr>
+            <tr>
+                <td>cloud-paas</td>
+                <td>Dead</td>
+            </tr>
+            <tr>
+                <td>server-location</td>
+                <td>Dead</td>
+            </tr>
+            <tr>
+                <td>application-performance</td>
+                <td>Dead</td>
+            </tr>
+            <tr>
+                <td>audience-measurement</td>
+                <td>Dead</td>
+            </tr>
+            <tr>
+                <td>dmarc</td>
+                <td>Dead</td>
+            </tr>
+        </table></div>    
+                <div class="card">
+                    <h2> DNS Security </h2>
+                    <i class="fas fa-sync-alt refresh"> </i>
+        <table>
+            <tr>
+                <td colspan="2">
+                    <div class="progress-bar-container">
+                        <div class="progress" style="width: 100%;">100%</div>
+                    </div>
+                </td>
+            </tr>
+                
+            <tr>
+                <td>DNSKEY</td>
+                <td>
+                    <strong><span>❌ No</span></strong><br>
+                    <strong><span>  Recursion Desired (RD) ✅</span></strong><br>
+                    <strong><span>  Recursion Available (RA) ✅</span></strong><br>
+                    <strong><span>  TrunCation (TC) ❌</span></strong><br>
+                    <strong><span>  Authentic Data (AD) ❌</span></strong><br>
+                    <strong><span>  Checking Disabled (CD) ❌</span></strong><br>
+                </td>
+            </tr>
+            <tr>
+                <td>DS</td>
+                <td>
+                    <strong><span>❌ No</span></strong><br>
+                    <strong><span>  Recursion Desired (RD) ✅</span></strong><br>
+                    <strong><span>  Recursion Available (RA) ✅</span></strong><br>
+                    <strong><span>  TrunCation (TC) ❌</span></strong><br>
+                    <strong><span>  Authentic Data (AD) ❌</span></strong><br>
+                    <strong><span>  Checking Disabled (CD) ❌</span></strong><br>
+                </td>
+            </tr>
+            <tr>
+                <td>RRSIG</td>
+                <td>
+                    <strong><span>❌ No</span></strong><br>
+                    <strong><span>  Recursion Desired (RD) ✅</span></strong><br>
+                    <strong><span>  Recursion Available (RA) ✅</span></strong><br>
+                    <strong><span>  TrunCation (TC) ❌</span></strong><br>
+                    <strong><span>  Authentic Data (AD) ❌</span></strong><br>
+                    <strong><span>  Checking Disabled (CD) ❌</span></strong><br>
+                </td>
+            </tr>
+        </table></div>    
+                <div class="card">
+                    <h2> Tech Stack </h2>
+                    <i class="fas fa-sync-alt refresh"> </i>
+        <table>
+            <tr>
+                <td colspan="2">
+                    <div class="progress-bar-container">
+                        <div class="progress" style="width: 100%;">100%</div>
+                    </div>
+                </td>
+            </tr>
+                
+            <tr>
+                <td>Server</td>
+                <td>Unknown</td>
+            </tr>
+            <tr>
+                <td>X-Powered-By</td>
+                <td>Not specified</td>
+            </tr>
+            <tr>
+                <td>X-AspNet-Version</td>
+                <td>Not specified</td>
+            </tr>
+        </table></div>  
+                <div class="card">
+                    <h2> Firewall Detection </h2>
+                    <i class="fas fa-sync-alt refresh"> </i>
+        <table>
+            <tr>
+                <td colspan="2">
+                    <div class="progress-bar-container">
+                        <div class="progress" style="width: 100%;">100%</div>
+                    </div>
+                </td>
+            </tr>
+                
+            <tr>
+                <td>hasWaf</td>
+                <td>False</td>
+            </tr>
+            <tr>
+                <td>wafName</td>
+                <td>*The domain may be protected with a proprietary or custom WAF which we were unable to identify automatically</td>
+            </tr>
+        </table></div>  
+                <div class="card">
+                    <h2> Social Tags </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 64%;">64%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Title</td>
+                        <td>Atos – Home</td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>Atos is a global leader in digital transformation with 105,000 employees and annual revenue of c. € 11 billion.</td>
+                    </tr>
+                    <tr>
+                        <td>Keywords</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>Canonical URL</td>
+                        <td>https://atos.net/en</td>
+                    </tr>
+                    <tr>
+                        <td>Theme Color</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>Twitter Site    </td>
+                        <td>None</td>
+                    </tr>
+                </table></div> 
+                <div class="card">
+                    <h2> Threats </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: 100%;">100%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Phishing Status</td>
+                                <td>✅ No Phishing Found</td>
+                            </tr>
+                            <tr>
+                                <td>Malware Status</td>
+                                <td>✅ No Malwares Found</td>
+                            </tr>
+                        </table></div> 
+                <div class="card">
+                    <h2> Global Rank </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Date</td>
+                            <td>2024-09-15</td>
+                        </tr>
+                        <tr>
+                            <td>Rank</td>
+                            <td>19293</td>
+                        </tr>
+                    </table></div> 
+                <div class="card">
+                    <h2> Security.Txt </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: 100%;">100%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Present </td>
+                                <td>✅ Yes</td>
+                            </tr>
+                            <tr>
+                                <td> File Location </td>
+                                <td>/.well-known/security.txt</td>
+                            </tr>
+                            <tr>
+                                <td> PGP Signed </td>
+                                <td>❌ No</td>
+                            </tr><tr>
+                                            <td> Contact </td>
+                                            <td> mailto:cert@atos.net  </td>
+                                        </tr><tr>
+                                            <td> Expires </td>
+                                            <td> 2025-09-30T23:59:00.000Z  </td>
+                                        </tr><tr>
+                                            <td> Encryption </td>
+                                            <td> https://atos.net/.well-known/Atos-CERT_0xD60CC21F_public.asc  </td>
+                                        </tr><tr>
+                                            <td> Acknowledgments </td>
+                                            <td> https://atos.net/en/lp/securitydive/hall-of-fame  </td>
+                                        </tr><tr>
+                                            <td> Preferred-Languages </td>
+                                            <td> en  </td>
+                                        </tr><tr>
+                                            <td> Hiring </td>
+                                            <td> https://jobs.atos.net/  </td>
+                                        </tr></table></div> </div><div class="date">
+                        <h3 align="right"; margin-right: 20px; style="color:#00FF00;">Developed by:👽 Alien C00de  2024 ver: 1.0.0</h3>
+                        <div style="display: flex; justify-content: flex-end; align-items: center;">
+                            <i class="far fa-envelope"></i>
+                            <h3 align="right"; margin-right: 20px; style="color:#00FF00;">: alien.c00de@gmail.com</h3>
+                        </div>
+                        <div style="display: flex; justify-content: flex-end; align-items: center;">
+                            <i class="fab fa-github"></i>
+                            <h3 align="right"; margin-right: 20px; style="color:#00FF00;">: https://github.com/Alien-C00de</h3>
+                        </div>
+                    </div>
+                </body>
+            </html>

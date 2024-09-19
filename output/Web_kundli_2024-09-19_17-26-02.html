@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+        Web Kundli
+        </title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+        <style>
+        body {
+                    background-color: #1e1e1e;
+                    color: #d4d4d4;
+                    font-family: 'Courier New', Courier, monospace;
+                    margin: 0;
+                    padding: 0;
+                }
+                .header {
+                    background-color: #333;
+                    padding: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-right: 20px;
+                    margin-left: 20px;
+                }
+                .header h1 {
+                    color: #FFA500;
+                    margin: 0;
+                    font-size: 3em;
+                }
+                .header h2 {
+                    color: #FFA500;
+                    margin: 0;
+                    font-size: 1.5em;
+                }
+                .header h3 {
+                    color: #FFA500;
+                    margin: 0;
+                    font-size: 1em;
+                }
+                .ranking-container {
+                    background-color: #333;
+                    display: flex;
+                    align-items: center; /* Vertically align items */
+                    justify-content: space-between; /* Space between header and progress bar */
+                    margin-right: 20px;
+                    margin-left: 20px;
+                }
+                .ranking-container h1 {
+                    margin: 20px;
+                    padding: 10px;
+                    color: #00FF00;
+                }
+                .progress-bar-container {
+                    flex: 1; /* Allow progress bar to take available space */
+                    background-color: #A9A9A9;
+                    border-radius: 4px;
+                    margin-left: 20px; /* Space between header and progress bar */
+                    margin-right: 20px;
+                    overflow: hidden;
+                }
+                .progress-bar {
+                    height: 40px;
+                    color: #FFFF00;
+                    text-align: center;
+                    line-height: 40px;
+                    border-radius: 4px;
+                    background-color: #8F00FF;  /* #76c7c0 Default color, adjust as needed */
+                    transition: width 0.5s, background-color 0.5s;
+                    font-size: 20px; /* Adjust font size as needed */
+                    font-weight: bold; /* Makes the percentage text bold */
+                }
+                .progress {
+                    height: 20px;
+                    color: red;
+                    text-align: center;
+                    line-height: 20px;
+                    border-radius: 4px;
+                    background-color: #FFFF00; /* #76c7c0 Default color, adjust as needed */
+                    transition: width 0.5s, background-color 0.5s;
+                    font-size: 16px; /* Adjust font size as needed */
+                    font-weight: bold; /* Makes the percentage text bold */
+                }
+                .date {
+                    padding: 5px;
+                    margin-right: 30px;
+                }
+                .date h3 {
+                    color: #FFA500;
+                    margin: 0;
+                    font-size: 1em;
+                }
+                .content {
+                    display: flex;
+                    flex-wrap: wrap;
+                    padding: 10px;
+                }
+                .card {
+                    background-color: #2d2d2d;
+                    margin: 10px;
+                    padding: 10px;
+                    flex: 1;
+                    min-width: 300px;
+                    max-width: 100%;
+                    border-radius: 5px;
+                    position: relative;
+                    overflow: auto;
+                    height: 450px; 
+                    word-wrap: break-word;
+                }
+                .card h2 {
+                    color: #FFA500;
+                    margin-top: 0;
+                }
+                .card .refresh {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    color: #d4d4d4;
+                    cursor: pointer;
+                }
+                .card table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    table-layout: fixed;
+                }
+                .card table td {
+                    padding: 5px;
+                    border-bottom: 1px solid #444;
+                    text-overflow: ellipsis; 
+                    overflow: hidden;
+                    word-wrap: break-word;
+                }
+                .card table td:last-child {
+                    text-align: right;
+                }
+                .card .map {
+                    width: 100%;
+                    height: 100px;
+                    background: url('https://placehold.co/300x200') no-repeat center center;
+                    background-size: cover;
+                 .icon-color {
+                        color: #F0F8FF;
+                    }
+                }
+        </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>
+                    <i class="fas fa-user-secret" icon-color></i> Web Kundli
+                </h1>
+                <h2 align="right"; margin-right: 40px; style="color:#a6e22e;">https://eviden-uat.cloudnativetoolkit.com</h2>
+            </div>
+            <div class="date">
+                <h3 align="right"; margin-right: 20px; style="color:blue;">Thursday 19-Sep-2024 17:26:02</h3>
+            </div>
+            <div class="ranking-container">
+                <h1>Website Health <i class="fas fa-heartbeat"></i></h1>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 70.86%;">70.86%</div>
+                </div>
+            </div><div class="content">
+                <div class="card">
+                    <h2> Server Location </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>City</td>
+                            <td>Mumbai</td>
+                        </tr>
+                        <tr>
+                            <td>Country</td>
+                            <td>India</td>
+                        </tr>
+                        <tr>
+                            <td>Timezone</td>
+                            <td>Asia/Kolkata</td>
+                        </tr>
+                        <tr>
+                            <td>Languages</td>
+                            <td>en-IN,hi,bn,te,mr,ta,ur,gu,kn,ml,or,pa,as,bh,sat,ks,ne,sd,kok,doi,mni,sit,sa,fr,lus,inc</td>
+                        </tr>
+                        <tr>
+                            <td>Currency</td>
+                            <td>Rupee</td>
+                        </tr>
+                </table></div>
+                <div class="card">
+                    <h2> SSL Certificate </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Subject</td>
+                        <td>*.cloudnativetoolkit.com</td>
+                    </tr>
+                    <tr>
+                        <td>Issuer</td>
+                        <td>Amazon RSA 2048 M02</td>
+                    </tr>
+                    <tr>
+                        <td>Expires</td>
+                        <td>2025-04-12 23:59:59</td>
+                    </tr>
+                    <tr>
+                        <td>Renewed</td>
+                        <td>2024-03-14 00:00:00</td>
+                    </tr>
+                    <tr>
+                        <td>Serial Num</td>
+                        <td>8814579005875364601220629478867291348</td>
+                    </tr>
+                    <tr>
+                        <td>Fingerprint</td>
+                        <td>15:FD:12:19:50:78:98:97:F4:B2:19:A1:C7:EC:F5:E8:60:09:EF:CF:F1:BB:8C:29:57:F6:56:F2:AE:DE:5C:30</td>
+                    </tr>
+            </table></div>
+                <div class="card">
+                    <h2> Domain Whois </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 90%;">90%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Registered Domain</td>
+                        <td>cloudnativetoolkit.com</td>
+                    </tr>
+                    <tr>
+                        <td>Creation Date</td>
+                        <td>2024-03-14 06:47:36</td>
+                    </tr>
+                    <tr>
+                        <td>Updated Date</td>
+                        <td>2024-03-14 06:57:44</td>
+                    </tr>
+                    <tr>
+                        <td>Registry Expiry Date</td>
+                        <td>2025-03-14 06:47:36</td>
+                    </tr>
+                    <tr>
+                        <td>Registry Domain ID</td>
+                        <td> </td>
+                    </tr>
+                    <tr>
+                        <td>Registrar WHOIS Server</td>
+                        <td>whois.registrar.amazon</td>
+                    </tr>
+                    <tr>
+                        <td>Registrar</td>
+                        <td>Amazon Registrar, Inc.</td>
+                    </tr>
+                    <tr>
+                        <td>Registrar IANA ID</td>
+                        <td>None</td>
+                    </tr>
+                </table></div>
+                <div class="card">
+                    <h2> Server Info </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Organization</td>
+                            <td>Google LLC</td>
+                        </tr>
+                        <tr>
+                            <td>ASN Code</td>
+                            <td>AS15169</td>
+                        </tr>
+                        <tr>
+                            <td>Ports</td>
+                            <td>[443, 53]</td>
+                        </tr>
+                        <tr>
+                            <td>IP</td>
+                            <td>8.8.8.8</td>
+                        </tr>
+                        <tr>
+                            <td>Type</td>
+                            <td>[]</td>
+                        </tr>
+                        <tr>
+                            <td>Location</td>
+                            <td>Mountain View, United States</td>
+                        </tr>
+                </table></div>
+                <div class="card">
+                    <h2> Headers </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Server</td>
+                        <td>AmazonS3</td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td>Thu, 19 Sep 2024 09:11:43 GMT</td>
+                    </tr>
+                    <tr>
+                        <td>Content-Type</td>
+                        <td>text/html</td>
+                    </tr>
+                    <tr>
+                        <td>transfer-encoding</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>connection</td>
+                        <td>keep-alive</td>
+                    </tr>
+                    <tr>
+                        <td>x-frame-options</td>
+                        <td>SAMEORIGIN</td>
+                    </tr>
+                    <tr>
+                        <td>x-content-type-options</td>
+                        <td>nosniff</td>
+                    </tr>
+                    <tr>
+                        <td>referrer-policy</td>
+                        <td>strict-origin-when-cross-origin</td>
+                    </tr>
+                </table></div>
+                <div class="card">
+                    <h2> Cookies </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: 0%;">0%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>No Cookies Details Found</td>
+                            </tr>
+                    </table></div>
+                <div class="card">
+                    <h2> HTTP Security </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Content Security Policy</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Strict Transport Policy</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>X-Content-Type-Options</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>X-Frame-Options</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>X-XSS-Protection</td>
+                        <td>Yes</td>
+                    </tr>
+            </table></div>
+                <div class="card">
+                    <h2> DNS Server </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>IP Address</td>
+                        <td>108.159.61.68</td>
+                    </tr>
+                    <tr>
+                        <td>Hostname</td>
+                        <td>eviden-uat.cloudnativetoolkit.com</td>
+                    </tr>
+                    <tr>
+                        <td>DoH Support</td>
+                        <td>No</td>
+                    </tr>
+                </table></div>
+                <div class="card">
+                    <h2> TLS Cipher Suites </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width:100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Domain Name</td>
+                        <td>eviden-uat.cloudnativetoolkit.com</td>
+                    </tr>
+                    <tr>
+                        <td>Issuing Organization</td>
+                        <td>Amazon</td>
+                    </tr>
+                    <tr>
+                        <td>Issue Date</td>
+                        <td>>Mar 14 00:00:00 2024 GMT</td>
+                    </tr>
+                    <tr>
+                        <td>Expire Date</td>
+                        <td>Apr 12 23:59:59 2025 GMT</td>
+                    </tr>
+                    <tr>
+                        <td>Serial Number</td>
+                        <td>06A1A04C61250AB4A8EB52F4AB214CD4</td>
+                    </tr>
+                    <tr>
+                        <td>Protocol Version</td>
+                        <td >TLSv1.3</td>
+                    </tr>
+                    <tr>
+                        <td>Cipher Suite</td>
+                        <td >TLS_AES_128_GCM_SHA256</td>
+                    </tr>
+                    <tr>
+                        <td>Public key length</td>
+                        <td>128</td>
+                    </tr>
+            </table></div>
+                <div class="card">
+                    <h2> DNS Records </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 30%;">30%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Domain Name</td>
+                        <td>eviden-uat.cloudnativetoolkit.com</td>
+                    </tr>
+                    <tr>
+                        <td>A RECORD</td>
+                        <td>108.159.61.68 ,
+108.159.61.4 ,
+108.159.61.20 ,
+108.159.61.39 ,
+</td>
+                    </tr>
+                    <tr>
+                        <td>AAAA RECORD</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>MX RECORD</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>NS RECORD</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>CNAME RECORD</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>TXT RECORD</td>
+                        <td>None</td>
+                    </tr>
+                </table></div>    
+                <div class="card">
+                    <h2> TXT Records </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 0%;">0%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Domain Name</td>
+                        <td>eviden-uat.cloudnativetoolkit.com</td>
+                    </tr>
+                    <tr>
+                        <td>TXT RECORD</td>
+                        <td>None</td>
+                    </tr>
+            </table></div>    
+                <div class="card">
+                    <h2> Server Status </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width:100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Domain Name</td>
+                        <td>eviden-uat.cloudnativetoolkit.com</td>
+                    </tr>
+                    <tr>
+                    <td>SERVER STATUS</td>
+                        <td >Server is Up</td>
+                    </tr>
+            </table></div>    
+                <div class="card">
+                    <h2> Email Configuration </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width:100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Domain Name</td>
+                        <td>eviden-uat.cloudnativetoolkit.com</td>
+                    </tr>
+                    <tr>
+                        <td>MAIL RECORDS</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>EXTERNAL MAIL RECORDS</td>
+                        <td>None</td>
+                    </tr> 
+                </table></div>    
+                <div class="card">
+                    <h2> Redirect Chain </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width:100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Domain Name</td>
+                        <td>eviden-uat.cloudnativetoolkit.com</td>
+                    </tr>
+                    <tr>
+                        <td>Number of Redirects</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Redirect Link</td>
+                        <td>https://eviden-uat.cloudnativetoolkit.com/</td>
+                    </tr>
+                    <tr>
+                        <td>Final Page</td>
+                        <td>https://eviden-uat.cloudnativetoolkit.com/</td>
+                    </tr>
+                </table></div>    
+                <div class="card">
+                    <h2> Open Ports </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width:100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Domain Name</td>
+                        <td>eviden-uat.cloudnativetoolkit.com</td>
+                    </tr>
+                    <tr>
+                        <td>IP ADDRESS</td>
+                        <td>108.159.61.20</td>
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>OPEN PORTS</td>
+                        <td>[]</td>
+                    </tr>
+                </table></div>    
+                <div class="card">
+                    <h2>  Archive History </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                        <tr>
+                            <td colspan="1">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 0%;">0%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>No Data Found</td>
+                        </tr>
+                    </table></div>    
+                <div class="card">
+                    <h2> Associated Hosts </h2>
+                    <i class="fas fa-sync-alt refresh"> </i>
+                        <table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: 0%;">0%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table></div>    
+                <div class="card">
+                    <h2> Block Detection </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                <tr>
+                    <td colspan="2">
+                        <div class="progress-bar-container">
+                            <div class="progress" style="width: 100%;">100%</div>
+                        </div>
+                    </td>
+                </tr><tr>
+                    <td> AdGuard </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> AdGuard Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CleanBrowsing Adult </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CleanBrowsing Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CleanBrowsing Security </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CloudFlare </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CloudFlare Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Comodo Secure </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Google DNS </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Neustar Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Neustar Protection </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Norton Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> OpenDNS </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> OpenDNS Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Quad9 </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Yandex Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Yandex Safe </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr></table></div>    
+                <div class="card">
+                    <h2> Carbon Footprint </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>HTML Initial Size</td>
+                        <td>13361.99 bytes</td>
+                    </tr>
+                    <tr>
+                        <td>CO2 for Initial Load:</td>
+                        <td>0.004455316494964064 grams</td>
+                    </tr>
+                    <tr>
+                        <td>Energy Usage for Load:</td>
+                        <td>0.0000 KWg</td>
+                    </tr>
+                    <tr>
+                        <td>CO2 Emitted:</td>
+                        <td>0.0038626182825118307 grams</td>
+                    </tr>
+                </table></div>    
+                <div class="card">
+                    <h2> Crawl Rules </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: 0%;">0%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Failed to fetch robots.txt</td>
+                            </tr>
+                    </table></div>    
+                <div class="card">
+                    <h2> Site Features </h2>
+                    <i class="fas fa-sync-alt refresh"> </i>
+        <table>
+            <tr>
+                <td colspan="2">
+                    <div class="progress-bar-container">
+                        <div class="progress" style="width: 100%;">100%</div>
+                    </div>
+                </td>
+            </tr>
+                
+            <tr>
+                <td>ssl</td>
+                <td>Dead</td>
+            </tr>
+            <tr>
+                <td>javascript</td>
+                <td>Dead</td>
+            </tr>
+            <tr>
+                <td>framework</td>
+                <td>Dead</td>
+            </tr>
+            <tr>
+                <td>us-hosting</td>
+                <td>Dead</td>
+            </tr>
+            <tr>
+                <td>cloud-hosting</td>
+                <td>Dead</td>
+            </tr>
+            <tr>
+                <td>cloud-paas</td>
+                <td>Dead</td>
+            </tr>
+            <tr>
+                <td>server-location</td>
+                <td>Dead</td>
+            </tr>
+            <tr>
+                <td>application-performance</td>
+                <td>Dead</td>
+            </tr>
+            <tr>
+                <td>audience-measurement</td>
+                <td>Dead</td>
+            </tr>
+            <tr>
+                <td>dmarc</td>
+                <td>Dead</td>
+            </tr>
+        </table></div>    
+                <div class="card">
+                    <h2> DNS Security </h2>
+                    <i class="fas fa-sync-alt refresh"> </i>
+        <table>
+            <tr>
+                <td colspan="2">
+                    <div class="progress-bar-container">
+                        <div class="progress" style="width: 100%;">100%</div>
+                    </div>
+                </td>
+            </tr>
+                
+            <tr>
+                <td>DNSKEY</td>
+                <td>
+                    <strong><span>❌ No</span></strong><br>
+                    <strong><span>  Recursion Desired (RD) ✅</span></strong><br>
+                    <strong><span>  Recursion Available (RA) ✅</span></strong><br>
+                    <strong><span>  TrunCation (TC) ❌</span></strong><br>
+                    <strong><span>  Authentic Data (AD) ❌</span></strong><br>
+                    <strong><span>  Checking Disabled (CD) ❌</span></strong><br>
+                </td>
+            </tr>
+            <tr>
+                <td>DS</td>
+                <td>
+                    <strong><span>❌ No</span></strong><br>
+                    <strong><span>  Recursion Desired (RD) ✅</span></strong><br>
+                    <strong><span>  Recursion Available (RA) ✅</span></strong><br>
+                    <strong><span>  TrunCation (TC) ❌</span></strong><br>
+                    <strong><span>  Authentic Data (AD) ❌</span></strong><br>
+                    <strong><span>  Checking Disabled (CD) ❌</span></strong><br>
+                </td>
+            </tr>
+            <tr>
+                <td>RRSIG</td>
+                <td>
+                    <strong><span>❌ No</span></strong><br>
+                    <strong><span>  Recursion Desired (RD) ✅</span></strong><br>
+                    <strong><span>  Recursion Available (RA) ✅</span></strong><br>
+                    <strong><span>  TrunCation (TC) ❌</span></strong><br>
+                    <strong><span>  Authentic Data (AD) ❌</span></strong><br>
+                    <strong><span>  Checking Disabled (CD) ❌</span></strong><br>
+                </td>
+            </tr>
+        </table></div>    
+                <div class="card">
+                    <h2> Tech Stack </h2>
+                    <i class="fas fa-sync-alt refresh"> </i>
+        <table>
+            <tr>
+                <td colspan="2">
+                    <div class="progress-bar-container">
+                        <div class="progress" style="width: 100%;">100%</div>
+                    </div>
+                </td>
+            </tr>
+                
+            <tr>
+                <td>Server</td>
+                <td>AmazonS3</td>
+            </tr>
+            <tr>
+                <td>X-Powered-By</td>
+                <td>Not specified</td>
+            </tr>
+            <tr>
+                <td>X-AspNet-Version</td>
+                <td>Not specified</td>
+            </tr>
+        </table></div>  
+                <div class="card">
+                    <h2> Firewall Detection </h2>
+                    <i class="fas fa-sync-alt refresh"> </i>
+        <table>
+            <tr>
+                <td colspan="2">
+                    <div class="progress-bar-container">
+                        <div class="progress" style="width: 100%;">100%</div>
+                    </div>
+                </td>
+            </tr>
+                
+            <tr>
+                <td>hasWaf</td>
+                <td>False</td>
+            </tr>
+            <tr>
+                <td>wafName</td>
+                <td>*The domain may be protected with a proprietary or custom WAF which we were unable to identify automatically</td>
+            </tr>
+        </table></div>  
+                <div class="card">
+                    <h2> Social Tags </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 64%;">64%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Title</td>
+                        <td>CloudNative Toolkit</td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>Keywords</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>Canonical URL</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>Theme Color</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>Twitter Site    </td>
+                        <td>None</td>
+                    </tr>
+                </table></div> 
+                <div class="card">
+                    <h2> Threats </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                        <tr>
+                            <td colspan="1">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 0%;">0%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>No Data Found</td>
+                        </tr>
+                    </table></div> 
+                <div class="card">
+                    <h2> Global Rank </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                        <tr>
+                            <td colspan="1">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 0%;">0%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>No Rank Found For Given Domain</td>
+                        </tr>
+                    </table></div> 
+                <div class="card">
+                    <h2> Security.Txt </h2>
+                    <i class="fas fa-sync-alt refresh"> </i><table>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: 100%;">100%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Present </td>
+                                <td>✅ Yes</td>
+                            </tr>
+                            <tr>
+                                <td> File Location </td>
+                                <td>/.well-known/security.txt</td>
+                            </tr>
+                            <tr>
+                                <td> PGP Signed </td>
+                                <td>❌ No</td>
+                            </tr><tr>
+                                            <td> <link rel="preconnect" href="https </td>
+                                            <td> //fonts.gstatic.com">  </td>
+                                        </tr><tr>
+                                            <td> <style type="text/css">@font-face{font-family </td>
+                                            <td> 'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v142/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}</style>  </td>
+                                        </tr><tr>
+                                            <td> env </td>
+                                            <td> { DEBUG: undefined },  </td>
+                                        </tr><tr>
+                                            <td> version </td>
+                                            <td> []  </td>
+                                        </tr><tr>
+                                            <td> <style>html{--mat-option-selected-state-label-text-color </td>
+                                            <td> #3f51b5;--mat-option-label-text-color:rgba(0, 0, 0, .87);--mat-option-hover-state-layer-color:rgba(0, 0, 0, .04);--mat-option-focus-state-layer-color:rgba(0, 0, 0, .04);--mat-option-selected-state-layer-color:rgba(0, 0, 0, .04)}html{--mat-optgroup-label-text-color:rgba(0, 0, 0, .87)}html{--mat-option-label-text-font:Roboto, sans-serif;--mat-option-label-text-line-height:24px;--mat-option-label-text-size:16px;--mat-option-label-text-tracking:.03125em;--mat-option-label-text-weight:400}html{--mat-optgroup-label-text-font:Roboto, sans-serif;--mat-optgroup-label-text-line-height:24px;--mat-optgroup-label-text-size:16px;--mat-optgroup-label-text-tracking:.03125em;--mat-optgroup-label-text-weight:400}html{--mdc-filled-text-field-caret-color:#3f51b5;--mdc-filled-text-field-focus-active-indicator-color:#3f51b5;--mdc-filled-text-field-focus-label-text-color:rgba(63, 81, 181, .87);--mdc-filled-text-field-container-color:whitesmoke;--mdc-filled-text-field-disabled-container-color:#fafafa;--mdc-filled-text-field-label-text-color:rgba(0, 0, 0, .6);--mdc-filled-text-field-disabled-label-text-color:rgba(0, 0, 0, .38);--mdc-filled-text-field-input-text-color:rgba(0, 0, 0, .87);--mdc-filled-text-field-disabled-input-text-color:rgba(0, 0, 0, .38);--mdc-filled-text-field-input-text-placeholder-color:rgba(0, 0, 0, .6);--mdc-filled-text-field-error-focus-label-text-color:#f44336;--mdc-filled-text-field-error-label-text-color:#f44336;--mdc-filled-text-field-error-caret-color:#f44336;--mdc-filled-text-field-active-indicator-color:rgba(0, 0, 0, .42);--mdc-filled-text-field-disabled-active-indicator-color:rgba(0, 0, 0, .06);--mdc-filled-text-field-hover-active-indicator-color:rgba(0, 0, 0, .87);--mdc-filled-text-field-error-active-indicator-color:#f44336;--mdc-filled-text-field-error-focus-active-indicator-color:#f44336;--mdc-filled-text-field-error-hover-active-indicator-color:#f44336;--mdc-outlined-text-field-caret-color:#3f51b5;--mdc-outlined-text-field-focus-outline-color:#3f51b5;--mdc-outlined-text-field-focus-label-text-color:rgba(63, 81, 181, .87);--mdc-outlined-text-field-label-text-color:rgba(0, 0, 0, .6);--mdc-outlined-text-field-disabled-label-text-color:rgba(0, 0, 0, .38);--mdc-outlined-text-field-input-text-color:rgba(0, 0, 0, .87);--mdc-outlined-text-field-disabled-input-text-color:rgba(0, 0, 0, .38);--mdc-outlined-text-field-input-text-placeholder-color:rgba(0, 0, 0, .6);--mdc-outlined-text-field-error-caret-color:#f44336;--mdc-outlined-text-field-error-focus-label-text-color:#f44336;--mdc-outlined-text-field-error-label-text-color:#f44336;--mdc-outlined-text-field-outline-color:rgba(0, 0, 0, .38);--mdc-outlined-text-field-disabled-outline-color:rgba(0, 0, 0, .06);--mdc-outlined-text-field-hover-outline-color:rgba(0, 0, 0, .87);--mdc-outlined-text-field-error-focus-outline-color:#f44336;--mdc-outlined-text-field-error-hover-outline-color:#f44336;--mdc-outlined-text-field-error-outline-color:#f44336;--mat-form-field-disabled-input-text-placeholder-color:rgba(0, 0, 0, .38)}html{--mdc-filled-text-field-label-text-font:Roboto, sans-serif;--mdc-filled-text-field-label-text-size:16px;--mdc-filled-text-field-label-text-tracking:.03125em;--mdc-filled-text-field-label-text-weight:400;--mdc-outlined-text-field-label-text-font:Roboto, sans-serif;--mdc-outlined-text-field-label-text-size:16px;--mdc-outlined-text-field-label-text-tracking:.03125em;--mdc-outlined-text-field-label-text-weight:400;--mat-form-field-container-text-font:Roboto, sans-serif;--mat-form-field-container-text-line-height:24px;--mat-form-field-container-text-size:16px;--mat-form-field-container-text-tracking:.03125em;--mat-form-field-container-text-weight:400;--mat-form-field-outlined-label-text-populated-size:16px;--mat-form-field-subscript-text-font:Roboto, sans-serif;--mat-form-field-subscript-text-line-height:20px;--mat-form-field-subscript-text-size:12px;--mat-form-field-subscript-text-tracking:.0333333333em;--mat-form-field-subscript-text-weight:400}html{--mat-select-panel-background-color:white;--mat-select-enabled-trigger-text-color:rgba(0, 0, 0, .87);--mat-select-disabled-trigger-text-color:rgba(0, 0, 0, .38);--mat-select-placeholder-text-color:rgba(0, 0, 0, .6);--mat-select-enabled-arrow-color:rgba(0, 0, 0, .54);--mat-select-disabled-arrow-color:rgba(0, 0, 0, .38);--mat-select-focused-arrow-color:rgba(63, 81, 181, .87);--mat-select-invalid-arrow-color:rgba(244, 67, 54, .87)}html{--mat-select-trigger-text-font:Roboto, sans-serif;--mat-select-trigger-text-line-height:24px;--mat-select-trigger-text-size:16px;--mat-select-trigger-text-tracking:.03125em;--mat-select-trigger-text-weight:400}html{--mat-autocomplete-background-color:white}html{--mat-menu-item-label-text-color:rgba(0, 0, 0, .87);--mat-menu-item-icon-color:rgba(0, 0, 0, .87);--mat-menu-item-hover-state-layer-color:rgba(0, 0, 0, .04);--mat-menu-item-focus-state-layer-color:rgba(0, 0, 0, .04);--mat-menu-container-color:white}html{--mat-menu-item-label-text-font:Roboto, sans-serif;--mat-menu-item-label-text-size:16px;--mat-menu-item-label-text-tracking:.03125em;--mat-menu-item-label-text-line-height:24px;--mat-menu-item-label-text-weight:400}html{--mat-paginator-container-text-color:rgba(0, 0, 0, .87);--mat-paginator-container-background-color:white;--mat-paginator-enabled-icon-color:rgba(0, 0, 0, .54);--mat-paginator-disabled-icon-color:rgba(0, 0, 0, .12)}html{--mat-paginator-container-size:56px}html{--mat-paginator-container-text-font:Roboto, sans-serif;--mat-paginator-container-text-line-height:20px;--mat-paginator-container-text-size:12px;--mat-paginator-container-text-tracking:.0333333333em;--mat-paginator-container-text-weight:400;--mat-paginator-select-trigger-text-size:12px}html{--mdc-checkbox-disabled-selected-icon-color:rgba(0, 0, 0, .38);--mdc-checkbox-disabled-unselected-icon-color:rgba(0, 0, 0, .38);--mdc-checkbox-selected-checkmark-color:#fff;--mdc-checkbox-selected-focus-icon-color:#ff4081;--mdc-checkbox-selected-hover-icon-color:#ff4081;--mdc-checkbox-selected-icon-color:#ff4081;--mdc-checkbox-selected-pressed-icon-color:#ff4081;--mdc-checkbox-unselected-focus-icon-color:#212121;--mdc-checkbox-unselected-hover-icon-color:#212121;--mdc-checkbox-unselected-icon-color:rgba(0, 0, 0, .54);--mdc-checkbox-unselected-pressed-icon-color:rgba(0, 0, 0, .54);--mdc-checkbox-selected-focus-state-layer-color:#ff4081;--mdc-checkbox-selected-hover-state-layer-color:#ff4081;--mdc-checkbox-selected-pressed-state-layer-color:#ff4081;--mdc-checkbox-unselected-focus-state-layer-color:black;--mdc-checkbox-unselected-hover-state-layer-color:black;--mdc-checkbox-unselected-pressed-state-layer-color:black}html{--mdc-checkbox-state-layer-size:40px}html{--mat-table-background-color:white;--mat-table-header-headline-color:rgba(0, 0, 0, .87);--mat-table-row-item-label-text-color:rgba(0, 0, 0, .87);--mat-table-row-item-outline-color:rgba(0, 0, 0, .12)}html{--mat-table-header-container-height:56px;--mat-table-footer-container-height:52px;--mat-table-row-item-container-height:52px}html{--mat-table-header-headline-font:Roboto, sans-serif;--mat-table-header-headline-line-height:22px;--mat-table-header-headline-size:14px;--mat-table-header-headline-weight:500;--mat-table-header-headline-tracking:.0071428571em;--mat-table-row-item-label-text-font:Roboto, sans-serif;--mat-table-row-item-label-text-line-height:20px;--mat-table-row-item-label-text-size:14px;--mat-table-row-item-label-text-weight:400;--mat-table-row-item-label-text-tracking:.0178571429em;--mat-table-footer-supporting-text-font:Roboto, sans-serif;--mat-table-footer-supporting-text-line-height:20px;--mat-table-footer-supporting-text-size:14px;--mat-table-footer-supporting-text-weight:400;--mat-table-footer-supporting-text-tracking:.0178571429em}html{--mat-badge-background-color:#3f51b5;--mat-badge-text-color:white;--mat-badge-disabled-state-background-color:#b9b9b9;--mat-badge-disabled-state-text-color:rgba(0, 0, 0, .38)}html{--mat-badge-text-font:Roboto, sans-serif;--mat-badge-text-size:12px;--mat-badge-text-weight:600;--mat-badge-small-size-text-size:9px;--mat-badge-large-size-text-size:24px}html{--mat-bottom-sheet-container-text-color:rgba(0, 0, 0, .87);--mat-bottom-sheet-container-background-color:white}html{--mat-bottom-sheet-container-text-font:Roboto, sans-serif;--mat-bottom-sheet-container-text-line-height:20px;--mat-bottom-sheet-container-text-size:14px;--mat-bottom-sheet-container-text-tracking:.0178571429em;--mat-bottom-sheet-container-text-weight:400}html{--mat-legacy-button-toggle-text-color:rgba(0, 0, 0, .38);--mat-legacy-button-toggle-state-layer-color:rgba(0, 0, 0, .12);--mat-legacy-button-toggle-selected-state-text-color:rgba(0, 0, 0, .54);--mat-legacy-button-toggle-selected-state-background-color:#e0e0e0;--mat-legacy-button-toggle-disabled-state-text-color:rgba(0, 0, 0, .26);--mat-legacy-button-toggle-disabled-state-background-color:#eeeeee;--mat-legacy-button-toggle-disabled-selected-state-background-color:#bdbdbd;--mat-standard-button-toggle-text-color:rgba(0, 0, 0, .87);--mat-standard-button-toggle-background-color:white;--mat-standard-button-toggle-state-layer-color:black;--mat-standard-button-toggle-selected-state-background-color:#e0e0e0;--mat-standard-button-toggle-selected-state-text-color:rgba(0, 0, 0, .87);--mat-standard-button-toggle-disabled-state-text-color:rgba(0, 0, 0, .26);--mat-standard-button-toggle-disabled-state-background-color:white;--mat-standard-button-toggle-disabled-selected-state-text-color:rgba(0, 0, 0, .87);--mat-standard-button-toggle-disabled-selected-state-background-color:#bdbdbd;--mat-standard-button-toggle-divider-color:#e0e0e0}html{--mat-standard-button-toggle-height:48px}html{--mat-legacy-button-toggle-text-font:Roboto, sans-serif;--mat-standard-button-toggle-text-font:Roboto, sans-serif}html{--mat-datepicker-calendar-date-selected-state-text-color:white;--mat-datepicker-calendar-date-selected-state-background-color:#3f51b5;--mat-datepicker-calendar-date-selected-disabled-state-background-color:rgba(63, 81, 181, .4);--mat-datepicker-calendar-date-today-selected-state-outline-color:white;--mat-datepicker-calendar-date-focus-state-background-color:rgba(63, 81, 181, .3);--mat-datepicker-calendar-date-hover-state-background-color:rgba(63, 81, 181, .3);--mat-datepicker-toggle-active-state-icon-color:#3f51b5;--mat-datepicker-calendar-date-in-range-state-background-color:rgba(63, 81, 181, .2);--mat-datepicker-calendar-date-in-comparison-range-state-background-color:rgba(249, 171, 0, .2);--mat-datepicker-calendar-date-in-overlap-range-state-background-color:#a8dab5;--mat-datepicker-calendar-date-in-overlap-range-selected-state-background-color:#46a35e;--mat-datepicker-toggle-icon-color:rgba(0, 0, 0, .54);--mat-datepicker-calendar-body-label-text-color:rgba(0, 0, 0, .54);--mat-datepicker-calendar-period-button-icon-color:rgba(0, 0, 0, .54);--mat-datepicker-calendar-navigation-button-icon-color:rgba(0, 0, 0, .54);--mat-datepicker-calendar-header-divider-color:rgba(0, 0, 0, .12);--mat-datepicker-calendar-header-text-color:rgba(0, 0, 0, .54);--mat-datepicker-calendar-date-today-outline-color:rgba(0, 0, 0, .38);--mat-datepicker-calendar-date-today-disabled-state-outline-color:rgba(0, 0, 0, .18);--mat-datepicker-calendar-date-text-color:rgba(0, 0, 0, .87);--mat-datepicker-calendar-date-outline-color:transparent;--mat-datepicker-calendar-date-disabled-state-text-color:rgba(0, 0, 0, .38);--mat-datepicker-calendar-date-preview-state-outline-color:rgba(0, 0, 0, .24);--mat-datepicker-range-input-separator-color:rgba(0, 0, 0, .87);--mat-datepicker-range-input-disabled-state-separator-color:rgba(0, 0, 0, .38);--mat-datepicker-range-input-disabled-state-text-color:rgba(0, 0, 0, .38);--mat-datepicker-calendar-container-background-color:white;--mat-datepicker-calendar-container-text-color:rgba(0, 0, 0, .87)}html{--mat-datepicker-calendar-text-font:Roboto, sans-serif;--mat-datepicker-calendar-text-size:13px;--mat-datepicker-calendar-body-label-text-size:14px;--mat-datepicker-calendar-body-label-text-weight:500;--mat-datepicker-calendar-period-button-text-size:14px;--mat-datepicker-calendar-period-button-text-weight:500;--mat-datepicker-calendar-header-text-size:11px;--mat-datepicker-calendar-header-text-weight:400}html{--mat-divider-color:rgba(0, 0, 0, .12)}html{--mat-expansion-container-background-color:white;--mat-expansion-container-text-color:rgba(0, 0, 0, .87);--mat-expansion-actions-divider-color:rgba(0, 0, 0, .12);--mat-expansion-header-hover-state-layer-color:rgba(0, 0, 0, .04);--mat-expansion-header-focus-state-layer-color:rgba(0, 0, 0, .04);--mat-expansion-header-disabled-state-text-color:rgba(0, 0, 0, .26);--mat-expansion-header-text-color:rgba(0, 0, 0, .87);--mat-expansion-header-description-color:rgba(0, 0, 0, .54);--mat-expansion-header-indicator-color:rgba(0, 0, 0, .54)}html{--mat-expansion-header-collapsed-state-height:48px;--mat-expansion-header-expanded-state-height:64px}html{--mat-expansion-header-text-font:Roboto, sans-serif;--mat-expansion-header-text-size:14px;--mat-expansion-header-text-weight:500;--mat-expansion-header-text-line-height:inherit;--mat-expansion-header-text-tracking:inherit;--mat-expansion-container-text-font:Roboto, sans-serif;--mat-expansion-container-text-line-height:20px;--mat-expansion-container-text-size:14px;--mat-expansion-container-text-tracking:.0178571429em;--mat-expansion-container-text-weight:400}html{--mat-grid-list-tile-header-primary-text-size:14px;--mat-grid-list-tile-header-secondary-text-size:12px;--mat-grid-list-tile-footer-primary-text-size:14px;--mat-grid-list-tile-footer-secondary-text-size:12px}html{--mat-icon-color:inherit}html{--mat-sidenav-container-divider-color:rgba(0, 0, 0, .12);--mat-sidenav-container-background-color:white;--mat-sidenav-container-text-color:rgba(0, 0, 0, .87);--mat-sidenav-content-background-color:#fafafa;--mat-sidenav-content-text-color:rgba(0, 0, 0, .87);--mat-sidenav-scrim-color:rgba(0, 0, 0, .6)}html{--mat-stepper-header-icon-foreground-color:white;--mat-stepper-header-selected-state-icon-background-color:#3f51b5;--mat-stepper-header-selected-state-icon-foreground-color:white;--mat-stepper-header-done-state-icon-background-color:#3f51b5;--mat-stepper-header-done-state-icon-foreground-color:white;--mat-stepper-header-edit-state-icon-background-color:#3f51b5;--mat-stepper-header-edit-state-icon-foreground-color:white;--mat-stepper-container-color:white;--mat-stepper-line-color:rgba(0, 0, 0, .12);--mat-stepper-header-hover-state-layer-color:rgba(0, 0, 0, .04);--mat-stepper-header-focus-state-layer-color:rgba(0, 0, 0, .04);--mat-stepper-header-label-text-color:rgba(0, 0, 0, .54);--mat-stepper-header-optional-label-text-color:rgba(0, 0, 0, .54);--mat-stepper-header-selected-state-label-text-color:rgba(0, 0, 0, .87);--mat-stepper-header-error-state-label-text-color:#f44336;--mat-stepper-header-icon-background-color:rgba(0, 0, 0, .54);--mat-stepper-header-error-state-icon-foreground-color:#f44336;--mat-stepper-header-error-state-icon-background-color:transparent}html{--mat-stepper-header-height:72px}html{--mat-stepper-container-text-font:Roboto, sans-serif;--mat-stepper-header-label-text-font:Roboto, sans-serif;--mat-stepper-header-label-text-size:14px;--mat-stepper-header-label-text-weight:400;--mat-stepper-header-error-state-label-text-size:16px;--mat-stepper-header-selected-state-label-text-size:16px;--mat-stepper-header-selected-state-label-text-weight:400}html{--mat-toolbar-container-background-color:whitesmoke;--mat-toolbar-container-text-color:rgba(0, 0, 0, .87)}html{--mat-toolbar-standard-height:64px;--mat-toolbar-mobile-height:56px}html{--mat-toolbar-title-text-font:Roboto, sans-serif;--mat-toolbar-title-text-line-height:32px;--mat-toolbar-title-text-size:20px;--mat-toolbar-title-text-tracking:.0125em;--mat-toolbar-title-text-weight:500}body{background-image:url(/toolkit/src/assets/background.png);background-size:cover;width:100%;height:100%;overflow-x:auto;overflow:hidden}@media (max-width: 1000px){body{max-width:100%;overflow-x:scroll}}html,body{height:100%}body{margin:0;font-family:Roboto,Helvetica Neue,sans-serif;overflow-x:hidden}</style><link rel="stylesheet" href="styles.9fe87c582e2d0d99.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.9fe87c582e2d0d99.css"></noscript></head>  </td>
+                                        </tr></table></div> </div><div class="date">
+                        <h3 align="right"; margin-right: 20px; style="color:#00FF00;">Developed by:👽 Alien C00de  2024 ver: 1.0.0</h3>
+                        <div style="display: flex; justify-content: flex-end; align-items: center;">
+                            <i class="far fa-envelope"></i>
+                            <h3 align="right"; margin-right: 20px; style="color:#00FF00;">: alien.c00de@gmail.com</h3>
+                        </div>
+                        <div style="display: flex; justify-content: flex-end; align-items: center;">
+                            <i class="fab fa-github"></i>
+                            <h3 align="right"; margin-right: 20px; style="color:#00FF00;">: https://github.com/Alien-C00de</h3>
+                        </div>
+                    </div>
+                </body>
+            </html>

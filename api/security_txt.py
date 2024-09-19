@@ -75,6 +75,7 @@ class Security_TXT:
     async def __html_table(self, result):
 
         percentage = 0
+        print(len(result['fields']))
 
         if result:
             if result["isPresent"]:
@@ -103,8 +104,8 @@ class Security_TXT:
                             </tr>"""
                             + "".join(
                                         f"""<tr>
-                                            <td> {key} </td>
-                                            <td> {value}  </td>
+                                            <td> {str(key)} </td>
+                                            <td> {str(value[:100])}  </td>
                                         </tr>"""
                                         for key, value in result['fields'].items()
                                     )
