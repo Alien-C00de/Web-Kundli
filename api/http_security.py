@@ -61,7 +61,7 @@ class HTTP_Security:
                         <td>Date</td>
                         <td>""" + str(date) + """</td>
                     </tr>
-                    <tr">
+                    <tr>
                         <td>Content-Type</td>
                         <td>""" + str(content_type) + """</td>
                     </tr>

@@ -88,52 +88,68 @@ class Archive_History:
         }
 
     async def __html_table(self, data):
-        data[0].pop(0)
-        first_scan = await self.__convert_timestamp_to_date(data[0][0][0])
-        last_scan = await self.__convert_timestamp_to_date(data[-1][-1][0])
-        total_scans = len(data[0])
-        change_count = await self.__count_page_changes(data[0])
-        average_page_size = await self.__get_average_page_size(data[0])
-        scan_frequency = await self.__get_scan_frequency(first_scan, last_scan, total_scans, change_count)
-        
-        percentage = await self.__rating(first_scan, last_scan, total_scans, change_count, average_page_size, scan_frequency)
+        if data and not any(data):
+            percentage = 0
+            table = f"""<table>
+                        <tr>
+                            <td colspan="1">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: {str(percentage)}%;">{str(percentage)}%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>No Data Found</td>
+                        </tr>
+                    </table>"""
+            return table
+        else:
+            data[0].pop(0)
+            first_scan = await self.__convert_timestamp_to_date(data[0][0][0])
+            last_scan = await self.__convert_timestamp_to_date(data[-1][-1][0])
+            total_scans = len(data[0])
+            change_count = await self.__count_page_changes(data[0])
+            average_page_size = await self.__get_average_page_size(data[0])
+            scan_frequency = await self.__get_scan_frequency(first_scan, last_scan, total_scans, change_count)
+            
+            percentage = await self.__rating(first_scan, last_scan, total_scans, change_count, average_page_size, scan_frequency)
 
-        table = (
-            """<table>
-                    <tr>
-                        <td colspan="2">
-                            <div class="progress-bar-container">
-                                <div class="progress" style="width: """+ str(percentage) +"""%;">"""+ str(percentage) +"""%</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>First Scan</td>
-                        <td>""" + first_scan.strftime("%Y-%m-%d %H:%M:%S") + """</td>
-                    </tr>
-                    <tr>
-                        <td>Last Scan</td>
-                        <td>""" + last_scan.strftime("%Y-%m-%d %H:%M:%S") + """</td>
-                    </tr>
-                    <tr>
-                        <td>Last Scan</td>
-                    <td>""" + str(total_scans) + """</td>
-                    </tr>
-                    <tr>
-                        <td>Last Scan</td>
-                        <td>""" + str(change_count) + """</td>
-                    </tr>
-                    <tr>
-                        <td>Last Scan</td>
-                    <td>""" + str(average_page_size) + """</td>
-                    </tr>
-                    <tr>
-                        <td>Last Scan</td>
-                        <td>""" + str(scan_frequency) + """</td>
-                    </tr>
-                </table>"""
-        )
-        return table
+            table = (
+                """<table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: """+ str(percentage) +"""%;">"""+ str(percentage) +"""%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>First Scan</td>
+                            <td>""" + first_scan.strftime("%Y-%m-%d %H:%M:%S") + """</td>
+                        </tr>
+                        <tr>
+                            <td>Last Scan</td>
+                            <td>""" + last_scan.strftime("%Y-%m-%d %H:%M:%S") + """</td>
+                        </tr>
+                        <tr>
+                            <td>Last Scan</td>
+                        <td>""" + str(total_scans) + """</td>
+                        </tr>
+                        <tr>
+                            <td>Last Scan</td>
+                            <td>""" + str(change_count) + """</td>
+                        </tr>
+                        <tr>
+                            <td>Last Scan</td>
+                        <td>""" + str(average_page_size) + """</td>
+                        </tr>
+                        <tr>
+                            <td>Last Scan</td>
+                            <td>""" + str(scan_frequency) + """</td>
+                        </tr>
+                    </table>"""
+            )
+            return table            
 
     async def __rating(self, first_scan, last_scan, total_scans, change_count, average_page_size, scan_frequency):
         

@@ -128,7 +128,7 @@ class TLS_Cipher_Suit:
                         <td >""" + protocol + """</td>
                     </tr>
                     <tr>
-                        <td>Cipher Suite</span></strong></td>
+                        <td>Cipher Suite</td>
                         <td >""" + cipher + """</td>
                     </tr>
                     <tr>

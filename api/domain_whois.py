@@ -21,7 +21,10 @@ class Domain_Whois():
             # print("domain_whois.py: output: ")
             return output
         except Exception as ex:
-            error_msg = str(ex.args[0])
+            if len(ex.args) > 1 and ex.args[1]:
+                error_msg = str(ex.args[0]) + " : " + str(ex.args[1])
+            else:
+                error_msg = str(ex.args[0])
             msg = "[-] " + self.Error_Title + " => Get_Whois_Info : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return output

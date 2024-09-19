@@ -69,7 +69,7 @@ class Open_Ports():
                             </div>
                         </td>
                     </tr>
-                    <tr\>
+                    <tr>
                         <td>Domain Name</td>
                         <td>""" + str(domain) + """</td>
                     </tr>

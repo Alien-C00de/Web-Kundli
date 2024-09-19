@@ -157,7 +157,7 @@ class DNS_Records():
                         <td>""" + str(domain) + """</td>
                     </tr>
                     <tr>
-                        <td>A RECORD</span></strong></td>
+                        <td>A RECORD</td>
                         <td>""" + str(A_record) + """</td>
                     </tr>
                     <tr>

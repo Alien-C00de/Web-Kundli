@@ -37,7 +37,10 @@ class Threats:
             return output
 
         except Exception as ex:
-            error_msg = str(ex.args[0])
+            if len(ex.args) > 1 and ex.args[1]:
+                error_msg = str(ex.args[0]) + " : " + str(ex.args[1])
+            else:
+                error_msg = str(ex.args[0])
             msg = "[-] " + self.Error_Title + " => Get_Threats : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return output
@@ -54,30 +57,6 @@ class Threats:
     async def __html_table(self, decodedResponse):
 
         if decodedResponse is not None:
-
-            phishing = int(decodedResponse[0]["data"]["attributes"]["last_analysis_stats"]["suspicious"])
-            malware = int(decodedResponse[0]["data"]["attributes"]["last_analysis_stats"]["malicious"])
-
-            percentage = await self.__rating(phishing, malware)
-            table = f"""<table>
-                        <tr>
-                            <td colspan="2">
-                                <div class="progress-bar-container">
-                                    <div class="progress" style="width: {str(percentage)}%;">{str(percentage)}%</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Phishing Status</td>
-                            <td>{'✅ No Phishing Found' if phishing == 0 else '❌ Phishing'}</td>
-                        </tr>
-                        <tr>
-                            <td>Malware Status</td>
-                            <td>{'✅ No Malwares Found' if malware == 0 else '❌ Malware Found'}</td>
-                        </tr>
-                    </table>"""
-            return table
-        else:
             percentage = 0
             table = f"""<table>
                         <tr>
@@ -91,6 +70,33 @@ class Threats:
                             <td>No Data Found</td>
                         </tr>
                     </table>"""
+
+            if 'error' in decodedResponse[0]:
+                return table
+            else:
+                phishing = int(decodedResponse[0]["data"]["attributes"]["last_analysis_stats"]["suspicious"])
+                malware = int(decodedResponse[0]["data"]["attributes"]["last_analysis_stats"]["malicious"])
+
+                percentage = await self.__rating(phishing, malware)
+                table = f"""<table>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: {str(percentage)}%;">{str(percentage)}%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Phishing Status</td>
+                                <td>{'✅ No Phishing Found' if phishing == 0 else '❌ Phishing'}</td>
+                            </tr>
+                            <tr>
+                                <td>Malware Status</td>
+                                <td>{'✅ No Malwares Found' if malware == 0 else '❌ Malware Found'}</td>
+                            </tr>
+                        </table>"""
+                return table
+        else:
             return table
 
     async def __rating(self, phishing, malware):

@@ -80,7 +80,7 @@ class DNS_Security_Ext:
 
         rows = [
             f"""
-            <tr">
+            <tr>
                 <td>{dns_type}</td>
                 <td>
                     <strong><span>{'✅ Yes' if record['isFound'] else '❌ No'}</span></strong><br>
