@@ -73,10 +73,7 @@ class Security_TXT:
         return str(htmlValue)
 
     async def __html_table(self, result):
-
         percentage = 0
-        print(len(result['fields']))
-
         if result:
             if result["isPresent"]:
                 file_location = result["foundIn"]
