@@ -195,8 +195,9 @@ class engine():
                                 ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info, 
                                 tech_stack_info, firewall_info, social_tags_info, threats_info, global_ranking_info, security_txt_info, nmap_info):
         try:
+            domain = urlparse(self.url).netloc
             config = Configuration()
-            html_repo = HTML_Report()
+            html_repo = HTML_Report(domain)
             await html_repo.outputHTML(self.url, server_location, SSL_Cert, Whois, ser_info, HTTP_Sec, headers, cookies, dns_server_info, 
                                        tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record,
                                        ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info,

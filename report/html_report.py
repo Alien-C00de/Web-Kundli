@@ -6,8 +6,8 @@ from colorama import Back, Fore, Style
 from util.config_uti import Configuration
 
 class HTML_Report:
-    def __init__(self) -> None:
-        pass
+    def __init__(self, domain):
+        self.domain = domain
 
     async def check_dir(self, path):
         if not os.path.exists(path):
@@ -404,8 +404,8 @@ class HTML_Report:
 
         # create and open the new WebKundli.html file
         # timestamp = int(datetime.datetime.now().timestamp())
-        timestamp  =  datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        file_name_html = "%s_%s.html" % (config.REPORT_FILE_NAME.replace("/", "_"), timestamp)
+        timestamp  =  datetime.datetime.now().strftime("%d%b%Y_%H:%M:%S")
+        file_name_html = "%s_%s_%s.html" % (config.REPORT_FILE_NAME.replace("/", "_"), self.domain, timestamp)
 
         await self.__create_dirs("output")
 
