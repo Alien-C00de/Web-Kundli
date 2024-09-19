@@ -404,7 +404,7 @@ class HTML_Report:
 
         # create and open the new WebKundli.html file
         # timestamp = int(datetime.datetime.now().timestamp())
-        timestamp  =  datetime.datetime.now().strftime("%d%b%Y_%H:%M:%S")
+        timestamp  =  datetime.datetime.now().strftime("%d%b%Y_%H-%M-%S")
         file_name_html = "%s_%s_%s.html" % (config.REPORT_FILE_NAME.replace("/", "_"), self.domain, timestamp)
 
         await self.__create_dirs("output")
