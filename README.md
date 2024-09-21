@@ -3,10 +3,11 @@
 Explore the internal mechanisms of a website: identify possible vulnerabilities, examine server setup, review security settings, and discover the technologies in use.
 
 ## Features
-- Based on the details of each module, it calculates the percentage for that module and then determines the overall performance percentage across all modules. This data is used to display **Website Health** accordingly.
-- The **NMAP scan feature** is also available. Reports can be generated with or without the NMAP scan to avoid network scanning.
-- It supports **asynchronous programming**, allowing modules to run in parallel and achieve faster results.
-- At present, the dashboard **supports 30 modules**. More features will be added soon!
+- This Tool is developed in **Python programming**.
+- Developed using **asynchronous programming**, allowing modules to run in parallel and achieve faster results.
+- The **NMAP scan feature** is also available. Reports can be generated with or without the NMAP scan.
+- Based on the output of each module, it calculates the percentage for that module and then calculate the overall performance across all modules. This data is used to **display Website Health**.
+- At present, the HTML report dashboard **supports 30 modules**. More features will be added soon!
   
   `1. SSL certificates`
   `2. DNS Records`
@@ -60,24 +61,24 @@ Install the required Python libraries:
 
 Execute the tool using the following commands:
 
-- For a single website **WithOut Nmap** details search:
+- **WithOut Nmap** details search:
     ```bash
     python main.py -s https://google.com
     ```
-- For a single website **With Nmap** details search:
+- **With Nmap** details search:
     ```bash
     python main.py -sn https://google.com
     ```
 
 ## Files
 
-- `./config/conftg.ini`: This file contains API keys and URL links. Please obtain your API key to run the program.
+- `./config/config.ini`: This file contains API keys and URL links. Please obtain your API key to run the program.
 
 ## Report Files
 
 HTML report files are located under the `./output` directory:
 
-`e.g. Web_kundli_2024-09-15_14-41-32.html`
+`e.g. WebKundli_google.com_21Sep2024_12-13-55`
 
 ## Image
 - **Input Screen:**
