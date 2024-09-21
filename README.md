@@ -1,4 +1,4 @@
-# Web Kundli - A Python Tool
+# Web Kundli - A Python Based Tool
 
 Explore the internal mechanisms of a website: identify possible vulnerabilities, examine server setup, review security settings, and discover the technologies in use.
 
