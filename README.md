@@ -82,8 +82,8 @@ HTML report files are located under the `./output` directory:
 
 ## Image
 - **Input Screen:**
-  
-![Screenshot from 2024-09-15 15-37-05](https://github.com/user-attachments/assets/5937972c-7985-436d-b07f-6125a0b42781)
+
+![Screenshot from 2024-09-22 11-24-16](https://github.com/user-attachments/assets/b7587bb8-6e4d-425d-a599-25b5e2850a93)
 
 - **Output HTML Report Screenshot:**
   
