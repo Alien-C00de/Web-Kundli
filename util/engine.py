@@ -8,7 +8,6 @@ from util.URL_Verifier import URL_Verifier
 from api.server_location import Server_Location 
 from api.ssl_certificate import SSL_Certificate
 from api.domain_whois import Domain_Whois
-from api.server_info import Server_Info
 from api.cookies import Cookies
 from api.http_security import HTTP_Security
 from api.dns_server import DNS_Server
@@ -66,7 +65,6 @@ class engine():
         ser_loc = Server_Location(self.ip_address)
         ssl_cert = SSL_Certificate(self.url)
         whois_info = Domain_Whois(self.url)
-        ser_info = Server_Info(self.ip_address, self.url)
         http_sec = HTTP_Security(self.url, response)
         cookies_info = Cookies(self.url, response)
         dns_Server = DNS_Server(self.ip_address, self.url)
@@ -92,10 +90,9 @@ class engine():
         security_txt = Security_TXT(self.url)
         nmap_scan = NMap_Scan(self.ip_address, self.url)
 
-        Server_location = ""
+        Server_location = []
         SSL_Cert = ""
         Whois = ""
-        Server_INFO = ""
         Header = []
         cookie = ""
         dns_server_info = ""
@@ -123,7 +120,7 @@ class engine():
 
         try:
             tasks = [ ser_loc.Get_Server_Location(), ssl_cert.Get_SSL_Certificate(), whois_info.Get_Whois_Info(),
-                    ser_info.Get_Server_Info(), http_sec.Get_HTTP_Security(), cookies_info.Get_Cookies(), dns_Server.Get_DNS_Server(),
+                    http_sec.Get_HTTP_Security(), cookies_info.Get_Cookies(), dns_Server.Get_DNS_Server(),
                     tls_data.Get_TLS_Cipher_Suit(), dns_record_info.Get_DNS_Records(), txt_record.Get_TXT_Records(),
                     server_status.Get_Server_Status(), mail_config.Get_Mail_Records(), redirect_Record.Get_Redirect_Chain(),
                     ports.Get_Open_Ports(), archive.Get_Archive_History(), associated_host.Get_Associated_Hosts(),
@@ -140,19 +137,19 @@ class engine():
             
             results = await asyncio.gather(*tasks)
 
-            (Server_location, SSL_Cert, Whois, Server_INFO, Header, cookie, dns_server_info, tls_cipher_suite, dns_info, txt_info, 
+            (Server_location, SSL_Cert, Whois, Header, cookie, dns_server_info, tls_cipher_suite, dns_info, txt_info, 
             server_status_info, mail_config_info, redirect_info, port_info, archive_info, associated_info, block_info, carbon_info, 
             crawl_info, site_info, dns_sec_info, tech_stack_info, firewall_info, social_tags_info, threats_info, 
-            global_ranking_info, security_txt_info) = results[:27]
+            global_ranking_info, security_txt_info) = results[:26]
             if self.isNmap:
-                nmap_info = results[27]
+                nmap_info = results[26]
             else:
                 nmap_info = None
             
-            tb1 = str(Server_location)
+            tb1 = str(Server_location[0])
             tb2 = str(SSL_Cert)
             tb3 = str(Whois)
-            tb4 = str(Server_INFO)
+            tb4 = str(Server_location[1])
             tb5 = str(Header[0])
             tb6 = str(Header[1])
             tb7 = str(cookie)

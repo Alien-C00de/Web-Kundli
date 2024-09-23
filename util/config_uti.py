@@ -55,10 +55,6 @@ class Configuration:
     IPAPI_IO_ENDPOINT_URL = config['IPAPI.IO']['ENDPOINT_URL'] 
     IPAPI_IO_REPORT_SUB_TITLE = config['IPAPI.IO']['REPORT_SUB_TITLE']
 
-    'SHODAN' in config
-    SHODAN_ENDPOINT_URL = config['SHODAN']['ENDPOINT_URL']
-    SHODAN_API_KEY = config['SHODAN']['API_KEY']
-
     "ARCHIVE.ORG" in config
     ARCHIVE_ENDPOINT_URL = config["ARCHIVE.ORG"]["ENDPOINT_URL"]
 
