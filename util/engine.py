@@ -119,7 +119,7 @@ class engine():
         nmap_info = []
 
         try:
-            tasks = [ ser_loc.Get_Server_Location(), ssl_cert.Get_SSL_Certificate(), whois_info.Get_Whois_Info(),
+            tasks = [ser_loc.Get_Server_Location(), ssl_cert.Get_SSL_Certificate(), whois_info.Get_Whois_Info(),
                     http_sec.Get_HTTP_Security(), cookies_info.Get_Cookies(), dns_Server.Get_DNS_Server(),
                     tls_data.Get_TLS_Cipher_Suit(), dns_record_info.Get_DNS_Records(), txt_record.Get_TXT_Records(),
                     server_status.Get_Server_Status(), mail_config.Get_Mail_Records(), redirect_Record.Get_Redirect_Chain(),
