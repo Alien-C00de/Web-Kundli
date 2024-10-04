@@ -243,7 +243,7 @@ class HTML_Report:
         <body>
             <div class="header">
                 <h1>
-                    <i class="fas fa-user-secret" icon-color></i> Web Kundli
+                    <i class="fas fa-user-secret" icon-color></i> """ + config.REPORT_HEADER + """
                 </h1>
                 <h2 align="right"; margin-right: 40px; style="color:#a6e22e;">""" + website + """</h2>
             </div>
@@ -389,7 +389,7 @@ class HTML_Report:
 
         # save html closing </ body> and </ html> tags to a variable named "footer"
         footer = ("""<div class="date">
-                        <h3 align="right"; margin-right: 20px; style="color:#00FF00;">Developed by:👽 """ + config.AUTHOR + """  """ + config.YEAR + """ ver: """ + config.VERSION +  """</h3>
+                        <h3 align="right"; margin-right: 20px; style="color:#00FF00;">Developed by: 👽 """ + config.AUTHOR + """  """ + config.YEAR + """ ver: """ + config.VERSION +  """</h3>
                         <div style="display: flex; justify-content: flex-end; align-items: center;">
                             <i class="far fa-envelope"></i>
                             <h3 align="right"; margin-right: 20px; style="color:#00FF00;">: """ + config.EMAIL + """</h3>

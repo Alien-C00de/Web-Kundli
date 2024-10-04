@@ -9,6 +9,7 @@ class Configuration:
     config.read(config_path)
 
     "General" in config
+    PROJECT_NAME = config["General"]["PROJECT_NAME"]
     VERSION = config["General"]["VERSION"]
     AUTHOR = config["General"]["AUTHOR"]
     YEAR = config["General"]["YEAR"]

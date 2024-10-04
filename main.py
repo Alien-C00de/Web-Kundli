@@ -2,10 +2,10 @@ import argparse
 import asyncio
 import os
 from time import perf_counter
-from configparser import ConfigParser
 from util.config_uti import Configuration
 from colorama import Fore, Style
 from util import engine
+import pyfiglet 
 
 # Main function to execute the code
 async def Main():
@@ -25,14 +25,17 @@ async def Main():
         os.system('cls')
     else:
         os.system('clear')
+    
+    Terminal_header = pyfiglet.figlet_format(config.PROJECT_NAME, font="ogre")
+    print(Fore.CYAN + Style.BRIGHT + Terminal_header + Fore.RESET + Style.RESET_ALL)
 
-    print(Fore.CYAN + Style.BRIGHT + f"""\n
-     __    __       _                                _  _  _  
-    / / /\ \ \ ___ | |__     /\ /\ _   _  _ __    __| || |(_) 
-    \ \/  \/ // _ \| '_ \   / //_/| | | || '_ \  / _` || || | 
-     \  /\  /|  __/| |_) | / __ \ | |_| || | | || (_| || || | 
-      \/  \/  \___||_.__/  \/  \/  \__,_||_| |_| \__,_||_||_| 
-    \n""" + Fore.RESET + Style.RESET_ALL)
+    # print(Fore.CYAN + Style.BRIGHT + f"""\n
+    #  __    __       _                                _  _  _  
+    # / / /\ \ \ ___ | |__     /\ /\ _   _  _ __    __| || |(_) 
+    # \ \/  \/ // _ \| '_ \   / //_/| | | || '_ \  / _` || || | 
+    #  \  /\  /|  __/| |_) | / __ \ | |_| || | | || (_| || || | 
+    #   \/  \/  \___||_.__/  \/  \/  \__,_||_| |_| \__,_||_||_| 
+    # \n""" + Fore.RESET + Style.RESET_ALL)
 
     try:
         if args.Single_Site:
@@ -82,7 +85,7 @@ async def Main():
         
     print(Fore.BLUE + Style.BRIGHT + f"[*] Total Time Taken: {round(perf_counter() - start_time, 2)} Seconds.", flush=True)
     print(Style.RESET_ALL)
-    print(Fore.YELLOW + f"[!] Developed By:👽 {config.AUTHOR} {config.YEAR } Ver: {config.VERSION}", flush=True)
+    print(Fore.YELLOW + f"[!] Developed By: 👽 {config.AUTHOR} {config.YEAR } Ver: {config.VERSION}", flush=True)
     print(Fore.YELLOW + f"[!] 📩: {config.EMAIL} ", flush=True)
     print(Fore.YELLOW + f"[!] 🔗: {config.GITHUB}", flush=True)
     print(Style.RESET_ALL)
