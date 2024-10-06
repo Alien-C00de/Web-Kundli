@@ -88,12 +88,12 @@ HTML report files are located under the `./output` directory:
 
 ## Image
 - **Input Screen:**
-
-![Screenshot from 2024-09-22 11-24-16](https://github.com/user-attachments/assets/b7587bb8-6e4d-425d-a599-25b5e2850a93)
+  
+![Screenshot from 2024-10-06 19-34-52](https://github.com/user-attachments/assets/70f37846-0d32-4121-b103-480caa739c4c)
 
 - **Output HTML Report Screenshot:**
   
-![Report](https://github.com/user-attachments/assets/d7b00878-39e6-4d1c-80f2-aadb342cd019)
+![Screenshot from 2024-10-06 19-35-29](https://github.com/user-attachments/assets/e5ec573c-5b37-48d0-bd33-e6c2729f1d68)
 
 - **Report with NMAP Result**
 
