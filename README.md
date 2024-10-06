@@ -1,6 +1,9 @@
-# Web Kundli - A Python Based Tool
+# Web Kundli - Unveil the Secrets of the Website!
 
-Explore the internal mechanisms of a website: identify possible vulnerabilities, examine server setup, review security settings, and discover the technologies in use.
+### Unveil the Secrets of Your Website: Secure, Analyze, Optimize.
+- Web Kundli is a comprehensive tool designed to uncover details about a website.
+- The main idea is straightforward: provide URL to the tool, and it will collect, organize, and display a wide range of open data for you to explore.
+- This data helps identify potential vulnerabilities in the website and help optimizing its configurations. Further fine-tuning reduces the website’s potential risks.
 
 ## Features
 - This Tool is developed in **Python programming**.
@@ -41,7 +44,7 @@ Explore the internal mechanisms of a website: identify possible vulnerabilities,
   `30. Nmap_Scan Version Result`      
 
 ## Installation
-To install and run the Auto IP Reputation Tool, follow these steps:
+To install and run the Web Kundli Tool, follow these steps:
 
 Install the required Python libraries:
 1. `pip install python-whois`
@@ -55,17 +58,19 @@ Install the required Python libraries:
 9. `pip install beautifulsoup4`
 10. `pip install pybase64`
 11. `pip install tldextract`
-12. `pip install python3-nmap - Ensure that the nmap software is installed on your machine.`
+12. `pip install pyfiglet`
+13. `pip install python3-nmap - Ensure that the nmap software is installed on your machine.`
 
 ## Usage
+The tool is a command-line utility compatible with Windows and Linux OS.
 
 Execute the tool using the following commands:
 
-- **WithOut Nmap** details search:
+- **Without Nmap**:
     ```bash
     python main.py -s https://google.com
     ```
-- **With Nmap** details search:
+- **With Nmap**:
     ```bash
     python main.py -sn https://google.com
     ```
@@ -78,7 +83,7 @@ Execute the tool using the following commands:
 
 HTML report files are located under the `./output` directory:
 
-`e.g. WebKundli_google.com_21Sep2024_12-13-55`
+`e.g. WebKundli_google.com_21Sep2024_12-13-55.html`
 
 ## Image
 - **Input Screen:**

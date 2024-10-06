@@ -51,6 +51,7 @@ class Configuration:
     REPORT_HEADER = config['Report']['REPORT_HEADER']
     REPORT_SUB_TITLE = config['Report']['REPORT_SUB_TITLE']
     REPORT_FILE_NAME = config['Report']['REPORT_FILE_NAME']
+    REPORT_FOOTER = config['Report']['REPORT_FOOTER']
 
     'IPAPI.IO' in config
     IPAPI_IO_ENDPOINT_URL = config['IPAPI.IO']['ENDPOINT_URL'] 

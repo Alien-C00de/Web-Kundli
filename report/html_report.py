@@ -416,7 +416,8 @@ class HTML_Report:
             f.write(body)
             # for x in self.__html:
             #     f.write(x)
-            f.write(footer)
+            if config.REPORT_FOOTER.upper() == "YES":
+                f.write(footer)
 
         if os.name == "nt":
             filenameH = file_name_html.partition("./output\\")[-1]

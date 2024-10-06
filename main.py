@@ -85,10 +85,11 @@ async def Main():
         
     print(Fore.BLUE + Style.BRIGHT + f"[*] Total Time Taken: {round(perf_counter() - start_time, 2)} Seconds.", flush=True)
     print(Style.RESET_ALL)
-    print(Fore.YELLOW + f"[!] Developed By 👽: {config.AUTHOR} {config.YEAR } Ver: {config.VERSION}", flush=True)
-    print(Fore.YELLOW + f"[!] 📩: {config.EMAIL} ", flush=True)
-    print(Fore.YELLOW + f"[!] 🔗: {config.GITHUB}", flush=True)
-    print(Style.RESET_ALL)
+    if config.REPORT_FOOTER.upper() == "YES":
+        print(Fore.YELLOW + f"[!] Developed By 👽: {config.AUTHOR} {config.YEAR } Ver: {config.VERSION}", flush=True)
+        print(Fore.YELLOW + f"[!] 📩: {config.EMAIL} ", flush=True)
+        print(Fore.YELLOW + f"[!] 🔗: {config.GITHUB}", flush=True)
+        print(Style.RESET_ALL)
 
 if __name__ == '__main__':
     asyncio.run(Main())
