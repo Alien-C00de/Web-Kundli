@@ -62,7 +62,8 @@ Install the required Python libraries:
 13. `pip install python3-nmap - Ensure that the nmap software is installed on your machine.`
 
 ## Usage
-#### The tool is a command-line utility compatible with Windows and Linux OS.
+
+### The tool is a command-line utility compatible with Windows and Linux OS.
 
 Execute the tool using the following commands:
 
