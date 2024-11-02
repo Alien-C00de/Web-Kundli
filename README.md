@@ -59,7 +59,8 @@ Install the required Python libraries:
 10. `pip install pybase64`
 11. `pip install tldextract`
 12. `pip install pyfiglet`
-13. `pip install python3-nmap - Ensure that the nmap software is installed on your machine.`
+13. `pip install pyOpenSSL`
+14. `pip install python3-nmap - Ensure that the nmap software is installed on your machine.`
 
 ## Usage
 
