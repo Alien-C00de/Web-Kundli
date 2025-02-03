@@ -26,7 +26,7 @@ async def Main():
     else:
         os.system('clear')
     
-    Terminal_header = pyfiglet.figlet_format(config.PROJECT_NAME, font="ogre")
+    Terminal_header = pyfiglet.figlet_format(config.TOOL_NAME, font="ogre")
     print(Fore.CYAN + Style.BRIGHT + Terminal_header + Fore.RESET + Style.RESET_ALL)
 
     # print(Fore.CYAN + Style.BRIGHT + f"""\n
@@ -74,8 +74,9 @@ async def Main():
             print(Fore.GREEN + Style.BRIGHT + f"[*] Check the version - python main.py -v\n")
             
         elif args.version:
-            print(Fore.BLUE + Style.BRIGHT + f"[*] A Python Tool To Retrieve All The Website dDetails.\n[*] Version: 1.0\n")
-            print(Fore.YELLOW + Style.BRIGHT + f"[#] Author - Alien.C00de\n")
+            print(Fore.GREEN + Style.BRIGHT + f"[*] {config.TOOL_NAME}  Version: " + config.VERSION + "\n")
+            # print(Fore.BLUE + Style.BRIGHT + f"[*] A Python Tool To Retrieve All The Website dDetails.\n[*] Version: 1.0\n")
+            print(Fore.YELLOW + Style.BRIGHT + f"[#] Author - " + config.AUTHOR +"\n")
         else:
             print("usage: python main.py [-S For_Single_Website -m Multi_Website] [-v VERSION] [-h HELP]") 
     except Exception as ex:
@@ -86,7 +87,7 @@ async def Main():
     print(Fore.BLUE + Style.BRIGHT + f"[*] Total Time Taken: {round(perf_counter() - start_time, 2)} Seconds.", flush=True)
     print(Style.RESET_ALL)
     if config.REPORT_FOOTER.upper() == "YES":
-        print(Fore.YELLOW + f"[!] Developed By 👽: {config.AUTHOR} {config.YEAR } Ver: {config.VERSION}", flush=True)
+        print(Fore.YELLOW + f"[!] Developed By 👽: {config.AUTHOR} Ver: {config.VERSION} © {config.YEAR }", flush=True)
         print(Fore.YELLOW + f"[!] 📩: {config.EMAIL} ", flush=True)
         print(Fore.YELLOW + f"[!] 🔗: {config.GITHUB}", flush=True)
         print(Style.RESET_ALL)
