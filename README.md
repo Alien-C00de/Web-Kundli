@@ -10,7 +10,7 @@
 - Developed using **asynchronous programming**, allowing modules to run in parallel and achieve faster results.
 - The **NMAP scan feature** is also available. Reports can be generated with or without the NMAP scan.
 - Based on the output of each module, it calculates the percentage for that module and then calculate the overall performance across all modules. This data is used to **display Website Health**.
-- At present, the HTML report dashboard **supports 30 modules**. More features will be added soon!
+- At present, the HTML report dashboard **supports 30 modules**. More features will be added soon! 
   
   `1. SSL certificates`
   `2. DNS Records`
