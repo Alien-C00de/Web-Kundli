@@ -92,294 +92,287 @@ class HTML_Report:
                          tech_stack_info, firewall_info, social_tag_info, threats_info, global_ranking_info, security_txt_info)
         header = (
             """<!DOCTYPE html>
-        <html lang="en">
-        <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>
-        Web Kundli
-        </title>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
-        <style>
-        body {
-                    background-color: #1e1e1e;
-                    color: #d4d4d4;
-                    font-family: 'Courier New', Courier, monospace;
-                    margin: 0;
-                    padding: 0;
-                }
-                .header {
-                    background-color: #333;
-                    padding: 10px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    margin-right: 20px;
-                    margin-left: 20px;
-                }
-                .header h1 {
-                    color: #FFA500;
-                    margin: 0;
-                    font-size: 3em;
-                }
-                .header h2 {
-                    color: #FFA500;
-                    margin: 0;
-                    font-size: 1.5em;
-                }
-                .header h3 {
-                    color: #FFA500;
-                    margin: 0;
-                    font-size: 1em;
-                }
-                .ranking-container {
-                    background-color: #333;
-                    display: flex;
-                    align-items: center; /* Vertically align items */
-                    justify-content: space-between; /* Space between header and progress bar */
-                    margin-right: 20px;
-                    margin-left: 20px;
-                }
-                .ranking-container h1 {
-                    margin: 20px;
-                    padding: 10px;
-                    color: #00FF00;
-                }
-                .progress-bar-container {
-                    flex: 1; /* Allow progress bar to take available space */
-                    background-color: #A9A9A9;
-                    border-radius: 4px;
-                    margin-left: 20px; /* Space between header and progress bar */
-                    margin-right: 20px;
-                    overflow: hidden;
-                }
-                .progress-bar {
-                    height: 40px;
-                    color: #FFFF00;
-                    text-align: center;
-                    line-height: 40px;
-                    border-radius: 4px;
-                    background-color: #8F00FF;  /* #76c7c0 Default color, adjust as needed */
-                    transition: width 0.5s, background-color 0.5s;
-                    font-size: 20px; /* Adjust font size as needed */
-                    font-weight: bold; /* Makes the percentage text bold */
-                }
-                .progress {
-                    height: 20px;
-                    color: red;
-                    text-align: center;
-                    line-height: 20px;
-                    border-radius: 4px;
-                    background-color: #FFFF00; /* #76c7c0 Default color, adjust as needed */
-                    transition: width 0.5s, background-color 0.5s;
-                    font-size: 16px; /* Adjust font size as needed */
-                    font-weight: bold; /* Makes the percentage text bold */
-                }
-                .date {
-                    padding: 5px;
-                    margin-right: 30px;
-                }
-                .date h3 {
-                    color: #FFA500;
-                    margin: 0;
-                    font-size: 1em;
-                }
-                .content {
-                    display: flex;
-                    flex-wrap: wrap;
-                    padding: 10px;
-                }
-                .card {
-                    background-color: #2d2d2d;
-                    margin: 10px;
-                    padding: 10px;
-                    flex: 1;
-                    min-width: 300px;
-                    max-width: 100%;
-                    border-radius: 5px;
-                    position: relative;
-                    overflow: auto;
-                    height: 450px; 
-                    word-wrap: break-word;
-                }
-                .card h2 {
-                    color: #FFA500;
-                    margin-top: 0;
-                }
-                .card .refresh {
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    color: #d4d4d4;
-                    cursor: pointer;
-                }
-                .card table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    table-layout: fixed;
-                }
-                .card table td {
-                    padding: 5px;
-                    border-bottom: 1px solid #444;
-                    text-overflow: ellipsis; 
-                    overflow: hidden;
-                    word-wrap: break-word;
-                }
-                .card table td:last-child {
-                    text-align: right;
-                }
-                .card .map {
-                    width: 100%;
-                    height: 100px;
-                    background: url('https://placehold.co/300x200') no-repeat center center;
-                    background-size: cover;
-                 .icon-color {
-                        color: #F0F8FF;
+            <html lang="en">
+            <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title> """
+            + config.TOOL_NAME
+            + """ </title>
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+            <style>
+                    body {
+                        background-color: #1e1e1e;
+                        color: #d4d4d4;
+                        font-family: 'Cascadia Mono', 'Courier New', Courier, monospace;
+                        margin: 0;
+                        padding: 0;
                     }
-                }
-        </style>
-        </head>
-        <body>
-            <div class="header">
-                <h1>
-                    <i class="fas fa-user-secret" icon-color></i> """ + config.REPORT_HEADER + """
-                </h1>
-                <h2 align="right"; margin-right: 40px; style="color:#a6e22e;">""" + website + """</h2>
-            </div>
-            <div class="date">
-                <h3 align="right"; margin-right: 20px; style="color:blue;">""" + report_timestamp + """</h3>
-            </div>
-            <div class="ranking-container">
-                <h1>Website Health <i class="fas fa-heartbeat"></i></h1>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: """ + str(percent) + """%;">""" + str(percent) + """%</div>
+                    .header {
+                        background-color: #333;
+                        padding: 10px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-right: 20px;
+                        margin-left: 20px;
+                    }
+                    .header h1 {
+                        color: #FFA500;
+                        margin: 0;
+                        font-size: 2.5em;
+                    }
+                    .header h2 {
+                        color: #FFA500;
+                        margin: 0;
+                        font-size: 1.5em;
+                    }
+                    .header h3 {
+                        color: #FFA500;
+                        margin: 0;
+                        font-size: 1em;
+                    }
+                    .ranking-container {
+                        background-color: #333;
+                        display: flex;
+                        align-items: center; /* Vertically align items */
+                        justify-content: space-between; /* Space between header and progress bar */
+                        margin-right: 20px;
+                        margin-left: 20px;
+                    }
+                    .ranking-container h1 {
+                        margin: 20px;
+                        padding: 5px;
+                        color: #00FF00;
+                    }
+                    .progress-bar-container {
+                        flex: 1; /* Allow progress bar to take available space */
+                        background-color: #A9A9A9;
+                        border-radius: 4px;
+                        margin-left: 20px; /* Space between header and progress bar */
+                        margin-right: 20px;
+                        overflow: hidden;
+                    }
+                    .progress-bar {
+                        height: 30px;
+                        color: #FFFF00;
+                        text-align: center;
+                        line-height: 30px;
+                        border-radius: 3px;
+                        background-color: #8F00FF;  /* #76c7c0 Default color, adjust as needed */
+                        transition: width 0.5s, background-color 0.5s;
+                        font-size: 20px; /* Adjust font size as needed */
+                        font-weight: bold; /* Makes the percentage text bold */
+                    }
+                    .progress {
+                        height: 20px;
+                        color: red;
+                        text-align: center;
+                        line-height: 20px;
+                        border-radius: 4px;
+                        background-color: #FFFF00; /* #76c7c0 Default color, adjust as needed */
+                        transition: width 0.5s, background-color 0.5s;
+                        font-size: 16px; /* Adjust font size as needed */
+                        font-weight: bold; /* Makes the percentage text bold */
+                    }
+                    .date {
+                        padding: 5px;
+                        margin-right: 30px;
+                    }
+                    .date h3 {
+                        color: #FFA500;
+                        margin: 0;
+                        font-size: 1em;
+                    }
+                    .content h4 {
+                        margin: 0;
+                        font-size: 0.9em;
+                    }
+                    .content {
+                        display: flex;
+                        flex-wrap: wrap;
+                        padding: 10px;
+                    }
+                    .card {
+                        background-color: #2d2d2d;
+                        margin: 10px;
+                        padding: 10px;
+                        flex: 1;
+                        min-width: 300px;
+                        max-width: 100%;
+                        border-radius: 5px;
+                        position: relative;
+                        overflow: auto;
+                        height: 450px; 
+                        word-wrap: break-word;
+                    }
+                    .card h2 {
+                        color: #FFA500;
+                        margin-top: 0;
+                    }
+                    .card h3 {
+                        color: #FFA500;
+                        margin-top: 0;
+                        font-size: 1em;
+                    }
+                    .card flag-icon {
+                        font-size: 10px; /* Size the flag */
+                    }
+                    .card .refresh {
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        color: #d4d4d4;
+                        cursor: pointer;
+                    }
+                    .card table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        table-layout: fixed;
+                    }
+                    .card table td {
+                        padding: 5px;
+                        border-bottom: 1px solid #444;
+                        text-overflow: ellipsis; 
+                        overflow: hidden;
+                        word-wrap: break-word;
+                    }
+                    .card table td:last-child {
+                        text-align: right;
+                    }
+                    .card .map {
+                        width: 100%;
+                        height: 100px;
+                        background: url('https://placehold.co/300x200') no-repeat center center;
+                        background-size: cover;
+                    .icon-color {
+                            color: #F0F8FF;
+                        }
+                    }
+            </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h1> <i class="fas fa-user-secret" icon-color></i> """
+            + config.REPORT_HEADER
+            + """ </h1>
+                    <h2 align="right"; margin-right: 40px; style="color:#a6e22e;">"""
+            + website
+            + """</h2>
                 </div>
-            </div>"""
+                <div class="date">
+                    <h3 align="right"; margin-right: 20px; style="color:blue;">"""
+            + report_timestamp
+            + """</h3>
+                </div>
+                <div class="ranking-container">
+                    <h1>Website Health <i class="fas fa-heartbeat"></i></h1>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: """
+            + str(percent)
+            + """%;">"""
+            + str(percent)
+            + """%</div>
+                    </div>
+                </div>"""
         )
         body = (
             """<div class="content">
                 <div class="card">
-                    <h2> Server Location </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + Server_Location +
-                """</div>
+                    <h2> """ + config.MODULE_SERVER_LOCATION + """ </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + Server_Location + """</h4> </div>
                 <div class="card">
-                    <h2> SSL Certificate </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + SSL_Cert +
-                """</div>
+                    <h2> """ + config.MODULE_SSL_CERTIFICATE + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + SSL_Cert + """</h4> </div>
                 <div class="card">
-                    <h2> Domain Whois </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + Whois +
-                """</div>
+                    <h2> """ + config.MODULE_DOMAIN_WHOIS + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + Whois + """</h4> </div>
                 <div class="card">
-                    <h2> Server Info </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + ser_info +
-                """</div>
+                    <h2> """ + config.MODULE_SERVER_INFO + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + ser_info + """</h4> </div>
                 <div class="card">
-                    <h2> Headers </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + headers +
-                """</div>
+                    <h2> """ + config.MODULE_HEADERS + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + headers + """</h4> </div>
                 <div class="card">
-                    <h2> Cookies </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + cookies + 
-                """</div>
+                    <h2> """ + config.MODULE_COOKIES + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + cookies + """</h4> </div>
                 <div class="card">
-                    <h2> HTTP Security </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>"""  + HTTP_sec +
-                """</div>
+                    <h2> """ + config.MODULE_HTTP_SECURITY + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>"""  + HTTP_sec + """</h4> </div>
                 <div class="card">
-                    <h2> DNS Server </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + dns_server_info +
-                """</div>
+                    <h2> """ + config.MODULE_DNS_SERVER + """ </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + dns_server_info + """</h4> </div>
                 <div class="card">
-                    <h2> TLS Cipher Suites </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + tls_cipher_suite +
-                """</div>
+                    <h2> """ + config.MODULE_TLS_CIPHER_SUITES + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + tls_cipher_suite + """</h4> </div>
                 <div class="card">
-                    <h2> DNS Records </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + dns_info +
-                """</div>    
+                    <h2> """ + config.MODULE_DNS_RECORDS + """ </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + dns_info + """</h4> </div>    
                 <div class="card">
-                    <h2> TXT Records </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + txt_info +
-                """</div>    
+                    <h2> """ + config.MODULE_TXT_RECORDS + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + txt_info + """</h4> </div>    
                 <div class="card">
-                    <h2> Server Status </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + server_status_info +
-                """</div>    
+                    <h2> """ + config.MODULE_SERVER_STATUS + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + server_status_info + """</h4> </div>    
                 <div class="card">
-                    <h2> Email Configuration </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + mail_configuration_info +
-                """</div>    
+                    <h2> """ + config.MODULE_EMAIL_CONFIGURATION + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + mail_configuration_info + """</h4> </div>    
                 <div class="card">
-                    <h2> Redirect Chain </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + redirect_Record +
-                """</div>    
+                    <h2> """ + config.MODULE_REDIRECT_CHAIN + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + redirect_Record + """</h4> </div>    
                 <div class="card">
-                    <h2> Open Ports </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + ports +
-                """</div>    
+                    <h2> """ + config.MODULE_OPEN_PORTS + """ </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + ports + """</h4> </div>    
                 <div class="card">
-                    <h2>  Archive History </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + archive_info +
-                """</div>    
+                    <h2> """ + config.MODULE_ARCHIVE_HISTORY + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + archive_info + """</h4> </div>    
                 <div class="card">
-                    <h2> Associated Hosts </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + associated_info +
-                """</div>    
+                    <h2> """ + config.MODULE_ASSOCIATED_HOSTS + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + associated_info + """</h4> </div>    
                 <div class="card">
-                    <h2> Block Detection </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + block_info +
-                """</div>    
+                    <h2> """ + config.MODULE_BLOCK_DETECTION + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + block_info + """</h4> </div>    
                 <div class="card">
-                    <h2> Carbon Footprint </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + carbon_info +
-                """</div>    
+                    <h2> """ + config.MODULE_CARBON_FOOTPRINT + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + carbon_info + """</h4> </div>    
                 <div class="card">
-                    <h2> Crawl Rules </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + crawl_info +
-                """</div>    
+                    <h2> """ + config.MODULE_CRAWL_RULES + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + crawl_info + """</h4> </div>    
                 <div class="card">
-                    <h2> Site Features </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + site_info +
-                """</div>    
+                    <h2>""" + config.MODULE_SITE_FEATURES + """   </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + site_info + """</h4> </div>    
                 <div class="card">
-                    <h2> DNS Security </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + dns_sec_info +
-                """</div>    
+                    <h2> """ + config.MODULE_DNS_SECURITY + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + dns_sec_info + """</h4> </div>    
                 <div class="card">
-                    <h2> Tech Stack </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + tech_stack_info +
-                """</div>  
+                    <h2> """ + config.MODULE_TECH_STACK + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + tech_stack_info + """</h4> </div>  
                 <div class="card">
-                    <h2> Firewall Detection </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + firewall_info +
-                """</div>  
+                    <h2> """ + config.MODULE_FIREWALL_DETECTION + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + firewall_info + """</h4> </div>  
                 <div class="card">
-                    <h2> Social Tags </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + social_tag_info +
-                """</div> 
+                    <h2> """ + config.MODULE_SOCIAL_TAGS + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + social_tag_info + """</h4> </div> 
                 <div class="card">
-                    <h2> Threats </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + threats_info +
-                """</div> 
+                    <h2> """ + config.MODULE_THREATS + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + threats_info + """</h4> </div> 
                 <div class="card">
-                    <h2> Global Rank </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + global_ranking_info +
-                """</div> 
+                    <h2>""" + config.MODULE_GLOBAL_RANK + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + global_ranking_info + """</h4> </div> 
                 <div class="card">
-                    <h2> Security.Txt </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + security_txt_info +
-                """</div> """ )
-        # Conditionally add Whois section
+                    <h2> """ + config.MODULE_SECURITY_TXT + """  </h2>
+                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + security_txt_info + """</h4> </div> """ )
+        # Conditionally add NMAP section
         if nmap_info:
             body += (
                 """<div class="card">
-                    <h2> NMAP OS Version </h2>
+                    <h2> """ + config.MODULE_NMAP_OS_VERSION + """  </h2>
                     <i class="fas fa-sync-alt refresh"> </i>""" + nmap_info[0] +
                 """</div> 
                 <div class="card">
-                    <h2> NMAP Version Result </h2>
+                    <h2> """ + config.MODULE_NMAP_VERSION_RESULT + """  </h2>
                     <i class="fas fa-sync-alt refresh"> </i>""" + nmap_info[1] +
                 """</div>"""
             )

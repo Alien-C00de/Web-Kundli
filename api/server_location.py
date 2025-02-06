@@ -84,13 +84,17 @@ class Server_Location():
 
     async def __html_server_loc_table(self, data):
 
-        city = str(data[0]["city"])
-        county = str(data[0]["country_name"])
+        city =  str(data[0]["city"])
+        postal = str(data[0]["postal"])
+        region = str(data[0]["region"])
+        country = str(data[0]["country_name"])
+        country_code = str(data[0]["country_code"]).lower()
         timezone = str(data[0]["timezone"])
         languages =  str(data[0]["languages"])
-        currency = str(data[0]["currency_name"])
+        currency_name = str(data[0]["currency_name"])
+        currency = str(data[0]["currency"])
 
-        percentage = await self.__rating_loc(city, county, timezone, languages, currency)
+        percentage = await self.__rating_loc(city, country, timezone, languages, currency)
 
         table = """<table>
                         <tr>
@@ -102,11 +106,11 @@ class Server_Location():
                         </tr>
                         <tr>
                             <td>City</td>
-                            <td>""" + city +  """</td>
+                            <td>""" + postal + ", " + city + ", " + region + """</td>
                         </tr>
                         <tr>
                             <td>Country</td>
-                            <td>""" + county +  """</td>
+                            <td> """ + country + """ <span id="country-icon" class="flag-icon"></span></td>
                         </tr>
                         <tr>
                             <td>Timezone</td>
@@ -118,22 +122,28 @@ class Server_Location():
                         </tr>
                         <tr>
                             <td>Currency</td>
-                            <td>""" + currency +  """</td>
+                            <td>""" + currency_name  + "  (" + currency + ")" """</td>
                         </tr>
-                </table>"""
+                </table>
+                <script>
+                    function displayCountryIcon() {
+                        const countryIconElement = document.getElementById('country-icon');
+                        countryIconElement.className = 'flag-icon flag-icon-$ """ + country_code + """';
+                    }
+                    displayCountryIcon();
+                </script>"""
         return table
 
-
-    async def __rating_loc(self, city, county, timezone, languages, currency):
+    async def __rating_loc(self, city, country, timezone, languages, currency):
         condition1 = city != None
-        condition2 = county != None
+        condition2 = country != None
         condition3 = timezone != None
         condition4 = languages != None
         condition5 = currency != None
 
         # Count the number of satisfied conditions
         satisfied_conditions = sum([condition1, condition2, condition3, condition4, condition5])
-        
+
         # Determine the percentage based on the number of satisfied conditions
 
         if satisfied_conditions == 5:
@@ -148,9 +158,9 @@ class Server_Location():
             percentage = 20
         else:
             percentage = 0  # In case no conditions are satisfied
-    
+
         return percentage
-    
+
     async def __rating_info(self, org, asn, ip, location):
         condition1 = org != None
         condition2 = asn != None
@@ -159,7 +169,7 @@ class Server_Location():
 
         # Count the number of satisfied conditions
         satisfied_conditions = sum([condition1, condition2, condition3, condition4])
-        
+
         # Determine the percentage based on the number of satisfied conditions
 
         if satisfied_conditions == 4:
@@ -172,5 +182,5 @@ class Server_Location():
             percentage = 25
         else:
             percentage = 0  # In case no conditions are satisfied
-    
+
         return percentage
