@@ -15,6 +15,7 @@ class Configuration:
     YEAR = config["General"]["YEAR"]
     EMAIL = config["General"]["EMAIL"]
     GITHUB = config["General"]["GITHUB"]
+    FOOTER_OWNER_TITLE = config["General"]["FOOTER_OWNER_TITLE"]
 
     'Error_Module' in config
     SERVER_LOCATION = config['Error_Module']['SERVER_LOCATION']

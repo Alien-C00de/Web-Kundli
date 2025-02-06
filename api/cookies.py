@@ -1,6 +1,8 @@
 from colorama import Fore, Style
 from util.config_uti import Configuration
+from urllib.parse import urlparse
 from datetime import datetime, timezone
+import datetime
 
 class Cookies():
     Error_Title = None
@@ -39,7 +41,7 @@ class Cookies():
         return htmlValue
 
     async def __html_cookies_table(self, cookie_info):
-        
+
         percentage = await self.__rating(cookie_info)
 
         if not cookie_info:
@@ -59,6 +61,7 @@ class Cookies():
 
         for cookie in cookie_info:
             name  = cookie[0] 
+            value = cookie[1]
             domain = cookie[2]
             path = cookie[3]
             secure = cookie[5]
@@ -78,6 +81,10 @@ class Cookies():
                                 <tr>
                                     <td>Name</td>
                                     <td>{name}</td>
+                                </tr>
+                                <tr>
+                                    <td>Session ID</td>
+                                    <td>{value}</td>
                                 </tr>
                                 <tr>
                                     <td>Expires </td>
@@ -100,30 +107,34 @@ class Cookies():
 
     async def __rating(self, cookie_info):
 
-        if not cookie_info:
-            return 0
-        else:
-            condition1 = cookie_info[0][0] != None
-            condition2 = cookie_info[0][2] != None
-            condition3 = cookie_info[0][3] != None
-            condition4 = cookie_info[0][4] != None
-            condition5 = cookie_info[0][5] != None
+        score = 0
+        c_secure = cookie_info[0][5]
+        c_expire = cookie_info[0][4]
+        c_domain = cookie_info[0][2]
+        result = urlparse(self.url)
+        hostname = result.netloc
+        c_path = cookie_info[0][3]
 
-        # Count the number of satisfied conditions
-        satisfied_conditions = sum([condition1, condition2, condition3, condition4, condition5])
-        
-        # Determine the percentage based on the number of satisfied conditions
-        if satisfied_conditions == 5:
-            percentage = 100
-        elif satisfied_conditions == 4:
-            percentage = 80
-        elif satisfied_conditions == 3:
-            percentage = 60
-        elif satisfied_conditions == 2:
-            percentage = 40
-        elif satisfied_conditions == 1:
-            percentage = 20
-        else:
-            percentage = 0  # In case no conditions are satisfied
-    
-        return percentage
+        # Scoring based on Secure flag
+        if c_secure:
+            score += 40  # Secure flag contributes 40% to the score
+
+        # Scoring based on Expiry
+        if c_expire is not None:
+            now = datetime.datetime.now()
+            expires = datetime.datetime.strptime(c_expire, "%Y-%m-%d %H:%M:%S")
+            delta = expires - now
+            if delta.days > 30:
+                score += 30  # Long expiry (more than 30 days) contributes 30% to the score
+            elif delta.days > 0:
+                score += 15  # Medium expiry (less than 30 days) contributes 15% to the score
+
+        # Scoring based on Domain (example criteria)
+        if hostname in c_domain:
+            score += 20  # Specific domain contributes 20% to the score
+
+        # Additional Scoring based on Path
+        if c_path == "/":
+            score += 10  # Root path contributes 10% to the score
+
+        return int(score)

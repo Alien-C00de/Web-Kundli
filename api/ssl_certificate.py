@@ -43,8 +43,8 @@ class SSL_Certificate():
             cert_details = {
                 "Subject": cert_obj.subject,
                 "Issuer": cert_obj.issuer,
-                "Expires": cert_obj.not_valid_after,
-                "Renewed": cert_obj.not_valid_before,
+                "Expires": cert_obj.not_valid_after_utc,
+                "Renewed": cert_obj.not_valid_before_utc,
                 "Serial Number": cert_obj.serial_number,
             }
 
@@ -209,11 +209,11 @@ class SSL_Certificate():
             score += weights["Issuer"]
 
         # Rate Expiration Date (100% if valid)
-        if cert_details["Expires"] > datetime.utcnow():
+        if cert_details["Expires"].replace(tzinfo=None)  > datetime.utcnow().replace(tzinfo=None):
             score += weights["Expires"]
 
         # Rate Renewed Date (100% if valid)
-        if cert_details["Renewed"] < datetime.utcnow():
+        if cert_details["Renewed"].replace(tzinfo=None)  < datetime.utcnow().replace(tzinfo=None):
             score += weights["Renewed"]
 
         # Rate Serial Number (100% if present)

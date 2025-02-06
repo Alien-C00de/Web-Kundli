@@ -97,16 +97,14 @@ class HTML_Report:
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title> """
-            + config.TOOL_NAME
-            + """ </title>
+            <title> """ + config.TOOL_NAME + """ </title>
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
             <style>
                     body {
                         background-color: #1e1e1e;
                         color: #d4d4d4;
-                        font-family: 'Cascadia Mono', 'Courier New', Courier, monospace;
+                        font-family: 'Cascadia Mono', 'Liberation Mono', 'Courier New', Courier, monospace;
                         margin: 0;
                         padding: 0;
                     }
@@ -247,34 +245,40 @@ class HTML_Report:
                         height: 100px;
                         background: url('https://placehold.co/300x200') no-repeat center center;
                         background-size: cover;
+                    }
                     .icon-color {
                             color: #F0F8FF;
                         }
+                    .footer{
+                        background-color: #333;
+                        padding: 5px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-right: 20px;
+                        margin-left: 20px;
+                    }
+                    .footer h3{
+                        display: flex; 
+                        justify-content: 
+                        flex-end; 
+                        align-items: center;
+                        color: #00FF00;
                     }
             </style>
             </head>
             <body>
                 <div class="header">
-                    <h1> <i class="fas fa-user-secret" icon-color></i> """
-            + config.REPORT_HEADER
-            + """ </h1>
-                    <h2 align="right"; margin-right: 40px; style="color:#a6e22e;">"""
-            + website
-            + """</h2>
+                    <h1> <i class="fas fa-user-secret" icon-color></i> """ + config.REPORT_HEADER + """ </h1>
+                    <h2 align="right"; margin-right: 40px; style="color:#a6e22e;">""" + website + """</h2>
                 </div>
                 <div class="date">
-                    <h3 align="right"; margin-right: 20px; style="color:blue;">"""
-            + report_timestamp
-            + """</h3>
+                    <h3 align="right"; margin-right: 20px; style="color:blue;">""" + report_timestamp + """</h3>
                 </div>
                 <div class="ranking-container">
                     <h1>Website Health <i class="fas fa-heartbeat"></i></h1>
                     <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: """
-            + str(percent)
-            + """%;">"""
-            + str(percent)
-            + """%</div>
+                        <div class="progress-bar" style="width: """ + str(percent) + """%;">""" + str(percent) + """%</div>
                     </div>
                 </div>"""
         )
@@ -381,21 +385,17 @@ class HTML_Report:
         body += """</div>"""
 
         # save html closing </ body> and </ html> tags to a variable named "footer"
-        footer = ("""<div class="date">
-                        <div style="display: flex; justify-content: flex-end; align-items: center;">
-                            <h3 align="right"; margin-right: 30px; style="color:#00FF00;">Developed by 👽: """ + config.AUTHOR + """ ver: """ + config.VERSION + """ © """ + config.YEAR + """ </h3>
+        footer = ("""<div class="footer">
+                            <h3 align="left"; margin-left: 20px;>""" + config.FOOTER_OWNER_TITLE + "&nbsp;" + config.AUTHOR + """ <h3>
+                            <h3 align="center";> <i class="far fa-envelope"></i>&nbsp;""" + config.EMAIL + """</h3>
+                            <h3 align="right"; margin-right: 20px;> <i class="fab fa-github"></i>&nbsp;""" + config.GITHUB + """</h3>
                         </div>
-                        <div style="display: flex; justify-content: flex-end; align-items: center;">
-                            <i class="far fa-envelope"></i>
-                            <h3 align="right"; margin-right: 20px; style="color:#00FF00;">: """ + config.EMAIL + """</h3>
-                        </div>
-                        <div style="display: flex; justify-content: flex-end; align-items: center;">
-                            <i class="fab fa-github"></i>
-                            <h3 align="right"; margin-right: 20px; style="color:#00FF00;">: """ + config.GITHUB + """</h3>
-                        </div>
-                    </div>
-                </body>
-            </html>""")
+                    </body>
+                </html>""")
+        # Close the Body & Main if Footer is not selected
+        No_footer = ("""
+                    </body>
+                </html>""")
 
         # create and open the new WebKundli.html file
         # timestamp = int(datetime.datetime.now().timestamp())
@@ -409,10 +409,10 @@ class HTML_Report:
         with open(file_name_html, "a", encoding="UTF-8") as f:
             f.write(header)
             f.write(body)
-            # for x in self.__html:
-            #     f.write(x)
             if config.REPORT_FOOTER.upper() == "YES":
                 f.write(footer)
+            else:
+                f.write(No_footer)
 
         if os.name == "nt":
             filenameH = file_name_html.partition("./output\\")[-1]
