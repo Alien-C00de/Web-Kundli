@@ -1,5 +1,4 @@
 import aiohttp
-from urllib.parse import urlparse
 from colorama import Fore, Style
 from util.config_uti import Configuration
 
@@ -7,19 +6,19 @@ from util.config_uti import Configuration
 class Global_Ranking:
     Error_Title = None
 
-    def __init__(self, url):
+    def __init__(self, url, domain):
         self.url = url
+        self.domain = domain
 
     async def Get_Global_Rank(self):
         config = Configuration()
         self.Error_Title = config.THREATS
         output = ""
-        domain  = urlparse(self.url).netloc
 
         try:
             # print("global_ranking.py: start ")
             async with aiohttp.ClientSession() as session:
-                endpoint = f"{config.TRANCO_ENDPOINT_URL}{domain}"
+                endpoint = f"{config.TRANCO_ENDPOINT_URL}{self.domain}"
                 async with session.get(endpoint) as response:
                     if response.status == 200:
                         data = await response.json()

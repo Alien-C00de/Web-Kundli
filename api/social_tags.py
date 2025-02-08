@@ -5,9 +5,10 @@ from util.config_uti import Configuration
 class Social_Tags:
     Error_Title = None
 
-    def __init__(self, url, response):
+    def __init__(self, url, response, domain):
         self.url = url
         self.response = response
+        self.domain = domain
 
     async def Get_Social_Tags(self):
         config = Configuration()

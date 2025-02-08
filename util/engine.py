@@ -32,11 +32,13 @@ from api.threats import Threats
 from api.global_ranking import Global_Ranking
 from api.security_txt import Security_TXT
 from api.nmap_scan import NMap_Scan
-from report.html_report import HTML_Report
+from report.summary_report import Summary_Report
+from report.analysis_report import Analysis_Report
 from util.config_uti import Configuration
 
 class engine():
     ip_address = None
+    domain = None
     Error_Title = None
 
     def __init__(self) -> None:
@@ -59,36 +61,37 @@ class engine():
     # To start all the 38 processes parallely
     async def __Start_Process(self):
         self.ip_address = await self.__get_ip_address()
+        self.domain = await self.__get_domain()
         response = await self.__get_response()
-        aiohttp_res = await self.__get_aiohttp_response()
+        # aiohttp_res = await self.__get_aiohttp_response()
 
-        ser_loc = Server_Location(self.ip_address)
-        ssl_cert = SSL_Certificate(self.url)
-        whois_info = Domain_Whois(self.url)
-        http_sec = HTTP_Security(self.url, response)
-        cookies_info = Cookies(self.url, response)
-        dns_Server = DNS_Server(self.ip_address, self.url)
-        tls_data = TLS_Cipher_Suit(self.url)
-        dns_record_info = DNS_Records(self.url)
-        txt_record = TXT_Records(self.url)
-        server_status = Server_Status(self.url, response)
-        mail_config = Mail_Records(self.url)
-        redirect_Record = Redirect_Chain(self.url)
-        ports = Open_Ports(self.url)
-        archive = Archive_History(self.url)
-        associated_host = Associated_Hosts(self.url)
-        block_detect = Block_Detection(self.url)
-        carbon_print = Carbon_Footprint(self.url)
-        crawl_rule = Crawl_Rules(self.url)
-        site_feat = Site_Features(self.url, response)
-        dns_security = DNS_Security_Ext(self.url)
-        tech_stack = Tech_Stack(self.url, response)
-        firewall = Firewall_Detection(self.url)
-        social_tags = Social_Tags(self.url, response)
-        threats = Threats(self.ip_address, self.url)
-        global_rank = Global_Ranking(self.url)
-        security_txt = Security_TXT(self.url)
-        nmap_scan = NMap_Scan(self.ip_address, self.url)
+        ser_loc = Server_Location(self.ip_address, self.domain)
+        ssl_cert = SSL_Certificate(self.url, self.domain)
+        whois_info = Domain_Whois(self.url, self.domain)
+        http_sec = HTTP_Security(self.url, response, self.domain)
+        cookies_info = Cookies(self.url, response, self.domain)
+        dns_Server = DNS_Server(self.ip_address, self.url, self.domain)
+        tls_data = TLS_Cipher_Suit(self.url, self.domain)
+        dns_record_info = DNS_Records(self.url, self.domain)
+        txt_record = TXT_Records(self.url, self.domain)
+        server_status = Server_Status(self.url, response, self.domain)
+        mail_config = Mail_Records(self.url, self.domain)
+        redirect_Record = Redirect_Chain(self.url, self.domain)
+        ports = Open_Ports(self.url, self.ip_address, self.domain)
+        archive = Archive_History(self.url, self.domain)
+        associated_host = Associated_Hosts(self.url, self.domain)
+        block_detect = Block_Detection(self.url, self.domain)
+        carbon_print = Carbon_Footprint(self.url, self.domain)
+        crawl_rule = Crawl_Rules(self.url, self.domain)
+        site_feat = Site_Features(self.url, response, self.domain)
+        dns_security = DNS_Security_Ext(self.url, self.domain)
+        tech_stack = Tech_Stack(self.url, response, self.domain)
+        firewall = Firewall_Detection(self.url, self.domain)
+        social_tags = Social_Tags(self.url, response, self.domain)
+        threats = Threats(self.ip_address, self.url, self.domain)
+        global_rank = Global_Ranking(self.url, self.domain)
+        security_txt = Security_TXT(self.url, self.domain)
+        nmap_scan = NMap_Scan(self.ip_address, self.url, self.domain)
 
         Server_location = []
         SSL_Cert = ""
@@ -152,7 +155,7 @@ class engine():
             tb4 = str(Server_location[1])
             tb5 = str(Header[0])
             tb6 = str(Header[1])
-            tb7 = str(cookie)
+            tb7 = str(cookie[0])
             tb8 = str(dns_server_info)
             tb9 = str(tls_cipher_suite)
             tb10 = str(dns_info)
@@ -179,26 +182,36 @@ class engine():
             else:
                 tb29 = []
 
-            await self.__Generate_Report(tb1, tb2, tb3, tb4, tb5, tb6, tb7, tb8, tb9, tb10, tb11, tb12, tb13, tb14, tb15, 
+            await self.__Summary_Report(tb1, tb2, tb3, tb4, tb5, tb6, tb7, tb8, tb9, tb10, tb11, tb12, tb13, tb14, tb15, 
                                          tb16, tb17, tb18, tb19, tb20, tb21, tb22, tb23, tb24, tb25, tb26, tb27, tb28, tb29)
+            await self.__Analysis_Report(str(cookie[1]))
         except Exception as ex:
             error_msg = ex.args[0]
             msg = "[-] " + self.Error_Title + " => Start Process : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
 
     # Generate the HTML Report
-    async def __Generate_Report(self, server_location, SSL_Cert, Whois, ser_info, HTTP_Sec, headers, cookies, dns_server_info, 
+    async def __Summary_Report(self, server_location, SSL_Cert, Whois, ser_info, HTTP_Sec, headers, cookies, dns_server_info, 
                                 tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record,
                                 ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info, 
                                 tech_stack_info, firewall_info, social_tags_info, threats_info, global_ranking_info, security_txt_info, nmap_info):
         try:
-            domain = urlparse(self.url).netloc
-            config = Configuration()
-            html_repo = HTML_Report(domain)
-            await html_repo.outputHTML(self.url, server_location, SSL_Cert, Whois, ser_info, HTTP_Sec, headers, cookies, dns_server_info, 
+            summary_report = Summary_Report(self.domain)
+            await summary_report.outputHTML(self.url, server_location, SSL_Cert, Whois, ser_info, HTTP_Sec, headers, cookies, dns_server_info, 
                                        tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record,
                                        ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info,
                                        tech_stack_info, firewall_info, social_tags_info, threats_info, global_ranking_info, security_txt_info, nmap_info)
+        except Exception as ex:
+            error_msg = ex.args[0]
+            msg = "[-] " + self.Error_Title + " => Generate report : " + error_msg
+            print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
+
+
+    async def __Analysis_Report(self, Cookie):
+        try:
+            domain = urlparse(self.url).netloc
+            analysis_report = Analysis_Report(domain)
+            await analysis_report.outputHTML(self.url, Cookie)
         except Exception as ex:
             error_msg = ex.args[0]
             msg = "[-] " + self.Error_Title + " => Generate report : " + error_msg
@@ -225,6 +238,18 @@ class engine():
             ip = socket.gethostbyname(domain_name)
             print(f'[+] The {self.url} IP Address is {ip}')
             return ip
+        except socket.gaierror as ex:
+            error_msg = str(ex)
+            msg = "[-] " + self.Error_Title + ": Invalid URL " + error_msg
+            print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL) 
+            exit(0)
+
+    # Domain name of the given URL
+    async def __get_domain(self):
+        try:
+            result = urlparse(self.url)
+            domain = result.netloc
+            return domain
         except socket.gaierror as ex:
             error_msg = str(ex)
             msg = "[-] " + self.Error_Title + ": Invalid URL " + error_msg

@@ -1,5 +1,4 @@
 from scapy.all import *
-from urllib.parse import urlparse
 from colorama import Fore, Style
 import socket
 from util.config_uti import Configuration
@@ -7,8 +6,10 @@ from util.config_uti import Configuration
 class Open_Ports():
     Error_Title = None
 
-    def __init__(self,url):
-        self.url=url
+    def __init__(self, url, ip_address, domain):
+        self.url = url
+        self.ip_address = ip_address
+        self.domain = domain
     
     async def Get_Open_Ports(self):
         config = Configuration()
@@ -16,11 +17,10 @@ class Open_Ports():
         output=""
         try:
             # print("port_scanning.py: start")
-            domain_name = urlparse(self.url).netloc
-            ip_address = socket.gethostbyname(domain_name)
+            # ip_address = socket.gethostbyname(self.domain)
             #print(ip_address)
-            result= await self.__final_result(ip_address)
-            output = await self.__formatting_Output(domain_name, ip_address, result)
+            result= await self.__final_result(self.ip_address)
+            output = await self.__formatting_Output(self.domain, self.ip_address, result)
             # print("port_scanning.py: output: ")
             return output
 

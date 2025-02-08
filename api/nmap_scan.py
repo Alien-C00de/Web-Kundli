@@ -1,6 +1,5 @@
 import nmap3
 from colorama import Fore, Style
-from urllib.parse import urlparse
 from util.config_uti import Configuration
 
 
@@ -8,19 +7,19 @@ class NMap_Scan:
     Error_Title = None
     nmap = nmap3.Nmap()
 
-    def __init__(self, ip_address, url):
+    def __init__(self, ip_address, url, domain):
         self.url = url
         self.ip_address = ip_address
+        self.domain = domain
 
     async def Get_Nmap_Scan(self):
         config = Configuration()
         self.Error_Title = config.NMAP_SCAN
-        domain = urlparse(self.url).netloc
         output = []
 
         try:
             # print("nmap_scan.py: start ")
-            version_result = self.nmap.nmap_version_detection(domain)
+            version_result = self.nmap.nmap_version_detection(self.domain)
             os_results = self.nmap.nmap_os_detection(self.ip_address)
 
             # print("nmap_scan.py: output: ")

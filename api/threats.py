@@ -8,9 +8,10 @@ from util.config_uti import Configuration
 class Threats:
     Error_Title = None
 
-    def __init__(self, ip_address, url):
+    def __init__(self, ip_address, url, domain):
         self.ip_address = ip_address
         self.url = url
+        self.domain = domain
 
     async def Get_Threats(self):
         config = Configuration()

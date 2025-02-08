@@ -8,8 +8,9 @@ from statistics import mean
 class Archive_History:
     Error_Title = None
 
-    def __init__(self, url):
+    def __init__(self, url, domain):
         self.url = url
+        self.domain = domain
 
     async def Get_Archive_History(self):
         config = Configuration()

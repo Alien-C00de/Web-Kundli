@@ -2,8 +2,6 @@ import ssl
 import socket
 from colorama import Fore, Style
 from util.config_uti import Configuration
-from urllib.parse import urlparse
-from OpenSSL import crypto
 from datetime import datetime
 from cryptography import x509
 from cryptography.x509.oid import NameOID
@@ -16,23 +14,22 @@ class SSL_Certificate():
     def __init__(self) -> None:
         pass    
 
-    def __init__(self, url):
+    def __init__(self, url, domain):
         self.url = url
+        self.domain = domain
 
     # Function to fetch and extract certificate details
     async def Get_SSL_Certificate(self, port: int = 443):
 
         config = Configuration()
         self.Error_Title = config.SSL_CERTIFICATE
-        result = urlparse(self.url)
-        hostname = result.netloc
         output = ""
 
         try:
             # Establish SSL connection
             context = ssl.create_default_context()
-            connection = context.wrap_socket(socket.socket(socket.AF_INET), server_hostname = hostname)
-            connection.connect((hostname, port))
+            connection = context.wrap_socket(socket.socket(socket.AF_INET), server_hostname = self.domain)
+            connection.connect((self.domain, port))
 
             # Get the certificate in binary form
             cert = connection.getpeercert(binary_form=True)
@@ -74,34 +71,6 @@ class SSL_Certificate():
         finally:
             connection.close()
 
-    # # Get SSL Certificate Information
-    # async def Get_SSL_Certificate(self, port=443):
-    #     config = Configuration()
-    #     self.Error_Title = config.SSL_CERTIFICATE
-    #     result =  urlparse(self.url)
-    #     host = result.netloc
-    #     output = ""
-    #     try:
-    #         # print("ssl_certificate.py: start")
-    #         context = ssl.create_default_context()
-    #         with socket.create_connection((host, port)) as sock:
-    #             with context.wrap_socket(sock, server_hostname = host) as sock:
-    #                 certificate = sock.getpeercert()
-    #                 if certificate is None:
-    #                     print(Fore.RED + Style.BRIGHT + "Failed to retrieve SSL certificate." + Fore.RESET + Style.RESET_ALL)
-    #                     return None
-
-    #                 x509 = crypto.load_certificate(crypto.FILETYPE_PEM, ssl.DER_cert_to_PEM_cert(sock.getpeercert(True)))
-    #                 output = await self.__formatting_Output(x509)
-    #                 # print("ssl_certificate.py: output: ")
-    #                 return output
-    #     except Exception as ex:
-    #         error_msg = str(ex.args[0])
-    #         msg = "[-] " + self.Error_Title + " => Get_SSL_Certificate : " + error_msg
-    #         print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
-    #         return output
-    #     finally:
-    #         sock.close()
 
     async def __formatting_Output(self, cert_details):
         htmlValue = ""        
@@ -130,10 +99,6 @@ class SSL_Certificate():
             TLS_Web_Server = ""
             TLS_Web_Client = ""
             TLS_OK = False
-        # expires_date = datetime.strptime(x509.get_notAfter().decode('utf-8'), '%Y%m%d%H%M%SZ')
-        # formatted_expire = expires_date.strftime('%d %B %Y').lstrip('0').replace(" 0", " ")
-        # renewed_date = datetime.strptime(x509.get_notBefore().decode('utf-8'), '%Y%m%d%H%M%SZ')
-        # formatted_renew = renewed_date.strftime('%d %B %Y').lstrip('0').replace(" 0", " ")
 
         table = (
             """<table>

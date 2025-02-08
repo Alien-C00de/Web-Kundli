@@ -1,15 +1,15 @@
 import pandas as pd
 import aiohttp
 import asyncio
-from urllib.parse import urlparse
 from util.config_uti import Configuration
 from colorama import Fore, Style
 
 class Server_Location():
     Error_Title = None
 
-    def __init__(self, ip_address):
+    def __init__(self, ip_address, domain):
         self.ip_address = ip_address
+        self.domain = domain
 
     async def Get_Server_Location(self):
         config = Configuration()
@@ -135,31 +135,33 @@ class Server_Location():
         return table
 
     async def __rating_loc(self, city, country, timezone, languages, currency):
-        condition1 = city != None
-        condition2 = country != None
-        condition3 = timezone != None
-        condition4 = languages != None
-        condition5 = currency != None
 
-        # Count the number of satisfied conditions
-        satisfied_conditions = sum([condition1, condition2, condition3, condition4, condition5])
+        weights = {
+            "city": 0.20,
+            "country": 0.20,
+            "timezone":0.20,
+            "language": 0.20,
+            "currency": 0.20,
+        }
 
-        # Determine the percentage based on the number of satisfied conditions
+        # Initialize rating
+        rating = 0
 
-        if satisfied_conditions == 5:
-            percentage = 100
-        elif satisfied_conditions == 4:
-            percentage = 80
-        elif satisfied_conditions == 3:
-            percentage = 60
-        elif satisfied_conditions == 2:
-            percentage = 40
-        elif satisfied_conditions == 1:
-            percentage = 20
-        else:
-            percentage = 0  # In case no conditions are satisfied
+        # Calculate rating based on the presence of each detail
+        if city:
+            rating += weights["city"]
+        if country:
+            rating += weights["country"]
+        if timezone:
+            rating += weights["timezone"]
+        if languages:
+            rating += weights["language"]
+        if currency:
+            rating += weights["currency"]
 
-        return percentage
+        # Convert rating to percentage
+        percentage = rating * 100
+        return int(percentage)
 
     async def __rating_info(self, org, asn, ip, location):
         condition1 = org != None

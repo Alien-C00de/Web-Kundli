@@ -1,14 +1,14 @@
 import ssl
 import socket
-from urllib.parse import urlparse
 from colorama import Fore, Style
 from util.config_uti import Configuration
 
 class TLS_Cipher_Suit:
     Error_Title = None
     
-    def __init__(self,url):
+    def __init__(self,url, domain):
         self.url=url
+        self.domain = domain
 
     async def Get_TLS_Cipher_Suit(self):
         config = Configuration()
@@ -16,13 +16,12 @@ class TLS_Cipher_Suit:
         output=""
         try:
             # print("tls_cipher_suite.py: start")
-            domain_name = urlparse(self.url).netloc 
-            res = await self.__final_result(domain_name)
+            res = await self.__final_result(self.domain)
             output = await self.__formatting_Output(res)
             # print("tls_cipher_suite.py: output: ")
             return output
 
-        # output=self.__formatting_Output(domain_name,issue_org,issue,expire,protocal_verion,cipher,length,serial)
+        # output=self.__formatting_Output(domain,issue_org,issue,expire,protocal_verion,cipher,length,serial)
         # return output
         except Exception as ex:
             error_msg = str(ex.args[0])
@@ -30,14 +29,14 @@ class TLS_Cipher_Suit:
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return output
 
-    async def __final_result(self,domain_name):
+    async def __final_result(self,domain):
         default={'Domain Name': None, 'Issuing Organization': None, 'Issue Date': None, 'Expire Date': None, 'Serial Number': None, 'Protocol Version': None, 'Cipher Suite': None, 'Public key length': None}
         try:
             result={}
             context = ssl.create_default_context()
-            s=context.wrap_socket(socket.socket(socket.AF_INET), server_hostname=domain_name)
-            content=s.connect((domain_name, 443))
-            result["Domain Name"]=domain_name
+            s=context.wrap_socket(socket.socket(socket.AF_INET), server_hostname = domain)
+            content=s.connect((domain, 443))
+            result["Domain Name"] = domain
             cert=s.getpeercert()
             if 'issuer' in cert:
                 issuer=cert['issuer']

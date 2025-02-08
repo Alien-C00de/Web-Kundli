@@ -5,9 +5,10 @@ import re
 class Site_Features:
     Error_Title = None
 
-    def __init__(self, url, response):
+    def __init__(self, url, response, domain):
         self.url = url
         self.response = response
+        self.domain = domain
 
     async def Get_Site_Features(self):
         config = Configuration()

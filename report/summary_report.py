@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from colorama import Back, Fore, Style
 from util.config_uti import Configuration
 
-class HTML_Report:
+class Summary_Report:
     def __init__(self, domain):
         self.domain = domain
 

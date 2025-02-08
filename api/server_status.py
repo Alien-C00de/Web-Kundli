@@ -1,13 +1,13 @@
-from urllib.parse import urlparse
 from colorama import Fore, Style
 from util.config_uti import Configuration
 
 class Server_Status():
     Error_Title = None
 
-    def __init__(self, url, response):
+    def __init__(self, url, response, domain):
         self.url = url
         self.response = response
+        self.domain = domain
 
     async def Get_Server_Status(self):
         config = Configuration()
@@ -15,9 +15,8 @@ class Server_Status():
         output = ""
         try:
             # print("server_status_fetch.py: start")
-            domain_name = urlparse(self.url).netloc
             result = await self.__final_result()
-            output = await self.__formatting_Output(domain_name,result)
+            output = await self.__formatting_Output(self.domain, result)
             # print("server_status_fetch.py: output: ")
             return output
         except Exception as ex:
@@ -37,10 +36,10 @@ class Server_Status():
         except Exception as e:
             return None
 
-    async def __formatting_Output(self,domain_name,result):
+    async def __formatting_Output(self, domain, result):
         # print(domain,A_record,AAAA_record,mx_record,NS_record,CNAME_record,txt_record)
         htmlValue = ""
-        htmlValue = await self.__html_table(domain_name,result)
+        htmlValue = await self.__html_table(domain, result)
         return str(htmlValue) 
 
     async def __html_table(self, domain, result):

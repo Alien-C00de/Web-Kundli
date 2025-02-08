@@ -5,8 +5,9 @@ from util.config_uti import Configuration
 class Carbon_Footprint:
     Error_Title = None
 
-    def __init__(self, url):
+    def __init__(self, url, domain):
         self.url = url
+        self.domain  = domain
 
     async def Get_Carbon_Footprint(self):
         config = Configuration()

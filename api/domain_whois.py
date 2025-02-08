@@ -1,4 +1,3 @@
-from urllib.parse import urlparse
 from util.config_uti import Configuration
 from colorama import Fore, Style
 import whois
@@ -6,8 +5,9 @@ import whois
 class Domain_Whois():
     Error_Title = None
     
-    def __init__(self, url):
+    def __init__(self, url, domain):
         self.url = url
+        self.domain = domain
 
     async def Get_Whois_Info(self):
         config = Configuration()
@@ -15,8 +15,7 @@ class Domain_Whois():
         output = ""
         try:
             # print("domain_whois.py: start")
-            domain_name = urlparse(self.url).netloc 
-            domain_info =  whois.whois(domain_name)
+            domain_info =  whois.whois(self.domain)
             output = await self.__formatting_Output(domain_info)
             # print("domain_whois.py: output: ")
             return output

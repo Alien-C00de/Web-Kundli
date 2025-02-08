@@ -2,25 +2,24 @@ import aiohttp
 from util.config_uti import Configuration
 from colorama import Fore, Style
 from bs4 import BeautifulSoup
-from urllib.parse import urlparse
 
 class Associated_Hosts:
     Error_Title = None
 
-    def __init__(self, url):
+    def __init__(self, url, domain):
         self.url = url
+        self.domain = domain
 
     async def Get_Associated_Hosts(self):
         config = Configuration()
         self.Error_Title = config.ASSOCIATED_HOSTS
-        domain = urlparse(self.url).netloc
         output = ""
 
         try:
             # print("associated_host.py: start ")
             subdomains = set()
             async with aiohttp.ClientSession() as session:
-                url = config.ASSOCIATED_ENDPOINT_URL.replace("{domain}", domain)
+                url = config.ASSOCIATED_ENDPOINT_URL.replace("{domain}", self.domain)
                 html = await self.__fetch(session, url)
                 soup = BeautifulSoup(html, 'html.parser')
                 # Extract subdomains from the table in the HTML
@@ -28,7 +27,7 @@ class Associated_Hosts:
                     cells = row.find_all('td')
                     if len(cells) > 4:
                         subdomain = cells[4].get_text().strip()
-                        if subdomain.endswith(domain):
+                        if subdomain.endswith(self.domain):
                             subdomains.add(subdomain)
 
             output = await self.__formatting_Output(subdomains)

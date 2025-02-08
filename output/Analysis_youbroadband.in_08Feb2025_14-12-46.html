@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Website Security Analysis Report</title>
+                        <style>
+                            body {
+                                font-family: Arial, sans-serif;
+                                margin: 0;
+                                padding: 0;
+                                background-color: #f4f4f4;
+                            }
+                            .container {
+                                margin: auto;
+                                overflow: hidden;
+                                margin-right: 10px;
+                                margin-left: 10px;
+                            }
+                            header {
+                                background: #3498db;
+                                color: #fff;
+                                padding-top: 50px;
+                                min-height: 60px;
+                                border-bottom: #77aaff 3px solid;
+                                align-items: center;
+                                justify-content: space-between;
+                                margin-right: 10px;
+                                margin-left: 10px;
+                            }
+                            header a {
+                                color: #fff;
+                                text-decoration: none;
+                                text-transform: uppercase;
+                                font-size: 16px;
+                            }
+                            header ul {
+                                padding: 0;
+                                list-style: none;
+                            }
+                            header li {
+                                float: left;
+                                display: inline;
+                                padding: 0 20px 0 20px;
+                            }
+                            header #branding {
+                                float: left;
+                            }
+                            header #branding h1 {
+                                margin: 0;
+                            }
+                            header nav {
+                                float: right;
+                                margin-top: 10px;
+                            }
+                            .main {
+                                padding: 20px;
+                                background: #fff;
+                                margin-top: 20px;
+                            }
+                            .module {
+                                margin-bottom: 20px;
+                            }
+                            .module h2 {
+                                background: #332;
+                                color: #FFA500;
+                                padding: 10px;
+                            }
+                            .module p {
+                                padding: 20px;
+                                background: #e4e4e4;
+                            }
+                            .issues, .suggestions {
+                                background-color: #f2d7d5;
+                                padding: 5px;
+                                border-radius: 5px;
+                                margin-top: 10px;
+                                border-left: 5px solid #e74c3c;
+                            }
+                            .issues h4{
+                            margin-top: 5px;
+                            margin-bottom: 1px;
+                            }
+                            .suggestions {
+                                background-color: #d6eaf8;
+                                border-left: 5px solid #3498db;
+                            }
+                            .suggestions h4{
+                            margin-top: 5px;
+                            margin-bottom: 1px;
+                            }
+                            footer {
+                                background-color: #333;
+                                color: #fff;
+                                padding: 10px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                margin-right: 10px;
+                                margin-left: 10px;
+                            }
+                        </style>
+                    </head><body>
+                        <header>
+                            <div class="container">
+                                <div id="branding">
+                                    <h1>Website Security Analysis Report</h1>
+                                </div>
+                            </div>
+                        </header>
+
+                        <div class="container main">
+                            <div class="module" id="cookies">
+                            <h2>Cookies</h2>
+                            <h3>Summary</h3>
+                            <div>The cookies used on the website meet most security standards. However, there are a couple of issues that need to be addressed.</div>
+                            <div class="issues">
+                                <h4><strong>Identified Issues:</strong></h4>
+                                <ul>
+                                    <li>Expires is not set properly or has already passed.</li><li>Path is too broad or not set.</li><li>Secure flag is not set.</li>
+                                </ul>
+                            </div>
+                            <div class="suggestions">
+                                <h4><strong>Suggestions for Improvement:</strong></h4>
+                                <ul>
+                                    <li>Set a short expiration date or make it session-based for better security.</li><li>Restrict the cookie''s path to specific sub-paths to limit exposure.</li><li>Ensure the Secure flag is set to true so cookies are only transmitted over HTTPS.</li>
+                                </ul>
+                            </div> 
+                    </div>
+                        </div>
+
+                        <footer>
+                            <p>Website Security Analysis Report &copy; 2025</p>
+                        </footer>
+                    </body>
+                    </html>

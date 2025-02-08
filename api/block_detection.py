@@ -2,13 +2,13 @@ import socket
 import ipaddress
 from util.config_uti import Configuration
 from colorama import Fore, Style
-from urllib.parse import urlparse
 
 class Block_Detection:
     Error_Title = None
 
-    def __init__(self, url):
+    def __init__(self, url, domain):
         self.url = url
+        self.domain = domain
 
     DNS_SERVERS = [
         {'name': 'AdGuard', 'ip': '176.103.130.130'},
@@ -39,13 +39,12 @@ class Block_Detection:
         config = Configuration()
         self.Error_Title = config.BLOCK_DETECTION
         output = ""
-        domain = urlparse(self.url).netloc 
         results = []
 
         try:
             # print("block_detection.py: start")
             for server in self.DNS_SERVERS:
-                is_blocked = await self.__is_domain_blocked(domain, server['ip'])
+                is_blocked = await self.__is_domain_blocked(self.domain, server['ip'])
                 result_text = f"YES" if is_blocked else f"NO"
                 results.append({'server': server['name'], 'isBlocked': result_text})
 

@@ -1,15 +1,17 @@
 from colorama import Fore, Style
 from util.config_uti import Configuration
-from urllib.parse import urlparse
+from util.issue_config import Issue_Config
 from datetime import datetime, timezone
 import datetime
+import re
 
 class Cookies():
     Error_Title = None
 
-    def __init__(self, url, response):
+    def __init__(self, url, response, domain):
         self.url = url
         self.response = response
+        self.domain = domain
 
     async def Get_Cookies(self):
         config = Configuration()
@@ -35,14 +37,16 @@ class Cookies():
             return msg
 
     async def __formatting_Output(self, cookie_info):
-        htmlValue = ""
+        htmlValue = []
         htmlValue = await self.__html_cookies_table(cookie_info)
 
         return htmlValue
 
     async def __html_cookies_table(self, cookie_info):
-
-        percentage = await self.__rating(cookie_info)
+        
+        rep_data = []
+        # percentage = await self.__rating(cookie_info)
+        percentage, html = await self.__evaluate_cookie_security(cookie_info)
 
         if not cookie_info:
             table_html = f"""<table>
@@ -103,38 +107,132 @@ class Cookies():
                                     <td>{secure}</td>
                                 </tr>
                             </table>"""
-        return table_html
+        rep_data.append(table_html)
+        rep_data.append(html)
+        return rep_data
 
-    async def __rating(self, cookie_info):
-
+    async def __evaluate_cookie_security(self, cookie):
+        issue_config = Issue_Config()
         score = 0
-        c_secure = cookie_info[0][5]
-        c_expire = cookie_info[0][4]
-        c_domain = cookie_info[0][2]
-        result = urlparse(self.url)
-        hostname = result.netloc
-        c_path = cookie_info[0][3]
+        max_score = 6  # 6 parameters to evaluate
+        session_name  = cookie[0][0] 
+        session_value = cookie[0][1]
+        domain = cookie[0][2]
+        path = cookie[0][3]
+        expires = cookie[0][4]
+        secure = cookie[0][5]
 
-        # Scoring based on Secure flag
-        if c_secure:
-            score += 40  # Secure flag contributes 40% to the score
+        issues = []
+        suggestions = []
 
-        # Scoring based on Expiry
-        if c_expire is not None:
-            now = datetime.datetime.now()
-            expires = datetime.datetime.strptime(c_expire, "%Y-%m-%d %H:%M:%S")
-            delta = expires - now
-            if delta.days > 30:
-                score += 30  # Long expiry (more than 30 days) contributes 30% to the score
-            elif delta.days > 0:
-                score += 15  # Medium expiry (less than 30 days) contributes 15% to the score
 
-        # Scoring based on Domain (example criteria)
-        if hostname in c_domain:
-            score += 20  # Specific domain contributes 20% to the score
+        # return score, percentage_score, issues, suggestions
+        # Session Name - Should not be empty or generic
+        if not session_name or session_name == 'session':
+            issues.append(issue_config.ISSUE_SESSION_NAME)
+            suggestions.append(issue_config.SUGGESTION_SESSION_NAME)
+        else:
+            score += 1
 
-        # Additional Scoring based on Path
-        if c_path == "/":
-            score += 10  # Root path contributes 10% to the score
+        # Session ID - Should not be simple (For simplicity, we will use regex)
+        if not session_value or re.match(r'^[a-zA-Z0-9]{8,}$', session_value) is None:
+            issues.append(issue_config.ISSUE_SESSION_VALUE)
+            suggestions.append(issue_config.SUGGESTION_SESSION_VALUE)
+        else:
+            score += 1
 
-        return int(score)
+        # Expires - Should not be far-off date or missing
+        if not expires or datetime.strptime(expires, "%a, %d-%b-%Y %H:%M:%S GMT") < datetime.now():
+            issues.append(issue_config.ISSUE_EXPIRES)
+            suggestions.append(issue_config.SUGGESTION_EXPIRES)
+        else:
+            score += 1
+
+        # Path - Should not be overly broad (must be specific like `/app` or `/secure`)
+        if path == '/' or not path:
+            issues.append(issue_config.ISSUE_PATH)
+            suggestions.append(issue_config.SUGGESTION_PATH)
+        else:
+            score += 1
+
+        # Domain - Should be a specific domain, not localhost or too general
+        if not domain or domain in ['localhost', '127.0.0.1', '']:
+            issues.append(issue_config.ISSUE_DOMAIN)
+            suggestions.append(issue_config.SUGGESTION_DOMAIN)
+        else:
+            score += 1
+
+        # Secure - Should be True
+        if secure != True:
+            issues.append(issue_config.ISSUE_SECURE)
+            suggestions.append(issue_config.SUGGESTION_SECURE)
+        else:
+            score += 1
+
+        html_tags = await self.__analysis_table(issues, suggestions)
+        # Calculate the percentage score
+        percentage_score = (score / max_score) * 100
+
+        return int(percentage_score), html_tags
+
+
+    async def __analysis_table(self, issues, suggestions):
+
+        html_template = """<div class="module" id="cookies">
+                            <h2>Cookies</h2>
+                            <h3>Summary</h3>
+                            <div>The cookies used on the website meet most security standards. However, there are a couple of issues that need to be addressed.</div>
+                            <div class="issues">
+                                <h4><strong>Identified Issues:</strong></h4>
+                                <ul>
+                                    {issue_items}
+                                </ul>
+                            </div>
+                            <div class="suggestions">
+                                <h4><strong>Suggestions for Improvement:</strong></h4>
+                                <ul>
+                                    {suggestion_items}
+                                </ul>
+                            </div> 
+                    </div>"""
+
+        # Generate the list items for issues and suggestions
+        issue_items = ''.join([f"<li>{issue}</li>" for issue in issues])
+        suggestion_items = ''.join([f"<li>{suggestion}</li>" for suggestion in suggestions])
+
+        # Insert the list items into the HTML template
+        html = html_template.format(issue_items=issue_items, suggestion_items=suggestion_items)
+        return html
+
+
+    # async def __rating(self, cookie_info):
+
+    #     score = 0
+    #     c_secure = cookie_info[0][5]
+    #     c_expire = cookie_info[0][4]
+    #     c_domain = cookie_info[0][2]
+    #     c_path = cookie_info[0][3]
+
+    #     # Scoring based on Secure flag
+    #     if c_secure:
+    #         score += 40  # Secure flag contributes 40% to the score
+
+    #     # Scoring based on Expiry
+    #     if c_expire is not None:
+    #         now = datetime.datetime.now()
+    #         expires = datetime.datetime.strptime(c_expire, "%Y-%m-%d %H:%M:%S")
+    #         delta = expires - now
+    #         if delta.days > 30:
+    #             score += 30  # Long expiry (more than 30 days) contributes 30% to the score
+    #         elif delta.days > 0:
+    #             score += 15  # Medium expiry (less than 30 days) contributes 15% to the score
+
+    #     # Scoring based on Domain (example criteria)
+    #     if self.domain in c_domain:
+    #         score += 20  # Specific domain contributes 20% to the score
+
+    #     # Additional Scoring based on Path
+    #     if c_path == "/":
+    #         score += 10  # Root path contributes 10% to the score
+
+    #     return int(score)

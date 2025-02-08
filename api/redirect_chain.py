@@ -1,11 +1,11 @@
 import requests
-from urllib.parse import urlparse
 from colorama import Fore, Style
 from util.config_uti import Configuration
 
 class Redirect_Chain():
-    def __init__(self,url):
-        self.url=url
+    def __init__(self, url, domain):
+        self.url = url
+        self.domain = domain
 
     async def Get_Redirect_Chain(self):
         config = Configuration()
@@ -13,9 +13,8 @@ class Redirect_Chain():
         output=""
         try:
             # print("redirect_fetch.py: start")
-            domain_name = urlparse(self.url).netloc
             result=await self.__final_result()
-            output=await self.__formatting_Output(domain_name,result)
+            output=await self.__formatting_Output(self.domain, result)
             # print("redirect_fetch.py: output: ")
             return output
 
@@ -57,7 +56,7 @@ class Redirect_Chain():
             print(e)
             return error_ans
 
-    async def __formatting_Output(self,domain, result):
+    async def __formatting_Output(self, domain, result):
         # print(domain,A_record,AAAA_record,mx_record,NS_record,CNAME_record,txt_record)
         htmlValue = ""
         htmlValue = await self.__html_table(domain,result)

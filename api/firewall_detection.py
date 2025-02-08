@@ -6,8 +6,9 @@ from colorama import Fore, Style
 class Firewall_Detection():
     Error_Title = None
     
-    def __init__(self, url):
+    def __init__(self, url, domain):
         self.url = url
+        self.domain = domain
 
     async def Get_Firewall_Detection(self):
         config = Configuration()

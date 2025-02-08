@@ -6,8 +6,9 @@ from util.config_uti import Configuration
 class Crawl_Rules:
     Error_Title = None
 
-    def __init__(self, url):
+    def __init__(self, url, domain):
         self.url = url
+        self.domain = domain
 
     async def Get_Crawl_Rules(self):
         config = Configuration()

@@ -5,9 +5,10 @@ from colorama import Fore, Style
 class HTTP_Security:
     Error_Title = None
 
-    def __init__(self, url, response):
+    def __init__(self, url, response, domain):
         self.url = url
         self.response = response
+        self.domain = domain
 
     async def Get_HTTP_Security(self):
         config = Configuration()

@@ -6,8 +6,9 @@ from util.config_uti import Configuration
 class Security_TXT:
     Error_Title = None
 
-    def __init__(self, url):
+    def __init__(self, url, domain):
         self.url = url
+        self.domain = domain
         self.dict = {}
 
     SECURITY_TXT_PATHS = [

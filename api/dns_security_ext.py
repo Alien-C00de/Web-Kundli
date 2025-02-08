@@ -6,8 +6,9 @@ from util.config_uti import Configuration
 class DNS_Security_Ext:
     Error_Title = None
 
-    def __init__(self, url):
+    def __init__(self, url, domain):
         self.url = url
+        self.domain = domain
 
     async def Get_DNS_Security_Ext(self):
         config = Configuration()

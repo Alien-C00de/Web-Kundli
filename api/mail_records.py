@@ -1,13 +1,13 @@
 import dns.resolver
-from urllib.parse import urlparse
 from colorama import Fore, Style
 from util.config_uti import Configuration
 
 class Mail_Records():
     Error_Title = None
     
-    def __init__(self,url):
-        self.url=url
+    def __init__(self, url, domain):
+        self.url = url
+        self.domain = domain
 
     async def Get_Mail_Records(self):
         config = Configuration()
@@ -15,9 +15,8 @@ class Mail_Records():
         output=""
         try:
             # print("mail_configration_fetch.py: start")
-            domain_name = urlparse(self.url).netloc
-            result=await self.__final_result(domain_name)
-            output=await self.__formatting_Output(domain_name,result)
+            result=await self.__final_result(self.domain)
+            output=await self.__formatting_Output(self.domain, result)
             # print("mail_configration_fetch.py: output: ")
             return output
 
@@ -28,12 +27,12 @@ class Mail_Records():
             return output
 
     # THIS IS FINAL RESULT FUNCTION TO GET RESULT OF ALL FUNCTIONS
-    async def __final_result(self,domain_name):
+    async def __final_result(self, domain):
         record_types = ['MX', 'TXT',]
         result=[]
         for i in record_types:
             try:
-                answers = dns.resolver.resolve(domain_name,i)
+                answers = dns.resolver.resolve(domain, i)
                 required_a=[data.to_text() for data in answers]
                 if len(required_a)==1:
                     result.append(required_a[0])
@@ -49,7 +48,7 @@ class Mail_Records():
                 result.append(None)
         return result
 
-    async def __formatting_Output(self,domain, result):
+    async def __formatting_Output(self, domain, result):
         # print(domain,A_record,AAAA_record,mx_record,NS_record,CNAME_record,txt_record)
         htmlValue = ""
         htmlValue = await self.__html_table(domain,result)

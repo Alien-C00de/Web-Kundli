@@ -1,19 +1,18 @@
 import dns.resolver
-from urllib.parse import urlparse
 from colorama import Fore, Style
 
 class DNS_Records():
     Error_Title = None
     
-    def __init__(self,url):
+    def __init__(self, url, domain):
         self.url=url
+        self.domain = domain
 
     async def Get_DNS_Records(self):
         try:
             # print("dns_record_fetch.py: start")
-            domain_name = urlparse(self.url).netloc
-            result = await self.__final_result(domain_name)
-            output = await self.__formatting_Output(domain_name, *result)
+            result = await self.__final_result(self.domain)
+            output = await self.__formatting_Output(self.domain, *result)
             # print("dns_record_fetch.py: output: ")
             return output
 
@@ -24,18 +23,18 @@ class DNS_Records():
             return error_msg
 
     # THIS IS FINAL RESULT FUNCTION TO GET RESULT OF ALL FUNCTIONS
-    async def __final_result(self,domain_name):
-        A_record=await self.__get_A_record(domain_name)
-        AAAA_record=await self.__get_AAAA_record(domain_name)
-        mx_record=await self.__get_MX__record(domain_name)
-        NS_record=await self.__get_NS__record(domain_name)
-        CNAME_record=await self.__get_CNAME__record(domain_name)
-        txt_record=await self.__get_TXT__record(domain_name)
+    async def __final_result(self, domain):
+        A_record=await self.__get_A_record(domain)
+        AAAA_record=await self.__get_AAAA_record(domain)
+        mx_record=await self.__get_MX__record(domain)
+        NS_record=await self.__get_NS__record(domain)
+        CNAME_record=await self.__get_CNAME__record(domain)
+        txt_record=await self.__get_TXT__record(domain)
         return A_record,AAAA_record,mx_record,NS_record,CNAME_record,txt_record
 
-    async def __get_A_record(self,domain_name):
+    async def __get_A_record(self,domain):
         try:
-            answers = dns.resolver.resolve(domain_name,'A')
+            answers = dns.resolver.resolve(domain, 'A')
             required_a=[rdata.to_text() for rdata in answers]
             if len(required_a)==1:
                 return required_a[0]
@@ -50,9 +49,9 @@ class DNS_Records():
         except Exception as e:
             return None
 
-    async def __get_AAAA_record(self,domain_name):
+    async def __get_AAAA_record(self,domain):
         try:
-            answers = dns.resolver.resolve(domain_name,'AAAA')
+            answers = dns.resolver.resolve(domain, 'AAAA')
             required_aaaa=[rdata.to_text() for rdata in answers]
             if len(required_aaaa)==1:
                 return required_aaaa[0]
@@ -67,9 +66,9 @@ class DNS_Records():
         except Exception as e:
             return None
 
-    async def __get_MX__record(self,domain_name):
+    async def __get_MX__record(self,domain):
         try:
-            answers = dns.resolver.resolve(domain_name,'MX')
+            answers = dns.resolver.resolve(domain, 'MX')
             required_mx=[rdata.to_text() for rdata in answers]
             if len(required_mx)==1:
                 return required_mx[0]
@@ -84,9 +83,9 @@ class DNS_Records():
         except Exception as e:
             return None
 
-    async def __get_NS__record(self,domain_name):
+    async def __get_NS__record(self, domain):
         try:
-            answers = dns.resolver.resolve(domain_name,'NS')
+            answers = dns.resolver.resolve(domain, 'NS')
             required_NS=[rdata.to_text() for rdata in answers]
             if len(required_NS)==1:
                 return required_NS[0]
@@ -100,9 +99,9 @@ class DNS_Records():
         except Exception as e:
             return None
 
-    async def __get_CNAME__record(self,domain_name):
+    async def __get_CNAME__record(self,domain):
         try:
-            answers = dns.resolver.resolve(domain_name,'CNAME')
+            answers = dns.resolver.resolve(domain, 'CNAME')
             required_CNAME=[rdata.to_text() for rdata in answers]
             if len(required_CNAME)==1:
                 return required_CNAME[0]
@@ -117,9 +116,9 @@ class DNS_Records():
         except Exception as e:
             return None
 
-    async def __get_TXT__record(self,domain_name):
+    async def __get_TXT__record(self,domain):
         try:
-            answers = dns.resolver.resolve(domain_name,'TXT')
+            answers = dns.resolver.resolve(domain, 'TXT')
             required_TXT=[rdata.to_text() for rdata in answers]
             if len(required_TXT)==1:
                 return required_TXT[0]
