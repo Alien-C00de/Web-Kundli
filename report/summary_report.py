@@ -267,10 +267,13 @@ class Summary_Report:
                     }
             </style>
             </head>
-            <body>
+            """
+        )
+        body = (
+            """<body>
                 <div class="header">
                     <h1> <i class="fas fa-user-secret" icon-color></i> """ + config.REPORT_HEADER + """ </h1>
-                    <h2 align="right"; margin-right: 40px; style="color:#a6e22e;">""" + website + """</h2>
+                    <h2 align="right"; margin-right: 40px; style="color:#00FF00;">""" + website + """</h2>
                 </div>
                 <div class="date">
                     <h3 align="right"; margin-right: 20px; style="color:blue;">""" + report_timestamp + """</h3>
@@ -280,94 +283,92 @@ class Summary_Report:
                     <div class="progress-bar-container">
                         <div class="progress-bar" style="width: """ + str(percent) + """%;">""" + str(percent) + """%</div>
                     </div>
-                </div>"""
-        )
-        body = (
-            """<div class="content">
-                <div class="card">
-                    <h2> """ + config.MODULE_SERVER_LOCATION + """ </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + Server_Location + """</h4> </div>
-                <div class="card">
-                    <h2> """ + config.MODULE_SSL_CERTIFICATE + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + SSL_Cert + """</h4> </div>
-                <div class="card">
-                    <h2> """ + config.MODULE_DOMAIN_WHOIS + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + Whois + """</h4> </div>
-                <div class="card">
-                    <h2> """ + config.MODULE_SERVER_INFO + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + ser_info + """</h4> </div>
-                <div class="card">
-                    <h2> """ + config.MODULE_HEADERS + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + headers + """</h4> </div>
-                <div class="card">
-                    <h2> """ + config.MODULE_COOKIES + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + cookies + """</h4> </div>
-                <div class="card">
-                    <h2> """ + config.MODULE_HTTP_SECURITY + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>"""  + HTTP_sec + """</h4> </div>
-                <div class="card">
-                    <h2> """ + config.MODULE_DNS_SERVER + """ </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + dns_server_info + """</h4> </div>
-                <div class="card">
-                    <h2> """ + config.MODULE_TLS_CIPHER_SUITES + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + tls_cipher_suite + """</h4> </div>
-                <div class="card">
-                    <h2> """ + config.MODULE_DNS_RECORDS + """ </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + dns_info + """</h4> </div>    
-                <div class="card">
-                    <h2> """ + config.MODULE_TXT_RECORDS + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + txt_info + """</h4> </div>    
-                <div class="card">
-                    <h2> """ + config.MODULE_SERVER_STATUS + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + server_status_info + """</h4> </div>    
-                <div class="card">
-                    <h2> """ + config.MODULE_EMAIL_CONFIGURATION + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + mail_configuration_info + """</h4> </div>    
-                <div class="card">
-                    <h2> """ + config.MODULE_REDIRECT_CHAIN + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + redirect_Record + """</h4> </div>    
-                <div class="card">
-                    <h2> """ + config.MODULE_OPEN_PORTS + """ </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + ports + """</h4> </div>    
-                <div class="card">
-                    <h2> """ + config.MODULE_ARCHIVE_HISTORY + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + archive_info + """</h4> </div>    
-                <div class="card">
-                    <h2> """ + config.MODULE_ASSOCIATED_HOSTS + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + associated_info + """</h4> </div>    
-                <div class="card">
-                    <h2> """ + config.MODULE_BLOCK_DETECTION + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + block_info + """</h4> </div>    
-                <div class="card">
-                    <h2> """ + config.MODULE_CARBON_FOOTPRINT + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + carbon_info + """</h4> </div>    
-                <div class="card">
-                    <h2> """ + config.MODULE_CRAWL_RULES + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + crawl_info + """</h4> </div>    
-                <div class="card">
-                    <h2>""" + config.MODULE_SITE_FEATURES + """   </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + site_info + """</h4> </div>    
-                <div class="card">
-                    <h2> """ + config.MODULE_DNS_SECURITY + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + dns_sec_info + """</h4> </div>    
-                <div class="card">
-                    <h2> """ + config.MODULE_TECH_STACK + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + tech_stack_info + """</h4> </div>  
-                <div class="card">
-                    <h2> """ + config.MODULE_FIREWALL_DETECTION + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + firewall_info + """</h4> </div>  
-                <div class="card">
-                    <h2> """ + config.MODULE_SOCIAL_TAGS + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + social_tag_info + """</h4> </div> 
-                <div class="card">
-                    <h2> """ + config.MODULE_THREATS + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + threats_info + """</h4> </div> 
-                <div class="card">
-                    <h2>""" + config.MODULE_GLOBAL_RANK + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + global_ranking_info + """</h4> </div> 
-                <div class="card">
-                    <h2> """ + config.MODULE_SECURITY_TXT + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i> <h4>""" + security_txt_info + """</h4> </div> """ )
+                </div>
+                <div class="content">
+                    <div class="card">
+                        <h2> """ + config.MODULE_SERVER_LOCATION + """ </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + Server_Location + """</h4> </div>
+                    <div class="card">
+                        <h2> """ + config.MODULE_SSL_CERTIFICATE + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + SSL_Cert + """</h4> </div>
+                    <div class="card">
+                        <h2> """ + config.MODULE_DOMAIN_WHOIS + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + Whois + """</h4> </div>
+                    <div class="card">
+                        <h2> """ + config.MODULE_SERVER_INFO + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + ser_info + """</h4> </div>
+                    <div class="card">
+                        <h2> """ + config.MODULE_HEADERS + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + headers + """</h4> </div>
+                    <div class="card">
+                        <h2> """ + config.MODULE_COOKIES + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + cookies + """</h4> </div>
+                    <div class="card">
+                        <h2> """ + config.MODULE_HTTP_SECURITY + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>"""  + HTTP_sec + """</h4> </div>
+                    <div class="card">
+                        <h2> """ + config.MODULE_DNS_SERVER + """ </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + dns_server_info + """</h4> </div>
+                    <div class="card">
+                        <h2> """ + config.MODULE_TLS_CIPHER_SUITES + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + tls_cipher_suite + """</h4> </div>
+                    <div class="card">
+                        <h2> """ + config.MODULE_DNS_RECORDS + """ </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + dns_info + """</h4> </div>    
+                    <div class="card">
+                        <h2> """ + config.MODULE_TXT_RECORDS + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + txt_info + """</h4> </div>    
+                    <div class="card">
+                        <h2> """ + config.MODULE_SERVER_STATUS + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + server_status_info + """</h4> </div>    
+                    <div class="card">
+                        <h2> """ + config.MODULE_EMAIL_CONFIGURATION + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + mail_configuration_info + """</h4> </div>    
+                    <div class="card">
+                        <h2> """ + config.MODULE_REDIRECT_CHAIN + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + redirect_Record + """</h4> </div>    
+                    <div class="card">
+                        <h2> """ + config.MODULE_OPEN_PORTS + """ </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + ports + """</h4> </div>    
+                    <div class="card">
+                        <h2> """ + config.MODULE_ARCHIVE_HISTORY + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + archive_info + """</h4> </div>    
+                    <div class="card">
+                        <h2> """ + config.MODULE_ASSOCIATED_HOSTS + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + associated_info + """</h4> </div>    
+                    <div class="card">
+                        <h2> """ + config.MODULE_BLOCK_DETECTION + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + block_info + """</h4> </div>    
+                    <div class="card">
+                        <h2> """ + config.MODULE_CARBON_FOOTPRINT + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + carbon_info + """</h4> </div>    
+                    <div class="card">
+                        <h2> """ + config.MODULE_CRAWL_RULES + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + crawl_info + """</h4> </div>    
+                    <div class="card">
+                        <h2>""" + config.MODULE_SITE_FEATURES + """   </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + site_info + """</h4> </div>    
+                    <div class="card">
+                        <h2> """ + config.MODULE_DNS_SECURITY + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + dns_sec_info + """</h4> </div>    
+                    <div class="card">
+                        <h2> """ + config.MODULE_TECH_STACK + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + tech_stack_info + """</h4> </div>  
+                    <div class="card">
+                        <h2> """ + config.MODULE_FIREWALL_DETECTION + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + firewall_info + """</h4> </div>  
+                    <div class="card">
+                        <h2> """ + config.MODULE_SOCIAL_TAGS + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + social_tag_info + """</h4> </div> 
+                    <div class="card">
+                        <h2> """ + config.MODULE_THREATS + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + threats_info + """</h4> </div> 
+                    <div class="card">
+                        <h2>""" + config.MODULE_GLOBAL_RANK + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + global_ranking_info + """</h4> </div> 
+                    <div class="card">
+                        <h2> """ + config.MODULE_SECURITY_TXT + """  </h2>
+                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + security_txt_info + """</h4> </div> """ )
         # Conditionally add NMAP section
         if nmap_info:
             body += (

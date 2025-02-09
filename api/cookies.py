@@ -177,31 +177,32 @@ class Cookies():
 
 
     async def __analysis_table(self, issues, suggestions):
+        html = ""
+        if not issues:
+            html_template = """<div class="module" id="cookies">
+                                <h2>Cookies</h2>
+                                <h3>Summary</h3>
+                                <div>The cookies used on the website meet most security standards. However, there are a couple of issues that need to be addressed.</div>
+                                <div class="issues">
+                                    <h4><strong>Identified Issues:</strong></h4>
+                                    <ul>
+                                        {issue_items}
+                                    </ul>
+                                </div>
+                                <div class="suggestions">
+                                    <h4><strong>Suggestions for Improvement:</strong></h4>
+                                    <ul>
+                                        {suggestion_items}
+                                    </ul>
+                                </div> 
+                        </div>"""
 
-        html_template = """<div class="module" id="cookies">
-                            <h2>Cookies</h2>
-                            <h3>Summary</h3>
-                            <div>The cookies used on the website meet most security standards. However, there are a couple of issues that need to be addressed.</div>
-                            <div class="issues">
-                                <h4><strong>Identified Issues:</strong></h4>
-                                <ul>
-                                    {issue_items}
-                                </ul>
-                            </div>
-                            <div class="suggestions">
-                                <h4><strong>Suggestions for Improvement:</strong></h4>
-                                <ul>
-                                    {suggestion_items}
-                                </ul>
-                            </div> 
-                    </div>"""
+            # Generate the list items for issues and suggestions
+            issue_items = ''.join([f"<li>{issue}</li>" for issue in issues])
+            suggestion_items = ''.join([f"<li>{suggestion}</li>" for suggestion in suggestions])
 
-        # Generate the list items for issues and suggestions
-        issue_items = ''.join([f"<li>{issue}</li>" for issue in issues])
-        suggestion_items = ''.join([f"<li>{suggestion}</li>" for suggestion in suggestions])
-
-        # Insert the list items into the HTML template
-        html = html_template.format(issue_items=issue_items, suggestion_items=suggestion_items)
+            # Insert the list items into the HTML template
+            html = html_template.format(issue_items=issue_items, suggestion_items=suggestion_items)
         return html
 
 

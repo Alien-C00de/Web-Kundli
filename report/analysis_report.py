@@ -82,6 +82,7 @@ class Analysis_Report:
                         <meta charset="UTF-8">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>Website Security Analysis Report</title>
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
                         <style>
                             body {
                                 font-family: Arial, sans-serif;
@@ -95,16 +96,19 @@ class Analysis_Report:
                                 margin-right: 10px;
                                 margin-left: 10px;
                             }
-                            header {
-                                background: #3498db;
-                                color: #fff;
-                                padding-top: 50px;
-                                min-height: 60px;
-                                border-bottom: #77aaff 3px solid;
+                            .header {
+                                background-color: #333;
+                                padding: 10px;
+                                display: flex;
                                 align-items: center;
                                 justify-content: space-between;
                                 margin-right: 10px;
                                 margin-left: 10px;
+                            }
+                            .header h1 {
+                                color: #00FF00;
+                                margin: 0;
+                                font-size: 2.5em;
                             }
                             header a {
                                 color: #fff;
@@ -131,17 +135,12 @@ class Analysis_Report:
                                 float: right;
                                 margin-top: 10px;
                             }
-                            .main {
-                                padding: 20px;
-                                background: #fff;
-                                margin-top: 20px;
-                            }
                             .module {
                                 margin-bottom: 20px;
                             }
                             .module h2 {
-                                background: #332;
-                                color: #FFA500;
+                                background: rgb(246, 167, 128);
+                                color: #0f0f0e;
                                 padding: 10px;
                             }
                             .module p {
@@ -156,16 +155,16 @@ class Analysis_Report:
                                 border-left: 5px solid #e74c3c;
                             }
                             .issues h4{
-                            margin-top: 5px;
-                            margin-bottom: 1px;
+                                margin-top: 5px;
+                                margin-bottom: 1px;
                             }
                             .suggestions {
                                 background-color: #d6eaf8;
                                 border-left: 5px solid #3498db;
                             }
                             .suggestions h4{
-                            margin-top: 5px;
-                            margin-bottom: 1px;
+                                margin-top: 5px;
+                                margin-bottom: 1px;
                             }
                             footer {
                                 background-color: #333;
@@ -181,14 +180,10 @@ class Analysis_Report:
                     </head>""")
         body = (
                 """<body>
-                        <header>
-                            <div class="container">
-                                <div id="branding">
-                                    <h1>Website Security Analysis Report</h1>
-                                </div>
-                            </div>
-                        </header>
-
+                        <div class="header">
+                            <h1> <i class="fas fa-heartbeat" icon-color></i> """ + config.ANALYSIS_REPORT_HEADER + """ </h1>
+                            <h2 align="right"; margin-right: 40px; style="color:#00FF00;">""" + website + """</h2>
+                        </div>
                         <div class="container main">
                             """ + cookies + """
                         </div>
