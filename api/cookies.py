@@ -178,7 +178,7 @@ class Cookies():
 
     async def __analysis_table(self, issues, suggestions):
         html = ""
-        if not issues:
+        if issues:
             html_template = """<div class="module" id="cookies">
                                 <h2>Cookies</h2>
                                 <h3>Summary</h3>

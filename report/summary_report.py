@@ -1,4 +1,4 @@
-import datetime
+
 import os
 import time
 from bs4 import BeautifulSoup
@@ -6,17 +6,13 @@ from colorama import Back, Fore, Style
 from util.config_uti import Configuration
 
 class Summary_Report:
-    def __init__(self, domain):
+    def __init__(self, domain, timestamp):
         self.domain = domain
+        self.timestamp = timestamp
 
-    async def check_dir(self, path):
-        if not os.path.exists(path):
-            os.makedirs(path)
-
-    async def __create_dirs(self, root, subfolders=None):
-        root = root if subfolders == None else f"{root}/{subfolders}/"
-        if not os.path.exists(root):
-            os.makedirs(f"{root}", exist_ok=True)
+    # async def check_dir(self, path):
+    #     if not os.path.exists(path):
+    #         os.makedirs(path)
 
     async def __ranking_percentage(self, Server_Location, SSL_Cert, Whois, ser_info, HTTP_sec, headers, cookies, dns_server_info, 
                              tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record, 
@@ -86,6 +82,9 @@ class Summary_Report:
 
         config = Configuration()
         report_timestamp = str(time.strftime("%A %d-%b-%Y %H:%M:%S", time.localtime(time.time())))
+        Analysis_report = "%s_%s_%s.html" % (config.ANALYSIS_REPORT_FILE_NAME.replace("/", "_"), self.domain, self.timestamp)
+
+
         percent = await self.__ranking_percentage(Server_Location, SSL_Cert, Whois, ser_info, HTTP_sec, headers, cookies, dns_server_info, 
                          tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record, 
                          ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info,
@@ -144,6 +143,11 @@ class Summary_Report:
                         margin: 20px;
                         padding: 5px;
                         color: #00FF00;
+                    }
+                    .ranking-container h2 {
+                        font-size: 1.5em;
+                        margin: 20px;
+                        padding: 5px;
                     }
                     .progress-bar-container {
                         flex: 1; /* Allow progress bar to take available space */
@@ -265,6 +269,14 @@ class Summary_Report:
                         align-items: center;
                         color: #00FF00;
                     }
+                    a {
+                        color: orange;
+                        text-decoration: none; /* Remove underline */
+                    }
+                    /* Change color when hovering over the link */
+                    a:hover {
+                        color: red; /* Change color to red when hovered */
+                    }
             </style>
             </head>
             """
@@ -283,6 +295,7 @@ class Summary_Report:
                     <div class="progress-bar-container">
                         <div class="progress-bar" style="width: """ + str(percent) + """%;">""" + str(percent) + """%</div>
                     </div>
+                    <h2> <a href= """ + Analysis_report + """  target="_blank"> """ + config.ANALYSIS_REPORT_HEADER + """ </a></h2>
                 </div>
                 <div class="content">
                     <div class="card">
@@ -399,15 +412,11 @@ class Summary_Report:
                 </html>""")
 
         # create and open the new WebKundli.html file
-        # timestamp = int(datetime.datetime.now().timestamp())
-        timestamp  =  datetime.datetime.now().strftime("%d%b%Y_%H-%M-%S")
-        file_name_html = "%s_%s_%s.html" % (config.REPORT_FILE_NAME.replace("/", "_"), self.domain, timestamp)
+        html_report = "%s_%s_%s.html" % (config.REPORT_FILE_NAME.replace("/", "_"), self.domain, self.timestamp)
 
-        await self.__create_dirs("output")
+        html_report = os.path.join("./output", html_report)
 
-        file_name_html = os.path.join("./output", file_name_html)
-
-        with open(file_name_html, "a", encoding="UTF-8") as f:
+        with open(html_report, "a", encoding="UTF-8") as f:
             f.write(header)
             f.write(body)
             if config.REPORT_FOOTER.upper() == "YES":
@@ -419,8 +428,8 @@ class Summary_Report:
             filenameH = file_name_html.partition("./output\\")[-1]
             os.system(f'start "" "{file_name_html}"')
         else:
-            filenameH = file_name_html.partition("output/")[-1]
-            os.system(f'xdg-open "{file_name_html}"')
+            filenameH = html_report.partition("output/")[-1]
+            os.system(f'xdg-open "{html_report}"')
 
         print(
             Fore.GREEN + Style.BRIGHT + f"\n[+] HTML" + Fore.WHITE + Style.BRIGHT,
@@ -428,3 +437,5 @@ class Summary_Report:
             Fore.GREEN + Style.BRIGHT + f"File Is Ready",
             Fore.RESET,
         )
+
+    

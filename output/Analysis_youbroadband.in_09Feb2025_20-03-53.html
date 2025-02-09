@@ -3,7 +3,7 @@
                     <head>
                         <meta charset="UTF-8">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>Website Security Analysis Report</title>
+                        <title> Health Analysis Report </title>
                         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
                         <style>
                             body {
@@ -66,8 +66,11 @@
                                 padding: 10px;
                             }
                             .module p {
-                                padding: 20px;
+                                padding: 10px;
                                 background: #e4e4e4;
+                                align-items: center;
+                                padding: 10px;
+                                display: flex;
                             }
                             .issues, .suggestions {
                                 background-color: #f2d7d5;
@@ -88,44 +91,52 @@
                                 margin-top: 5px;
                                 margin-bottom: 1px;
                             }
-                            footer {
-                                background-color: #333;
+                            .footer {
+                                background-color: rgb(144, 144, 228);
                                 color: #fff;
-                                padding: 10px;
+
                                 display: flex;
                                 align-items: center;
                                 justify-content: space-between;
                                 margin-right: 10px;
                                 margin-left: 10px;
                             }
+                            .footer h3{
+                                font-size: 0.9em;
+                                align-items: center;
+                                color: #0f0f0e;
+                                margin-right: 10px;
+                                margin-left: 10px;
+                            }
                         </style>
                     </head><body>
                         <div class="header">
-                            <h1> <i class="fas fa-heartbeat" icon-color></i> Web Kundli Health Analysis Report </h1>
+                            <h1> Health Analysis Report <i class="fas fa-heartbeat" icon-color></i> </h1>
                             <h2 align="right"; margin-right: 40px; style="color:#00FF00;">https://youbroadband.in</h2>
                         </div>
                         <div class="container main">
                             <div class="module" id="cookies">
-                            <h2>Cookies</h2>
-                            <h3>Summary</h3>
-                            <div>The cookies used on the website meet most security standards. However, there are a couple of issues that need to be addressed.</div>
-                            <div class="issues">
-                                <h4><strong>Identified Issues:</strong></h4>
-                                <ul>
-                                    <li>Expires is not set properly or has already passed.</li><li>Path is too broad or not set.</li><li>Secure flag is not set.</li>
-                                </ul>
-                            </div>
-                            <div class="suggestions">
-                                <h4><strong>Suggestions for Improvement:</strong></h4>
-                                <ul>
-                                    <li>Set a short expiration date or make it session-based for better security.</li><li>Restrict the cookie''s path to specific sub-paths to limit exposure.</li><li>Ensure the Secure flag is set to true so cookies are only transmitted over HTTPS.</li>
-                                </ul>
-                            </div> 
-                    </div>
+                                <h2>Cookies</h2>
+                                <h3>Summary</h3>
+                                <div>The cookies used on the website meet most security standards. However, there are a couple of issues that need to be addressed.</div>
+                                <div class="issues">
+                                    <h4><strong>Identified Issues:</strong></h4>
+                                    <ul>
+                                        <li>Expires is not set properly or has already passed.</li><li>Path is too broad or not set.</li><li>Secure flag is not set.</li>
+                                    </ul>
+                                </div>
+                                <div class="suggestions">
+                                    <h4><strong>Suggestions for Improvement:</strong></h4>
+                                    <ul>
+                                        <li>Set a short expiration date or make it session-based for better security.</li><li>Restrict the cookie''s path to specific sub-paths to limit exposure.</li><li>Ensure the Secure flag is set to true so cookies are only transmitted over HTTPS.</li>
+                                    </ul>
+                                </div> 
+                        </div>
                         </div>
 
-                        <footer>
-                            <p>Website Security Analysis Report &copy; 2025</p>
-                        </footer>
+                        <div class="footer">
+                            <h3 align="center";> Web Kundli Health Analysis Report © 2025 <h3>
+                        </div>
+                        
                     </body>
                     </html>

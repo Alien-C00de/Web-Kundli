@@ -1,8 +1,10 @@
 import asyncio
 import aiohttp
 from colorama import Fore, Style
+import datetime
 import socket
 import requests
+import os
 from urllib.parse import urlparse
 from util.URL_Verifier import URL_Verifier
 from api.server_location import Server_Location 
@@ -97,7 +99,7 @@ class engine():
         SSL_Cert = ""
         Whois = ""
         Header = []
-        cookie = ""
+        cookie = []
         dns_server_info = ""
         tls_cipher_suite = ""
         dns_info = ""
@@ -182,21 +184,28 @@ class engine():
             else:
                 tb29 = []
 
-            await self.__Summary_Report(tb1, tb2, tb3, tb4, tb5, tb6, tb7, tb8, tb9, tb10, tb11, tb12, tb13, tb14, tb15, 
+            
+            timestamp  =  datetime.datetime.now().strftime("%d%b%Y_%H-%M-%S")
+
+            await self.__create_dirs("output")
+
+            await self.__Summary_Report(timestamp, tb1, tb2, tb3, tb4, tb5, tb6, tb7, tb8, tb9, tb10, tb11, tb12, tb13, tb14, tb15, 
                                          tb16, tb17, tb18, tb19, tb20, tb21, tb22, tb23, tb24, tb25, tb26, tb27, tb28, tb29)
-            await self.__Analysis_Report(str(cookie[1]))
+            
+            await self.__Analysis_Report(timestamp, str(cookie[1]))
+
         except Exception as ex:
             error_msg = ex.args[0]
             msg = "[-] " + self.Error_Title + " => Start Process : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
 
     # Generate the HTML Report
-    async def __Summary_Report(self, server_location, SSL_Cert, Whois, ser_info, HTTP_Sec, headers, cookies, dns_server_info, 
+    async def __Summary_Report(self, timestamp, server_location, SSL_Cert, Whois, ser_info, HTTP_Sec, headers, cookies, dns_server_info, 
                                 tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record,
                                 ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info, 
                                 tech_stack_info, firewall_info, social_tags_info, threats_info, global_ranking_info, security_txt_info, nmap_info):
         try:
-            summary_report = Summary_Report(self.domain)
+            summary_report = Summary_Report(self.domain, timestamp)
             await summary_report.outputHTML(self.url, server_location, SSL_Cert, Whois, ser_info, HTTP_Sec, headers, cookies, dns_server_info, 
                                        tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record,
                                        ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info,
@@ -207,10 +216,10 @@ class engine():
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
 
 
-    async def __Analysis_Report(self, Cookie):
+    async def __Analysis_Report(self, timestamp, Cookie):
         try:
             domain = urlparse(self.url).netloc
-            analysis_report = Analysis_Report(domain)
+            analysis_report = Analysis_Report(domain, timestamp)
             await analysis_report.outputHTML(self.url, Cookie)
         except Exception as ex:
             error_msg = ex.args[0]
@@ -260,6 +269,11 @@ class engine():
         response = requests.get(self.url)
         return response
     
+    async def __create_dirs(self, root, subfolders = None):
+        root = root if subfolders == None else f"{root}/{subfolders}/"
+        if not os.path.exists(root):
+            os.makedirs(f"{root}", exist_ok=True)
+
     async def __get_aiohttp_response(self):
         async with aiohttp.ClientSession() as session:
                 async with session.get(self.url) as response:

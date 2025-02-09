@@ -1,4 +1,3 @@
-import datetime
 import os
 import time
 from bs4 import BeautifulSoup
@@ -6,8 +5,9 @@ from colorama import Back, Fore, Style
 from util.config_uti import Configuration
 
 class Analysis_Report:
-    def __init__(self, domain):
+    def __init__(self, domain, timestamp):
         self.domain = domain
+        self.timestamp = timestamp
 
     async def __ranking_percentage(self, Server_Location, SSL_Cert, Whois, ser_info, HTTP_sec, headers, cookies, dns_server_info, 
                              tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record, 
@@ -81,7 +81,7 @@ class Analysis_Report:
                     <head>
                         <meta charset="UTF-8">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>Website Security Analysis Report</title>
+                        <title> """ + config.ANALYSIS_REPORT_HEADER + """ </title>
                         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
                         <style>
                             body {
@@ -144,8 +144,11 @@ class Analysis_Report:
                                 padding: 10px;
                             }
                             .module p {
-                                padding: 20px;
+                                padding: 10px;
                                 background: #e4e4e4;
+                                align-items: center;
+                                padding: 10px;
+                                display: flex;
                             }
                             .issues, .suggestions {
                                 background-color: #f2d7d5;
@@ -166,13 +169,20 @@ class Analysis_Report:
                                 margin-top: 5px;
                                 margin-bottom: 1px;
                             }
-                            footer {
-                                background-color: #333;
+                            .footer {
+                                background-color: rgb(144, 144, 228);
                                 color: #fff;
-                                padding: 10px;
+
                                 display: flex;
                                 align-items: center;
                                 justify-content: space-between;
+                                margin-right: 10px;
+                                margin-left: 10px;
+                            }
+                            .footer h3{
+                                font-size: 0.9em;
+                                align-items: center;
+                                color: #0f0f0e;
                                 margin-right: 10px;
                                 margin-left: 10px;
                             }
@@ -181,38 +191,38 @@ class Analysis_Report:
         body = (
                 """<body>
                         <div class="header">
-                            <h1> <i class="fas fa-heartbeat" icon-color></i> """ + config.ANALYSIS_REPORT_HEADER + """ </h1>
+                            <h1> """ + config.ANALYSIS_REPORT_HEADER + """ <i class="fas fa-heartbeat" icon-color></i> </h1>
                             <h2 align="right"; margin-right: 40px; style="color:#00FF00;">""" + website + """</h2>
                         </div>
                         <div class="container main">
                             """ + cookies + """
                         </div>
 
-                        <footer>
-                            <p>Website Security Analysis Report &copy; 2025</p>
-                        </footer>
+                        <div class="footer">
+                            <h3 align="center";> Web Kundli Health Analysis Report © 2025 <h3>
+                        </div>
+                        
                     </body>
                     </html>""" )
 
-        timestamp  =  datetime.datetime.now().strftime("%d%b%Y_%H-%M-%S")
-        file_name_html = "%s_%s_%s.html" % (config.ANALYSIS_REPORT_FILE_NAME.replace("/", "_"), self.domain, timestamp)
+        Analysis_report = "%s_%s_%s.html" % (config.ANALYSIS_REPORT_FILE_NAME.replace("/", "_"), self.domain, self.timestamp)
 
-        file_name_html = os.path.join("./output", file_name_html)
+        Analysis_report = os.path.join("./output", Analysis_report)
 
-        with open(file_name_html, "a", encoding="UTF-8") as f:
+        with open(Analysis_report, "a", encoding="UTF-8") as f:
             f.write(header)
             f.write(body)
 
-        if os.name == "nt":
-            filenameH = file_name_html.partition("./output\\")[-1]
-            os.system(f'start "" "{file_name_html}"')
-        else:
-            filenameH = file_name_html.partition("output/")[-1]
-            os.system(f'xdg-open "{file_name_html}"')
+        # if os.name == "nt":
+        #     filenameH = file_name_html.partition("./output\\")[-1]
+        #     os.system(f'start "" "{file_name_html}"')
+        # else:
+        #     filenameH = Analysis_report.partition("output/")[-1]
+        #     os.system(f'xdg-open "{Analysis_report}"')
 
-        print(
-            Fore.GREEN + Style.BRIGHT + f"\n[+] HTML" + Fore.WHITE + Style.BRIGHT,
-            filenameH,
-            Fore.GREEN + Style.BRIGHT + f"File Is Ready",
-            Fore.RESET,
-        )
+        # print(
+        #     Fore.GREEN + Style.BRIGHT + f"\n[+] HTML" + Fore.WHITE + Style.BRIGHT,
+        #     filenameH,
+        #     Fore.GREEN + Style.BRIGHT + f"File Is Ready",
+        #     Fore.RESET,
+        # )
