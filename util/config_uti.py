@@ -57,6 +57,7 @@ class Configuration:
     'Analysis Report' in config
     ANALYSIS_REPORT_HEADER = config['Analysis Report']['ANALYSIS_REPORT_HEADER']
     ANALYSIS_REPORT_FILE_NAME = config['Analysis Report']['ANALYSIS_REPORT_FILE_NAME']
+    ANALYSIS_REPORT_FOOTER = config['Analysis Report']['ANALYSIS_REPORT_FOOTER']
     
     'Module' in config
     MODULE_SERVER_LOCATION = config['Module']['MODULE_SERVER_LOCATION']			

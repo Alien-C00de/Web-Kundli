@@ -1,4 +1,3 @@
-
 import os
 import time
 from bs4 import BeautifulSoup
@@ -75,15 +74,15 @@ class Summary_Report:
             return progress_div.get_text(strip=True)
         return None
 
-    async def outputHTML(self, website, Server_Location, SSL_Cert, Whois, ser_info, HTTP_sec, headers, cookies, dns_server_info, 
+    async def Generate_Summary_Report(self, website, Server_Location, SSL_Cert, Whois, ser_info, HTTP_sec, headers, cookies, dns_server_info, 
                          tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record, 
                          ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info,
                          tech_stack_info, firewall_info, social_tag_info, threats_info, global_ranking_info, security_txt_info, nmap_info):
 
         config = Configuration()
-        report_timestamp = str(time.strftime("%A %d-%b-%Y %H:%M:%S", time.localtime(time.time())))
-        Analysis_report = "%s_%s_%s.html" % (config.ANALYSIS_REPORT_FILE_NAME.replace("/", "_"), self.domain, self.timestamp)
-
+        # report_timestamp = str(time.strftime("%A %d-%b-%Y %H:%M:%S", self.timestamp))
+        report_timestamp = self.timestamp.strftime("%A %d-%b-%Y %H:%M:%S")
+        Analysis_report = "%s_%s_%s.html" % (config.ANALYSIS_REPORT_FILE_NAME.replace("/", "_"), self.domain, self.timestamp.strftime("%d%b%Y_%H-%M-%S"))
 
         percent = await self.__ranking_percentage(Server_Location, SSL_Cert, Whois, ser_info, HTTP_sec, headers, cookies, dns_server_info, 
                          tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record, 
@@ -270,7 +269,7 @@ class Summary_Report:
                         color: #00FF00;
                     }
                     a {
-                        color: orange;
+                        color: #00FF00;
                         text-decoration: none; /* Remove underline */
                     }
                     /* Change color when hovering over the link */
@@ -285,7 +284,7 @@ class Summary_Report:
             """<body>
                 <div class="header">
                     <h1> <i class="fas fa-user-secret" icon-color></i> """ + config.REPORT_HEADER + """ </h1>
-                    <h2 align="right"; margin-right: 40px; style="color:#00FF00;">""" + website + """</h2>
+                    <h2 align="right"; margin-right: 40px; style="color:#00FF00;"> <a href= """ + website + """  target="_blank"> """ + website + """ </a></h2>
                 </div>
                 <div class="date">
                     <h3 align="right"; margin-right: 20px; style="color:blue;">""" + report_timestamp + """</h3>
@@ -412,7 +411,7 @@ class Summary_Report:
                 </html>""")
 
         # create and open the new WebKundli.html file
-        html_report = "%s_%s_%s.html" % (config.REPORT_FILE_NAME.replace("/", "_"), self.domain, self.timestamp)
+        html_report = "%s_%s_%s.html" % (config.REPORT_FILE_NAME.replace("/", "_"), self.domain, self.timestamp.strftime("%d%b%Y_%H-%M-%S"))
 
         html_report = os.path.join("./output", html_report)
 
@@ -425,8 +424,8 @@ class Summary_Report:
                 f.write(No_footer)
 
         if os.name == "nt":
-            filenameH = file_name_html.partition("./output\\")[-1]
-            os.system(f'start "" "{file_name_html}"')
+            filenameH = html_report.partition("./output\\")[-1]
+            os.system(f'start "" "{html_report}"')
         else:
             filenameH = html_report.partition("output/")[-1]
             os.system(f'xdg-open "{html_report}"')
@@ -437,5 +436,3 @@ class Summary_Report:
             Fore.GREEN + Style.BRIGHT + f"File Is Ready",
             Fore.RESET,
         )
-
-    

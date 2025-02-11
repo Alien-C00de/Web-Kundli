@@ -9,71 +9,11 @@ class Analysis_Report:
         self.domain = domain
         self.timestamp = timestamp
 
-    async def __ranking_percentage(self, Server_Location, SSL_Cert, Whois, ser_info, HTTP_sec, headers, cookies, dns_server_info, 
-                             tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record, 
-                             ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info,
-                             tech_stack_info, firewall_info, social_tag_info, threats_info, global_ranking_info, security_txt_info):
-        # List of parameters
-        params = {
-            'Server_Location': Server_Location,
-            'SSL_Cert': SSL_Cert,
-            'Whois': Whois,
-            'ser_info': ser_info,
-            'HTTP_sec': HTTP_sec,
-            'headers': headers,
-            'cookies': cookies,
-            'DNS_Server': dns_server_info,
-            'tls_cipher_suite': tls_cipher_suite,
-            'dns_info': dns_info,
-            'txt_info': txt_info,
-            'server_status_info': server_status_info,
-            'mail_configuration_info': mail_configuration_info,
-            'redirect_Record': redirect_Record,
-            'ports': ports,
-            'archive_info': archive_info,
-            'associated_info': associated_info,
-            'block_info': block_info,
-            'carbon_info': carbon_info,
-            'crawl_info': crawl_info,
-            'site_info': site_info,
-            'dns_sec_info': dns_sec_info,
-            'tech_stack_info': tech_stack_info,
-            'firewall_info': firewall_info,
-            'social_tag_info': social_tag_info,
-            'threats_info': threats_info,
-            'global_ranking_info': global_ranking_info,
-            'security_txt_info': security_txt_info
-        }
-
-        percent = 0
-        # Loop through parameters
-        for name, value in params.items():
-            if isinstance(value, str):
-                progress = await self._extract_progress_from_html(value)
-                if progress:
-                    no_percent_strip = progress.rstrip('%')
-                    percent += int(no_percent_strip)
-                    # print(f"{name}: Progress - {progress}")
-
-        final = (percent / len(params)) 
-        # print(f"Params {len(params)}: Percent - {percent} Final {final}")
-        return round(final, 2)
-
-    async def _extract_progress_from_html(self, html_content):
-        """Extract the progress percentage from HTML content."""
-        # Simulate an asynchronous operation if needed
-        # await asyncio.sleep(0)  # No actual async operation here, but for demonstration
-
-        soup = BeautifulSoup(html_content, 'html.parser')
-        progress_div = soup.find('div', class_='progress')
-        if progress_div:
-            return progress_div.get_text(strip=True)
-        return None
-
-    async def outputHTML(self, website, cookies):
+    async def Generate_Analysis_Report(self, website, cookies, server_location, server_info, SSL_Cert):
 
         config = Configuration()
-        report_timestamp = str(time.strftime("%A %d-%b-%Y %H:%M:%S", time.localtime(time.time())))
+        # report_timestamp = str(time.strftime("%A %d-%b-%Y %H:%M:%S", self.timestamp))
+        report_timestamp = self.timestamp.strftime("%A %d-%b-%Y %H:%M:%S")
 
         header = (
             """<!DOCTYPE html>
@@ -81,7 +21,9 @@ class Analysis_Report:
                     <head>
                         <meta charset="UTF-8">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title> """ + config.ANALYSIS_REPORT_HEADER + """ </title>
+                        <title> """
+            + config.ANALYSIS_REPORT_HEADER
+            + """ </title>
                         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
                         <style>
                             body {
@@ -104,11 +46,12 @@ class Analysis_Report:
                                 justify-content: space-between;
                                 margin-right: 10px;
                                 margin-left: 10px;
+                                height: 40px;
                             }
                             .header h1 {
                                 color: #00FF00;
                                 margin: 0;
-                                font-size: 2.5em;
+                                font-size: 2em;
                             }
                             header a {
                                 color: #fff;
@@ -139,9 +82,10 @@ class Analysis_Report:
                                 margin-bottom: 20px;
                             }
                             .module h2 {
-                                background: rgb(246, 167, 128);
+                                background: rgb(169, 128, 246);
                                 color: #0f0f0e;
-                                padding: 10px;
+                                padding: 5px;
+                                font-size: 1em;
                             }
                             .module p {
                                 padding: 10px;
@@ -169,15 +113,25 @@ class Analysis_Report:
                                 margin-top: 5px;
                                 margin-bottom: 1px;
                             }
+                            .date {
+                                padding: 5px;
+                                margin-right: 20px;
+                            }
+                            .date h3 {
+                                margin: 0;
+                                font-size: 0.8em;
+                                align-items: center;
+                            }
                             .footer {
-                                background-color: rgb(144, 144, 228);
+                                background-color: rgb(189, 189, 204);
                                 color: #fff;
-
                                 display: flex;
                                 align-items: center;
-                                justify-content: space-between;
+                                text-align: center; 
+                                justify-content: center;
                                 margin-right: 10px;
                                 margin-left: 10px;
+                                height: 30px;
                             }
                             .footer h3{
                                 font-size: 0.9em;
@@ -187,25 +141,33 @@ class Analysis_Report:
                                 margin-left: 10px;
                             }
                         </style>
-                    </head>""")
+                    </head>"""
+        )
         body = (
                 """<body>
                         <div class="header">
-                            <h1> """ + config.ANALYSIS_REPORT_HEADER + """ <i class="fas fa-heartbeat" icon-color></i> </h1>
-                            <h2 align="right"; margin-right: 40px; style="color:#00FF00;">""" + website + """</h2>
+                            <h2 align="left"; margin-left: 20px; style="color:#FFA500;">""" + config.REPORT_HEADER + """ <h2>
+                            <h1 align="center"; style="color:#00FF00;"> """ + config.ANALYSIS_REPORT_HEADER + """ <i class="fas fa-heartbeat" icon-color></i> </h1>
+                            <h2 align="right"; margin-right: 40px; style="color:#FFA500;">""" + website + """</h2>
+                        </div>
+                        <div class="date">
+                            <h3 align="right" ; margin-right: 10px;  align-items: center; style="color:blue;">""" + report_timestamp + """</h3>
                         </div>
                         <div class="container main">
                             """ + cookies + """
+                            """ + server_location + """
+                            """ + server_info + """
+                            """ + SSL_Cert + """
                         </div>
 
                         <div class="footer">
-                            <h3 align="center";> Web Kundli Health Analysis Report © 2025 <h3>
+                            <h3 align="center";> """ + config.ANALYSIS_REPORT_FOOTER + """&nbsp;&nbsp;&copy;&nbsp;""" + config.YEAR + """ </h3>
                         </div>
                         
                     </body>
                     </html>""" )
 
-        Analysis_report = "%s_%s_%s.html" % (config.ANALYSIS_REPORT_FILE_NAME.replace("/", "_"), self.domain, self.timestamp)
+        Analysis_report = "%s_%s_%s.html" % (config.ANALYSIS_REPORT_FILE_NAME.replace("/", "_"), self.domain, self.timestamp.strftime("%d%b%Y_%H-%M-%S"))
 
         Analysis_report = os.path.join("./output", Analysis_report)
 

@@ -1,6 +1,7 @@
 from colorama import Fore, Style
 from util.config_uti import Configuration
 from util.issue_config import Issue_Config
+from util.report_util import Report_Utility
 from datetime import datetime, timezone
 import datetime
 import re
@@ -43,7 +44,7 @@ class Cookies():
         return htmlValue
 
     async def __html_cookies_table(self, cookie_info):
-        
+
         rep_data = []
         # percentage = await self.__rating(cookie_info)
         percentage, html = await self.__evaluate_cookie_security(cookie_info)
@@ -125,7 +126,6 @@ class Cookies():
         issues = []
         suggestions = []
 
-
         # return score, percentage_score, issues, suggestions
         # Session Name - Should not be empty or generic
         if not session_name or session_name == 'session':
@@ -143,7 +143,7 @@ class Cookies():
 
         # Expires - Should not be far-off date or missing
         if not expires or datetime.strptime(expires, "%a, %d-%b-%Y %H:%M:%S GMT") < datetime.now():
-            issues.append(issue_config.ISSUE_EXPIRES)
+            issues.append(issue_config.ISSUE_COOKIES_EXPIRES)
             suggestions.append(issue_config.SUGGESTION_EXPIRES)
         else:
             score += 1
@@ -169,42 +169,41 @@ class Cookies():
         else:
             score += 1
 
-        html_tags = await self.__analysis_table(issues, suggestions)
-        # Calculate the percentage score
         percentage_score = (score / max_score) * 100
+        # html_tags = await self.__analysis_table(issues, suggestions, int(percentage_score))
+        report_util = Report_Utility()
+        html_tags = await report_util.analysis_table(issues, suggestions, int(percentage_score))
 
         return int(percentage_score), html_tags
 
+    # async def __analysis_table(self, issues, suggestions, percentage):
+    #     html = ""
+    #     if issues:
+    #         html_template = """<div class="module" id="cookies">
+    #                             <h2>""" + Configuration.MODULE_COOKIES + """&nbsp; Score = """ + str(percentage) + """%</h2>
+    #                             <div style="display: inline; font-weight: bold;">Summary :</div>
+    #                             <span style="display: inline;">The cookies used on the website meet most security standards. However, there are a couple of issues that need to be addressed.</span>
+    #                             <div class="issues">
+    #                                 <h4>Identified Issues:</h4>
+    #                                 <ul>
+    #                                     {issue_items}
+    #                                 </ul>
+    #                             </div>
+    #                             <div class="suggestions">
+    #                                 <h4>Suggestions for Improvement:</h4>
+    #                                 <ul>
+    #                                     {suggestion_items}
+    #                                 </ul>
+    #                             </div> 
+    #                     </div>"""
 
-    async def __analysis_table(self, issues, suggestions):
-        html = ""
-        if issues:
-            html_template = """<div class="module" id="cookies">
-                                <h2>Cookies</h2>
-                                <h3>Summary</h3>
-                                <div>The cookies used on the website meet most security standards. However, there are a couple of issues that need to be addressed.</div>
-                                <div class="issues">
-                                    <h4><strong>Identified Issues:</strong></h4>
-                                    <ul>
-                                        {issue_items}
-                                    </ul>
-                                </div>
-                                <div class="suggestions">
-                                    <h4><strong>Suggestions for Improvement:</strong></h4>
-                                    <ul>
-                                        {suggestion_items}
-                                    </ul>
-                                </div> 
-                        </div>"""
+    #         # Generate the list items for issues and suggestions
+    #         issue_items = ''.join([f"<li>{issue}</li>" for issue in issues])
+    #         suggestion_items = ''.join([f"<li>{suggestion}</li>" for suggestion in suggestions])
 
-            # Generate the list items for issues and suggestions
-            issue_items = ''.join([f"<li>{issue}</li>" for issue in issues])
-            suggestion_items = ''.join([f"<li>{suggestion}</li>" for suggestion in suggestions])
-
-            # Insert the list items into the HTML template
-            html = html_template.format(issue_items=issue_items, suggestion_items=suggestion_items)
-        return html
-
+    #         # Insert the list items into the HTML template
+    #         html = html_template.format(issue_items=issue_items, suggestion_items=suggestion_items)
+    #     return html
 
     # async def __rating(self, cookie_info):
 
