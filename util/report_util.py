@@ -6,13 +6,13 @@ class Report_Utility():
     def __init__(self):
         pass
     
-    async def analysis_table(self, issues, suggestions, percentage):
+    async def analysis_table(self, module_name, issues, suggestions, percentage):
         html = ""
         if issues:
             html_template = """<div class="module" id="cookies">
-                                <h2>""" + Configuration.MODULE_COOKIES + """&nbsp; Score = """ + str(percentage) + """%</h2>
+                                <h2>""" + module_name + """&nbsp; Score = """ + str(percentage) + """%</h2>
                                 <div style="display: inline; font-weight: bold;">Summary :</div>
-                                <span style="display: inline;">The """ + Configuration.MODULE_COOKIES + """ used on the website meet most security standards. However, there are a couple of issues that need to be addressed.</span>
+                                <span style="display: inline;">The """ + module_name + """ used on the website meet most security standards. However, there are a couple of issues that need to be addressed.</span>
                                 <div class="issues">
                                     <h4>Identified Issues:</h4>
                                     <ul>
@@ -34,3 +34,46 @@ class Report_Utility():
             # Insert the list items into the HTML template
             html = html_template.format(issue_items=issue_items, suggestion_items=suggestion_items)
         return html
+    
+
+    async def Generate_Table(data, tls_data=None, tls_ok=False):
+        # Start of the table
+        table = """<table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: """ + str(data.get('percentage', 0)) + """%;">""" + str(data.get('percentage', 0)) + """%</div>
+                            </div>
+                        </td>
+                    </tr>"""
+        
+        # Loop through each header-value pair in the data list
+        for header, value in data.items():
+            table += f"""
+                    <tr>
+                        <td>{header}</td>
+                        <td>{str(value)}</td>
+                    </tr>"""
+
+        # Conditionally add TLS data if TLS_OK is True
+        if tls_ok and tls_data:
+            table += """
+                    <tr>
+                        <td><h3>Extended Key Usage</h3></td>
+                        <td></td>
+                    </tr>"""
+            
+            for key, value in tls_data.items():
+                table += f"""
+                    <tr>
+                        <td>{key}</td>
+                        <td>{str(value)}</td>
+                    </tr>"""
+
+        # End of the table
+        table += """
+                </table>"""
+        
+        return table
+
+    async def  

@@ -232,7 +232,7 @@ class SSL_Certificate():
         # html_tags = await self.__analysis_table(reasons, suggestions, int(percentage_score))
 
         report_util = Report_Utility()
-        html_tags = await report_util.analysis_table(issues, suggestions, int(percentage_score))
+        html_tags = await report_util.analysis_table(Configuration.MODULE_SSL_CERTIFICATE, issues, suggestions, int(percentage_score))
 
         return int(percentage_score), html_tags
 
