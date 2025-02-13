@@ -174,57 +174,57 @@ class SSL_Certificate():
             score += 1
         else:
             # if subject != "example.com":
-            issues.append(Issue_Config.ISSUE_SUBJECT)
-            suggestions.append(Issue_Config.SUGGESTION_SUBJECT)
+            issues.append(Issue_Config.ISSUE_SSL_SUBJECT)
+            suggestions.append(Issue_Config.SUGGESTION_SSL_SUBJECT)
 
         # Check Issuer validity
         trusted_issuers = ["Let's Encrypt Authority X3", "DigiCert", "GlobalSign"]  # Example trusted CAs
         if not any(issuer.startswith(trusted_issuer) for trusted_issuer in trusted_issuers):
-            issues.append(Issue_Config.ISSUE_ISSUER)
-            suggestions.append(Issue_Config.SUGGESTION_ISSUER)
+            issues.append(Issue_Config.ISSUE_SSL_ISSUER)
+            suggestions.append(Issue_Config.SUGGESTION_SSL_ISSUER)
         else:
             score += 1
 
         # Check expiration date
         if expire.replace(tzinfo=None) < datetime.now().replace(tzinfo=None):
-            issues.append(Issue_Config.ISSUE_EXPIRES)
-            suggestions.append(Issue_Config.SUGGESTION_EXPIRES)
+            issues.append(Issue_Config.ISSUE_SSL_EXPIRES)
+            suggestions.append(Issue_Config.SUGGESTION_SSL_EXPIRES)
         else:
             score += 1
 
         # Check renewal date
         if (datetime.now().replace(tzinfo=None) - renew.replace(tzinfo=None)).days > 365:
-            issues.append(Issue_Config.ISSUE_RENEWED)
-            suggestions.append(Issue_Config.SUGGESTION_RENEWED)
+            issues.append(Issue_Config.ISSUE_SSL_RENEWED)
+            suggestions.append(Issue_Config.SUGGESTION_SSL_RENEWED)
         else:
             score += 1
 
         # Check Serial Number (ensure it's alphanumeric and not empty)
         if not serial_number or not isinstance(serial_number, str) or not serial_number.isalnum():
             # if not serial_number or not serial_number.isalnum():
-            issues.append(Issue_Config.ISSUE_SERIAL_NUM)
-            suggestions.append(Issue_Config.SUGGESTION_SERIAL_NUM)
+            issues.append(Issue_Config.ISSUE_SSL_SERIAL_NUM)
+            suggestions.append(Issue_Config.SUGGESTION_SSL_SERIAL_NUM)
         else:
             score += 1
 
         # Check Fingerprint (ensure it's in the expected format, e.g., 'sha256/...')
         if (not fingerprint.startswith("sha256/") or len(fingerprint) != 71):
-            issues.append(Issue_Config.ISSUE_FINGERPRINT)
-            suggestions.append(Issue_Config.SUGGESTION_FINGERPRINT)
+            issues.append(Issue_Config.ISSUE_SSL_FINGERPRINT)
+            suggestions.append(Issue_Config.SUGGESTION_SSL_FINGERPRINT)
         else:
             score += 1
 
         # Check Extended Key Usage
         if "TLS Web Server Authentication" not in TLS_Web_Server:
-            issues.append(Issue_Config.ISSUE_TLS_WEB_SERVER_AUTH)
-            suggestions.append(Issue_Config.SUGGESTION_TLS_WEB_SERVER_AUTH)
+            issues.append(Issue_Config.ISSUE_SSL_TLS_WEB_SERVER_AUTH)
+            suggestions.append(Issue_Config.SUGGESTION_SSL_TLS_WEB_SERVER_AUTH)
         else:
             score += 1
 
         # Check Extended Key Usage
         if "TLS Web Client Authentication" not in TLS_Web_Client:
-            issues.append(Issue_Config.ISSUE_TLS_WEB_CLIENT_AUTH)
-            suggestions.append(Issue_Config.SUGGESTION_TLS_WEB_CLIENT_AUTH)
+            issues.append(Issue_Config.ISSUE_SSL_TLS_WEB_CLIENT_AUTH)
+            suggestions.append(Issue_Config.SUGGESTION_SSL_TLS_WEB_CLIENT_AUTH)
         else:
             score += 1
 
@@ -235,83 +235,3 @@ class SSL_Certificate():
         html_tags = await report_util.analysis_table(Configuration.MODULE_SSL_CERTIFICATE, issues, suggestions, int(percentage_score))
 
         return int(percentage_score), html_tags
-
-    async def __analysis_table(self, issues, suggestions, percentage):
-        html = ""
-        if issues:
-            html_template = ("""<div class="module" id="sslcert">
-                                <h2>""" + Configuration.MODULE_SSL_CERTIFICATE + """&nbsp; Score = """ + str(percentage) + """%</h2>
-                                <div style="display: inline; font-weight: bold;">Summary :</div>
-                                <span style="display: inline;">The SSL Certificate used on the website meet most security standards. However, there are a couple of issues that need to be addressed.</span>
-                                <div class="issues">
-                                    <h4>Identified Issues:</h4>
-                                    <ul>
-                                        {issue_items}
-                                    </ul>
-                                </div>
-                                <div class="suggestions">
-                                    <h4>Suggestions for Improvement:</h4>
-                                    <ul>
-                                        {suggestion_items}
-                                    </ul>
-                                </div> 
-                        </div>"""
-            )
-
-            # Generate the list items for issues and suggestions
-            issue_items = "".join([f"<li>{issue}</li>" for issue in issues])
-            suggestion_items = "".join([f"<li>{suggestion}</li>" for suggestion in suggestions])
-
-            # Insert the list items into the HTML template
-            html = html_template.format(issue_items=issue_items, suggestion_items=suggestion_items)
-        return html
-
-    # async def __rating(self, cert_details):
-    #     score = 0
-
-    #     # Define weights for each parameter
-    #     weights = {
-    #         "Subject": 15,
-    #         "Issuer": 10,
-    #         "Expires": 15,
-    #         "Renewed": 10,
-    #         "Serial Number": 10,
-    #         "Fingerprint": 15,
-    #         "Extended Key Usage": 25,
-    #     }
-
-    #     # Rate Subject (100% if present and valid)
-    #     if cert_details["Subject"]:
-    #         score += weights["Subject"]
-
-    #     # Rate Issuer (100% if present and valid)
-    #     if cert_details["Issuer"]:
-    #         score += weights["Issuer"]
-
-    #     # Rate Expiration Date (100% if valid)
-    #     if cert_details["Expires"].replace(tzinfo=None)  > datetime.utcnow().replace(tzinfo=None):
-    #         score += weights["Expires"]
-
-    #     # Rate Renewed Date (100% if valid)
-    #     if cert_details["Renewed"].replace(tzinfo=None)  < datetime.utcnow().replace(tzinfo=None):
-    #         score += weights["Renewed"]
-
-    #     # Rate Serial Number (100% if present)
-    #     if cert_details["Serial Number"]:
-    #         score += weights["Serial Number"]
-
-    #     # Rate Fingerprint (100% if present)
-    #     if cert_details["Fingerprint"]:
-    #         score += weights["Fingerprint"]
-
-    #     # Rate Extended Key Usage (100% if both server and client auth are found)
-    #     if (
-    #         "TLS Web Server Authentication" in cert_details["Extended Key Usage"]
-    #         and "TLS Web Client Authentication" in cert_details["Extended Key Usage"]
-    #     ):
-    #         score += weights["Extended Key Usage"]
-
-    #     # Calculate percentage score
-    #     total_weight = sum(weights.values())
-    #     percentage_score = int((score / total_weight) * 100)
-    #     return percentage_score

@@ -1,6 +1,8 @@
 import aiohttp
 import asyncio
 from util.config_uti import Configuration
+from util.issue_config import Issue_Config
+from util.report_util import Report_Utility
 from colorama import Fore, Style
 from datetime import datetime, timedelta
 from statistics import mean
@@ -46,9 +48,9 @@ class Archive_History:
             return output
 
     async def __formatting_Output(self, decodedResponse):
-        htmlValue = ""
+        htmlValue = []
         htmlValue = await self.__html_table(decodedResponse)
-        return str(htmlValue)
+        return htmlValue
 
     async def __convert_timestamp_to_date(self, timestamp):
         year = int(timestamp[0:4])
@@ -112,11 +114,13 @@ class Archive_History:
             change_count = await self.__count_page_changes(data[0])
             average_page_size = await self.__get_average_page_size(data[0])
             scan_frequency = await self.__get_scan_frequency(first_scan, last_scan, total_scans, change_count)
-            
-            percentage = await self.__rating(first_scan, last_scan, total_scans, change_count, average_page_size, scan_frequency)
+
+            rep_data = []
+            percentage, html = await self.__archive_history_score(first_scan, last_scan, total_scans, change_count, average_page_size, scan_frequency)
+            # percentage = await self.__rating(first_scan, last_scan, total_scans, change_count, average_page_size, scan_frequency)
 
             table = (
-                """<table>
+                    """<table>
                         <tr>
                             <td colspan="2">
                                 <div class="progress-bar-container">
@@ -133,53 +137,89 @@ class Archive_History:
                             <td>""" + last_scan.strftime("%Y-%m-%d %H:%M:%S") + """</td>
                         </tr>
                         <tr>
-                            <td>Last Scan</td>
+                            <td>Total Scans</td>
                         <td>""" + str(total_scans) + """</td>
                         </tr>
                         <tr>
-                            <td>Last Scan</td>
+                            <td>Change Count</td>
                             <td>""" + str(change_count) + """</td>
                         </tr>
                         <tr>
-                            <td>Last Scan</td>
+                            <td>Avg Size</td>
                         <td>""" + str(average_page_size) + """</td>
                         </tr>
                         <tr>
-                            <td>Last Scan</td>
-                            <td>""" + str(scan_frequency) + """</td>
+                            <td>Avg Days between Scans</td>
+                            <td>""" + str(scan_frequency['Days Between Scans']) + """</td>
                         </tr>
                     </table>"""
             )
-            return table            
+        
+        rep_data.append(table)
+        rep_data.append(html)
+        return rep_data          
 
-    async def __rating(self, first_scan, last_scan, total_scans, change_count, average_page_size, scan_frequency):
-        
-        condition1 = first_scan != ""
-        condition2 = last_scan != ""
-        condition3 = total_scans != ""
-        condition4 = change_count != ""
-        condition5 = average_page_size != ""
-        condition6 = scan_frequency != ""
-        
+    async def __archive_history_score(self, first_scan, last_scan, total_scans, change_count, average_page_size, scan_frequency):
+        score = 0
+        max_score = 6  
+        issues = []
+        suggestions = []
 
-        # Count the number of satisfied conditions
-        satisfied_conditions = sum([condition1, condition2, condition3, condition4, condition5, condition6])
-        
-        # Determine the percentage based on the number of satisfied conditions
-        if satisfied_conditions == 6:
-            percentage = 100
-        elif satisfied_conditions == 5:
-            percentage = 80
-        elif satisfied_conditions == 4:
-            percentage = 64
-        elif satisfied_conditions == 3:
-            percentage = 48
-        elif satisfied_conditions == 2:
-            percentage = 32
-        elif satisfied_conditions == 1:
-            percentage = 16
+        # Evaluate each parameter with security conditions
+
+        # First Scan
+        if first_scan and await self.__is_valid_date(str(first_scan)):
+            score += 1
         else:
-            percentage = 0  # In case no conditions are satisfied
-    
-        return percentage
+            issues.append(Issue_Config.ISSUE_ARCHIVE_HISTORY_FIRST_SCAN)
+            suggestions.append(Issue_Config.SUGGESTION_ARCHIVE_HISTORY_FIRST_SCAN)
 
+        # Last Scan
+        if last_scan and await self.__is_valid_date(str(last_scan)):
+            score += 1
+        else:
+            issues.append(Issue_Config.ISSUE_ARCHIVE_HISTORY_LAST_SCAN)
+            suggestions.append(Issue_Config.SUGGESTION_ARCHIVE_HISTORY_LAST_SCAN)
+
+        # Total Scans
+        if total_scans > 0:
+            score += 1
+        else:
+            issues.append(Issue_Config.ISSUE_ARCHIVE_HISTORY_TOTAL_SCANS)
+            suggestions.append(Issue_Config.SUGGESTION_ARCHIVE_HISTORY_TOTAL_SCANS)
+
+        # Change Count
+        if change_count > 0:
+            score += 1
+        else:
+            issues.append(Issue_Config.ISSUE_ARCHIVE_HISTORY_CHANGE_COUNTS)
+            suggestions.append(Issue_Config.SUGGESTION_ARCHIVE_HISTORY_CHANGE_COUNTS)
+
+        # Avg Size
+        if int(average_page_size) <= 20000:  # Set a threshold for Avg Size
+            score += 1
+        else:
+            issues.append(Issue_Config.ISSUE_ARCHIVE_HISTORY_AVG_SIZE)
+            suggestions.append(Issue_Config.SUGGESTION_ARCHIVE_HISTORY_AVG_SIZE)
+
+        # Avg Days between Scans
+        if int(scan_frequency['Days Between Scans']) <= 7:  # Set a threshold for Avg Days between Scans
+            score += 1
+        else:
+            issues.append(Issue_Config.ISSUE_ARCHIVE_HISTORY_AVG_DAYS)
+            suggestions.append(Issue_Config.SUGGESTION_ARCHIVE_HISTORY_AVG_DAYS)
+
+        
+        percentage_score = (score / max_score) * 100
+        # html_tags = await self.__analysis_table(issues, suggestions, int(percentage_score))
+        report_util = Report_Utility()
+        html_tags = await report_util.analysis_table(Configuration.MODULE_ARCHIVE_HISTORY, issues, suggestions, int(percentage_score))
+
+        return int(percentage_score), html_tags
+
+    async def __is_valid_date(self, date_str, date_format="%d - %B %Y"):
+        try:
+            datetime.strptime(date_str, date_format)
+            return True
+        except ValueError:
+            return False

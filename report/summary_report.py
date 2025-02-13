@@ -95,7 +95,9 @@ class Summary_Report:
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title> """ + config.TOOL_NAME + """ </title>
+            <title> """
+            + config.TOOL_NAME
+            + """ </title>
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
             <style>
@@ -205,9 +207,20 @@ class Summary_Report:
                         max-width: 100%;
                         border-radius: 5px;
                         position: relative;
-                        overflow: auto;
+                        overflow: hidden;
                         height: 450px; 
                         word-wrap: break-word;
+                    }
+                    .card-header {
+                        position: sticky;
+                        top: 0;
+                        background-color: #333;
+                        z-index: 1;
+                        border-bottom: 1px solid #333;
+                    }
+                    .card-content {
+                        max-height: 400px;
+                        overflow-y: auto;
                     }
                     .card h2 {
                         color: #FFA500;
@@ -298,100 +311,278 @@ class Summary_Report:
                 </div>
                 <div class="content">
                     <div class="card">
-                        <h2> """ + config.MODULE_SERVER_LOCATION + """ </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + Server_Location + """</h4> </div>
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_SERVER_LOCATION + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + Server_Location + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_SSL_CERTIFICATE + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + SSL_Cert + """</h4> </div>
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_SSL_CERTIFICATE + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + SSL_Cert + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_DOMAIN_WHOIS + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + Whois + """</h4> </div>
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_DOMAIN_WHOIS + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + Whois + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_SERVER_INFO + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + ser_info + """</h4> </div>
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_SERVER_INFO + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + ser_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_HEADERS + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + headers + """</h4> </div>
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_HEADERS + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + headers + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_COOKIES + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + cookies + """</h4> </div>
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_COOKIES + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + cookies + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_HTTP_SECURITY + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>"""  + HTTP_sec + """</h4> </div>
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_HTTP_SECURITY + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + HTTP_sec + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_DNS_SERVER + """ </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + dns_server_info + """</h4> </div>
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_DNS_SERVER + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + dns_server_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_TLS_CIPHER_SUITES + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + tls_cipher_suite + """</h4> </div>
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_TLS_CIPHER_SUITES + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + tls_cipher_suite + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_DNS_RECORDS + """ </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + dns_info + """</h4> </div>    
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_DNS_RECORDS + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + dns_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_TXT_RECORDS + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + txt_info + """</h4> </div>    
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_TXT_RECORDS + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + txt_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_SERVER_STATUS + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + server_status_info + """</h4> </div>    
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_SERVER_STATUS + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + server_status_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_EMAIL_CONFIGURATION + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + mail_configuration_info + """</h4> </div>    
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_EMAIL_CONFIGURATION + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + mail_configuration_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_REDIRECT_CHAIN + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + redirect_Record + """</h4> </div>    
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_REDIRECT_CHAIN + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + redirect_Record + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_OPEN_PORTS + """ </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + ports + """</h4> </div>    
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_OPEN_PORTS + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + ports + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_ARCHIVE_HISTORY + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + archive_info + """</h4> </div>    
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_ARCHIVE_HISTORY + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + archive_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_ASSOCIATED_HOSTS + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + associated_info + """</h4> </div>    
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_ASSOCIATED_HOSTS + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + associated_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_BLOCK_DETECTION + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + block_info + """</h4> </div>    
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_BLOCK_DETECTION + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + block_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_CARBON_FOOTPRINT + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + carbon_info + """</h4> </div>    
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_CARBON_FOOTPRINT + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + carbon_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_CRAWL_RULES + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + crawl_info + """</h4> </div>    
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_CRAWL_RULES + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + crawl_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2>""" + config.MODULE_SITE_FEATURES + """   </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + site_info + """</h4> </div>    
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_SITE_FEATURES + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + site_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_DNS_SECURITY + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + dns_sec_info + """</h4> </div>    
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_DNS_SECURITY + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + dns_sec_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_TECH_STACK + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + tech_stack_info + """</h4> </div>  
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_TECH_STACK + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + tech_stack_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_FIREWALL_DETECTION + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + firewall_info + """</h4> </div>  
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_FIREWALL_DETECTION + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + firewall_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_SOCIAL_TAGS + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + social_tag_info + """</h4> </div> 
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_SOCIAL_TAGS + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + social_tag_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_THREATS + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + threats_info + """</h4> </div> 
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_THREATS + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + threats_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2>""" + config.MODULE_GLOBAL_RANK + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + global_ranking_info + """</h4> </div> 
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_GLOBAL_RANK + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + global_ranking_info + """</h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> """ + config.MODULE_SECURITY_TXT + """  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>""" + security_txt_info + """</h4> </div> """ )
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_SECURITY_TXT + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + security_txt_info + """</h4> 
+                        </div>
+                    </div>""" )
         # Conditionally add NMAP section
         if nmap_info:
             body += (
                 """<div class="card">
-                    <h2> """ + config.MODULE_NMAP_OS_VERSION + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + nmap_info[0] +
-                """</div> 
-                <div class="card">
-                    <h2> """ + config.MODULE_NMAP_VERSION_RESULT + """  </h2>
-                    <i class="fas fa-sync-alt refresh"> </i>""" + nmap_info[1] +
-                """</div>"""
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_NMAP_OS_VERSION + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + nmap_info[0] + """</h4> 
+                        </div>
+                    </div>
+                    div class="card">
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_NMAP_VERSION_RESULT + """ </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + nmap_info[1] + """</h4> 
+                        </div>
+                    </div>"""
             )
 
         # Close the main content div

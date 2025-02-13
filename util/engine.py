@@ -108,7 +108,7 @@ class engine():
         mail_config_info = ""
         redirect_info = ""
         port_info = ""
-        archive_info = ""
+        archive_info = []
         associated_info = ""
         block_info = ""
         carbon_info = ""
@@ -166,7 +166,7 @@ class engine():
             tb13 = str(mail_config_info)
             tb14 = str(redirect_info)
             tb15 = str(port_info)
-            tb16 = str(archive_info)
+            tb16 = str(archive_info[0])
             tb17 = str(associated_info)
             tb18 = str(block_info)
             tb19 = str(carbon_info)
@@ -194,8 +194,10 @@ class engine():
             await summary_report.Generate_Summary_Report(self.url, tb1, tb2, tb3, tb4, tb5, tb6, tb7, tb8, tb9, tb10, tb11, tb12, tb13, tb14, tb15, 
                                          tb16, tb17, tb18, tb19, tb20, tb21, tb22, tb23, tb24, tb25, tb26, tb27, tb28, tb29)
 
+
             analysis_report = Analysis_Report(self.domain, timestamp)
-            await analysis_report.Generate_Analysis_Report(self.url, str(cookie[1]), str(Server_location[1]), str(Server_location[3]), str(SSL_Cert[1]))
+            await analysis_report.Generate_Analysis_Report(self.url, str(cookie[1]), str(Server_location[1]), str(Server_location[3]), str(SSL_Cert[1]),
+                                                        str(archive_info[1]))
 
         except Exception as ex:
             error_msg = ex.args[0]

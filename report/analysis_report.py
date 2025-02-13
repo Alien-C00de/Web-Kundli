@@ -9,7 +9,7 @@ class Analysis_Report:
         self.domain = domain
         self.timestamp = timestamp
 
-    async def Generate_Analysis_Report(self, website, cookies, server_location, server_info, SSL_Cert):
+    async def Generate_Analysis_Report(self, website, cookies, server_location, server_info, SSL_Cert, Archive):
 
         config = Configuration()
         # report_timestamp = str(time.strftime("%A %d-%b-%Y %H:%M:%S", self.timestamp))
@@ -21,9 +21,7 @@ class Analysis_Report:
                     <head>
                         <meta charset="UTF-8">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title> """
-            + config.ANALYSIS_REPORT_HEADER
-            + """ </title>
+                        <title> """ + config.ANALYSIS_REPORT_HEADER + """ </title>
                         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
                         <style>
                             body {
@@ -158,6 +156,7 @@ class Analysis_Report:
                             """ + server_location + """
                             """ + server_info + """
                             """ + SSL_Cert + """
+                            """ + Archive + """
                         </div>
 
                         <div class="footer">

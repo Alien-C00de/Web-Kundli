@@ -114,9 +114,20 @@
                         max-width: 100%;
                         border-radius: 5px;
                         position: relative;
-                        overflow: auto;
+                        overflow: hidden;
                         height: 450px; 
                         word-wrap: break-word;
+                    }
+                    .card-header {
+                        position: sticky;
+                        top: 0;
+                        background-color: #333;
+                        z-index: 1;
+                        border-bottom: 1px solid #333;
+                    }
+                    .card-content {
+                        max-height: 400px;
+                        overflow-y: auto;
                     }
                     .card h2 {
                         color: #FFA500;
@@ -193,19 +204,23 @@
                     <h2 align="right"; margin-right: 40px; style="color:#00FF00;"> <a href= https://youbroadband.in  target="_blank"> https://youbroadband.in </a></h2>
                 </div>
                 <div class="date">
-                    <h3 align="right"; margin-right: 20px; style="color:blue;">Wednesday 12-Feb-2025 15:09:59</h3>
+                    <h3 align="right"; margin-right: 20px; style="color:blue;">Thursday 13-Feb-2025 18:55:25</h3>
                 </div>
                 <div class="ranking-container">
                     <h1>Website Health <i class="fas fa-heartbeat"></i></h1>
                     <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: 88.0%;">88.0%</div>
+                        <div class="progress-bar" style="width: 86.79%;">86.79%</div>
                     </div>
-                    <h2> <a href= Analysis_youbroadband.in_12Feb2025_15-09-59.html  target="_blank"> View Health Analysis Report </a></h2>
+                    <h2> <a href= Analysis_youbroadband.in_13Feb2025_18-55-25.html  target="_blank"> View Health Analysis Report </a></h2>
                 </div>
                 <div class="content">
                     <div class="card">
-                        <h2> Server Location </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Server Location </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                         <tr>
                             <td colspan="2">
                                 <div class="progress-bar-container">
@@ -240,10 +255,16 @@
                         countryIconElement.className = 'flag-icon flag-icon-$ in';
                     }
                     displayCountryIcon();
-                </script></h4> </div>
+                </script></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> SSL Certificate  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> SSL Certificate </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                     <tr>
                         <td colspan="2">
                             <div class="progress-bar-container">
@@ -288,10 +309,16 @@
                         <td></td>
                     </tr>
                     
-            </table></h4> </div>
+            </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Domain Whois  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Domain Whois </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                     <tr>
                         <td colspan="2">
                             <div class="progress-bar-container">
@@ -331,10 +358,16 @@
                         <td>Registrar IANA ID</td>
                         <td>146</td>
                     </tr>
-                </table></h4> </div>
+                </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Server Info  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Server Info </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                         <tr>
                             <td colspan="2">
                                 <div class="progress-bar-container">
@@ -359,10 +392,16 @@
                             <td>Gujarat,
  India</td>
                         </tr>
-                </table></h4> </div>
+                </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Headers  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Headers </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                     <tr>
                         <td colspan="2">
                             <div class="progress-bar-container">
@@ -376,7 +415,7 @@
                     </tr>
                     <tr>
                         <td>Date</td>
-                        <td>Wed, 12 Feb 2025 09:39:54 GMT</td>
+                        <td>Thu, 13 Feb 2025 13:25:22 GMT</td>
                     </tr>
                     <tr>
                         <td>Content-Type</td>
@@ -402,10 +441,16 @@
                         <td>referrer-policy</td>
                         <td>None</td>
                     </tr>
-                </table></h4> </div>
+                </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Cookies  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Cookies </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                                 <tr>
                                     <td colspan="2">
                                         <div class="progress-bar-container">
@@ -419,7 +464,7 @@
                                 </tr>
                                 <tr>
                                     <td>Session ID</td>
-                                    <td>o203bq4q4dags0hvjkbp4mgr00</td>
+                                    <td>v3enrl9blfkj0hi890kpeqnoj3</td>
                                 </tr>
                                 <tr>
                                     <td>Expires </td>
@@ -437,10 +482,16 @@
                                     <td>Secure</td>
                                     <td>False</td>
                                 </tr>
-                            </table></h4> </div>
+                            </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> HTTP Security  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> HTTP Security </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                     <tr>
                         <td colspan="2">
                             <div class="progress-bar-container">
@@ -468,10 +519,16 @@
                         <td>X-XSS-Protection</td>
                         <td>No</td>
                     </tr>
-            </table></h4> </div>
+            </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> DNS_Server </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> DNS_Server </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                     <tr>
                         <td colspan="2">
                             <div class="progress-bar-container">
@@ -491,10 +548,16 @@
                         <td>DoH Support</td>
                         <td>No</td>
                     </tr>
-                </table></h4> </div>
+                </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> TLS Cipher Suites  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> TLS Cipher Suites </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                     <tr>
                         <td colspan="2">
                             <div class="progress-bar-container">
@@ -534,10 +597,16 @@
                         <td>Public key length</td>
                         <td>256</td>
                     </tr>
-            </table></h4> </div>
+            </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> DNS Records </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> DNS Records </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                     <tr>
                         <td colspan="2">
                             <div class="progress-bar-container">
@@ -563,10 +632,10 @@
                     </tr>
                     <tr>
                         <td>NS RECORD</td>
-                        <td>ns4.youbroadband.in. ,
-ns3.youbroadband.in. ,
+                        <td>ns1.youbroadband.in. ,
+ns4.youbroadband.in. ,
 ns2.youbroadband.in. ,
-ns1.youbroadband.in. ,
+ns3.youbroadband.in. ,
 </td>
                     </tr>
                     <tr>
@@ -575,15 +644,21 @@ ns1.youbroadband.in. ,
                     </tr>
                     <tr>
                         <td>TXT RECORD</td>
-                        <td>"v=spf1 ip4:203.88.128.0/19 ip4:203.187.192.0/18 ip4:203.109.64.0/18 ip4:123.201.0.0/16 ip4:175.100.128.0/19 ip4:219.91.128.0/17 ip4:103.246.212.0/22 ip4:150.107.208.0/22 ip4:43.229.104.0/22 ip4:103.48.96.0/22 mx a:youbroadband.in ~all" ,
+                        <td>"google-site-verification=mZ4CvhXi0jsaW9UlPd4S8mzfcDzHf7xUrZeCTgs3qnM" ,
+"v=spf1 ip4:203.88.128.0/19 ip4:203.187.192.0/18 ip4:203.109.64.0/18 ip4:123.201.0.0/16 ip4:175.100.128.0/19 ip4:219.91.128.0/17 ip4:103.246.212.0/22 ip4:150.107.208.0/22 ip4:43.229.104.0/22 ip4:103.48.96.0/22 mx a:youbroadband.in ~all" ,
 "_globalsign-domain-verification=10WhsSc-XSDW1JFDQ1tXkz7o2_RSCG5rgBG7ULzSqr" ,
-"google-site-verification=mZ4CvhXi0jsaW9UlPd4S8mzfcDzHf7xUrZeCTgs3qnM" ,
 </td>
                     </tr>
-                </table></h4> </div>    
+                </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> TXT Records  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> TXT Records </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                     <tr>
                         <td colspan="2">
                             <div class="progress-bar-container">
@@ -605,10 +680,16 @@ ns1.youbroadband.in. ,
 "_globalsign-domain-verification=10WhsSc-XSDW1JFDQ1tXkz7o2_RSCG5rgBG7ULzSqr" ,
  </td>
                     </tr>
-            </table></h4> </div>    
+            </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Server Status  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Server Status </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                     <tr>
                         <td colspan="2">
                             <div class="progress-bar-container">
@@ -624,10 +705,16 @@ ns1.youbroadband.in. ,
                     <td>SERVER STATUS</td>
                         <td >Server is Up</td>
                     </tr>
-            </table></h4> </div>    
+            </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Email Configuration  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Email Configuration </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                     <tr>
                         <td colspan="2">
                             <div class="progress-bar-container">
@@ -649,17 +736,23 @@ ns1.youbroadband.in. ,
 	"_globalsign-domain-verification=10WhsSc-XSDW1JFDQ1tXkz7o2_RSCG5rgBG7ULzSqr"	 
 ,
 
-	"v=spf1 ip4:203.88.128.0/19 ip4:203.187.192.0/18 ip4:203.109.64.0/18 ip4:123.201.0.0/16 ip4:175.100.128.0/19 ip4:219.91.128.0/17 ip4:103.246.212.0/22 ip4:150.107.208.0/22 ip4:43.229.104.0/22 ip4:103.48.96.0/22 mx a:youbroadband.in ~all"	 
+	"google-site-verification=mZ4CvhXi0jsaW9UlPd4S8mzfcDzHf7xUrZeCTgs3qnM"	 
 ,
 
-	"google-site-verification=mZ4CvhXi0jsaW9UlPd4S8mzfcDzHf7xUrZeCTgs3qnM"	 
+	"v=spf1 ip4:203.88.128.0/19 ip4:203.187.192.0/18 ip4:203.109.64.0/18 ip4:123.201.0.0/16 ip4:175.100.128.0/19 ip4:219.91.128.0/17 ip4:103.246.212.0/22 ip4:150.107.208.0/22 ip4:43.229.104.0/22 ip4:103.48.96.0/22 mx a:youbroadband.in ~all"	 
 ,
 </td>
                     </tr> 
-                </table></h4> </div>    
+                </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Redirect Chain  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Redirect Chain </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                     <tr>
                         <td colspan="2">
                             <div class="progress-bar-container">
@@ -683,10 +776,16 @@ ns1.youbroadband.in. ,
                         <td>Final Page</td>
                         <td>https://youbroadband.in/</td>
                     </tr>
-                </table></h4> </div>    
+                </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Open Ports </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Open Ports </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                     <tr>
                         <td colspan="2">
                             <div class="progress-bar-container">
@@ -707,14 +806,20 @@ ns1.youbroadband.in. ,
                         <td>OPEN PORTS</td>
                         <td>[]</td>
                     </tr>
-                </table></h4> </div>    
+                </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Archive History  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Archive History </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                         <tr>
                             <td colspan="2">
                                 <div class="progress-bar-container">
-                                    <div class="progress" style="width: 100%;">100%</div>
+                                    <div class="progress" style="width: 66%;">66%</div>
                                 </div>
                             </td>
                         </tr>
@@ -727,25 +832,31 @@ ns1.youbroadband.in. ,
                             <td>2025-01-24 20:06:16</td>
                         </tr>
                         <tr>
-                            <td>Last Scan</td>
+                            <td>Total Scans</td>
                         <td>1017</td>
                         </tr>
                         <tr>
-                            <td>Last Scan</td>
+                            <td>Change Count</td>
                             <td>685</td>
                         </tr>
                         <tr>
-                            <td>Last Scan</td>
+                            <td>Avg Size</td>
                         <td>19503</td>
                         </tr>
                         <tr>
-                            <td>Last Scan</td>
-                            <td>{'Days Between Scans': 5.39, 'Days Between Changes': 8.0, 'Scans Per Day': 0.19, 'Changes Per Day': 0.12}</td>
+                            <td>Avg Days between Scans</td>
+                            <td>5.39</td>
                         </tr>
-                    </table></h4> </div>    
+                    </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Associated Hosts  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Associated Hosts </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                 <tr>
                     <td colspan="1">
                         <div class="progress-bar-container">
@@ -754,10 +865,16 @@ ns1.youbroadband.in. ,
                     </td>
             </tr>
             <tr><td>*.youbroadband.in</td></tr>
-        </table></h4> </div>    
+        </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Block Detection  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Block Detection </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                 <tr>
                     <td colspan="2">
                         <div class="progress-bar-container">
@@ -815,10 +932,16 @@ ns1.youbroadband.in. ,
                 </tr><tr>
                     <td> Yandex Safe </td>
                     <td> ✅  Not Blocked  </td>
-                </tr></table></h4> </div>    
+                </tr></table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Carbon Footprint  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Carbon Footprint </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                     <tr>
                         <td colspan="2">
                             <div class="progress-bar-container">
@@ -842,10 +965,16 @@ ns1.youbroadband.in. ,
                         <td>CO2 Emitted:</td>
                         <td>0.037439766677320005 grams</td>
                     </tr>
-                </table></h4> </div>    
+                </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Crawl Rules  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Crawl Rules </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                             <tr>
                                 <td colspan="2">
                                     <div class="progress-bar-container">
@@ -936,10 +1065,16 @@ ns1.youbroadband.in. ,
                         </tr><tr>
                                 <td>User Agent : Googlebot</td>
                                 <td>/homeuser/itz/chennai.html</td>
-                        </tr></table></h4> </div>    
+                        </tr></table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2>Site Features   </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>
+                        <div class="card-header">
+                            <h2> Site Features </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>
         <table>
             <tr>
                 <td colspan="2">
@@ -989,10 +1124,16 @@ ns1.youbroadband.in. ,
                 <td>dmarc</td>
                 <td>Dead</td>
             </tr>
-        </table></h4> </div>    
+        </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> DNS Security  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>
+                        <div class="card-header">
+                            <h2> DNS Security </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>
         <table>
             <tr>
                 <td colspan="2">
@@ -1035,10 +1176,16 @@ ns1.youbroadband.in. ,
                     <strong><span>  Checking Disabled (CD) ❌</span></strong><br>
                 </td>
             </tr>
-        </table></h4> </div>    
+        </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Tech Stack  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>
+                        <div class="card-header">
+                            <h2> Tech Stack </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>
         <table>
             <tr>
                 <td colspan="2">
@@ -1060,10 +1207,16 @@ ns1.youbroadband.in. ,
                 <td>X-AspNet-Version</td>
                 <td>Not specified</td>
             </tr>
-        </table></h4> </div>  
+        </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Firewall Detection  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4>
+                        <div class="card-header">
+                            <h2> Firewall Detection </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>
         <table>
             <tr>
                 <td colspan="2">
@@ -1081,10 +1234,16 @@ ns1.youbroadband.in. ,
                 <td>wafName</td>
                 <td>*The domain may be protected with a proprietary or custom WAF which we were unable to identify automatically</td>
             </tr>
-        </table></h4> </div>  
+        </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Social Tags  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Social Tags </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                     <tr>
                         <td colspan="2">
                             <div class="progress-bar-container">
@@ -1116,10 +1275,16 @@ ns1.youbroadband.in. ,
                         <td>Twitter Site    </td>
                         <td>@youbroadband</td>
                     </tr>
-                </table></h4> </div> 
+                </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Threats  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Threats </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                             <tr>
                                 <td colspan="2">
                                     <div class="progress-bar-container">
@@ -1135,10 +1300,16 @@ ns1.youbroadband.in. ,
                                 <td>Malware Status</td>
                                 <td>✅ No Malwares Found</td>
                             </tr>
-                        </table></h4> </div> 
+                        </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2>Global Rank  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Global Rank </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                         <tr>
                             <td colspan="2">
                                 <div class="progress-bar-container">
@@ -1148,16 +1319,22 @@ ns1.youbroadband.in. ,
                         </tr>
                         <tr>
                             <td>Date</td>
-                            <td>2025-02-11</td>
+                            <td>2025-02-12</td>
                         </tr>
                         <tr>
                             <td>Rank</td>
-                            <td>47128</td>
+                            <td>47114</td>
                         </tr>
-                    </table></h4> </div> 
+                    </table></h4> 
+                        </div>
+                    </div>
                     <div class="card">
-                        <h2> Security.Txt  </h2>
-                        <i class="fas fa-sync-alt refresh"> </i> <h4><table>
+                        <div class="card-header">
+                            <h2> Security.Txt </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
                         <tr>
                             <td colspan="1">
                                 <div class="progress-bar-container">
@@ -1168,7 +1345,9 @@ ns1.youbroadband.in. ,
                         <tr>
                             <td>URL is not responding to this query.</td>
                         </tr>
-                    </table></h4> </div> </div><div class="footer">
+                    </table></h4> 
+                        </div>
+                    </div></div><div class="footer">
                             <h3 align="left"; margin-left: 20px;>Developed by:&nbsp;Alien C00de <h3>
                             <h3 align="center";> <i class="far fa-envelope"></i>&nbsp;alien.c00de@gmail.com</h3>
                             <h3 align="right"; margin-right: 20px;> <i class="fab fa-github"></i>&nbsp;https://github.com/Alien-C00de</h3>
