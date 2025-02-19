@@ -15,9 +15,8 @@ class Mail_Records():
         output=""
         try:
             # print("mail_configration_fetch.py: start")
-            result=await self.__final_result(self.domain)
-            output=await self.__formatting_Output(self.domain, result)
-            # print("mail_configration_fetch.py: output: ")
+            result = await self.__final_result(self.domain)
+            output = await self.__html_table(self.domain, result)
             return output
 
         except Exception as ex:
@@ -47,12 +46,6 @@ class Mail_Records():
             except Exception as e:
                 result.append(None)
         return result
-
-    async def __formatting_Output(self, domain, result):
-        # print(domain,A_record,AAAA_record,mx_record,NS_record,CNAME_record,txt_record)
-        htmlValue = ""
-        htmlValue = await self.__html_table(domain,result)
-        return str(htmlValue) 
 
     async def __html_table(self, domain, result):
         percentage = await self.__rating(str(domain), str(result[0]), str(result[1]))

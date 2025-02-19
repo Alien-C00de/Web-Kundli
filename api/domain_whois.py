@@ -16,7 +16,7 @@ class Domain_Whois():
         try:
             # print("domain_whois.py: start")
             domain_info =  whois.whois(self.domain)
-            output = await self.__formatting_Output(domain_info)
+            output = await self.__html_table(domain_info)
             # print("domain_whois.py: output: ")
             return output
         except Exception as ex:
@@ -27,11 +27,6 @@ class Domain_Whois():
             msg = "[-] " + self.Error_Title + " => Get_Whois_Info : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return output
-
-    async def __formatting_Output(self, decodedResponse):
-        htmlValue = ""        
-        htmlValue = await self.__html_table(decodedResponse)
-        return str(htmlValue)
 
     async def __html_table(self, domain_info):
         whois_server = ""

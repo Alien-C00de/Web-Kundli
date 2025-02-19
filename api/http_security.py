@@ -13,11 +13,13 @@ class HTTP_Security:
     async def Get_HTTP_Security(self):
         config = Configuration()
         self.Error_Title = config.HTTP_SECURITY
-        output = ""
+        output = []
         try:
             # print("http_security.py: start ")
             headers = self.response.headers
-            output = await self.__formatting_Output(headers)
+
+            output.append(await self.__html_http_Sec_table(headers))
+            output.append(await self.__html_headers_table(headers))
             # print("http_security.py: output: ")
             return output
 
@@ -26,12 +28,6 @@ class HTTP_Security:
             msg = "[-] " + self.Error_Title + " => Get_HTTP_Security : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return output
-
-    async def __formatting_Output(self, data):
-        htmlValue = []
-        htmlValue.append(await self.__html_http_Sec_table(data))
-        htmlValue.append(await self.__html_headers_table(data))
-        return htmlValue
 
     async def __html_headers_table(self, data):
         server = data.get("Server", None)

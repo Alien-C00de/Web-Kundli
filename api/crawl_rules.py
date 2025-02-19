@@ -32,8 +32,7 @@ class Crawl_Rules:
                                 rule = line.split(":")[1].strip()
                                 crawl_rules.append((user_agent, rule))
 
-            output = await self.__formatting_Output(user_agent, crawl_rules)
-            # print("crawl_rules.py: output: ")
+            output = await self.__html_table(user_agent, crawl_rules)
             return output
 
         except Exception as ex:
@@ -41,11 +40,6 @@ class Crawl_Rules:
             msg = "[-] " + self.Error_Title + " => Get_Crawl_Rules : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return output
-
-    async def __formatting_Output(self, user_agent, decodedResponse):
-        htmlValue = ""
-        htmlValue = await self.__html_table(user_agent, decodedResponse)
-        return str(htmlValue)
 
     async def __html_table(self, user_agent, data):
 

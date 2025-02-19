@@ -33,7 +33,7 @@ class Threats:
                 for response in responses:
                     decodedResponse.append(await response.json())
 
-            output = await self.__formatting_Output(decodedResponse)
+            output = await self.__html_table(decodedResponse)
             # print("Threats.py: output: ")
             return output
 
@@ -49,11 +49,6 @@ class Threats:
     async def __url_to_base64(self, url):
         """Encode URL to a format suitable for VirusTotal API."""
         return base64.urlsafe_b64encode(url.encode()).decode().strip("=")
-
-    async def __formatting_Output(self, decodedResponse):
-        htmlValue = ""
-        htmlValue = await self.__html_table(decodedResponse)
-        return str(htmlValue)
 
     async def __html_table(self, decodedResponse):
 

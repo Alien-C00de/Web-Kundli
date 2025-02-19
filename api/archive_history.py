@@ -19,7 +19,7 @@ class Archive_History:
         self.Error_Title = config.ARCHIVE_HISTORY
         tasks = []
         decodedResponse = []
-        output = ""
+        output = []
         url = ""
 
         headers = {"Accept": "application/json",}
@@ -30,15 +30,14 @@ class Archive_History:
                 url = config.ARCHIVE_ENDPOINT_URL.replace("{url}", self.url)
 
                 tasks.append(
-                    asyncio.create_task(session.request(method="GET", url=url))
+                    asyncio.create_task(session.request(method="GET", url = url))
                     )
 
                 responses = await asyncio.gather(*tasks)
                 for response in responses:
                     decodedResponse.append(await response.json())
 
-            output = await self.__formatting_Output(decodedResponse)
-            # print("archive_history.py: output: ")
+            output = await self.__html_table(decodedResponse)
             return output
 
         except Exception as ex:
@@ -46,11 +45,6 @@ class Archive_History:
             msg = "[-] " + self.Error_Title + " => Get_Archive_History : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return output
-
-    async def __formatting_Output(self, decodedResponse):
-        htmlValue = []
-        htmlValue = await self.__html_table(decodedResponse)
-        return htmlValue
 
     async def __convert_timestamp_to_date(self, timestamp):
         year = int(timestamp[0:4])
@@ -130,11 +124,11 @@ class Archive_History:
                         </tr>
                         <tr>
                             <td>First Scan</td>
-                            <td>""" + first_scan.strftime("%Y-%m-%d %H:%M:%S") + """</td>
+                            <td>""" + first_scan.strftime("%d %B %Y") + """</td>
                         </tr>
                         <tr>
                             <td>Last Scan</td>
-                            <td>""" + last_scan.strftime("%Y-%m-%d %H:%M:%S") + """</td>
+                            <td>""" + last_scan.strftime("%d %B %Y") + """</td>
                         </tr>
                         <tr>
                             <td>Total Scans</td>
@@ -217,7 +211,7 @@ class Archive_History:
 
         return int(percentage_score), html_tags
 
-    async def __is_valid_date(self, date_str, date_format="%d - %B %Y"):
+    async def __is_valid_date(self, date_str, date_format="%Y-%m-%d %H:%M:%S"):
         try:
             datetime.strptime(date_str, date_format)
             return True

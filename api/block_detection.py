@@ -48,7 +48,7 @@ class Block_Detection:
                 result_text = f"YES" if is_blocked else f"NO"
                 results.append({'server': server['name'], 'isBlocked': result_text})
 
-            output = await self.__formatting_Output(results)
+            output = await self.__html_table(results)
             # print("block_detection.py: output: ")
             return output
 
@@ -77,11 +77,6 @@ class Block_Detection:
                 if e.errno in (socket.EAI_NONAME, socket.EAI_NODATA, socket.EAI_FAIL):
                     return True
                 return False
-
-    async def __formatting_Output(self, decodedResponse):
-        htmlValue = ""
-        htmlValue = await self.__html_table(decodedResponse)
-        return str(htmlValue)
 
     async def __html_table(self, data):
         if data:

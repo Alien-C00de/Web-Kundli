@@ -12,7 +12,7 @@ class DNS_Records():
         try:
             # print("dns_record_fetch.py: start")
             result = await self.__final_result(self.domain)
-            output = await self.__formatting_Output(self.domain, *result)
+            output = await self.__html_table(self.domain, *result)
             # print("dns_record_fetch.py: output: ")
             return output
 
@@ -132,12 +132,6 @@ class DNS_Records():
 
         except Exception as e:
             return None
-
-    async def __formatting_Output(self,domain, A_record, AAAA_record, mx_record, NS_record, CNAME_record, txt_record):
-        # print(domain,A_record,AAAA_record,mx_record,NS_record,CNAME_record,txt_record)
-        htmlValue = ""
-        htmlValue = await self.__html_table(domain, A_record, AAAA_record, mx_record, NS_record, CNAME_record, txt_record)
-        return str(htmlValue) 
 
     async def __html_table(self, domain, A_record, AAAA_record, mx_record, NS_record, CNAME_record, txt_record):
 

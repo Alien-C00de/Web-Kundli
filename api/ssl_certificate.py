@@ -5,10 +5,12 @@ from util.config_uti import Configuration
 from util.issue_config import Issue_Config
 from util.report_util import Report_Utility
 from datetime import datetime, timedelta
+from OpenSSL import crypto
 from cryptography import x509
 from cryptography.x509.oid import NameOID
 from cryptography.hazmat.backends import default_backend
 import hashlib
+import certifi
 from datetime import datetime
 
 class SSL_Certificate():
@@ -26,12 +28,14 @@ class SSL_Certificate():
 
         config = Configuration()
         self.Error_Title = config.SSL_CERTIFICATE
-        output = ""
+        output = []
 
         try:
             # Establish SSL connection
-            context = ssl.create_default_context()
-            connection = context.wrap_socket(socket.socket(socket.AF_INET), server_hostname = self.domain)
+            connection = ssl.create_default_context().wrap_socket(
+                socket.socket(socket.AF_INET), server_hostname=self.domain
+            )
+            # connection = context.wrap_socket(socket.socket(socket.AF_INET), server_hostname = self.domain)
             connection.connect((self.domain, port))
 
             # Get the certificate in binary form
@@ -49,8 +53,8 @@ class SSL_Certificate():
             }
 
             # Compute the Fingerprint (SHA-256)
-            fingerprint = hashlib.sha256(cert).hexdigest()
-            cert_details["Fingerprint"] = fingerprint
+            sha1_fingerprint = hashlib.sha1(cert).hexdigest().upper()
+            cert_details["Fingerprint"] = sha1_fingerprint
 
             # Extract Extended Key Usage (EKU) for server and client authentication
             ext_key_usage = []
@@ -64,7 +68,7 @@ class SSL_Certificate():
                             ext_key_usage.append("TLS Web Client Authentication")
 
             cert_details["Extended Key Usage"] = ext_key_usage
-            output = await self.__formatting_Output(cert_details)
+            output = await self.__html_table(cert_details)
             return output
         except Exception as ex:
             error_msg = str(ex.args[0])
@@ -74,11 +78,6 @@ class SSL_Certificate():
         finally:
             connection.close()
 
-    async def __formatting_Output(self, cert_details):
-        htmlValue = []        
-        htmlValue = await self.__html_table(cert_details)
-        return htmlValue
-
     async def __html_table(self, cert_details):
 
         subject = cert_details["Subject"].get_attributes_for_oid(NameOID.ORGANIZATION_NAME)[0].value
@@ -87,15 +86,22 @@ class SSL_Certificate():
         formatted_expire = expires_date.strftime('%d %B %Y').lstrip('0').replace(" 0", " ")
         renewed_date = cert_details["Renewed"]
         formatted_renew = renewed_date.strftime('%d %B %Y').lstrip('0').replace(" 0", " ")
-        serial_number = cert_details["Serial Number"]
+        serial_number = hex(cert_details["Serial Number"])[2:].upper()
         fingerprint = cert_details["Fingerprint"]
+        # Format the fingerprint with colons
+        formatted_fingerprint = ":".join(fingerprint[i : i + 2] for i in range(0, len(fingerprint), 2))
         ext_key_usage = cert_details["Extended Key Usage"]
 
         # Rate Extended Key Usage (100% if both server and client auth are found)
         if ("TLS Web Server Authentication" in cert_details["Extended Key Usage"]
             and "TLS Web Client Authentication" in cert_details["Extended Key Usage"]):
-            TLS_Web_Server = cert_details["Extended Key Usage"][0]
-            TLS_Web_Client = cert_details["Extended Key Usage"][1]
+            if "TLS Web Server Authentication" in cert_details["Extended Key Usage"]:
+                TLS_Web_Server = "TLS Web Server Authentication"
+
+            if "TLS Web Client Authentication" in cert_details["Extended Key Usage"]:
+                TLS_Web_Client = "TLS Web Client Authentication"
+            # TLS_Web_Server = cert_details["Extended Key Usage"][0]
+            # TLS_Web_Client = cert_details["Extended Key Usage"][1]
             TLS_OK = True
         else:
             TLS_Web_Server = ""
@@ -137,7 +143,7 @@ class SSL_Certificate():
                     </tr>
                     <tr>
                         <td>Fingerprint</td>
-                        <td>""" + str(fingerprint) + """</td>
+                        <td>""" + str(formatted_fingerprint) + """</td>
                     </tr>""" + ("""
                     <tr>
                         <td> <h3>Extended Key Usage</h3> </td>
@@ -159,6 +165,26 @@ class SSL_Certificate():
         rep_data.append(html)
         return rep_data
 
+    async def __load_trusted_organizations(self):
+        trusted_organizations = set()
+        with open(certifi.where(), "r") as f:
+            cert_data = f.read()
+            certs = cert_data.split("-----END CERTIFICATE-----")
+            for cert in certs:
+                cert += "-----END CERTIFICATE-----"
+                if "-----BEGIN CERTIFICATE-----" in cert:
+                    x509 = crypto.load_certificate(crypto.FILETYPE_PEM, cert)
+                    issuer = x509.get_issuer()
+                    for name, value in issuer.get_components():
+                        if name.decode() == "O":
+                            trusted_organizations.add(value.decode())
+                            break
+        return trusted_organizations
+
+    async def __is_issuer_organization_trusted(self, issuer_organization):
+        trusted_organizations = await self.__load_trusted_organizations()
+        return issuer_organization in trusted_organizations
+
     async def __ssl_score(self, subject, issuer, expire, renew, serial_number, fingerprint, TLS_Web_Server, TLS_Web_Client):
         score = 0
         max_score = 8  
@@ -178,12 +204,12 @@ class SSL_Certificate():
             suggestions.append(Issue_Config.SUGGESTION_SSL_SUBJECT)
 
         # Check Issuer validity
-        trusted_issuers = ["Let's Encrypt Authority X3", "DigiCert", "GlobalSign"]  # Example trusted CAs
-        if not any(issuer.startswith(trusted_issuer) for trusted_issuer in trusted_issuers):
+        trusted_issuers = await self.__is_issuer_organization_trusted(issuer)  # Example trusted CAs
+        if trusted_issuers:
+            score += 1
+        else:
             issues.append(Issue_Config.ISSUE_SSL_ISSUER)
             suggestions.append(Issue_Config.SUGGESTION_SSL_ISSUER)
-        else:
-            score += 1
 
         # Check expiration date
         if expire.replace(tzinfo=None) < datetime.now().replace(tzinfo=None):
@@ -207,12 +233,12 @@ class SSL_Certificate():
         else:
             score += 1
 
-        # Check Fingerprint (ensure it's in the expected format, e.g., 'sha256/...')
-        if (not fingerprint.startswith("sha256/") or len(fingerprint) != 71):
+        # Check Fingerprint (ensure it's in the expected format, e.g., 'SHA1')
+        if len(fingerprint) == 40 and all(c in fingerprint for c in fingerprint):
+            score += 1
+        else:
             issues.append(Issue_Config.ISSUE_SSL_FINGERPRINT)
             suggestions.append(Issue_Config.SUGGESTION_SSL_FINGERPRINT)
-        else:
-            score += 1
 
         # Check Extended Key Usage
         if "TLS Web Server Authentication" not in TLS_Web_Server:
@@ -229,7 +255,6 @@ class SSL_Certificate():
             score += 1
 
         percentage_score = (score / max_score) * 100
-        # html_tags = await self.__analysis_table(reasons, suggestions, int(percentage_score))
 
         report_util = Report_Utility()
         html_tags = await report_util.analysis_table(Configuration.MODULE_SSL_CERTIFICATE, issues, suggestions, int(percentage_score))

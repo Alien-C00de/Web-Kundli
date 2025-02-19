@@ -20,8 +20,8 @@ class Open_Ports():
             # ip_address = socket.gethostbyname(self.domain)
             #print(ip_address)
             result= await self.__final_result(self.ip_address)
-            output = await self.__formatting_Output(self.domain, self.ip_address, result)
-            # print("port_scanning.py: output: ")
+            output = await self.__html_table(self.domain, self.ip_address, result)
+
             return output
 
         except Exception as ex:
@@ -49,11 +49,6 @@ class Open_Ports():
         except Exception as e:
             return []
         
-    async def __formatting_Output(self, domain, ipaddress, open_ports):
-        htmlValue = ""        
-        htmlValue = await self.__html_table(domain, ipaddress, open_ports)
-        return str(htmlValue)
-    
     async def __html_table(self, domain, ip, open_ports):
 
         percentage = 100

@@ -24,7 +24,7 @@ class Global_Ranking:
                         data = await response.json()
                         ranks = data.get("ranks", [])
 
-            output = await self.__formatting_Output(ranks)
+            output = await self.__html_table(ranks)
             # print("global_ranking.py: output: ")
             return output
 
@@ -33,11 +33,6 @@ class Global_Ranking:
             msg = "[-] " + self.Error_Title + " => Get_Global_Rank : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return output
-
-    async def __formatting_Output(self, decodedResponse):
-        htmlValue = ""
-        htmlValue = await self.__html_table(decodedResponse)
-        return str(htmlValue)
 
     async def __html_table(self, ranks):
 

@@ -35,7 +35,7 @@ class DNS_Server():
             return output
         except aiohttp.ClientConnectorError:
             DoH = "No"
-            output = await self.__formatting_Output(self.domain, DoH)
+            output = await self.__html_table(self.domain, DoH)
             return output
         except Exception as ex:
             error_msg = str(ex.args[0])
@@ -44,10 +44,6 @@ class DNS_Server():
             return output
         # finally:
 
-    async def __formatting_Output(self, domain, DoH):
-        htmlValue = ""
-        htmlValue = await self.__html_table(domain, DoH)
-        return str(htmlValue)
 
     async def __html_table(self, domain, DoH):
 

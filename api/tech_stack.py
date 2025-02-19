@@ -28,7 +28,7 @@ class Tech_Stack:
             else:
                 technologies = None
 
-            output = await self.__formatting_Output(technologies)
+            output = await self.__html_table(technologies)
             # print("tech_stack.py: output: ")
             return output
 
@@ -37,11 +37,6 @@ class Tech_Stack:
             msg = "[-] " + self.Error_Title + " => Get_Tech_Stack : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return output
-
-    async def __formatting_Output(self, decodedResponse):
-        htmlValue = ""
-        htmlValue = await self.__html_table(decodedResponse)
-        return str(htmlValue)
 
     async def __html_table(self, data):
 

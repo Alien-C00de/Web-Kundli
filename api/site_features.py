@@ -29,7 +29,7 @@ class Site_Features:
                     }
         try:
             # print ("site_feature.py: start")
-            output = await self.__formatting_Output(features)
+            output = await self.__html_table(features)
             # print("site_feature.py: output: ")
             return output
 
@@ -54,11 +54,6 @@ class Site_Features:
             error_msg = ex.args[0]
             msg = "[-] " + self.Error_Title + " => __check_feature : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
-
-    async def __formatting_Output(self, decodedResponse):
-        htmlValue = ""
-        htmlValue = await self.__html_table(decodedResponse)
-        return str(htmlValue)
 
     async def __html_table(self, data):
 

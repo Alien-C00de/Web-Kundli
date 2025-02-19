@@ -18,7 +18,9 @@ class Server_Location():
         self.Error_Title = config.SERVER_LOCATION
         tasks = []
         decodedResponse = []
-        output = ""
+        location = []
+        info = [] 
+        output = []
 
         headers = {'Accept': 'application/json',}
 
@@ -32,7 +34,10 @@ class Server_Location():
                 for response in responses:
                     decodedResponse.append(await response.json())
 
-            output = await self.__formatting_Output(decodedResponse[0])
+            dataframe = pd.DataFrame.from_dict(decodedResponse[0], orient='index')
+            location = await self.__html_server_loc_table(dataframe)
+            info = await self.__html_server_info_table(dataframe)
+            output = location + info
             # print("server_location.py: output: ")
             return output
 
@@ -41,16 +46,6 @@ class Server_Location():
             msg = "[-] " + self.Error_Title + " => Get_Server_Location : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return output
-
-    async def __formatting_Output(self, decodedResponse):
-        location = []
-        info = [] 
-        htmlValue = []        
-        dataframe = pd.DataFrame.from_dict(decodedResponse, orient='index')
-        location = await self.__html_server_loc_table(dataframe)
-        info = await self.__html_server_info_table(dataframe)
-        htmlValue = location + info
-        return htmlValue
 
     async def __html_server_info_table(self, data):
         rep_data = []

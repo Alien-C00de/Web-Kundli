@@ -17,7 +17,7 @@ class TLS_Cipher_Suit:
         try:
             # print("tls_cipher_suite.py: start")
             res = await self.__final_result(self.domain)
-            output = await self.__formatting_Output(res)
+            output = await self.__html_table(res)
             # print("tls_cipher_suite.py: output: ")
             return output
 
@@ -74,11 +74,6 @@ class TLS_Cipher_Suit:
             return result    
         except Exception as e:
             return default
-
-    async def __formatting_Output(self,data):
-        htmlValue = ""
-        htmlValue = await self.__html_table(data)
-        return str(htmlValue) 
 
     async def __html_table(self,data):
 

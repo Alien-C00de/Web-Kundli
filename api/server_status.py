@@ -16,7 +16,7 @@ class Server_Status():
         try:
             # print("server_status_fetch.py: start")
             result = await self.__final_result()
-            output = await self.__formatting_Output(self.domain, result)
+            output = await self.__html_table(self.domain, result)
             # print("server_status_fetch.py: output: ")
             return output
         except Exception as ex:
@@ -35,12 +35,6 @@ class Server_Status():
                 return 'Server is Down'
         except Exception as e:
             return None
-
-    async def __formatting_Output(self, domain, result):
-        # print(domain,A_record,AAAA_record,mx_record,NS_record,CNAME_record,txt_record)
-        htmlValue = ""
-        htmlValue = await self.__html_table(domain, result)
-        return str(htmlValue) 
 
     async def __html_table(self, domain, result):
 

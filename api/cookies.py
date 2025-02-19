@@ -28,20 +28,13 @@ class Cookies():
                 for cookie in cookies:
                     cookie_info.append((cookie.name, cookie.value, cookie.domain, cookie.path, cookie.expires, cookie.secure))
 
-            output = await self.__formatting_Output(cookie_info)
-            # print("cookies.py: output: ")
+            output = await self.__html_cookies_table(cookie_info)
             return output
         except Exception as ex:
             error_msg = str(ex.args[0])
             msg = "[-] " + self.Error_Title + "=> Get_Cookies : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return msg
-
-    async def __formatting_Output(self, cookie_info):
-        htmlValue = []
-        htmlValue = await self.__html_cookies_table(cookie_info)
-
-        return htmlValue
 
     async def __html_cookies_table(self, cookie_info):
 

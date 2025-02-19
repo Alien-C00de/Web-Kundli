@@ -28,8 +28,7 @@ class DNS_Security_Ext:
             for dns_type, result in zip(dns_types, results):
                 records[dns_type] = result
 
-            output = await self.__formatting_Output(records)
-            # print("dns_security.py: output: ")
+            output = await self.__html_table(records)
             return output
 
         except Exception as ex:
@@ -56,11 +55,6 @@ class DNS_Security_Ext:
         except Exception as error:
             raise Exception(f"Error fetching {dns_type} record: {error}")
 
-
-    async def __formatting_Output(self, decodedResponse):
-        htmlValue = ""
-        htmlValue = await self.__html_table(decodedResponse)
-        return str(htmlValue)
 
     async def __html_table(self, data):
 

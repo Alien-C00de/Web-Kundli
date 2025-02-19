@@ -23,7 +23,7 @@ class NMap_Scan:
             os_results = self.nmap.nmap_os_detection(self.ip_address)
 
             # print("nmap_scan.py: output: ")
-            output = await self.__formatting_Output(version_result, os_results)
+            output = await self.__html_table(version_result, os_results)
             return list(output)
 
         except Exception as ex:
@@ -31,11 +31,6 @@ class NMap_Scan:
             msg = "[-] " + self.Error_Title + " => Get_Nmap_Scan : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return output
-
-    async def __formatting_Output(self, version_result, os_results):
-        htmlValue = []
-        htmlValue = await self.__html_table(version_result, os_results)
-        return htmlValue
 
     async def __html_table(self, version_result, os_results):
 

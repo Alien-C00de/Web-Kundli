@@ -40,7 +40,7 @@ class Security_TXT:
                                     "fields": await self.__parse_result(result),
                                 }
 
-            output = await self.__formatting_Output(self.dict)
+            output = await self.__html_table(self.dict)
             # print("security_TXT.py: output: ")
             return output
         except Exception as ex:
@@ -67,11 +67,6 @@ class Security_TXT:
                         key += str(counts[key])
                     output[key] = value
         return output
-
-    async def __formatting_Output(self, result):
-        htmlValue = ""
-        htmlValue = await self.__html_table(result)
-        return str(htmlValue)
 
     async def __html_table(self, result):
         percentage = 0

@@ -47,14 +47,14 @@ class Firewall_Detection():
                     for key, waf in waf_identifiers.items():
                         if key in headers.get('server', '').lower():
                             decode = {'Firewall': True, 'WAF': waf}
-                            output = await self.__formatting_Output(decode)
+                            output = await self.__html_table(decode)
                             return output
                     decode = {'Firewall': True, 'WAF': waf_identifiers.get(header.lower(), 'Unknown WAF')}
-                    output = await self.__formatting_Output(decode)
+                    output = await self.__html_table(decode)
                     return output
             
             decode = {'hasWaf': False, 'wafName': '*The domain may be protected with a proprietary or custom WAF which we were unable to identify automatically'}
-            output = await self.__formatting_Output(decode)
+            output = await self.__html_table(decode)
             # print("firewall.py: output: ")
             return output
         except Exception as ex:
@@ -62,12 +62,6 @@ class Firewall_Detection():
             msg = "[-] " + self.Error_Title + " => Get_Firewall : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return output
-
-
-    async def __formatting_Output(self, decodedResponse):
-        htmlValue = ""        
-        htmlValue = await self.__html_table(decodedResponse)
-        return str(htmlValue)
 
     async def __html_table(self, data):
 

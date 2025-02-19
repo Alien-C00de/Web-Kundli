@@ -30,8 +30,7 @@ class Associated_Hosts:
                         if subdomain.endswith(self.domain):
                             subdomains.add(subdomain)
 
-            output = await self.__formatting_Output(subdomains)
-            # print("associated_host.py: output: ")
+            output = await self.__html_table(subdomains)
             return output
 
         except Exception as ex:
@@ -43,11 +42,6 @@ class Associated_Hosts:
     async def __fetch(self, session, url):
         async with session.get(url) as response:
             return await response.text()
-
-    async def __formatting_Output(self, decodedResponse):
-        htmlValue = ""
-        htmlValue = await self.__html_table(decodedResponse)
-        return str(htmlValue)
 
     async def __html_table(self, data):
 

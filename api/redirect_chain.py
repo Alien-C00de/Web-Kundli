@@ -13,9 +13,8 @@ class Redirect_Chain():
         output=""
         try:
             # print("redirect_fetch.py: start")
-            result=await self.__final_result()
-            output=await self.__formatting_Output(self.domain, result)
-            # print("redirect_fetch.py: output: ")
+            result = await self.__final_result()
+            output = await self.__html_table(self.domain, result)
             return output
 
         except Exception as ex:
@@ -55,12 +54,6 @@ class Redirect_Chain():
         except Exception as e:
             print(e)
             return error_ans
-
-    async def __formatting_Output(self, domain, result):
-        # print(domain,A_record,AAAA_record,mx_record,NS_record,CNAME_record,txt_record)
-        htmlValue = ""
-        htmlValue = await self.__html_table(domain,result)
-        return str(htmlValue) 
 
     async def __html_table(self, domain, result):
 

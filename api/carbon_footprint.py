@@ -23,7 +23,7 @@ class Carbon_Footprint:
                     response.raise_for_status()
                     decodedResponse = await response.json()
 
-            output = await self.__formatting_Output(decodedResponse)
+            output = await self.__html_table(decodedResponse)
             # print("carbon.py: output: ")
             return output
 
@@ -49,11 +49,6 @@ class Carbon_Footprint:
             else:
                 msg = "[-] " + self.Error_Title + " => get_html_size : Error fetching HTML size: {e}"
                 raise ValueError(msg)
-
-    async def __formatting_Output(self, decodedResponse):
-        htmlValue = ""
-        htmlValue = await self.__html_table(decodedResponse)
-        return str(htmlValue)
 
     async def __html_table(self, data):
         HTML_Initial_Size = str(data['statistics']['adjustedBytes']) + " bytes"

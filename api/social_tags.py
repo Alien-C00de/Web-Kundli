@@ -57,7 +57,7 @@ class Social_Tags:
                 'favicon': soup.find('link', attrs={'rel': 'icon'})['href'] if soup.find('link', attrs={'rel': 'icon'}) else None
             }
 
-            output = await self.__formatting_Output(metadata)
+            output = await self.__html_table(metadata)
             # print("social_tag.py: output: ")
             return output
 
@@ -66,11 +66,6 @@ class Social_Tags:
             msg = "[-] " + self.Error_Title + " => Get_Social_Tags : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return output
-
-    async def __formatting_Output(self, decodedResponse):
-        htmlValue = ""
-        htmlValue = await self.__html_table(decodedResponse)
-        return str(htmlValue)
 
     async def __html_table(self, metadata):
 
