@@ -35,7 +35,7 @@ class DNS_Server():
             return output
         except aiohttp.ClientConnectorError:
             DoH = "No"
-            output = await self.__html_table(self.domain, DoH)
+            output = await self.__html_table(DoH)
             return output
         except Exception as ex:
             error_msg = str(ex.args[0])
@@ -45,32 +45,45 @@ class DNS_Server():
         # finally:
 
 
-    async def __html_table(self, domain, DoH):
+    async def __html_table(self, DoH):
 
-        percentage = await self.__rating(self.ip_address, self.domain, DoH)
-        table = (
-            """<table>
-                    <tr>
-                        <td colspan="2">
-                            <div class="progress-bar-container">
-                                <div class="progress" style="width: """+ str(percentage) +"""%;">"""+ str(percentage) +"""%</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>IP Address</td>
-                        <td>""" + str(self.ip_address) + """</td>
-                    </tr>
-                    <tr>
-                        <td>Hostname</td>
-                        <td>""" + str(self.domain) + """</td>
-                    </tr>
-                    <tr>
-                        <td>DoH Support</td>
-                        <td>""" + str(DoH) + """</td>
-                    </tr>
-                </table>"""
-        )
+        if not DoH:
+            percentage = 0
+            table = f"""
+                        <table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>"""
+        else:
+            percentage = await self.__rating(self.ip_address, self.domain, DoH)
+            table = (
+                """<table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: """+ str(percentage) +"""%;">"""+ str(percentage) +"""%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>IP Address</td>
+                            <td>""" + str(self.ip_address) + """</td>
+                        </tr>
+                        <tr>
+                            <td>Hostname</td>
+                            <td>""" + str(self.domain) + """</td>
+                        </tr>
+                        <tr>
+                            <td>DoH Support</td>
+                            <td>""" + str(DoH) + """</td>
+                        </tr>
+                    </table>"""
+            )
         return table
     
     async def __rating(self, ip, domain, DoH):

@@ -59,19 +59,18 @@ class Associated_Hosts:
                                 </td>
                             </tr>
                         </table>"""
-            return table
-
-        table = (
-        f"""<table>
-                <tr>
-                    <td colspan="1">
-                        <div class="progress-bar-container">
-                            <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
-                        </div>
-                    </td>
-            </tr>
-            {''.join(
-                f'<tr><td>{subdomain}</td></tr>' for subdomain in sorted(data))}
-        </table>""")
+        else:
+            table = (
+            f"""<table>
+                    <tr>
+                        <td colspan="1">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                            </div>
+                        </td>
+                </tr>
+                {''.join(
+                    f'<tr><td>{subdomain}</td></tr>' for subdomain in sorted(data))}
+            </table>""")
 
         return table

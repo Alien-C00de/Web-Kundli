@@ -79,88 +79,116 @@ class SSL_Certificate():
             connection.close()
 
     async def __html_table(self, cert_details):
-
-        subject = cert_details["Subject"].get_attributes_for_oid(NameOID.ORGANIZATION_NAME)[0].value
-        issuer = cert_details["Issuer"].get_attributes_for_oid(NameOID.ORGANIZATION_NAME)[0].value
-        expires_date = cert_details["Expires"]
-        formatted_expire = expires_date.strftime('%d %B %Y').lstrip('0').replace(" 0", " ")
-        renewed_date = cert_details["Renewed"]
-        formatted_renew = renewed_date.strftime('%d %B %Y').lstrip('0').replace(" 0", " ")
-        serial_number = hex(cert_details["Serial Number"])[2:].upper()
-        fingerprint = cert_details["Fingerprint"]
-        # Format the fingerprint with colons
-        formatted_fingerprint = ":".join(fingerprint[i : i + 2] for i in range(0, len(fingerprint), 2))
-        ext_key_usage = cert_details["Extended Key Usage"]
-
-        # Rate Extended Key Usage (100% if both server and client auth are found)
-        if ("TLS Web Server Authentication" in cert_details["Extended Key Usage"]
-            and "TLS Web Client Authentication" in cert_details["Extended Key Usage"]):
-            if "TLS Web Server Authentication" in cert_details["Extended Key Usage"]:
-                TLS_Web_Server = "TLS Web Server Authentication"
-
-            if "TLS Web Client Authentication" in cert_details["Extended Key Usage"]:
-                TLS_Web_Client = "TLS Web Client Authentication"
-            # TLS_Web_Server = cert_details["Extended Key Usage"][0]
-            # TLS_Web_Client = cert_details["Extended Key Usage"][1]
-            TLS_OK = True
+        if not cert_details:
+            percentage = 0
+            table = f"""
+                        <table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>"""
         else:
-            TLS_Web_Server = ""
-            TLS_Web_Client = ""
-            TLS_OK = False
+            subject = cert_details["Subject"]
+            attributes = subject.get_attributes_for_oid(NameOID.COMMON_NAME)
+            if attributes:
+                subject = attributes[0].value
+                print(f"Subject value: {subject}")
+            else:
+                print("Attribute not found")
+            
+            issuer = cert_details["Issuer"]
+            attributes = issuer.get_attributes_for_oid(NameOID.ORGANIZATION_NAME)
 
-        # percentage = await self.__rating(cert_details)
-        percentage, html = await self.__ssl_score(subject, issuer, expires_date, renewed_date, serial_number, fingerprint, TLS_Web_Server, TLS_Web_Client)
-        rep_data = []
+            if attributes:
+                issuer = attributes[0].value
+                print(f"Issuer organization name: {issuer}")
+            else:
+                print("Issuer organization name attribute not found")
+            # subject = cert_details["Subject"].get_attributes_for_oid(NameOID)[0].value
+            # issuer = cert_details["Issuer"].get_attributes_for_oid(NameOID.ORGANIZATION_NAME)[0].value
+            expires_date = cert_details["Expires"]
+            formatted_expire = expires_date.strftime('%d %B %Y').lstrip('0').replace(" 0", " ")
+            renewed_date = cert_details["Renewed"]
+            formatted_renew = renewed_date.strftime('%d %B %Y').lstrip('0').replace(" 0", " ")
+            serial_number = hex(cert_details["Serial Number"])[2:].upper()
+            fingerprint = cert_details["Fingerprint"]
+            # Format the fingerprint with colons
+            formatted_fingerprint = ":".join(fingerprint[i : i + 2] for i in range(0, len(fingerprint), 2))
+            ext_key_usage = cert_details["Extended Key Usage"]
 
-        table = (
-            """<table>
-                    <tr>
-                        <td colspan="2">
-                            <div class="progress-bar-container">
-                                <div class="progress" style="width: """+ str(percentage) +"""%;">"""+ str(percentage) +"""%</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Subject</td>
-                        <td>""" + str(subject) + """</td>
-                    </tr>
-                    <tr>
-                        <td>Issuer</td>
-                        <td>""" + str(issuer) + """</td>
-                    </tr>
-                    <tr>
-                        <td>Expires</td>
-                        <td>""" + str(formatted_expire) + """</td>
-                    </tr>
-                    <tr>
-                        <td>Renewed</td>
-                        <td>""" + str(formatted_renew) + """</td>
-                    </tr>
-                    <tr>
-                        <td>Serial Num</td>
-                        <td>""" + str(serial_number) + """</td>
-                    </tr>
-                    <tr>
-                        <td>Fingerprint</td>
-                        <td>""" + str(formatted_fingerprint) + """</td>
-                    </tr>""" + ("""
-                    <tr>
-                        <td> <h3>Extended Key Usage</h3> </td>
-                        <td></td>
-                    </tr> 
-                    <tr>
-                        <td>""" + str(TLS_Web_Server) + """</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>""" + str(TLS_Web_Client) + """</td>
-                        <td></td>
-                    </tr>
-                    """ if TLS_OK else "")  # Add this block only if TLS_OK is True
-            + """
-            </table>"""
-        )
+            # Rate Extended Key Usage (100% if both server and client auth are found)
+            if ("TLS Web Server Authentication" in cert_details["Extended Key Usage"]
+                and "TLS Web Client Authentication" in cert_details["Extended Key Usage"]):
+                if "TLS Web Server Authentication" in cert_details["Extended Key Usage"]:
+                    TLS_Web_Server = "TLS Web Server Authentication"
+
+                if "TLS Web Client Authentication" in cert_details["Extended Key Usage"]:
+                    TLS_Web_Client = "TLS Web Client Authentication"
+                # TLS_Web_Server = cert_details["Extended Key Usage"][0]
+                # TLS_Web_Client = cert_details["Extended Key Usage"][1]
+                TLS_OK = True
+            else:
+                TLS_Web_Server = ""
+                TLS_Web_Client = ""
+                TLS_OK = False
+
+            # percentage = await self.__rating(cert_details)
+            percentage, html = await self.__ssl_score(subject, issuer, expires_date, renewed_date, serial_number, fingerprint, TLS_Web_Server, TLS_Web_Client)
+            rep_data = []
+
+            table = (
+                """<table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: """+ str(percentage) +"""%;">"""+ str(percentage) +"""%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Subject</td>
+                            <td>""" + str(subject) + """</td>
+                        </tr>
+                        <tr>
+                            <td>Issuer</td>
+                            <td>""" + str(issuer) + """</td>
+                        </tr>
+                        <tr>
+                            <td>Expires</td>
+                            <td>""" + str(formatted_expire) + """</td>
+                        </tr>
+                        <tr>
+                            <td>Renewed</td>
+                            <td>""" + str(formatted_renew) + """</td>
+                        </tr>
+                        <tr>
+                            <td>Serial Num</td>
+                            <td>""" + str(serial_number) + """</td>
+                        </tr>
+                        <tr>
+                            <td>Fingerprint</td>
+                            <td>""" + str(formatted_fingerprint) + """</td>
+                        </tr>""" + ("""
+                        <tr>
+                            <td> <h3>Extended Key Usage</h3> </td>
+                            <td></td>
+                        </tr> 
+                        <tr>
+                            <td>""" + str(TLS_Web_Server) + """</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>""" + str(TLS_Web_Client) + """</td>
+                            <td></td>
+                        </tr>
+                        """ if TLS_OK else "")  # Add this block only if TLS_OK is True
+                + """
+                </table>"""
+            )
         rep_data.append(table)
         rep_data.append(html)
         return rep_data

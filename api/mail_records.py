@@ -16,7 +16,7 @@ class Mail_Records():
         try:
             # print("mail_configration_fetch.py: start")
             result = await self.__final_result(self.domain)
-            output = await self.__html_table(self.domain, result)
+            output = await self.__html_table(result)
             return output
 
         except Exception as ex:
@@ -47,32 +47,46 @@ class Mail_Records():
                 result.append(None)
         return result
 
-    async def __html_table(self, domain, result):
-        percentage = await self.__rating(str(domain), str(result[0]), str(result[1]))
+    async def __html_table(self, result):
 
-        table = (
-            """<table>
-                    <tr>
-                        <td colspan="2">
-                            <div class="progress-bar-container">
-                                <div class="progress" style="width:""" + str(percentage) + """%;">""" + str(percentage) + """%</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Domain Name</td>
-                        <td>""" + str(domain) + """</td>
-                    </tr>
-                    <tr>
-                        <td>MAIL RECORDS</td>
-                        <td>""" + str(result[0]) + """</td>
-                    </tr>
-                    <tr>
-                        <td>EXTERNAL MAIL RECORDS</td>
-                        <td>""" + str(result[1]) + """</td>
-                    </tr> 
-                </table>"""
-        )
+        if not result:
+            percentage = 0
+            table = f"""
+                        <table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>"""
+        else:
+            percentage = await self.__rating(str(self.domain), str(result[0]), str(result[1]))
+
+            table = (
+                """<table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:""" + str(percentage) + """%;">""" + str(percentage) + """%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Domain Name</td>
+                            <td>""" + str(self.domain) + """</td>
+                        </tr>
+                        <tr>
+                            <td>MAIL RECORDS</td>
+                            <td>""" + str(result[0]) + """</td>
+                        </tr>
+                        <tr>
+                            <td>EXTERNAL MAIL RECORDS</td>
+                            <td>""" + str(result[1]) + """</td>
+                        </tr> 
+                    </table>"""
+            )
         return table
 
     async def __rating(self, domain, mail_record, ext_mail_record):

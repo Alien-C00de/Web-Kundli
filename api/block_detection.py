@@ -79,7 +79,21 @@ class Block_Detection:
                 return False
 
     async def __html_table(self, data):
-        if data:
+        if data and not any(data):
+            percentage = 0
+            table = f"""<table>
+                        <tr>
+                            <td colspan="1">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: {str(percentage)}%;">{str(percentage)}%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>No Data Found</td>
+                        </tr>
+                    </table>"""
+        else:
             percentage =  await self.__rating(data)
             table = (
             """<table>
@@ -100,7 +114,6 @@ class Block_Detection:
             + """</table>"""
         )
         return table
-
 
     async def __rating(self, data):
         count = 0

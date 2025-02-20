@@ -30,60 +30,75 @@ class HTTP_Security:
             return output
 
     async def __html_headers_table(self, data):
-        server = data.get("Server", None)
-        date = data.get("Date", None)
-        content_type = data.get("Content-Type", None)
-        transfer_encoding = data.get("Transfer-Encoding", None)
-        connection = data.get("Connection", None)
-        x_frame_option = data.get("X-Frame-Options", None)
-        x_content_type_options = data.get("X-Content-Type-Options", None)
-        referrer_policy = data.get("Referrer-Policy", None)
 
-        percentage = await self.__rating_header(x_frame_option, x_content_type_options)
+        if not data:
+            percentage = 0
+            table = f"""
+                        <table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>"""
+        else:
+            server = data.get("Server", None)
+            date = data.get("Date", None)
+            content_type = data.get("Content-Type", None)
+            transfer_encoding = data.get("Transfer-Encoding", None)
+            connection = data.get("Connection", None)
+            x_frame_option = data.get("X-Frame-Options", None)
+            x_content_type_options = data.get("X-Content-Type-Options", None)
+            referrer_policy = data.get("Referrer-Policy", None)
 
-        table = (
-            f"""<table>
-                    <tr>
-                        <td colspan="2">
-                            <div class="progress-bar-container">
-                                <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Server</td>
-                        <td>"""+ str(server) + """</td>
-                    </tr>
-                    <tr>
-                        <td>Date</td>
-                        <td>""" + str(date) + """</td>
-                    </tr>
-                    <tr>
-                        <td>Content-Type</td>
-                        <td>""" + str(content_type) + """</td>
-                    </tr>
-                    <tr>
-                        <td>transfer-encoding</td>
-                        <td>""" + str(transfer_encoding) + """</td>
-                    </tr>
-                    <tr>
-                        <td>connection</td>
-                        <td>""" + str(connection) + """</td>
-                    </tr>
-                    <tr>
-                        <td>x-frame-options</td>
-                        <td>""" + str(x_frame_option) + """</td>
-                    </tr>
-                    <tr>
-                        <td>x-content-type-options</td>
-                        <td>""" + str(x_content_type_options) + """</td>
-                    </tr>
-                    <tr>
-                        <td>referrer-policy</td>
-                        <td>""" + str(referrer_policy) + """</td>
-                    </tr>
-                </table>"""
-        )
+
+            percentage = await self.__rating_header(x_frame_option, x_content_type_options)
+
+            table = (
+                f"""<table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Server</td>
+                            <td>"""+ str(server) + """</td>
+                        </tr>
+                        <tr>
+                            <td>Date</td>
+                            <td>""" + str(date) + """</td>
+                        </tr>
+                        <tr>
+                            <td>Content-Type</td>
+                            <td>""" + str(content_type) + """</td>
+                        </tr>
+                        <tr>
+                            <td>transfer-encoding</td>
+                            <td>""" + str(transfer_encoding) + """</td>
+                        </tr>
+                        <tr>
+                            <td>connection</td>
+                            <td>""" + str(connection) + """</td>
+                        </tr>
+                        <tr>
+                            <td>x-frame-options</td>
+                            <td>""" + str(x_frame_option) + """</td>
+                        </tr>
+                        <tr>
+                            <td>x-content-type-options</td>
+                            <td>""" + str(x_content_type_options) + """</td>
+                        </tr>
+                        <tr>
+                            <td>referrer-policy</td>
+                            <td>""" + str(referrer_policy) + """</td>
+                        </tr>
+                    </table>"""
+            )
         return table
 
     async def __html_http_Sec_table(self, data):

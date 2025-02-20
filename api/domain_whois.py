@@ -35,49 +35,63 @@ class Domain_Whois():
         else:
             whois_server = domain_info.registrar_url
         
-        percentage = await self.__rating(domain_info)
 
-        table = """<table>
-                    <tr>
-                        <td colspan="2">
-                            <div class="progress-bar-container">
-                                <div class="progress" style="width: """+ str(percentage) +"""%;">"""+ str(percentage) +"""%</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Registered Domain</td>
-                        <td>""" + str(domain_info.domain) + """</td>
-                    </tr>
-                    <tr>
-                        <td>Creation Date</td>
-                        <td>""" + str(domain_info.creation_date) +  """</td>
-                    </tr>
-                    <tr>
-                        <td>Updated Date</td>
-                        <td>""" + str(domain_info.updated_date) +  """</td>
-                    </tr>
-                    <tr>
-                        <td>Registry Expiry Date</td>
-                        <td>""" + str(domain_info.expiration_date) +  """</td>
-                    </tr>
-                    <tr>
-                        <td>Registry Domain ID</td>
-                        <td>""" + str(" ") +  """</td>
-                    </tr>
-                    <tr>
-                        <td>Registrar WHOIS Server</td>
-                        <td>""" + str(whois_server) +  """</td>
-                    </tr>
-                    <tr>
-                        <td>Registrar</td>
-                        <td>""" + str(domain_info.registrar) +  """</td>
-                    </tr>
-                    <tr>
-                        <td>Registrar IANA ID</td>
-                        <td>""" + str(domain_info.registrar_iana) +  """</td>
-                    </tr>
-                </table>"""
+        if not domain_info:
+            percentage = 0
+            table = f"""
+                        <table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>"""
+        else:
+            percentage = await self.__rating(domain_info)
+
+            table = """<table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: """+ str(percentage) +"""%;">"""+ str(percentage) +"""%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Registered Domain</td>
+                            <td>""" + str(domain_info.domain) + """</td>
+                        </tr>
+                        <tr>
+                            <td>Creation Date</td>
+                            <td>""" + str(domain_info.creation_date) +  """</td>
+                        </tr>
+                        <tr>
+                            <td>Updated Date</td>
+                            <td>""" + str(domain_info.updated_date) +  """</td>
+                        </tr>
+                        <tr>
+                            <td>Registry Expiry Date</td>
+                            <td>""" + str(domain_info.expiration_date) +  """</td>
+                        </tr>
+                        <tr>
+                            <td>Registry Domain ID</td>
+                            <td>""" + str(" ") +  """</td>
+                        </tr>
+                        <tr>
+                            <td>Registrar WHOIS Server</td>
+                            <td>""" + str(whois_server) +  """</td>
+                        </tr>
+                        <tr>
+                            <td>Registrar</td>
+                            <td>""" + str(domain_info.registrar) +  """</td>
+                        </tr>
+                        <tr>
+                            <td>Registrar IANA ID</td>
+                            <td>""" + str(domain_info.registrar_iana) +  """</td>
+                        </tr>
+                    </table>"""
         return table
 
     async def __rating(self, domain_info):

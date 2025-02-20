@@ -14,7 +14,7 @@ class Redirect_Chain():
         try:
             # print("redirect_fetch.py: start")
             result = await self.__final_result()
-            output = await self.__html_table(self.domain, result)
+            output = await self.__html_table(result)
             return output
 
         except Exception as ex:
@@ -55,45 +55,56 @@ class Redirect_Chain():
             print(e)
             return error_ans
 
-    async def __html_table(self, domain, result):
+    async def __html_table(self, result):
 
-        percentage = await self.__rating(str(domain), str(result[0]), str(result[1]), str(result[2]))
-        table = (
-            """<table>
-                    <tr>
-                        <td colspan="2">
-                            <div class="progress-bar-container">
-                                <div class="progress" style="width:""" + str(percentage) + """%;">""" + str(percentage) + """%</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Domain Name</td>
-                        <td>""" + str(domain) + """</td>
-                    </tr>
-                    <tr>
-                        <td>Number of Redirects</td>
-                        <td>""" + str(result[0]) + """</td>
-                    </tr>
-                    <tr>
-                        <td>Redirect Link</td>
-                        <td>""" + str(result[1]) + """</td>
-                    </tr>
-                    <tr>
-                        <td>Final Page</td>
-                        <td>""" + str(result[2]) + """</td>
-                    </tr>
-                </table>"""
-        )
+        if not result:
+            percentage = 0
+            table = f"""
+                        <table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>"""
+        else:
+            percentage = await self.__rating(str(self.domain), str(result[0]), str(result[1]), str(result[2]))
+            table = (
+                """<table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:""" + str(percentage) + """%;">""" + str(percentage) + """%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Domain Name</td>
+                            <td>""" + str(self.domain) + """</td>
+                        </tr>
+                        <tr>
+                            <td>Number of Redirects</td>
+                            <td>""" + str(result[0]) + """</td>
+                        </tr>
+                        <tr>
+                            <td>Redirect Link</td>
+                            <td>""" + str(result[1]) + """</td>
+                        </tr>
+                        <tr>
+                            <td>Final Page</td>
+                            <td>""" + str(result[2]) + """</td>
+                        </tr>
+                    </table>"""
+            )
         return table
 
     async def __rating(self, doman, no_of_redirect, redirect_link, final_page):
-
         condition1 = doman != None
         condition2 = no_of_redirect != None
         condition3 = redirect_link != None
         condition4 = final_page != None
-
 
         # Count the number of satisfied conditions
         satisfied_conditions = sum([condition1, condition2, condition3, condition4])

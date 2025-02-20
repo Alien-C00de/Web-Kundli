@@ -47,96 +47,124 @@ class Server_Location():
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return output
 
-    async def __html_server_info_table(self, data):
+    async def __html_server_info_table(self, dataframe):
         rep_data = []
-        org = str(data[0]["org"])
-        asn = str(data[0]["asn"])
-        ip = str(data[0]["ip"])
-        location =  str(data[0]["region"]) + ",\n " + str(data[0]["country_name"])
 
-        percentage, htmltags = await self.__server_info_score(org, asn, ip, location)
+        if dataframe.empty:
+            percentage = 0
+            table = f"""
+                        <table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>"""
+        else:
+            org = str(dataframe[0]["org"])
+            asn = str(dataframe[0]["asn"])
+            ip = str(dataframe[0]["ip"])
+            location =  str(dataframe[0]["region"]) + ",\n " + str(dataframe[0]["country_name"])
 
-        table = """<table>
-                        <tr>
-                            <td colspan="2">
-                                <div class="progress-bar-container">
-                                    <div class="progress" style="width:""" + str(percentage) + """%;">""" + str(percentage) + """%</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Organization</td>
-                            <td>""" + org +  """</td>
-                        </tr>
-                        <tr>
-                            <td>ASN Code</td>
-                            <td>""" + asn +  """</td>
-                        </tr>
-                        <tr>
-                            <td>IP</td>
-                            <td>""" + ip +  """</td>
-                        </tr>
-                        <tr>
-                            <td>Location</td>
-                            <td>""" + location +  """</td>
-                        </tr>
-                </table>"""
+            percentage, htmltags = await self.__server_info_score(org, asn, ip, location)
+
+            table = """<table>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width:""" + str(percentage) + """%;">""" + str(percentage) + """%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Organization</td>
+                                <td>""" + org +  """</td>
+                            </tr>
+                            <tr>
+                                <td>ASN Code</td>
+                                <td>""" + asn +  """</td>
+                            </tr>
+                            <tr>
+                                <td>IP</td>
+                                <td>""" + ip +  """</td>
+                            </tr>
+                            <tr>
+                                <td>Location</td>
+                                <td>""" + location +  """</td>
+                            </tr>
+                    </table>"""
 
         rep_data.append(table)
         rep_data.append(htmltags)
         return rep_data
 
-    async def __html_server_loc_table(self, data):
+    async def __html_server_loc_table(self, dataframe):
         rep_data = []
-        city =  str(data[0]["city"])
-        postal = str(data[0]["postal"])
-        region = str(data[0]["region"])
-        country = str(data[0]["country_name"])
-        country_code = str(data[0]["country_code"]).lower()
-        timezone = str(data[0]["timezone"])
-        languages =  str(data[0]["languages"])
-        currency_name = str(data[0]["currency_name"])
-        currency = str(data[0]["currency"])
 
-        # percentage = await self.__rating_loc(city, country, timezone, languages, currency)
-        percentage, htmltags = await self.__server_Location_score(city, country, timezone, languages, currency)
+        if dataframe.empty:
+            percentage = 0
+            table = f"""
+                        <table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>"""
+        else:
+            city =  str(dataframe[0]["city"])
+            postal = str(dataframe[0]["postal"])
+            region = str(dataframe[0]["region"])
+            country = str(dataframe[0]["country_name"])
+            country_code = str(dataframe[0]["country_code"]).lower()
+            timezone = str(dataframe[0]["timezone"])
+            languages =  str(dataframe[0]["languages"])
+            currency_name = str(dataframe[0]["currency_name"])
+            currency = str(dataframe[0]["currency"])
 
-        table = """<table>
-                        <tr>
-                            <td colspan="2">
-                                <div class="progress-bar-container">
-                                    <div class="progress" style="width:""" + str(percentage) + """%;">""" + str(percentage) + """%</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>City</td>
-                            <td>""" + postal + ", " + city + ", " + region + """</td>
-                        </tr>
-                        <tr>
-                            <td>Country</td>
-                            <td> """ + country + """ <span id="country-icon" class="flag-icon"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Timezone</td>
-                            <td>""" + timezone +  """</td>
-                        </tr>
-                        <tr>
-                            <td>Languages</td>
-                            <td>""" + languages +  """</td>
-                        </tr>
-                        <tr>
-                            <td>Currency</td>
-                            <td>""" + currency_name  + "  (" + currency + ")" """</td>
-                        </tr>
-                </table>
-                <script>
-                    function displayCountryIcon() {
-                        const countryIconElement = document.getElementById('country-icon');
-                        countryIconElement.className = 'flag-icon flag-icon-$ """ + country_code + """';
-                    }
-                    displayCountryIcon();
-                </script>"""
+            # percentage = await self.__rating_loc(city, country, timezone, languages, currency)
+            percentage, htmltags = await self.__server_Location_score(city, country, timezone, languages, currency)
+
+            table = """<table>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width:""" + str(percentage) + """%;">""" + str(percentage) + """%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>City</td>
+                                <td>""" + postal + ", " + city + ", " + region + """</td>
+                            </tr>
+                            <tr>
+                                <td>Country</td>
+                                <td> """ + country + """ <span id="country-icon" class="flag-icon"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Timezone</td>
+                                <td>""" + timezone +  """</td>
+                            </tr>
+                            <tr>
+                                <td>Languages</td>
+                                <td>""" + languages +  """</td>
+                            </tr>
+                            <tr>
+                                <td>Currency</td>
+                                <td>""" + currency_name  + "  (" + currency + ")" """</td>
+                            </tr>
+                    </table>
+                    <script>
+                        function displayCountryIcon() {
+                            const countryIconElement = document.getElementById('country-icon');
+                            countryIconElement.className = 'flag-icon flag-icon-$ """ + country_code + """';
+                        }
+                        displayCountryIcon();
+                    </script>"""
         rep_data.append(table)
         rep_data.append(htmltags)
         return rep_data

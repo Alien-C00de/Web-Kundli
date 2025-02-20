@@ -71,35 +71,34 @@ class DNS_Security_Ext:
                                 </td>
                             </tr>
                         </table>"""
-            return table
+        else:
+            rows = [
+                f"""
+                <tr>
+                    <td>{dns_type}</td>
+                    <td>
+                        <strong><span>{'✅ Yes' if record['isFound'] else '❌ No'}</span></strong><br>
+                        <strong><span>  Recursion Desired (RD) ✅</span></strong><br>
+                        <strong><span>  Recursion Available (RA) ✅</span></strong><br>
+                        <strong><span>  TrunCation (TC) ❌</span></strong><br>
+                        <strong><span>  Authentic Data (AD){' ✅' if record['flags'] else ' ❌'}</span></strong><br>
+                        <strong><span>  Checking Disabled (CD) ❌</span></strong><br>
+                    </td>
+                </tr>"""
+                for dns_type, record in data.items()
+            ]
 
-        rows = [
-            f"""
-            <tr>
-                <td>{dns_type}</td>
-                <td>
-                    <strong><span>{'✅ Yes' if record['isFound'] else '❌ No'}</span></strong><br>
-                    <strong><span>  Recursion Desired (RD) ✅</span></strong><br>
-                    <strong><span>  Recursion Available (RA) ✅</span></strong><br>
-                    <strong><span>  TrunCation (TC) ❌</span></strong><br>
-                    <strong><span>  Authentic Data (AD){' ✅' if record['flags'] else ' ❌'}</span></strong><br>
-                    <strong><span>  Checking Disabled (CD) ❌</span></strong><br>
-                </td>
-            </tr>"""
-            for dns_type, record in data.items()
-        ]
-
-        table = f"""
-        <table>
-            <tr>
-                <td colspan="2">
-                    <div class="progress-bar-container">
-                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
-                    </div>
-                </td>
-            </tr>
-                {''.join(rows)}
-        </table>"""
+            table = f"""
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <div class="progress-bar-container">
+                            <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                        </div>
+                    </td>
+                </tr>
+                    {''.join(rows)}
+            </table>"""
 
         return table
     

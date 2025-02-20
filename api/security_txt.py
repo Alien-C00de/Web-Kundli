@@ -104,7 +104,6 @@ class Security_TXT:
                                     )
                             + """</table>"""
                             )
-                return table
         else:
             percentage = 0
             table = f"""<table>
@@ -119,7 +118,7 @@ class Security_TXT:
                             <td>URL is not responding to this query.</td>
                         </tr>
                     </table>"""
-            return table
+        return table
 
     async def __rating(self, phishing, malware):
 

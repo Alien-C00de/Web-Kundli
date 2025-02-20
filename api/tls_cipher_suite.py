@@ -75,62 +75,74 @@ class TLS_Cipher_Suit:
         except Exception as e:
             return default
 
-    async def __html_table(self,data):
+    async def __html_table(self, data):
+        if not data:
+            percentage = 0
+            table = f"""
+                        <table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>"""
+        else:
+            domain = str(data['Domain Name'])
+            issue_org = str(data['Issuing Organization'])
+            issue_date = str(data['Issue Date'])
+            expire_date = str(data['Expire Date'])
+            sr_no = str(data['Serial Number'])
+            protocol = str(data['Protocol Version'])
+            cipher = str(data['Cipher Suite'])
+            public_key = str(data['Public key length'])
 
-        domain = str(data['Domain Name'])
-        issue_org = str(data['Issuing Organization'])
-        issue_date = str(data['Issue Date'])
-        expire_date = str(data['Expire Date'])
-        sr_no = str(data['Serial Number'])
-        protocol = str(data['Protocol Version'])
-        cipher = str(data['Cipher Suite'])
-        public_key = str(data['Public key length'])
+            percentage = await self.__rating(domain, issue_org, issue_date, expire_date, sr_no, protocol, cipher, public_key)
 
-        percentage = await self.__rating(domain, issue_org, issue_date, expire_date, sr_no, protocol, cipher, public_key)
-
-        table = (
-            """<table>
-                    <tr>
-                        <td colspan="2">
-                            <div class="progress-bar-container">
-                                <div class="progress" style="width:""" + str(percentage) + """%;">""" + str(percentage) + """%</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Domain Name</td>
-                        <td>""" + domain + """</td>
-                    </tr>
-                    <tr>
-                        <td>Issuing Organization</td>
-                        <td>""" + issue_org + """</td>
-                    </tr>
-                    <tr>
-                        <td>Issue Date</td>
-                        <td>>""" + issue_date + """</td>
-                    </tr>
-                    <tr>
-                        <td>Expire Date</td>
-                        <td>""" + expire_date + """</td>
-                    </tr>
-                    <tr>
-                        <td>Serial Number</td>
-                        <td>""" + sr_no + """</td>
-                    </tr>
-                    <tr>
-                        <td>Protocol Version</td>
-                        <td >""" + protocol + """</td>
-                    </tr>
-                    <tr>
-                        <td>Cipher Suite</td>
-                        <td >""" + cipher + """</td>
-                    </tr>
-                    <tr>
-                        <td>Public key length</td>
-                        <td>""" + public_key + """</td>
-                    </tr>
-            </table>"""
-        )
+            table = (
+                """<table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:""" + str(percentage) + """%;">""" + str(percentage) + """%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Domain Name</td>
+                            <td>""" + domain + """</td>
+                        </tr>
+                        <tr>
+                            <td>Issuing Organization</td>
+                            <td>""" + issue_org + """</td>
+                        </tr>
+                        <tr>
+                            <td>Issue Date</td>
+                            <td>>""" + issue_date + """</td>
+                        </tr>
+                        <tr>
+                            <td>Expire Date</td>
+                            <td>""" + expire_date + """</td>
+                        </tr>
+                        <tr>
+                            <td>Serial Number</td>
+                            <td>""" + sr_no + """</td>
+                        </tr>
+                        <tr>
+                            <td>Protocol Version</td>
+                            <td >""" + protocol + """</td>
+                        </tr>
+                        <tr>
+                            <td>Cipher Suite</td>
+                            <td >""" + cipher + """</td>
+                        </tr>
+                        <tr>
+                            <td>Public key length</td>
+                            <td>""" + public_key + """</td>
+                        </tr>
+                </table>"""
+            )
         return table
 
 

@@ -134,7 +134,7 @@ class DNS_Records():
             return None
 
     async def __html_table(self, domain, A_record, AAAA_record, mx_record, NS_record, CNAME_record, txt_record):
-
+        
         percentage = await self.__rating(domain, A_record, AAAA_record, mx_record, NS_record, CNAME_record, txt_record)
         table = (
             """<table>

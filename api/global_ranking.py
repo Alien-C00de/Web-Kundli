@@ -60,7 +60,6 @@ class Global_Ranking:
                             <td>{latest_rank_value}</td>
                         </tr>
                     </table>"""
-            return table
         else:
             percentage = 0
             table = f"""<table>
@@ -75,7 +74,7 @@ class Global_Ranking:
                             <td>No Rank Found For Given Domain</td>
                         </tr>
                     </table>"""
-            return table
+        return table
 
     async def __rating(self, date, value):
 

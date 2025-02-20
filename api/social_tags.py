@@ -68,59 +68,63 @@ class Social_Tags:
             return output
 
     async def __html_table(self, metadata):
-
-        title = str(metadata.get ('title', 'N/A'))
-        description = str(metadata.get('description', 'N/A'))
-        keywords = str(metadata.get('keywords', 'N/A'))
-        cononical = str(metadata.get('canonicalUrl', 'N/A'))
-        twitter  =str(metadata.get('twitterSite', 'N/A'))
-        theme_color = metadata.get('themeColor', 'N/A')
-        if theme_color != 'N/A' and theme_color is not None:
-            # Convert the hex color code to its corresponding ANSI color code
-            theme_color_ansi = "\033[48;2;{};{};{}m".format(*tuple(int(theme_color.lstrip('#')[i:i+2], 16) for i in (0, 2, 4)))
-            # Reset color after printing
-            reset_color = "\033[0m"
+        if not metadata:
+            percentage = 0
+            table = f"""
+                        <table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>"""
         else:
-            theme_color_ansi = ''
-            reset_color = ''
+            title = str(metadata.get ('title', 'N/A'))
+            description = str(metadata.get('description', 'N/A'))
+            keywords = str(metadata.get('keywords', 'N/A'))
+            cononical = str(metadata.get('canonicalUrl', 'N/A'))
+            twitter  =str(metadata.get('twitterSite', 'N/A'))
+            theme_color = metadata.get('themeColor', 'N/A')
 
-        percentage = await self.__rating(title, description, keywords, cononical, theme_color, twitter)
+            percentage = await self.__rating(title, description, keywords, cononical, theme_color, twitter)
 
-        table = (
-            f"""<table>
-                    <tr>
-                        <td colspan="2">
-                            <div class="progress-bar-container">
-                                <div class="progress" style="width: {str(percentage)}%;">{str(percentage)}%</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Title</td>
-                        <td>{title}</td>
-                    </tr>
-                    <tr>
-                        <td>Description</td>
-                        <td>{description}</td>
-                    </tr>
-                    <tr>
-                        <td>Keywords</td>
-                        <td>{keywords}</td>
-                    </tr>
-                    <tr>
-                        <td>Canonical URL</td>
-                        <td>{cononical}</td>
-                    </tr>
-                    <tr>
-                        <td>Theme Color</td>
-                        <td>{theme_color}</td>
-                    </tr>
-                    <tr>
-                        <td>Twitter Site    </td>
-                        <td>{twitter}</td>
-                    </tr>
-                </table>"""
-        )
+            table = (
+                f"""<table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: {str(percentage)}%;">{str(percentage)}%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Title</td>
+                            <td>{title}</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>{description}</td>
+                        </tr>
+                        <tr>
+                            <td>Keywords</td>
+                            <td>{keywords}</td>
+                        </tr>
+                        <tr>
+                            <td>Canonical URL</td>
+                            <td>{cononical}</td>
+                        </tr>
+                        <tr>
+                            <td>Theme Color</td>
+                            <td>{theme_color}</td>
+                        </tr>
+                        <tr>
+                            <td>Twitter Site    </td>
+                            <td>{twitter}</td>
+                        </tr>
+                    </table>"""
+            )
         return table
 
     async def __rating(self, title, description, keywords, cononical, theme_color, twitter):

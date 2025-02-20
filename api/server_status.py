@@ -16,7 +16,7 @@ class Server_Status():
         try:
             # print("server_status_fetch.py: start")
             result = await self.__final_result()
-            output = await self.__html_table(self.domain, result)
+            output = await self.__html_table(result)
             # print("server_status_fetch.py: output: ")
             return output
         except Exception as ex:
@@ -36,30 +36,39 @@ class Server_Status():
         except Exception as e:
             return None
 
-    async def __html_table(self, domain, result):
-
-        percentage = 0
-        
+    async def __html_table(self, result):
         if result != None:
             percentage = 100
 
-        table = (
-            """<table>
-                    <tr>
-                        <td colspan="2">
-                            <div class="progress-bar-container">
-                                <div class="progress" style="width:""" + str(percentage) + """%;">""" + str(percentage) + """%</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Domain Name</td>
-                        <td>""" + str(domain) + """</td>
-                    </tr>
-                    <tr>
-                    <td>SERVER STATUS</td>
-                        <td >""" + str(result) + """</td>
-                    </tr>
-            </table>"""
-        )
+            table = (
+                """<table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:""" + str(percentage) + """%;">""" + str(percentage) + """%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Domain Name</td>
+                            <td>""" + str(self.domain) + """</td>
+                        </tr>
+                        <tr>
+                        <td>SERVER STATUS</td>
+                            <td >""" + str(result) + """</td>
+                        </tr>
+                </table>"""
+            )
+        else:
+            percentage = 0
+            table = f"""
+                        <table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>"""
         return table

@@ -46,28 +46,38 @@ class TXT_Records():
             return None
 
     async def __html_table(self,domain,txt_record):
-        percentage = 0
-
         if txt_record != None:
             percentage = 100
             
-        table = (
-            f"""<table>
-                    <tr>
-                        <td colspan="2">
-                            <div class="progress-bar-container">
-                                <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Domain Name</td>
-                        <td>""" + str(domain) + """</td>
-                    </tr>
-                    <tr>
-                        <td>TXT RECORD</td>
-                        <td>""" + str(txt_record) + """</td>
-                    </tr>
-            </table>"""
-        )
+            table = (
+                f"""<table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Domain Name</td>
+                            <td>""" + str(domain) + """</td>
+                        </tr>
+                        <tr>
+                            <td>TXT RECORD</td>
+                            <td>""" + str(txt_record) + """</td>
+                        </tr>
+                </table>"""
+            )
+        else:
+            percentage = 0
+            table = f"""
+                        <table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>"""
         return table

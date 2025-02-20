@@ -99,7 +99,6 @@ class Archive_History:
                             <td>No Data Found</td>
                         </tr>
                     </table>"""
-            return table
         else:
             data[0].pop(0)
             first_scan = await self.__convert_timestamp_to_date(data[0][0][0])
@@ -111,7 +110,6 @@ class Archive_History:
 
             rep_data = []
             percentage, html = await self.__archive_history_score(first_scan, last_scan, total_scans, change_count, average_page_size, scan_frequency)
-            # percentage = await self.__rating(first_scan, last_scan, total_scans, change_count, average_page_size, scan_frequency)
 
             table = (
                     """<table>

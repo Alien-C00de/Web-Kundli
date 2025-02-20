@@ -56,8 +56,6 @@ class Site_Features:
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
 
     async def __html_table(self, data):
-
-        percentage = 100
         if not data:
             percentage = 0
             table = f"""
@@ -70,31 +68,30 @@ class Site_Features:
                                 </td>
                             </tr>
                         </table>"""
-            return table
+        else:
+            percentage = 100
+            # Step 1: Get results asynchronously
+            results = [await self.__check_feature(self.url, value) for key, value in data.items()]
+            # Step 2: Construct the HTML table
+            rows = [
+                f"""
+                <tr>
+                    <td>{key}</td>
+                    <td>{result}</td>
+                </tr>"""
+                for (key, value), result in zip(data.items(), results)
+            ]
 
-        # Step 1: Get results asynchronously
-        results = [await self.__check_feature(self.url, value) for key, value in data.items()]
-
-        # Step 2: Construct the HTML table
-        rows = [
-            f"""
-            <tr>
-                <td>{key}</td>
-                <td>{result}</td>
-            </tr>"""
-            for (key, value), result in zip(data.items(), results)
-        ]
-
-        table = f"""
-        <table>
-            <tr>
-                <td colspan="2">
-                    <div class="progress-bar-container">
-                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
-                    </div>
-                </td>
-            </tr>
-                {''.join(rows)}
-        </table>"""
+            table = f"""
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <div class="progress-bar-container">
+                            <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                        </div>
+                    </td>
+                </tr>
+                    {''.join(rows)}
+            </table>"""
 
         return table

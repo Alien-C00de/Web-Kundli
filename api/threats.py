@@ -67,9 +67,7 @@ class Threats:
                         </tr>
                     </table>"""
 
-            if 'error' in decodedResponse[0]:
-                return table
-            else:
+            if not 'error' in decodedResponse[0]:
                 phishing = int(decodedResponse[0]["data"]["attributes"]["last_analysis_stats"]["suspicious"])
                 malware = int(decodedResponse[0]["data"]["attributes"]["last_analysis_stats"]["malicious"])
 
@@ -91,7 +89,6 @@ class Threats:
                                 <td>{'✅ No Malwares Found' if malware == 0 else '❌ Malware Found'}</td>
                             </tr>
                         </table>"""
-                return table
         else:
             return table
 

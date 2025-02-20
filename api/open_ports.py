@@ -20,7 +20,7 @@ class Open_Ports():
             # ip_address = socket.gethostbyname(self.domain)
             #print(ip_address)
             result= await self.__final_result(self.ip_address)
-            output = await self.__html_table(self.domain, self.ip_address, result)
+            output = await self.__html_table(result)
 
             return output
 
@@ -49,34 +49,44 @@ class Open_Ports():
         except Exception as e:
             return []
         
-    async def __html_table(self, domain, ip, open_ports):
+    async def __html_table(self, open_ports):
 
-        percentage = 100
         if len(open_ports) > 0:
             percentage = 0
-
-        table = (
-            """<table>
-                    <tr>
-                        <td colspan="2">
-                            <div class="progress-bar-container">
-                                <div class="progress" style="width:""" + str(percentage) + """%;">""" + str(percentage) + """%</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Domain Name</td>
-                        <td>""" + str(domain) + """</td>
-                    </tr>
-                    <tr>
-                        <td>IP ADDRESS</td>
-                        <td>""" + str(ip) + """</td>
-                    </tr>
-                    </tr>
-                    <tr>
-                        <td>OPEN PORTS</td>
-                        <td>""" + str(open_ports) + """</td>
-                    </tr>
-                </table>"""
-        )
+            table = f"""
+                        <table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>"""
+        else:
+            percentage = 100
+            table = (
+                """<table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:""" + str(percentage) + """%;">""" + str(percentage) + """%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Domain Name</td>
+                            <td>""" + str(self.domain) + """</td>
+                        </tr>
+                        <tr>
+                            <td>IP ADDRESS</td>
+                            <td>""" + str(self.ip_address) + """</td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td>OPEN PORTS</td>
+                            <td>""" + str(open_ports) + """</td>
+                        </tr>
+                    </table>"""
+            )
         return table

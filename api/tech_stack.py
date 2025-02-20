@@ -39,9 +39,6 @@ class Tech_Stack:
             return output
 
     async def __html_table(self, data):
-
-        percentage = 100
-        
         if not data:
             percentage = 0
             table = f"""
@@ -54,27 +51,27 @@ class Tech_Stack:
                                 </td>
                             </tr>
                         </table>"""
-            return table
+        else:
+            percentage = 100
+            rows = [
+                f"""
+                <tr>
+                    <td>{key}</td>
+                    <td>{value}</td>
+                </tr>"""
+                for key, value in data.items()
+            ]
 
-        rows = [
-            f"""
-            <tr>
-                <td>{key}</td>
-                <td>{value}</td>
-            </tr>"""
-            for key, value in data.items()
-        ]
-
-        table = f"""
-        <table>
-            <tr>
-                <td colspan="2">
-                    <div class="progress-bar-container">
-                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
-                    </div>
-                </td>
-            </tr>
-                {''.join(rows)}
-        </table>"""
+            table = f"""
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <div class="progress-bar-container">
+                            <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                        </div>
+                    </td>
+                </tr>
+                    {''.join(rows)}
+            </table>"""
 
         return table

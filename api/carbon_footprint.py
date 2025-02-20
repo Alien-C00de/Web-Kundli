@@ -51,39 +51,51 @@ class Carbon_Footprint:
                 raise ValueError(msg)
 
     async def __html_table(self, data):
-        HTML_Initial_Size = str(data['statistics']['adjustedBytes']) + " bytes"
-        CO2_Load = str(data['statistics']['co2']['grid']['grams']) + " grams"
-        Energy_Usage = f"{data['statistics']['energy']:.4f} KWg"
-        CO2_Emitted =  str(data['statistics']['co2']['renewable']['grams']) + " grams"
-        percentage = await self.__rating(HTML_Initial_Size, CO2_Load, Energy_Usage, CO2_Emitted)
-
-        table = (
-            """<table>
-                    <tr>
-                        <td colspan="2">
-                            <div class="progress-bar-container">
-                                <div class="progress" style="width: """+ str(percentage) +"""%;">"""+ str(percentage) +"""%</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>HTML Initial Size</td>
-                        <td>""" + str(HTML_Initial_Size) + """</td>
-                    </tr>
-                    <tr>
-                        <td>CO2 for Initial Load:</td>
-                        <td>""" + str(CO2_Load) + """</td>
-                    </tr>
-                    <tr>
-                        <td>Energy Usage for Load:</td>
-                        <td>""" + str(Energy_Usage) + """</td>
-                    </tr>
-                    <tr>
-                        <td>CO2 Emitted:</td>
-                        <td>""" + str(CO2_Emitted)  + """</td>
-                    </tr>
-                </table>"""
-        )
+        if not data:
+            percentage = 0
+            table = f"""
+                        <table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>"""
+        else:
+            HTML_Initial_Size = str(data['statistics']['adjustedBytes']) + " bytes"
+            CO2_Load = str(data['statistics']['co2']['grid']['grams']) + " grams"
+            Energy_Usage = f"{data['statistics']['energy']:.4f} KWg"
+            CO2_Emitted =  str(data['statistics']['co2']['renewable']['grams']) + " grams"
+            percentage = await self.__rating(HTML_Initial_Size, CO2_Load, Energy_Usage, CO2_Emitted)
+            table = (
+                """<table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: """+ str(percentage) +"""%;">"""+ str(percentage) +"""%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>HTML Initial Size</td>
+                            <td>""" + str(HTML_Initial_Size) + """</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 for Initial Load:</td>
+                            <td>""" + str(CO2_Load) + """</td>
+                        </tr>
+                        <tr>
+                            <td>Energy Usage for Load:</td>
+                            <td>""" + str(Energy_Usage) + """</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 Emitted:</td>
+                            <td>""" + str(CO2_Emitted)  + """</td>
+                        </tr>
+                    </table>"""
+            )
         return table
 
     async def __rating(self, HTML_Initial_Size, CO2_Load, Energy_Usage, CO2_Emitted):

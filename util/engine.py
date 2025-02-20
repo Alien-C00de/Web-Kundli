@@ -191,44 +191,19 @@ class engine():
             await self.__create_dirs("output")
 
             summary_report = Summary_Report(self.domain, timestamp)
-            await summary_report.Generate_Summary_Report(self.url, tb1, tb2, tb3, tb4, tb5, tb6, tb7, tb8, tb9, tb10, tb11, tb12, tb13, tb14, tb15, 
-                                         tb16, tb17, tb18, tb19, tb20, tb21, tb22, tb23, tb24, tb25, tb26, tb27, tb28, tb29)
-
-
             analysis_report = Analysis_Report(self.domain, timestamp)
-            await analysis_report.Generate_Analysis_Report(self.url, str(cookie[1]), str(Server_location[1]), str(Server_location[3]), str(SSL_Cert[1]),
-                                                        str(archive_info[1]))
 
+            final_report = [summary_report.Generate_Summary_Report(self.url, tb1, tb2, tb3, tb4, tb5, tb6, tb7, tb8, tb9, tb10, tb11, tb12, tb13, tb14, tb15, 
+                                         tb16, tb17, tb18, tb19, tb20, tb21, tb22, tb23, tb24, tb25, tb26, tb27, tb28, tb29), 
+                            analysis_report.Generate_Analysis_Report(self.url, str(cookie[1]), str(Server_location[1]), str(Server_location[3]), str(SSL_Cert[1]),
+                                                        str(archive_info[1]))]
+
+            await asyncio.gather(*final_report)
+            
         except Exception as ex:
             error_msg = ex.args[0]
             msg = "[-] " + self.Error_Title + " => Start Process : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
-
-    # # Generate the HTML Report
-    # async def __Summary_Report(self, timestamp, server_location, SSL_Cert, Whois, ser_info, HTTP_Sec, headers, cookies, dns_server_info,
-    #                             tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record,
-    #                             ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info,
-    #                             tech_stack_info, firewall_info, social_tags_info, threats_info, global_ranking_info, security_txt_info, nmap_info):
-    #     try:
-    #         summary_report = Summary_Report(self.domain, timestamp)
-    #         await summary_report.outputHTML(self.url, server_location, SSL_Cert, Whois, ser_info, HTTP_Sec, headers, cookies, dns_server_info,
-    #                                    tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record,
-    #                                    ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info,
-    #                                    tech_stack_info, firewall_info, social_tags_info, threats_info, global_ranking_info, security_txt_info, nmap_info)
-    #     except Exception as ex:
-    #         error_msg = ex.args[0]
-    #         msg = "[-] " + self.Error_Title + " => Generate report : " + error_msg
-    #         print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
-
-    # async def __Analysis_Report(self, timestamp, Cookie, server_location, server_info, SSL_Cert):
-    #     try:
-    #         domain = urlparse(self.url).netloc
-    #         analysis_report = Analysis_Report(domain, timestamp)
-    #         await analysis_report.outputHTML(self.url, Cookie, server_location, server_info, SSL_Cert)
-    #     except Exception as ex:
-    #         error_msg = ex.args[0]
-    #         msg = "[-] " + self.Error_Title + " => Generate report : " + error_msg
-    #         print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
 
     # Is the given URL is valid or not
     async def __Is_Valid_Site(self):

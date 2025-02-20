@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+            <html lang="en">
+            <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title> Web Kundli </title>
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+            <style>
+                    body {
+                        background-color: #1e1e1e;
+                        color: #d4d4d4;
+                        font-family: 'Cascadia Mono', 'Liberation Mono', 'Courier New', Courier, monospace;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    .header {
+                        background-color: #333;
+                        padding: 10px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-right: 20px;
+                        margin-left: 20px;
+                    }
+                    .header h1 {
+                        color: #FFA500;
+                        margin: 0;
+                        font-size: 2.5em;
+                    }
+                    .header h2 {
+                        color: #FFA500;
+                        margin: 0;
+                        font-size: 1.5em;
+                    }
+                    .header h3 {
+                        color: #FFA500;
+                        margin: 0;
+                        font-size: 1em;
+                    }
+                    .ranking-container {
+                        background-color: #333;
+                        display: flex;
+                        align-items: center; /* Vertically align items */
+                        justify-content: space-between; /* Space between header and progress bar */
+                        margin-right: 20px;
+                        margin-left: 20px;
+                    }
+                    .ranking-container h1 {
+                        margin: 20px;
+                        padding: 5px;
+                        color: #00FF00;
+                    }
+                    .ranking-container h2 {
+                        font-size: 1.5em;
+                        margin: 20px;
+                        padding: 5px;
+                    }
+                    .progress-bar-container {
+                        flex: 1; /* Allow progress bar to take available space */
+                        background-color: #A9A9A9;
+                        border-radius: 4px;
+                        margin-left: 20px; /* Space between header and progress bar */
+                        margin-right: 20px;
+                        overflow: hidden;
+                    }
+                    .progress-bar {
+                        height: 30px;
+                        color: #FFFF00;
+                        text-align: center;
+                        line-height: 30px;
+                        border-radius: 3px;
+                        background-color: #8F00FF;  /* #76c7c0 Default color, adjust as needed */
+                        transition: width 0.5s, background-color 0.5s;
+                        font-size: 20px; /* Adjust font size as needed */
+                        font-weight: bold; /* Makes the percentage text bold */
+                    }
+                    .progress {
+                        height: 20px;
+                        color: red;
+                        text-align: center;
+                        line-height: 20px;
+                        border-radius: 4px;
+                        background-color: #FFFF00; /* #76c7c0 Default color, adjust as needed */
+                        transition: width 0.5s, background-color 0.5s;
+                        font-size: 16px; /* Adjust font size as needed */
+                        font-weight: bold; /* Makes the percentage text bold */
+                    }
+                    .date {
+                        padding: 5px;
+                        margin-right: 30px;
+                    }
+                    .date h3 {
+                        color: #FFA500;
+                        margin: 0;
+                        font-size: 1em;
+                    }
+                    .content h4 {
+                        margin: 0;
+                        font-size: 0.9em;
+                    }
+                    .content {
+                        display: flex;
+                        flex-wrap: wrap;
+                        padding: 10px;
+                    }
+                    .card {
+                        background-color: #2d2d2d;
+                        margin: 10px;
+                        padding: 10px;
+                        flex: 1;
+                        min-width: 300px;
+                        max-width: 100%;
+                        border-radius: 5px;
+                        position: relative;
+                        overflow: hidden;
+                        height: 450px; 
+                        word-wrap: break-word;
+                    }
+                    .card-header {
+                        position: sticky;
+                        top: 0;
+                        background-color: #333;
+                        z-index: 1;
+                        border-bottom: 1px solid #333;
+                    }
+                    .card-content {
+                        max-height: 400px;
+                        overflow-y: auto;
+                    }
+                    .card h2 {
+                        color: #FFA500;
+                        margin-top: 0;
+                    }
+                    .card h3 {
+                        color: #FFA500;
+                        margin-top: 0;
+                        font-size: 1em;
+                    }
+                    .card flag-icon {
+                        font-size: 10px; /* Size the flag */
+                    }
+                    .card .refresh {
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        color: #d4d4d4;
+                        cursor: pointer;
+                    }
+                    .card table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        table-layout: fixed;
+                    }
+                    .card table td {
+                        padding: 5px;
+                        border-bottom: 1px solid #444;
+                        text-overflow: ellipsis; 
+                        overflow: hidden;
+                        word-wrap: break-word;
+                    }
+                    .card table td:last-child {
+                        text-align: right;
+                    }
+                    .card .map {
+                        width: 100%;
+                        height: 100px;
+                        background: url('https://placehold.co/300x200') no-repeat center center;
+                        background-size: cover;
+                    }
+                    .icon-color {
+                            color: #F0F8FF;
+                        }
+                    .footer{
+                        background-color: #333;
+                        padding: 5px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-right: 20px;
+                        margin-left: 20px;
+                    }
+                    .footer h3{
+                        display: flex; 
+                        justify-content: 
+                        flex-end; 
+                        align-items: center;
+                        color: #00FF00;
+                    }
+                    a {
+                        color: #00FF00;
+                        text-decoration: none; /* Remove underline */
+                    }
+                    /* Change color when hovering over the link */
+                    a:hover {
+                        color: red; /* Change color to red when hovered */
+                    }
+            </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h1> <i class="fas fa-user-secret" icon-color></i> WEB KUNDLI </h1>
+                    <h2 align="right"; margin-right: 40px; style="color:#00FF00;"> <a href= https://heartfulness.org  target="_blank"> https://heartfulness.org </a></h2>
+                </div>
+                <div class="date">
+                    <h3 align="right"; margin-right: 20px; style="color:blue;">Thursday 20-Feb-2025 11:02:05</h3>
+                </div>
+                <div class="ranking-container">
+                    <h1>Website Health <i class="fas fa-heartbeat"></i></h1>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 86.14%;">86.14%</div>
+                    </div>
+                    <h2> <a href= Analysis_heartfulness.org_20Feb2025_11-02-05.html  target="_blank"> View Health Analysis Report </a></h2>
+                </div>
+                <div class="content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Server Location </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width:100%;">100%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>City</td>
+                                <td>228876, Singapore, None</td>
+                            </tr>
+                            <tr>
+                                <td>Country</td>
+                                <td> Singapore <span id="country-icon" class="flag-icon"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Timezone</td>
+                                <td>Asia/Singapore</td>
+                            </tr>
+                            <tr>
+                                <td>Languages</td>
+                                <td>cmn,en-SG,ms-SG,ta-SG,zh-SG</td>
+                            </tr>
+                            <tr>
+                                <td>Currency</td>
+                                <td>Dollar  (SGD)</td>
+                            </tr>
+                    </table>
+                    <script>
+                        function displayCountryIcon() {
+                            const countryIconElement = document.getElementById('country-icon');
+                            countryIconElement.className = 'flag-icon flag-icon-$ sg';
+                        }
+                        displayCountryIcon();
+                    </script></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> SSL Certificate </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Subject</td>
+                            <td>cdn-web.heartfulness.org</td>
+                        </tr>
+                        <tr>
+                            <td>Issuer</td>
+                            <td>Amazon</td>
+                        </tr>
+                        <tr>
+                            <td>Expires</td>
+                            <td>18 September 2025</td>
+                        </tr>
+                        <tr>
+                            <td>Renewed</td>
+                            <td>20 August 2024</td>
+                        </tr>
+                        <tr>
+                            <td>Serial Num</td>
+                            <td>74313D66AA0EB55C89C2DB062A083D4</td>
+                        </tr>
+                        <tr>
+                            <td>Fingerprint</td>
+                            <td>8A:FB:FB:03:7A:72:76:40:EA:6F:3C:E1:DE:DA:2F:5D:8D:0A:A9:5E</td>
+                        </tr>
+                        <tr>
+                            <td> <h3>Extended Key Usage</h3> </td>
+                            <td></td>
+                        </tr> 
+                        <tr>
+                            <td>TLS Web Server Authentication</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>TLS Web Client Authentication</td>
+                            <td></td>
+                        </tr>
+                        
+                </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Domain Whois </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 90%;">90%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Registered Domain</td>
+                            <td>heartfulness.org</td>
+                        </tr>
+                        <tr>
+                            <td>Creation Date</td>
+                            <td>2014-01-28 22:54:04</td>
+                        </tr>
+                        <tr>
+                            <td>Updated Date</td>
+                            <td>2025-01-29 19:13:53</td>
+                        </tr>
+                        <tr>
+                            <td>Registry Expiry Date</td>
+                            <td>2034-01-28 22:54:04</td>
+                        </tr>
+                        <tr>
+                            <td>Registry Domain ID</td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td>Registrar WHOIS Server</td>
+                            <td>http://whois.godaddy.com</td>
+                        </tr>
+                        <tr>
+                            <td>Registrar</td>
+                            <td>GoDaddy.com, LLC</td>
+                        </tr>
+                        <tr>
+                            <td>Registrar IANA ID</td>
+                            <td>None</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Server Info </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width:100%;">100%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Organization</td>
+                                <td>AMAZON-02</td>
+                            </tr>
+                            <tr>
+                                <td>ASN Code</td>
+                                <td>AS16509</td>
+                            </tr>
+                            <tr>
+                                <td>IP</td>
+                                <td>18.239.142.20</td>
+                            </tr>
+                            <tr>
+                                <td>Location</td>
+                                <td>None,
+ Singapore</td>
+                            </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Headers </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 0%;">0%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Server</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>Date</td>
+                            <td>Thu, 20 Feb 2025 05:31:47 GMT</td>
+                        </tr>
+                        <tr>
+                            <td>Content-Type</td>
+                            <td>text/html; charset=utf-8</td>
+                        </tr>
+                        <tr>
+                            <td>transfer-encoding</td>
+                            <td>chunked</td>
+                        </tr>
+                        <tr>
+                            <td>connection</td>
+                            <td>keep-alive</td>
+                        </tr>
+                        <tr>
+                            <td>x-frame-options</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>x-content-type-options</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>referrer-policy</td>
+                            <td>None</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Cookies </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: 0%;">0%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>No Cookies Details Found</td>
+                            </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> HTTP Security </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 100%;">100%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Content Security Policy</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Strict Transport Policy</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>X-Content-Type-Options</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>X-Frame-Options</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>X-XSS-Protection</td>
+                        <td>No</td>
+                    </tr>
+            </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> DNS_Server </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>IP Address</td>
+                            <td>18.239.142.20</td>
+                        </tr>
+                        <tr>
+                            <td>Hostname</td>
+                            <td>heartfulness.org</td>
+                        </tr>
+                        <tr>
+                            <td>DoH Support</td>
+                            <td>No</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> TLS Cipher Suites </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Domain Name</td>
+                            <td>heartfulness.org</td>
+                        </tr>
+                        <tr>
+                            <td>Issuing Organization</td>
+                            <td>Amazon</td>
+                        </tr>
+                        <tr>
+                            <td>Issue Date</td>
+                            <td>>Aug 20 00:00:00 2024 GMT</td>
+                        </tr>
+                        <tr>
+                            <td>Expire Date</td>
+                            <td>Sep 18 23:59:59 2025 GMT</td>
+                        </tr>
+                        <tr>
+                            <td>Serial Number</td>
+                            <td>074313D66AA0EB55C89C2DB062A083D4</td>
+                        </tr>
+                        <tr>
+                            <td>Protocol Version</td>
+                            <td >TLSv1.3</td>
+                        </tr>
+                        <tr>
+                            <td>Cipher Suite</td>
+                            <td >TLS_AES_128_GCM_SHA256</td>
+                        </tr>
+                        <tr>
+                            <td>Public key length</td>
+                            <td>128</td>
+                        </tr>
+                </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> DNS Records </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 75%;">75%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Domain Name</td>
+                        <td>heartfulness.org</td>
+                    </tr>
+                    <tr>
+                        <td>A RECORD</td>
+                        <td>18.239.142.20 ,
+18.239.142.23 ,
+18.239.142.2 ,
+18.239.142.4 ,
+</td>
+                    </tr>
+                    <tr>
+                        <td>AAAA RECORD</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>MX RECORD</td>
+                        <td>10 alt4.aspmx.l.google.com. ,
+5 alt2.aspmx.l.google.com. ,
+5 alt1.aspmx.l.google.com. ,
+10 alt3.aspmx.l.google.com. ,
+1 aspmx.l.google.com. ,
+</td>
+                    </tr>
+                    <tr>
+                        <td>NS RECORD</td>
+                        <td>ns-979.awsdns-58.net. ,
+ns-1831.awsdns-36.co.uk. ,
+ns-1372.awsdns-43.org. ,
+ns-33.awsdns-04.com. ,
+</td>
+                    </tr>
+                    <tr>
+                        <td>CNAME RECORD</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>TXT RECORD</td>
+                        <td>"google-site-verification=lPKRGS4URKt6q8L04pQ5tnXOnLSjmCrw3WrezhbRXN4" ,
+"google-site-verification=v9Xp_Y-zxMfks5rnaWEDb0Rvzctc8JnfrHZgph6qh54" ,
+"v=spf1 include:_spf.firebasemail.com ~all" ,
+"vc-domain-verify=forms.heartfulness.org,f8eca742283f9cb559a1" ,
+"workplace-domain-verification=653adf92-4dd1-4efc-8fd2-c61ecb088809" ,
+"google-site-verification=egeKgdxEDs4bduNxq5oltUtK1mtr7JHxPBqhbjghjXg" ,
+"google-site-verification=RjxgqSa8EVnrFICZ_cYNJWukBciyIgfP1hzNJGuKoh4" ,
+"amazonses:EhsdwTGtutnlk3bE7lOYqYgQo2Ja5O+j9gh1AYqlAII=" ,
+"google-site-verification=jPTZryPOnVbbUKDwPbg-xxKzh42JlL6xXODV5ZhsZlY" ,
+"firebase=unifiedplatform-prod" ,
+"google-site-verification=M2dPVaLDwmwmnq0u0gYAwsYLVLhnbHfWli4aQyMsa04" ,
+"v=spf1 ip4:149.72.49.0/24 ip4:13.127.61.224 ip4:103.247.209.118 ip4:52.36.213.191 ip4:54.191.178.13 ip4:54.218.39.117 ip4:162.251.11.1/26 ip4:183.82.104.216 ip4:103.5.16.229 ipv4:13.233.251.211 include:_spf.google.com include:_spf.mlsend.com ~all" ,
+"v=spf1 include:_spf.google.com ~all," ,
+"vc-domain-verify=vform.heartfulness.org,9029b7e8e4da79ea2e68" ,
+"twilio-domain-verification=0f5d7b17570f32bbd690e17f2e0d790a" ,
+</td>
+                    </tr>
+                </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> TXT Records </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Domain Name</td>
+                            <td>heartfulness.org</td>
+                        </tr>
+                        <tr>
+                            <td>TXT RECORD</td>
+                            <td>
+"google-site-verification=v9Xp_Y-zxMfks5rnaWEDb0Rvzctc8JnfrHZgph6qh54" ,
+ 
+"workplace-domain-verification=653adf92-4dd1-4efc-8fd2-c61ecb088809" ,
+ 
+"amazonses:EhsdwTGtutnlk3bE7lOYqYgQo2Ja5O+j9gh1AYqlAII=" ,
+ 
+"firebase=unifiedplatform-prod" ,
+ 
+"vc-domain-verify=vform.heartfulness.org,9029b7e8e4da79ea2e68" ,
+ 
+"google-site-verification=jPTZryPOnVbbUKDwPbg-xxKzh42JlL6xXODV5ZhsZlY" ,
+ 
+"v=spf1 ip4:149.72.49.0/24 ip4:13.127.61.224 ip4:103.247.209.118 ip4:52.36.213.191 ip4:54.191.178.13 ip4:54.218.39.117 ip4:162.251.11.1/26 ip4:183.82.104.216 ip4:103.5.16.229 ipv4:13.233.251.211 include:_spf.google.com include:_spf.mlsend.com ~all" ,
+ 
+"google-site-verification=egeKgdxEDs4bduNxq5oltUtK1mtr7JHxPBqhbjghjXg" ,
+ 
+"google-site-verification=M2dPVaLDwmwmnq0u0gYAwsYLVLhnbHfWli4aQyMsa04" ,
+ 
+"v=spf1 include:_spf.firebasemail.com ~all" ,
+ 
+"vc-domain-verify=forms.heartfulness.org,f8eca742283f9cb559a1" ,
+ 
+"google-site-verification=lPKRGS4URKt6q8L04pQ5tnXOnLSjmCrw3WrezhbRXN4" ,
+ 
+"twilio-domain-verification=0f5d7b17570f32bbd690e17f2e0d790a" ,
+ 
+"google-site-verification=RjxgqSa8EVnrFICZ_cYNJWukBciyIgfP1hzNJGuKoh4" ,
+ 
+"v=spf1 include:_spf.google.com ~all," ,
+ </td>
+                        </tr>
+                </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Server Status </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Domain Name</td>
+                            <td>heartfulness.org</td>
+                        </tr>
+                        <tr>
+                        <td>SERVER STATUS</td>
+                            <td >Server is Up</td>
+                        </tr>
+                </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Email Configuration </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Domain Name</td>
+                            <td>heartfulness.org</td>
+                        </tr>
+                        <tr>
+                            <td>MAIL RECORDS</td>
+                            <td>
+	5 alt2.aspmx.l.google.com.	 
+,
+
+	5 alt1.aspmx.l.google.com.	 
+,
+
+	1 aspmx.l.google.com.	 
+,
+
+	10 alt3.aspmx.l.google.com.	 
+,
+
+	10 alt4.aspmx.l.google.com.	 
+,
+</td>
+                        </tr>
+                        <tr>
+                            <td>EXTERNAL MAIL RECORDS</td>
+                            <td>
+	"firebase=unifiedplatform-prod"	 
+,
+
+	"v=spf1 include:_spf.google.com ~all,"	 
+,
+
+	"vc-domain-verify=vform.heartfulness.org,9029b7e8e4da79ea2e68"	 
+,
+
+	"google-site-verification=jPTZryPOnVbbUKDwPbg-xxKzh42JlL6xXODV5ZhsZlY"	 
+,
+
+	"google-site-verification=v9Xp_Y-zxMfks5rnaWEDb0Rvzctc8JnfrHZgph6qh54"	 
+,
+
+	"amazonses:EhsdwTGtutnlk3bE7lOYqYgQo2Ja5O+j9gh1AYqlAII="	 
+,
+
+	"google-site-verification=egeKgdxEDs4bduNxq5oltUtK1mtr7JHxPBqhbjghjXg"	 
+,
+
+	"google-site-verification=lPKRGS4URKt6q8L04pQ5tnXOnLSjmCrw3WrezhbRXN4"	 
+,
+
+	"v=spf1 include:_spf.firebasemail.com ~all"	 
+,
+
+	"google-site-verification=M2dPVaLDwmwmnq0u0gYAwsYLVLhnbHfWli4aQyMsa04"	 
+,
+
+	"twilio-domain-verification=0f5d7b17570f32bbd690e17f2e0d790a"	 
+,
+
+	"google-site-verification=RjxgqSa8EVnrFICZ_cYNJWukBciyIgfP1hzNJGuKoh4"	 
+,
+
+	"vc-domain-verify=forms.heartfulness.org,f8eca742283f9cb559a1"	 
+,
+
+	"v=spf1 ip4:149.72.49.0/24 ip4:13.127.61.224 ip4:103.247.209.118 ip4:52.36.213.191 ip4:54.191.178.13 ip4:54.218.39.117 ip4:162.251.11.1/26 ip4:183.82.104.216 ip4:103.5.16.229 ipv4:13.233.251.211 include:_spf.google.com include:_spf.mlsend.com ~all"	 
+,
+
+	"workplace-domain-verification=653adf92-4dd1-4efc-8fd2-c61ecb088809"	 
+,
+</td>
+                        </tr> 
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Redirect Chain </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Domain Name</td>
+                            <td>heartfulness.org</td>
+                        </tr>
+                        <tr>
+                            <td>Number of Redirects</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>Redirect Link</td>
+                            <td>https://heartfulness.org/,
+https://heartfulness.org/in,
+https://heartfulness.org/in-en,
+</td>
+                        </tr>
+                        <tr>
+                            <td>Final Page</td>
+                            <td>https://heartfulness.org/in-en</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Open Ports </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Domain Name</td>
+                            <td>heartfulness.org</td>
+                        </tr>
+                        <tr>
+                            <td>IP ADDRESS</td>
+                            <td>18.239.142.20</td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td>OPEN PORTS</td>
+                            <td>[]</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Archive History </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 83%;">83%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>First Scan</td>
+                            <td>21 July 2001</td>
+                        </tr>
+                        <tr>
+                            <td>Last Scan</td>
+                            <td>16 February 2025</td>
+                        </tr>
+                        <tr>
+                            <td>Total Scans</td>
+                        <td>650</td>
+                        </tr>
+                        <tr>
+                            <td>Change Count</td>
+                            <td>325</td>
+                        </tr>
+                        <tr>
+                            <td>Avg Size</td>
+                        <td>1226</td>
+                        </tr>
+                        <tr>
+                            <td>Avg Days between Scans</td>
+                            <td>13.25</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Associated Hosts </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                    <tr>
+                        <td colspan="1">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 100%;">100%</div>
+                            </div>
+                        </td>
+                </tr>
+                <tr><td>*.app.staging.heartfulness.org</td></tr><tr><td>*.awtq.staging.heartfulness.org</td></tr><tr><td>*.beta.heartfulness.org</td></tr><tr><td>*.bmwforest.heartfulness.org</td></tr><tr><td>*.campus.heartfulness.org</td></tr><tr><td>*.campus.staging.heartfulness.org</td></tr><tr><td>*.conference.staging.heartfulness.org</td></tr><tr><td>*.contributions.staging.heartfulness.org</td></tr><tr><td>*.dms.heartfulness.org</td></tr><tr><td>*.dms.staging.heartfulness.org</td></tr><tr><td>*.donations.staging.heartfulness.org</td></tr><tr><td>*.emailbuilder.staging.heartfulness.org</td></tr><tr><td>*.emp-idcard.staging.heartfulness.org</td></tr><tr><td>*.eventreg.staging.heartfulness.org</td></tr><tr><td>*.eventstracker.staging.heartfulness.org</td></tr><tr><td>*.forest.staging.heartfulness.org</td></tr><tr><td>*.fpms.staging.heartfulness.org</td></tr><tr><td>*.function360.heartfulness.org</td></tr><tr><td>*.function360.staging.heartfulness.org</td></tr><tr><td>*.gurugram.staging.heartfulness.org</td></tr><tr><td>*.hddevent.staging.heartfulness.org</td></tr><tr><td>*.heartflix.heartfulness.org</td></tr><tr><td>*.heartfulness.org</td></tr><tr><td>*.heartspot.staging.heartfulness.org</td></tr><tr><td>*.heartspots.heartfulness.org</td></tr><tr><td>*.heartspots.staging.heartfulness.org</td></tr><tr><td>*.hep.heartfulness.org</td></tr><tr><td>*.het.staging.heartfulness.org</td></tr><tr><td>*.hfnapp-admin-prod.heartfulness.org</td></tr><tr><td>*.hfnapp-admin-qa.staging.heartfulness.org</td></tr><tr><td>*.hfnapp-admin.staging.heartfulness.org</td></tr><tr><td>*.hil.staging.heartfulness.org</td></tr><tr><td>*.kanhashantivanam.staging.heartfulness.org</td></tr><tr><td>*.kt.staging.heartfulness.org</td></tr><tr><td>*.m-heartspots.heartfulness.org</td></tr><tr><td>*.m.heartspots.heartfulness.org</td></tr><tr><td>*.master.heartfulness.org</td></tr><tr><td>*.meditationcenter.staging.heartfulness.org</td></tr><tr><td>*.meditationcentres.heartfulness.org</td></tr><tr><td>*.meditationplace.heartfulness.org</td></tr><tr><td>*.meditationplace.staging.heartfulness.org</td></tr><tr><td>*.meetings.dev.heartfulness.org</td></tr><tr><td>*.meetings.heartfulness.org</td></tr><tr><td>*.my.heartfulness.org</td></tr><tr><td>*.my.staging.heartfulness.org</td></tr><tr><td>*.new.staging.heartfulness.org</td></tr><tr><td>*.payments.staging.heartfulness.org</td></tr><tr><td>*.pearlsatkhol.heartfulness.org</td></tr><tr><td>*.performance.staging.heartfulness.org</td></tr><tr><td>*.preceptor-application.staging.heartfulness.org</td></tr><tr><td>*.proposalportal.staging.heartfulness.org</td></tr><tr><td>*.ptest.staging.heartfulness.org</td></tr><tr><td>*.punetest.staging.heartfulness.org</td></tr><tr><td>*.sports.heartfulness.org</td></tr><tr><td>*.sports.staging.heartfulness.org</td></tr><tr><td>*.staging-hc.heartfulness.org</td></tr><tr><td>*.staging-yoga.heartfulness.org</td></tr><tr><td>*.staging.targeted-emails.heartfulness.org</td></tr><tr><td>*.targeted-emails.heartfulness.org</td></tr><tr><td>*.transport.dev.heartfulness.org</td></tr><tr><td>*.transport.staging.heartfulness.org</td></tr><tr><td>*.uep.heartfulness.org</td></tr><tr><td>*.uep.staging.heartfulness.org</td></tr><tr><td>*.uepreg.heartfulness.org</td></tr><tr><td>*.visitor.heartfulness.org</td></tr><tr><td>*.visitor.staging.heartfulness.org</td></tr><tr><td>*.webinar.staging.heartfulness.org</td></tr><tr><td>*.wsm.staging.heartfulness.org</td></tr><tr><td>aims-static.qa.heartfulness.org</td></tr><tr><td>ancillary-cms.heartfulness.org</td></tr><tr><td>apps.heartfulness.org</td></tr><tr><td>atlanta.heartfulness.org</td></tr><tr><td>auth-prod.heartfulness.org</td></tr><tr><td>auth-staging.heartfulness.org</td></tr><tr><td>auth-stagingadmin.heartfulness.org</td></tr><tr><td>auth.dev.heartfulness.org</td></tr><tr><td>auth.qa.heartfulness.org</td></tr><tr><td>authadmin.dev.heartfulness.org</td></tr><tr><td>authadmin.heartfulness.org</td></tr><tr><td>authadmin.qa.heartfulness.org</td></tr><tr><td>awsstaging.heartfulness.org</td></tr><tr><td>beta.heartfulness.org</td></tr><tr><td>beta1.heartfulness.org</td></tr><tr><td>beta2.heartfulness.org</td></tr><tr><td>campus-api.heartfulness.org</td></tr><tr><td>care.heartfulness.org</td></tr><tr><td>careapp.heartfulness.org</td></tr><tr><td>cdn-mag.heartfulness.org</td></tr><tr><td>cdn-prod-static.heartfulness.org</td></tr><tr><td>cdn-stg.heartfulness.org</td></tr><tr><td>cdn-web.heartfulness.org</td></tr><tr><td>cdn.staging.heartfulness.org</td></tr><tr><td>cms-events-staging.heartfulness.org</td></tr><tr><td>cms.staging.heartfulness.org</td></tr><tr><td>connects.heartfulness.org</td></tr><tr><td>docs.heartfulness.org</td></tr><tr><td>docustack.staging.heartfulness.org</td></tr><tr><td>donations-cms.staging.heartfulness.org</td></tr><tr><td>donations.heartfulness.org</td></tr><tr><td>donations.staging.heartfulness.org</td></tr><tr><td>ecs-stageadmin.heartfulness.org</td></tr><tr><td>ecs.staging.heartfulness.org</td></tr><tr><td>ecsauth.staging.heartfulness.org</td></tr><tr><td>fr.heartfulness.org</td></tr><tr><td>heartflix.heartfulness.org</td></tr><tr><td>henv.staging.heartfulness.org</td></tr><tr><td>hep.heartfulness.org</td></tr><tr><td>hep.staging.heartfulness.org</td></tr><tr><td>hfn.staging.heartfulness.org</td></tr><tr><td>hfntest.staging.heartfulness.org</td></tr><tr><td>innovationlab.heartfulness.org</td></tr><tr><td>itassets.heartfulness.org</td></tr><tr><td>itsecurity.heartfulness.org</td></tr><tr><td>keycloakadmin.dev.heartfulness.org</td></tr><tr><td>keycloakadmin.devops.heartfulness.org</td></tr><tr><td>keycloaknginx.staging.heartfulness.org</td></tr><tr><td>learning.heartfulness.org</td></tr><tr><td>m.yoga.heartfulness.org</td></tr><tr><td>myjira.heartfulness.org</td></tr><tr><td>newauth.heartfulness.org</td></tr><tr><td>newsletters.heartfulness.org</td></tr><tr><td>oneauth-devops.dev.heartfulness.org</td></tr><tr><td>oneauth.dev.heartfulness.org</td></tr><tr><td>oneauth.devops.heartfulness.org</td></tr><tr><td>oneauth.heartfulness.org</td></tr><tr><td>oneauth.qa.heartfulness.org</td></tr><tr><td>oneauth.staging.heartfulness.org</td></tr><tr><td>oneauthadmin.qa.heartfulness.org</td></tr><tr><td>payments.heartfulness.org</td></tr><tr><td>paymentsecure.heartfulness.org</td></tr><tr><td>pearl.staging.heartfulness.org</td></tr><tr><td>preceptor.heartfulness.org</td></tr><tr><td>primary-assets.heartfulness.org</td></tr><tr><td>primary-assets.staging.heartfulness.org</td></tr><tr><td>primary-cms.heartfulness.org</td></tr><tr><td>prodwritenode.heartfulness.org</td></tr><tr><td>prometheus.heartfulness.org</td></tr><tr><td>qtlymag-awsstaging.heartfulness.org</td></tr><tr><td>stagecare.heartfulness.org</td></tr><tr><td>staging.primary-cms.heartfulness.org</td></tr><tr><td>staging.primary-sub-cms.heartfulness.org</td></tr><tr><td>static-api.heartfulness.org</td></tr><tr><td>static-api.qa.heartfulness.org</td></tr><tr><td>strapi-qa.heartfulness.org</td></tr><tr><td>test.heartfulness.org</td></tr><tr><td>testone.heartfulness.org</td></tr><tr><td>track.heartfulness.org</td></tr><tr><td>uep.heartfulness.org</td></tr><tr><td>visitorservice.heartfulness.org</td></tr><tr><td>visitorservice.qa.heartfulness.org</td></tr><tr><td>visitorservice.staging.heartfulness.org</td></tr><tr><td>wellness.heartfulness.org</td></tr><tr><td>writenode.heartfulness.org</td></tr><tr><td>writenodeedu.heartfulness.org</td></tr><tr><td>yoga.heartfulness.org</td></tr>
+            </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Block Detection </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                <tr>
+                    <td colspan="2">
+                        <div class="progress-bar-container">
+                            <div class="progress" style="width: 100%;">100%</div>
+                        </div>
+                    </td>
+                </tr><tr>
+                    <td> AdGuard </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> AdGuard Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CleanBrowsing Adult </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CleanBrowsing Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CleanBrowsing Security </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CloudFlare </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CloudFlare Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Comodo Secure </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Google DNS </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Neustar Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Neustar Protection </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Norton Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> OpenDNS </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> OpenDNS Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Quad9 </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Yandex Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Yandex Safe </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr></table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Carbon Footprint </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>HTML Initial Size</td>
+                            <td>372012.66 bytes</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 for Initial Load:</td>
+                            <td>0.12404096548743546 grams</td>
+                        </tr>
+                        <tr>
+                            <td>Energy Usage for Load:</td>
+                            <td>0.0003 KWg</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 Emitted:</td>
+                            <td>0.10753958817824723 grams</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Crawl Rules </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: 100%;">100%</div>
+                                    </div>
+                                </td>
+                            </tr><tr>
+                                <td>User Agent : *</td>
+                                <td>/</td>
+                        </tr><tr>
+                                <td>User Agent : Googlebot</td>
+                                <td>/</td>
+                        </tr></table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Site Features </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <div class="progress-bar-container">
+                            <div class="progress" style="width: 100%;">100%</div>
+                        </div>
+                    </td>
+                </tr>
+                    
+                <tr>
+                    <td>ssl</td>
+                    <td>Dead</td>
+                </tr>
+                <tr>
+                    <td>javascript</td>
+                    <td>Dead</td>
+                </tr>
+                <tr>
+                    <td>framework</td>
+                    <td>Dead</td>
+                </tr>
+                <tr>
+                    <td>us-hosting</td>
+                    <td>Dead</td>
+                </tr>
+                <tr>
+                    <td>cloud-hosting</td>
+                    <td>Dead</td>
+                </tr>
+                <tr>
+                    <td>cloud-paas</td>
+                    <td>Dead</td>
+                </tr>
+                <tr>
+                    <td>server-location</td>
+                    <td>Dead</td>
+                </tr>
+                <tr>
+                    <td>application-performance</td>
+                    <td>Dead</td>
+                </tr>
+                <tr>
+                    <td>audience-measurement</td>
+                    <td>Dead</td>
+                </tr>
+                <tr>
+                    <td>dmarc</td>
+                    <td>Dead</td>
+                </tr>
+            </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> DNS Security </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <div class="progress-bar-container">
+                            <div class="progress" style="width: 100%;">100%</div>
+                        </div>
+                    </td>
+                </tr>
+                    
+                <tr>
+                    <td>DNSKEY</td>
+                    <td>
+                        <strong><span>❌ No</span></strong><br>
+                        <strong><span>  Recursion Desired (RD) ✅</span></strong><br>
+                        <strong><span>  Recursion Available (RA) ✅</span></strong><br>
+                        <strong><span>  TrunCation (TC) ❌</span></strong><br>
+                        <strong><span>  Authentic Data (AD) ❌</span></strong><br>
+                        <strong><span>  Checking Disabled (CD) ❌</span></strong><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>DS</td>
+                    <td>
+                        <strong><span>❌ No</span></strong><br>
+                        <strong><span>  Recursion Desired (RD) ✅</span></strong><br>
+                        <strong><span>  Recursion Available (RA) ✅</span></strong><br>
+                        <strong><span>  TrunCation (TC) ❌</span></strong><br>
+                        <strong><span>  Authentic Data (AD) ❌</span></strong><br>
+                        <strong><span>  Checking Disabled (CD) ❌</span></strong><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>RRSIG</td>
+                    <td>
+                        <strong><span>❌ No</span></strong><br>
+                        <strong><span>  Recursion Desired (RD) ✅</span></strong><br>
+                        <strong><span>  Recursion Available (RA) ✅</span></strong><br>
+                        <strong><span>  TrunCation (TC) ❌</span></strong><br>
+                        <strong><span>  Authentic Data (AD) ❌</span></strong><br>
+                        <strong><span>  Checking Disabled (CD) ❌</span></strong><br>
+                    </td>
+                </tr>
+            </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Tech Stack </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <div class="progress-bar-container">
+                            <div class="progress" style="width: 100%;">100%</div>
+                        </div>
+                    </td>
+                </tr>
+                    
+                <tr>
+                    <td>Server</td>
+                    <td>Unknown</td>
+                </tr>
+                <tr>
+                    <td>X-Powered-By</td>
+                    <td>Next.js</td>
+                </tr>
+                <tr>
+                    <td>X-AspNet-Version</td>
+                    <td>Not specified</td>
+                </tr>
+            </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Firewall Detection </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <div class="progress-bar-container">
+                            <div class="progress" style="width: 100%;">100%</div>
+                        </div>
+                    </td>
+                </tr>
+                    
+                <tr>
+                    <td>hasWaf</td>
+                    <td>False</td>
+                </tr>
+                <tr>
+                    <td>wafName</td>
+                    <td>*The domain may be protected with a proprietary or custom WAF which we were unable to identify automatically</td>
+                </tr>
+            </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Social Tags </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 64%;">64%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Title</td>
+                            <td>EXPERIENCE MEDITATION</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>"Heartfulness Is an Educational &amp; Volunteer-Based Non-Profit Organization, Focused on Meditation, Relaxation, Yoga &amp; Spirituality.</td>
+                        </tr>
+                        <tr>
+                            <td>Keywords</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>Canonical URL</td>
+                            <td>https://heartfulness.org/in-en</td>
+                        </tr>
+                        <tr>
+                            <td>Theme Color</td>
+                            <td>#fff</td>
+                        </tr>
+                        <tr>
+                            <td>Twitter Site    </td>
+                            <td>None</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Threats </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>None</h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Global Rank </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Date</td>
+                            <td>2025-02-19</td>
+                        </tr>
+                        <tr>
+                            <td>Rank</td>
+                            <td>256213</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Security.Txt </h2>
+                            <i class="fas fa-sync-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: 100%;">100%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Present </td>
+                                <td>✅ Yes</td>
+                            </tr>
+                            <tr>
+                                <td> File Location </td>
+                                <td>/.well-known/security.txt</td>
+                            </tr>
+                            <tr>
+                                <td> PGP Signed </td>
+                                <td>❌ No</td>
+                            </tr><tr>
+                                            <td> <link rel="profile" href="http </td>
+                                            <td> //gmpg.org/xfn/11" />  </td>
+                                        </tr><tr>
+                                            <td> <meta name='robots' content='max-image-preview </td>
+                                            <td> large' />  </td>
+                                        </tr><tr>
+                                            <td> <link rel="alternate" type="application/rss+xml" title="Heartfulness &raquo; Feed" href="https </td>
+                                            <td> //heartfulness.org/feed/" />  </td>
+                                        </tr><tr>
+                                            <td> <link rel="alternate" type="application/rss+xml" title="Heartfulness &raquo; Comments Feed" href="https </td>
+                                            <td> //heartfulness.org/comments/feed/" />  </td>
+                                        </tr><tr>
+                                            <td> window._wpemojiSettings = {"baseUrl" </td>
+                                            <td> "https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/  </td>
+                                        </tr><tr>
+                                            <td> !function(i,n){var o,s,e;function c(e){try{var t={supportTests </td>
+                                            <td> e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(  </td>
+                                        </tr><tr>
+                                            <td> display </td>
+                                            <td> inline !important;  </td>
+                                        </tr><tr>
+                                            <td> border </td>
+                                            <td> none !important;  </td>
+                                        </tr><tr>
+                                            <td> box-shadow </td>
+                                            <td> none !important;  </td>
+                                        </tr><tr>
+                                            <td> height </td>
+                                            <td> 1em !important;  </td>
+                                        </tr><tr>
+                                            <td> width </td>
+                                            <td> 1em !important;  </td>
+                                        </tr><tr>
+                                            <td> margin </td>
+                                            <td> 0 0.07em !important;  </td>
+                                        </tr><tr>
+                                            <td> vertical-align </td>
+                                            <td> -0.1em !important;  </td>
+                                        </tr><tr>
+                                            <td> background </td>
+                                            <td> none !important;  </td>
+                                        </tr><tr>
+                                            <td> padding </td>
+                                            <td> 0 !important;  </td>
+                                        </tr><tr>
+                                            <td> <link rel='stylesheet' id='wp-block-library-css' href='https </td>
+                                            <td> //heartfulness.org/wp-includes/css/dist/block-library/style.min.css' type='text/css' media='all' />  </td>
+                                        </tr><tr>
+                                            <td> .wp-block-audio </td>
+                                            <td> where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(  </td>
+                                        </tr><tr>
+                                            <td> .wp-block-button__link{color </td>
+                                            <td> #fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc  </td>
+                                        </tr><tr>
+                                            <td>  </td>
+                                            <td> root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect  </td>
+                                        </tr><tr>
+                                            <td> 1 </td>
+                                            <td> where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-  </td>
+                                        </tr><tr>
+                                            <td> 2 </td>
+                                            <td> where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;  </td>
+                                        </tr><tr>
+                                            <td> 3 </td>
+                                            <td> root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}  </td>
+                                        </tr><tr>
+                                            <td> <link rel='stylesheet' id='gotham-fonts-css' href='https </td>
+                                            <td> //heartfulness.org/wp-content/themes/dt-the7-child/css/gotham.css' type='text/css' media='all' />  </td>
+                                        </tr><tr>
+                                            <td> <link rel='stylesheet' id='material-fonts-css' href='https </td>
+                                            <td> //heartfulness.org/wp-content/themes/dt-the7-child/lib/material-icons/material-icon-style.css' type=  </td>
+                                        </tr><tr>
+                                            <td> <link rel='stylesheet' id='wpb-custom-css-css' href='https </td>
+                                            <td> //heartfulness.org/wp-content/themes/dt-the7-child/css/heartfulness.css' type='text/css' media='all'  </td>
+                                        </tr><tr>
+                                            <td> <link rel='stylesheet' id='bootstrap-css-css' href='https </td>
+                                            <td> //heartfulness.org/wp-content/themes/dt-the7-child/css/bootstrap.min.css' type='text/css' media='all  </td>
+                                        </tr><tr>
+                                            <td> <link rel='stylesheet' id='fontawesome-icons-css' href='https </td>
+                                            <td> //heartfulness.org/wp-content/themes/dt-the7-child/lib/fontawesome/css/all.min.css' type='text/css'   </td>
+                                        </tr><tr>
+                                            <td> <link rel='stylesheet' id='the7-font-css' href='https </td>
+                                            <td> //heartfulness.org/wp-content/themes/dt-the7/fonts/icomoon-the7-font/icomoon-the7-font.min.css' type  </td>
+                                        </tr><tr>
+                                            <td> <link rel='stylesheet' id='dt-web-fonts-css' href='https </td>
+                                            <td> //fonts.googleapis.com/css' type='text/css' media='all' />  </td>
+                                        </tr><tr>
+                                            <td> <link rel='stylesheet' id='dt-main-css' href='https </td>
+                                            <td> //heartfulness.org/wp-content/themes/dt-the7/css/main.min.css' type='text/css' media='all' />  </td>
+                                        </tr><tr>
+                                            <td> <link rel='stylesheet' id='the7-custom-scrollbar-css' href='https </td>
+                                            <td> //heartfulness.org/wp-content/themes/dt-the7/lib/custom-scrollbar/custom-scrollbar.min.css' type='te  </td>
+                                        </tr><tr>
+                                            <td> <link rel='stylesheet' id='the7-css-vars-css' href='https </td>
+                                            <td> //heartfulness.org/wp-content/uploads/the7-css/css-vars.css' type='text/css' media='all' />  </td>
+                                        </tr><tr>
+                                            <td> <link rel='stylesheet' id='dt-custom-css' href='https </td>
+                                            <td> //heartfulness.org/wp-content/uploads/the7-css/custom.css' type='text/css' media='all' />  </td>
+                                        </tr><tr>
+                                            <td> <link rel='stylesheet' id='dt-media-css' href='https </td>
+                                            <td> //heartfulness.org/wp-content/uploads/the7-css/media.css' type='text/css' media='all' />  </td>
+                                        </tr><tr>
+                                            <td> <link rel='stylesheet' id='style-css' href='https </td>
+                                            <td> //heartfulness.org/wp-content/themes/dt-the7-child/style.css' type='text/css' media='all' />  </td>
+                                        </tr><tr>
+                                            <td> <script type="text/javascript" src="https </td>
+                                            <td> //heartfulness.org/wp-includes/js/jquery/jquery.min.js" id="jquery-core-js"></script>  </td>
+                                        </tr><tr>
+                                            <td> <script type="text/javascript" src="https1 </td>
+                                            <td> //heartfulness.org/wp-includes/js/jquery/jquery-migrate.min.js" id="jquery-migrate-js"></script>  </td>
+                                        </tr><tr>
+                                            <td> <script type="text/javascript" src="https2 </td>
+                                            <td> //heartfulness.org/wp-content/themes/dt-the7-child/js/bootstrap.min.js" id="bootstrap-js-js"></scrip  </td>
+                                        </tr><tr>
+                                            <td> <script type="text/javascript" src="https3 </td>
+                                            <td> //heartfulness.org/wp-content/themes/dt-the7-child/js/heartfulness.js" id="hfn-custom-js-js"></scrip  </td>
+                                        </tr><tr>
+                                            <td> var dtLocal = {"themeUrl" </td>
+                                            <td> "https:\/\/heartfulness.org\/wp-content\/themes\/dt-the7","passText":"To view this protected post, e  </td>
+                                        </tr><tr>
+                                            <td> var dtShare = {"shareButtonText" </td>
+                                            <td> {"facebook":"Share on Facebook","twitter":"Tweet","pinterest":"Pin it","linkedin":"Share on Linkedin  </td>
+                                        </tr><tr>
+                                            <td> <script type="text/javascript" src="https4 </td>
+                                            <td> //heartfulness.org/wp-content/themes/dt-the7/js/above-the-fold.min.js" id="dt-above-fold-js"></scrip  </td>
+                                        </tr><tr>
+                                            <td> <link rel="https </td>
+                                            <td> //api.w.org/" href="https://heartfulness.org/wp-json/" /><link rel="EditURI" type="application/rsd+x  </td>
+                                        </tr><tr>
+                                            <td> <link rel="icon" href="https </td>
+                                            <td> //heartfulness.org/wp-content/uploads/2019/05/hfn-icon-img.png" sizes="32x32" />  </td>
+                                        </tr><tr>
+                                            <td> <link rel="icon" href="https1 </td>
+                                            <td> //heartfulness.org/wp-content/uploads/2019/05/hfn-icon-img.png" sizes="192x192" />  </td>
+                                        </tr><tr>
+                                            <td> <link rel="apple-touch-icon" href="https </td>
+                                            <td> //heartfulness.org/wp-content/uploads/2019/05/hfn-icon-img.png" />  </td>
+                                        </tr><tr>
+                                            <td> <meta name="msapplication-TileImage" content="https </td>
+                                            <td> //heartfulness.org/wp-content/uploads/2019/05/hfn-icon-img.png" />  </td>
+                                        </tr><tr>
+                                            <td> .fa, .fas { font-weight </td>
+                                            <td> normal !important; font-family: "FontAwesome" !important; }  </td>
+                                        </tr><tr>
+                                            <td> a{text-decoration </td>
+                                            <td> none;}  </td>
+                                        </tr><tr>
+                                            <td> .wf-container-bottom{padding </td>
+                                            <td> 15px;}  </td>
+                                        </tr><tr>
+                                            <td> .bg-subscribe-sec{ background </td>
+                                            <td> url(//heartfulness.org/wp-content/uploads/2020/01/obt-subscribe-page-bg.jpg);  background-position:   </td>
+                                        </tr><tr>
+                                            <td> .bg-magazinenew-sec{background </td>
+                                            <td> url(https://heartfulness.org/wp-content/uploads/2020/01/hfn-magazinenew-sec-bg.jpg); background-repe  </td>
+                                        </tr><tr>
+                                            <td> .hfn-classes .class-box a{font-size </td>
+                                            <td> 12px; color:#fff;}  </td>
+                                        </tr><tr>
+                                            <td> .bg-theme-grad-color { background </td>
+                                            <td> linear-gradient(#1ca0f2, #84cfe4) !important; }		</style>  </td>
+                                        </tr><tr>
+                                            <td> <link rel="alternate" href="https </td>
+                                            <td> //heartfulness.org/en" hreflang="x-default" />  </td>
+                                        </tr><tr>
+                                            <td> <link rel="alternate" href="https1 </td>
+                                            <td> //heartfulness.org/in" hreflang="en-in" />  </td>
+                                        </tr><tr>
+                                            <td> <link rel="alternate" href="https2 </td>
+                                            <td> //heartfulness.org/us" hreflang="en-us" />  </td>
+                                        </tr><tr>
+                                            <td> <link rel="alternate" href="https3 </td>
+                                            <td> //heartfulness.org/au" hreflang="en-au" />  </td>
+                                        </tr><tr>
+                                            <td> <link rel="alternate" href="https4 </td>
+                                            <td> //heartfulness.org/in-hi" hreflang="hi-in" />  </td>
+                                        </tr><tr>
+                                            <td> <link rel="alternate" href="https5 </td>
+                                            <td> //heartfulness.org/es" hreflang="es-es" />  </td>
+                                        </tr><tr>
+                                            <td> <link rel="alternate" href="https6 </td>
+                                            <td> //heartfulness.org/pt-br" hreflang="pt-br" />  </td>
+                                        </tr><tr>
+                                            <td> <link rel="alternate" href="https7 </td>
+                                            <td> //heartfulness.org/ca" hreflang="en-ca" />  </td>
+                                        </tr><tr>
+                                            <td> <a href="https </td>
+                                            <td> //heartfulness.org" class="hfn-site-url"><div class="hfn-logo-svg">  </td>
+                                        </tr><tr>
+                                            <td> <svg version="1.1" id="Layer_1" xmlns="http </td>
+                                            <td> //www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"  </td>
+                                        </tr><tr>
+                                            <td> viewBox="0 0 51.49 13.88" style="enable-background </td>
+                                            <td> new 0 0 51.49 13.88;" xml:space="preserve">  </td>
+                                        </tr><tr>
+                                            <td> <ul id="primary-menu" class="main-nav underline-decoration l-to-r-line outside-item-remove-margin"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-14 first has-children depth-0"><a href='#' data-level='1'><span class="menu-item-text"><span class="menu-text">About</span></span></a><ul class="sub-nav hover-style-bg level-arrows-on"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15 first depth-1"><a href='/en/about-heartfulness/' data-level='2'><span class="menu-item-text"><span class="menu-text">About Heartfulness</span></span></a></li> <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16 depth-1"><a href='/en/experience-heartfulness/' data-level='2'><span class="menu-item-text"><span class="menu-text">Experience Heartfulness</span></span></a></li> </ul></li> <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-17 has-children depth-0"><a href='#' data-level='1'><span class="menu-item-text"><span class="menu-text">Learn</span></span></a><ul class="sub-nav hover-style-bg level-arrows-on"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18 first depth-1"><a href='/en/masterclass/' data-level='2'><span class="menu-item-text"><span class="menu-text">Masterclass</span></span></a></li> <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19 depth-1"><a href='/en/follow-up/' data-level='2'><span class="menu-item-text"><span class="menu-text">Masterclass Follow up</span></span></a></li> <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-21 depth-1"><a href='/en/learn-the-basics/' data-level='2'><span class="menu-item-text"><span class="menu-text">Learn the basics</span></span></a></li> </ul></li> <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-23 has-children depth-0"><a href='#' data-level='1'><span class="menu-item-text"><span class="menu-text">Events</span></span></a><ul class="sub-nav hover-style-bg level-arrows-on"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-24 first depth-1"><a href='/en/calendar-events/' data-level='2'><span class="menu-item-text"><span class="menu-text">Heartfulness Events</span></span></a></li> <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-25 depth-1"><a href='/en/retreats/' data-level='2'><span class="menu-item-text"><span class="menu-text">Heartfulness Retreats</span></span></a></li> <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-26 depth-1"><a href='http </td>
+                                            <td> //heartfulness.org/education/yoga-trainers/' data-level='2'><span class="menu-item-text"><span class  </td>
+                                        </tr><tr>
+                                            <td> <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-14 first has-children depth-0"><a href='#' data-level='1'><span class="menu-item-text"><span class="menu-text">About</span></span></a><ul class="sub-nav hover-style-bg level-arrows-on"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15 first depth-1"><a href='/en/about-heartfulness/' data-level='2'><span class="menu-item-text"><span class="menu-text">About Heartfulness</span></span></a></li> <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16 depth-1"><a href='/en/experience-heartfulness/' data-level='2'><span class="menu-item-text"><span class="menu-text">Experience Heartfulness</span></span></a></li> </ul></li> <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-17 has-children depth-0"><a href='#' data-level='1'><span class="menu-item-text"><span class="menu-text">Learn</span></span></a><ul class="sub-nav hover-style-bg level-arrows-on"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18 first depth-1"><a href='/en/masterclass/' data-level='2'><span class="menu-item-text"><span class="menu-text">Masterclass</span></span></a></li> <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19 depth-1"><a href='/en/follow-up/' data-level='2'><span class="menu-item-text"><span class="menu-text">Masterclass Follow up</span></span></a></li> <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-21 depth-1"><a href='/en/learn-the-basics/' data-level='2'><span class="menu-item-text"><span class="menu-text">Learn the basics</span></span></a></li> </ul></li> <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-23 has-children depth-0"><a href='#' data-level='1'><span class="menu-item-text"><span class="menu-text">Events</span></span></a><ul class="sub-nav hover-style-bg level-arrows-on"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-24 first depth-1"><a href='/en/calendar-events/' data-level='2'><span class="menu-item-text"><span class="menu-text">Heartfulness Events</span></span></a></li> <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-25 depth-1"><a href='/en/retreats/' data-level='2'><span class="menu-item-text"><span class="menu-text">Heartfulness Retreats</span></span></a></li> <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-26 depth-1"><a href='http </td>
+                                            <td> //heartfulness.org/education/yoga-trainers/' data-level='2'><span class="menu-item-text"><span class  </td>
+                                        </tr><tr>
+                                            <td> <div id="main" class="sidebar-none sidebar-divider-off" style="padding-top </td>
+                                            <td> px; padding-bottom:px;" >  </td>
+                                        </tr><tr>
+                                            <td> <div id="content" class="content" role="main" style="min-height </td>
+                                            <td> 500px; text-align:center">  </td>
+                                        </tr><tr>
+                                            <td> <h1 class="entry-title">Oops! That page can&rsquo;t be found.</h1><p>It looks like nothing was found at this location. Try using the search box below </td>
+                                            <td> </p><form class="searchform" role="search" method="get" action="https://heartfulness.org/">  </td>
+                                        </tr><tr>
+                                            <td> <label for="the7-search" class="screen-reader-text">Search </td>
+                                            <td> </label>  </td>
+                                        </tr><tr>
+                                            <td> <a href="" class="submit"><svg version="1.1" id="Layer_1" xmlns="http </td>
+                                            <td> //www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 16 16  </td>
+                                        </tr><tr>
+                                            <td> <div class = "widgetizedArea"><div class="widget-info">Heartfulness practices with a certified trainer are always free of fees or charges, whether in person or online.</div><div class="soc-ico"><p class="assistive-text">Find us on </td>
+                                            <td> </p><a title="Facebook page opens in new window" href="https://www.facebook.com/practiceheartfulness  </td>
+                                        </tr><tr>
+                                            <td> <a href="#" class="scroll-top"><svg version="1.1" id="Layer_1" xmlns="http </td>
+                                            <td> //www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"  </td>
+                                        </tr><tr>
+                                            <td> viewBox="0 0 16 16" style="enable-background </td>
+                                            <td> new 0 0 16 16;" xml:space="preserve">  </td>
+                                        </tr><tr>
+                                            <td> The IP2Location Redirection is using IP2Location LITE geolocation database. Please visit https </td>
+                                            <td> //lite.ip2location.com for more information.  </td>
+                                        </tr><tr>
+                                            <td> <script type="text/javascript" src="https5 </td>
+                                            <td> //heartfulness.org/wp-content/themes/dt-the7/js/main.min.js" id="dt-main-js"></script>  </td>
+                                        </tr><tr>
+                                            <td> <script type="text/javascript" src="https6 </td>
+                                            <td> //heartfulness.org/wp-content/themes/dt-the7/lib/jquery-mousewheel/jquery-mousewheel.min.js" id="jqu  </td>
+                                        </tr><tr>
+                                            <td> <script type="text/javascript" src="https7 </td>
+                                            <td> //heartfulness.org/wp-content/themes/dt-the7/lib/custom-scrollbar/custom-scrollbar.min.js" id="the7-  </td>
+                                        </tr></table></h4> 
+                        </div>
+                    </div></div><div class="footer">
+                            <h3 align="left"; margin-left: 20px;>Developed by:&nbsp;Alien C00de <h3>
+                            <h3 align="center";> <i class="far fa-envelope"></i>&nbsp;alien.c00de@gmail.com</h3>
+                            <h3 align="right"; margin-right: 20px;> <i class="fab fa-github"></i>&nbsp;https://github.com/Alien-C00de</h3>
+                        </div>
+                    </body>
+                </html>

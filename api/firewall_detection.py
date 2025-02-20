@@ -78,27 +78,26 @@ class Firewall_Detection():
                                 </td>
                             </tr>
                         </table>"""
-            return table
+        else:
+            rows = [
+                f"""
+                <tr>
+                    <td>{key}</td>
+                    <td>{value}</td>
+                </tr>"""
+                for key, value in data.items()
+            ]
 
-        rows = [
-            f"""
-            <tr>
-                <td>{key}</td>
-                <td>{value}</td>
-            </tr>"""
-            for key, value in data.items()
-        ]
-
-        table = f"""
-        <table>
-            <tr>
-                <td colspan="2">
-                    <div class="progress-bar-container">
-                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
-                    </div>
-                </td>
-            </tr>
-                {''.join(rows)}
-        </table>"""
+            table = f"""
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <div class="progress-bar-container">
+                            <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                        </div>
+                    </td>
+                </tr>
+                    {''.join(rows)}
+            </table>"""
 
         return table
