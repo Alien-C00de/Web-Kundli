@@ -1,5 +1,6 @@
 import requests
 from util.config_uti import Configuration
+from util.report_util import Report_Utility
 from colorama import Fore, Style
 
 
@@ -67,17 +68,8 @@ class Firewall_Detection():
 
         percentage = 100
         if not data:
-            percentage = 0
-            table = f"""
-                        <table>
-                            <tr>
-                                <td colspan="2">
-                                    <div class="progress-bar-container">
-                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>"""
+            report_util = Report_Utility()
+            table = await report_util.Empty_Table()
         else:
             rows = [
                 f"""

@@ -1,5 +1,6 @@
 import aiohttp
 from util.config_uti import Configuration
+from util.report_util import Report_Utility
 from colorama import Fore, Style
 from bs4 import BeautifulSoup
 
@@ -45,27 +46,16 @@ class Associated_Hosts:
 
     async def __html_table(self, data):
 
-        percentage = 100
-
         if not data:
-            percentage = 0
-            table = f"""
-                        <table>
-                            <tr>
-                                <td colspan="1">
-                                    <div class="progress-bar-container">
-                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>"""
+            report_util = Report_Utility()
+            table = await report_util.Empty_Table()
         else:
-            table = (
-            f"""<table>
+            percentage = 100
+            table = (f"""<table>
                     <tr>
                         <td colspan="1">
                             <div class="progress-bar-container">
-                                <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                <div class="progress" style="width: {str(percentage)}%;">{str(percentage)}%</div>
                             </div>
                         </td>
                 </tr>

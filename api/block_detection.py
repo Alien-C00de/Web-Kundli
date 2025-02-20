@@ -1,6 +1,7 @@
 import socket
 import ipaddress
 from util.config_uti import Configuration
+from util.report_util import Report_Utility
 from colorama import Fore, Style
 
 class Block_Detection:
@@ -80,19 +81,8 @@ class Block_Detection:
 
     async def __html_table(self, data):
         if data and not any(data):
-            percentage = 0
-            table = f"""<table>
-                        <tr>
-                            <td colspan="1">
-                                <div class="progress-bar-container">
-                                    <div class="progress" style="width: {str(percentage)}%;">{str(percentage)}%</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>No Data Found</td>
-                        </tr>
-                    </table>"""
+            report_util = Report_Utility()
+            table = await report_util.Empty_Table()
         else:
             percentage =  await self.__rating(data)
             table = (

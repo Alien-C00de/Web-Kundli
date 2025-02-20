@@ -3,7 +3,7 @@ import asyncio
 import base64
 from colorama import Fore, Style
 from util.config_uti import Configuration
-
+from util.report_util import Report_Utility
 
 class Threats:
     Error_Title = None
@@ -53,19 +53,8 @@ class Threats:
     async def __html_table(self, decodedResponse):
 
         if decodedResponse is not None:
-            percentage = 0
-            table = f"""<table>
-                        <tr>
-                            <td colspan="1">
-                                <div class="progress-bar-container">
-                                    <div class="progress" style="width: {str(percentage)}%;">{str(percentage)}%</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>No Data Found</td>
-                        </tr>
-                    </table>"""
+            report_util = Report_Utility()
+            table = await report_util.Empty_Table()
 
             if not 'error' in decodedResponse[0]:
                 phishing = int(decodedResponse[0]["data"]["attributes"]["last_analysis_stats"]["suspicious"])
@@ -89,8 +78,7 @@ class Threats:
                                 <td>{'✅ No Malwares Found' if malware == 0 else '❌ Malware Found'}</td>
                             </tr>
                         </table>"""
-        else:
-            return table
+        return table
 
     async def __rating(self, phishing, malware):
 

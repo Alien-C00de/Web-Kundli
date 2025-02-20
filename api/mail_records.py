@@ -1,6 +1,7 @@
 import dns.resolver
 from colorama import Fore, Style
 from util.config_uti import Configuration
+from util.report_util import Report_Utility
 
 class Mail_Records():
     Error_Title = None
@@ -50,17 +51,8 @@ class Mail_Records():
     async def __html_table(self, result):
 
         if not result:
-            percentage = 0
-            table = f"""
-                        <table>
-                            <tr>
-                                <td colspan="1">
-                                    <div class="progress-bar-container">
-                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>"""
+            report_util = Report_Utility()
+            table = await report_util.Empty_Table()
         else:
             percentage = await self.__rating(str(self.domain), str(result[0]), str(result[1]))
 

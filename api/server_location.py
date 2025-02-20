@@ -52,16 +52,8 @@ class Server_Location():
 
         if dataframe.empty:
             percentage = 0
-            table = f"""
-                        <table>
-                            <tr>
-                                <td colspan="1">
-                                    <div class="progress-bar-container">
-                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>"""
+            report_util = Report_Utility()
+            table = report_util.Empty_Table()
         else:
             org = str(dataframe[0]["org"])
             asn = str(dataframe[0]["asn"])
@@ -104,17 +96,8 @@ class Server_Location():
         rep_data = []
 
         if dataframe.empty:
-            percentage = 0
-            table = f"""
-                        <table>
-                            <tr>
-                                <td colspan="1">
-                                    <div class="progress-bar-container">
-                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>"""
+            report_util = Report_Utility()
+            table = await report_util.Empty_Table()
         else:
             city =  str(dataframe[0]["city"])
             postal = str(dataframe[0]["postal"])

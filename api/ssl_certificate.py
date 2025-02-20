@@ -80,36 +80,23 @@ class SSL_Certificate():
 
     async def __html_table(self, cert_details):
         if not cert_details:
-            percentage = 0
-            table = f"""
-                        <table>
-                            <tr>
-                                <td colspan="1">
-                                    <div class="progress-bar-container">
-                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>"""
+            report_util = Report_Utility()
+            table = await report_util.Empty_Table()
         else:
             subject = cert_details["Subject"]
             attributes = subject.get_attributes_for_oid(NameOID.COMMON_NAME)
             if attributes:
                 subject = attributes[0].value
-                print(f"Subject value: {subject}")
             else:
-                print("Attribute not found")
+                subject = ""
             
             issuer = cert_details["Issuer"]
             attributes = issuer.get_attributes_for_oid(NameOID.ORGANIZATION_NAME)
-
             if attributes:
                 issuer = attributes[0].value
-                print(f"Issuer organization name: {issuer}")
             else:
-                print("Issuer organization name attribute not found")
-            # subject = cert_details["Subject"].get_attributes_for_oid(NameOID)[0].value
-            # issuer = cert_details["Issuer"].get_attributes_for_oid(NameOID.ORGANIZATION_NAME)[0].value
+                issuer = ""
+
             expires_date = cert_details["Expires"]
             formatted_expire = expires_date.strftime('%d %B %Y').lstrip('0').replace(" 0", " ")
             renewed_date = cert_details["Renewed"]

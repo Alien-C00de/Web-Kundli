@@ -1,6 +1,7 @@
 import aiohttp
 from colorama import Fore, Style
 from util.config_uti import Configuration
+from util.report_util import Report_Utility
 
 class Carbon_Footprint:
     Error_Title = None
@@ -52,17 +53,8 @@ class Carbon_Footprint:
 
     async def __html_table(self, data):
         if not data:
-            percentage = 0
-            table = f"""
-                        <table>
-                            <tr>
-                                <td colspan="1">
-                                    <div class="progress-bar-container">
-                                        <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>"""
+            report_util = Report_Utility()
+            table = await report_util.Empty_Table()
         else:
             HTML_Initial_Size = str(data['statistics']['adjustedBytes']) + " bytes"
             CO2_Load = str(data['statistics']['co2']['grid']['grams']) + " grams"

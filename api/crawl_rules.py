@@ -2,6 +2,7 @@ import aiohttp
 from colorama import Fore, Style
 from urllib.parse import urljoin
 from util.config_uti import Configuration
+from util.report_util import Report_Utility
 
 class Crawl_Rules:
     Error_Title = None
@@ -64,19 +65,6 @@ class Crawl_Rules:
                     + """</table>"""
                 )
         else:
-            percentage = 0
-            table = (
-                    """<table>
-                            <tr>
-                                <td colspan="1">
-                                    <div class="progress-bar-container">
-                                        <div class="progress" style="width: """+ str(percentage) +"""%;">"""+ str(percentage) +"""%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Failed to fetch robots.txt</td>
-                            </tr>
-                    </table>"""
-            )
+            report_util = Report_Utility()
+            table = await report_util.Empty_Table()
         return table

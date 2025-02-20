@@ -1,7 +1,7 @@
 import nmap3
 from colorama import Fore, Style
 from util.config_uti import Configuration
-
+from util.report_util import Report_Utility
 
 class NMap_Scan:
     Error_Title = None
@@ -35,18 +35,8 @@ class NMap_Scan:
     async def __html_table(self, version_result, os_results):
 
         nmap_lst = []
-        no_data =  f"""<table>
-                        <tr>
-                            <td colspan="1">
-                                <div class="progress-bar-container">
-                                    <div class="progress" style="width: {str(0)}%;">{str(0)}%</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>URL is not responding to this query.</td>
-                        </tr>
-                    </table>"""
+        report_util = Report_Utility()
+        no_data = await report_util.Empty_Table()
 
         if os_results is not None:
             os = await self.__os_result_html(os_results)

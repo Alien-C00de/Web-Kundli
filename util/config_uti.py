@@ -17,6 +17,17 @@ class Configuration:
     GITHUB = config["General"]["GITHUB"]
     FOOTER_OWNER_TITLE = config["General"]["FOOTER_OWNER_TITLE"]
 
+    'Report' in config
+    REPORT_HEADER = config['Report']['REPORT_HEADER']
+    REPORT_SUB_TITLE = config['Report']['REPORT_SUB_TITLE']
+    REPORT_FILE_NAME = config['Report']['REPORT_FILE_NAME']
+    REPORT_FOOTER = config['Report']['REPORT_FOOTER']
+
+    'Analysis Report' in config
+    ANALYSIS_REPORT_HEADER = config['Analysis Report']['ANALYSIS_REPORT_HEADER']
+    ANALYSIS_REPORT_FILE_NAME = config['Analysis Report']['ANALYSIS_REPORT_FILE_NAME']
+    ANALYSIS_REPORT_FOOTER = config['Analysis Report']['ANALYSIS_REPORT_FOOTER']
+    
     'Error_Module' in config
     SERVER_LOCATION = config['Error_Module']['SERVER_LOCATION']
     ENGINE = config['Error_Module']['ENGINE']
@@ -48,17 +59,6 @@ class Configuration:
     SECURITY_TXT = config["Error_Module"]["SECURITY_TXT"]
     NMAP_SCAN = config["Error_Module"]["NMAP_SCAN"]
 
-    'Report' in config
-    REPORT_HEADER = config['Report']['REPORT_HEADER']
-    REPORT_SUB_TITLE = config['Report']['REPORT_SUB_TITLE']
-    REPORT_FILE_NAME = config['Report']['REPORT_FILE_NAME']
-    REPORT_FOOTER = config['Report']['REPORT_FOOTER']
-
-    'Analysis Report' in config
-    ANALYSIS_REPORT_HEADER = config['Analysis Report']['ANALYSIS_REPORT_HEADER']
-    ANALYSIS_REPORT_FILE_NAME = config['Analysis Report']['ANALYSIS_REPORT_FILE_NAME']
-    ANALYSIS_REPORT_FOOTER = config['Analysis Report']['ANALYSIS_REPORT_FOOTER']
-    
     'Module' in config
     MODULE_SERVER_LOCATION = config['Module']['MODULE_SERVER_LOCATION']			
     MODULE_SSL_CERTIFICATE = config['Module']['MODULE_SSL_CERTIFICATE']	

@@ -44,18 +44,8 @@ class Cookies():
         percentage, html = await self.__cookies_score(cookie_info)
 
         if not cookie_info:
-            table_html = f"""<table>
-                            <tr>
-                                <td colspan="1">
-                                    <div class="progress-bar-container">
-                                        <div class="progress" style="width: """+ str(percentage) +"""%;">"""+ str(percentage) +"""%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>No Cookies Details Found</td>
-                            </tr>
-                    </table>"""
+            report_util = Report_Utility()
+            table = await report_util.Empty_Table()
         else:
             for cookie in cookie_info:
                 name  = cookie[0] 
@@ -68,11 +58,11 @@ class Cookies():
                 else:
                     expires = ""
 
-                table_html = f"""<table>
+                table = f"""<table>
                                     <tr>
                                         <td colspan="2">
                                             <div class="progress-bar-container">
-                                                <div class="progress" style="width: {percentage} %;">{percentage}%</div>
+                                                <div class="progress" style="width: {percentage}%;">{percentage}%</div>
                                             </div>
                                         </td>
                                     </tr>
@@ -101,12 +91,11 @@ class Cookies():
                                         <td>{secure}</td>
                                     </tr>
                                 </table>"""
-        rep_data.append(table_html)
+        rep_data.append(table)
         rep_data.append(html)
         return rep_data
 
     async def __cookies_score(self, cookie):
-        issue_config = Issue_Config()
         score = 0
         max_score = 6  # 6 parameters to evaluate
         issues = []
@@ -123,43 +112,43 @@ class Cookies():
 
             # Session Name - Should not be empty or generic
             if not session_name or session_name == 'session':
-                issues.append(issue_config.ISSUE_COOKIES_SESSION_NAME)
-                suggestions.append(issue_config.SUGGESTION_COOKIES_SESSION_NAME)
+                issues.append(Issue_Config.ISSUE_COOKIES_SESSION_NAME)
+                suggestions.append(Issue_Config.SUGGESTION_COOKIES_SESSION_NAME)
             else:
                 score += 1
 
             # Session ID - Should not be simple (For simplicity, we will use regex)
             if not session_value or re.match(r'^[a-zA-Z0-9]{8,}$', session_value) is None:
-                issues.append(issue_config.ISSUE_COOKIES_SESSION_VALUE)
-                suggestions.append(issue_config.SUGGESTION_COOKIES_SESSION_VALUE)
+                issues.append(Issue_Config.ISSUE_COOKIES_SESSION_VALUE)
+                suggestions.append(Issue_Config.SUGGESTION_COOKIES_SESSION_VALUE)
             else:
                 score += 1
 
             # Expires - Should not be far-off date or missing
             if not expires or datetime.strptime(expires, "%a, %d-%b-%Y %H:%M:%S GMT") < datetime.now():
-                issues.append(issue_config.ISSUE_COOKIES_EXPIRES)
-                suggestions.append(issue_config.SUGGESTION_COOKIES_EXPIRES)
+                issues.append(Issue_Config.ISSUE_COOKIES_EXPIRES)
+                suggestions.append(Issue_Config.SUGGESTION_COOKIES_EXPIRES)
             else:
                 score += 1
 
             # Path - Should not be overly broad (must be specific like `/app` or `/secure`)
             if path == '/' or not path:
-                issues.append(issue_config.ISSUE_COOKIES_PATH)
-                suggestions.append(issue_config.SUGGESTION_COOKIES_PATH)
+                issues.append(Issue_Config.ISSUE_COOKIES_PATH)
+                suggestions.append(Issue_Config.SUGGESTION_COOKIES_PATH)
             else:
                 score += 1
 
             # Domain - Should be a specific domain, not localhost or too general
             if not domain or domain in ['localhost', '127.0.0.1', '']:
-                issues.append(issue_config.ISSUE_COOKIES_DOMAIN)
-                suggestions.append(issue_config.SUGGESTION_COOKIES_DOMAIN)
+                issues.append(Issue_Config.ISSUE_COOKIES_DOMAIN)
+                suggestions.append(Issue_Config.SUGGESTION_COOKIES_DOMAIN)
             else:
                 score += 1
 
             # Secure - Should be True
             if secure != True:
-                issues.append(issue_config.ISSUE_COOKIES_SECURE)
-                suggestions.append(issue_config.SUGGESTION_COOKIES_SECURE)
+                issues.append(Issue_Config.ISSUE_COOKIES_SECURE)
+                suggestions.append(Issue_Config.SUGGESTION_COOKIES_SECURE)
             else:
                 score += 1
 
