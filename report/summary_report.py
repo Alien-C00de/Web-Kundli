@@ -9,10 +9,6 @@ class Summary_Report:
         self.domain = domain
         self.timestamp = timestamp
 
-    # async def check_dir(self, path):
-    #     if not os.path.exists(path):
-    #         os.makedirs(path)
-
     async def __ranking_percentage(self, Server_Location, SSL_Cert, Whois, ser_info, HTTP_sec, headers, cookies, dns_server_info, 
                              tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record, 
                              ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info,
@@ -203,8 +199,8 @@ class Summary_Report:
                         margin: 10px;
                         padding: 10px;
                         flex: 1;
-                        min-width: 300px;
-                        max-width: 100%;
+                        min-width: 400px;
+                        max-width: 200%;
                         border-radius: 5px;
                         position: relative;
                         overflow: hidden;
@@ -574,7 +570,7 @@ class Summary_Report:
                             <h4>""" + nmap_info[0] + """</h4> 
                         </div>
                     </div>
-                    div class="card">
+                    <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_NMAP_VERSION_RESULT + """ </h2>
                             <i class="fas fa-sync-alt refresh"> </i> 

@@ -9,7 +9,7 @@ class Analysis_Report:
         self.domain = domain
         self.timestamp = timestamp
 
-    async def Generate_Analysis_Report(self, website, cookies, server_location, server_info, SSL_Cert, Archive):
+    async def Generate_Analysis_Report(self, website, cookies, server_location, server_info, SSL_Cert, Archive, Asso_Host):
 
         config = Configuration()
         # report_timestamp = str(time.strftime("%A %d-%b-%Y %H:%M:%S", self.timestamp))
@@ -157,6 +157,7 @@ class Analysis_Report:
                             """ + server_info + """
                             """ + SSL_Cert + """
                             """ + Archive + """
+                            """ + Asso_Host + """
                         </div>
 
                         <div class="footer">
@@ -173,17 +174,3 @@ class Analysis_Report:
         with open(Analysis_report, "a", encoding="UTF-8") as f:
             f.write(header)
             f.write(body)
-
-        # if os.name == "nt":
-        #     filenameH = file_name_html.partition("./output\\")[-1]
-        #     os.system(f'start "" "{file_name_html}"')
-        # else:
-        #     filenameH = Analysis_report.partition("output/")[-1]
-        #     os.system(f'xdg-open "{Analysis_report}"')
-
-        # print(
-        #     Fore.GREEN + Style.BRIGHT + f"\n[+] HTML" + Fore.WHITE + Style.BRIGHT,
-        #     filenameH,
-        #     Fore.GREEN + Style.BRIGHT + f"File Is Ready",
-        #     Fore.RESET,
-        # )

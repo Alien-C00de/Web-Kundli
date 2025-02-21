@@ -1,6 +1,7 @@
 import aiohttp
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
+from util.issue_config import Issue_Config
 from colorama import Fore, Style
 from bs4 import BeautifulSoup
 
@@ -14,7 +15,7 @@ class Associated_Hosts:
     async def Get_Associated_Hosts(self):
         config = Configuration()
         self.Error_Title = config.ASSOCIATED_HOSTS
-        output = ""
+        output = []
 
         try:
             # print("associated_host.py: start ")
@@ -45,6 +46,9 @@ class Associated_Hosts:
             return await response.text()
 
     async def __html_table(self, data):
+        rep_data = []
+        # percentage = await self.__rating(cookie_info)
+        percentage, html = await self.__associated_host_score(data)
 
         if not data:
             report_util = Report_Utility()
@@ -63,4 +67,29 @@ class Associated_Hosts:
                     f'<tr><td>{subdomain}</td></tr>' for subdomain in sorted(data))}
             </table>""")
 
-        return table
+        rep_data.append(table)
+        rep_data.append(html)
+        return rep_data
+
+    async def __associated_host_score(self, hosts):
+        score = 0
+        max_score = 1  # 6 parameters to evaluate
+        issues = []
+        suggestions = []
+        html_tags = ""
+
+        if hosts:
+            main_domains = set(self.domain for host in hosts)
+
+            if len(main_domains) == 1:
+                score += 1
+            else:
+                issues.append(Issue_Config.ISSUE_ASSO_HOSTS)
+                suggestions.append(Issue_Config.SUGGESTION__ASSO_HOSTS)
+
+        percentage_score = (score / max_score) * 100
+        # html_tags = await self.__analysis_table(issues, suggestions, int(percentage_score))
+        report_util = Report_Utility()
+        html_tags = await report_util.analysis_table(Configuration.MODULE_ASSOCIATED_HOSTS, issues, suggestions, int(percentage_score))
+
+        return int(percentage_score), html_tags

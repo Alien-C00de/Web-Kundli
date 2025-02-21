@@ -1,4 +1,6 @@
 import aiohttp
+import re
+from bs4 import BeautifulSoup
 from colorama import Fore, Style
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
@@ -75,7 +77,9 @@ class Security_TXT:
                 file_location = result["foundIn"]
 
                 percentage = 100
-                table = ( f"""<table>
+
+                # Build the HTML table
+                table = (f"""<table>
                             <tr>
                                 <td colspan="2">
                                     <div class="progress-bar-container">
@@ -85,28 +89,20 @@ class Security_TXT:
                             </tr>
                             <tr>
                                 <td> Present </td>
-                                <td>{ '✅ Yes' }</td>
+                                <td> {'✅ Yes'} </td>
                             </tr>
                             <tr>
                                 <td> File Location </td>
-                                <td>{file_location }</td>
+                                <td> {file_location} </td>
                             </tr>
                             <tr>
                                 <td> PGP Signed </td>
-                                <td>{'✅ Yes' if result["isPgpSigned"] else '❌ No' }</td>
-                            </tr>"""
-                            + "".join(
-                                        f"""<tr>
-                                            <td> {str(key)} </td>
-                                            <td> {str(value[:100])}  </td>
-                                        </tr>"""
-                                        for key, value in result['fields'].items()
-                                    )
-                            + """</table>"""
-                            )
+                                <td> {'✅ Yes' if result['isPgpSigned'] else '❌ No'} </td>
+                            </tr> </table>""")
         else:
             report_util = Report_Utility()
             table = await report_util.Empty_Table()
+        
         return table
 
     async def __rating(self, phishing, malware):
