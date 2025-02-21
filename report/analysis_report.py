@@ -9,7 +9,7 @@ class Analysis_Report:
         self.domain = domain
         self.timestamp = timestamp
 
-    async def Generate_Analysis_Report(self, website, cookies, server_location, server_info, SSL_Cert, Archive, Asso_Host):
+    async def Generate_Analysis_Report(self, website, cookies, server_location, server_info, SSL_Cert, Archive, Asso_Host, Block_Detect):
 
         config = Configuration()
         # report_timestamp = str(time.strftime("%A %d-%b-%Y %H:%M:%S", self.timestamp))
@@ -158,6 +158,7 @@ class Analysis_Report:
                             """ + SSL_Cert + """
                             """ + Archive + """
                             """ + Asso_Host + """
+                            """ + Block_Detect + """
                         </div>
 
                         <div class="footer">

@@ -82,7 +82,7 @@ class engine():
         ports = Open_Ports(self.url, self.ip_address, self.domain)
         archive = Archive_History(self.url, self.domain)
         associated_host = Associated_Hosts(self.url, self.domain)
-        block_detect = Block_Detection(self.url, self.domain)
+        block_detect = Block_Detection(self.url, self.ip_address, self.domain)
         carbon_print = Carbon_Footprint(self.url, self.domain)
         crawl_rule = Crawl_Rules(self.url, self.domain)
         site_feat = Site_Features(self.url, response, self.domain)
@@ -168,7 +168,7 @@ class engine():
             tb15 = str(port_info)
             tb16 = str(archive_info[0])
             tb17 = str(associated_info[0])
-            tb18 = str(block_info)
+            tb18 = str(block_info[0])
             tb19 = str(carbon_info)
             tb20 = str(crawl_info)
             tb21 = str(site_info)
@@ -196,7 +196,7 @@ class engine():
             final_report = [summary_report.Generate_Summary_Report(self.url, tb1, tb2, tb3, tb4, tb5, tb6, tb7, tb8, tb9, tb10, tb11, tb12, tb13, tb14, tb15, 
                                          tb16, tb17, tb18, tb19, tb20, tb21, tb22, tb23, tb24, tb25, tb26, tb27, tb28, tb29), 
                             analysis_report.Generate_Analysis_Report(self.url, str(cookie[1]), str(Server_location[1]), str(Server_location[3]), str(SSL_Cert[1]),
-                                                        str(archive_info[1]), str(associated_info[1]))]
+                                                        str(archive_info[1]), str(associated_info[1]), str(block_info[0]))]
 
             await asyncio.gather(*final_report)
             
