@@ -85,3 +85,14 @@ class Issue_Config:
     "Associated Hosts" in config
     ISSUE_ASSO_HOSTS = config["Associated Hosts"]["ISSUE_ASSO_HOSTS"]
     SUGGESTION__ASSO_HOSTS = config["Associated Hosts"]["SUGGESTION__ASSO_HOSTS"]
+
+    "Carbon Footprint" in config
+    ISSUE_CO2_INITIAL_SIZE = config["Carbon Footprint"]["ISSUE_CO2_INITIAL_SIZE"]
+    ISSUE_CO2_INITIAL_LOAD = config["Carbon Footprint"]["ISSUE_CO2_INITIAL_LOAD"]
+    ISSUE_CO2_ENERGY_USE = config["Carbon Footprint"]["ISSUE_CO2_ENERGY_USE"]
+    ISSUE_CO2_EMITTED = config["Carbon Footprint"]["ISSUE_CO2_EMITTED"]
+
+    SUGGESTION_CO2_INITIAL_SIZE = config["Carbon Footprint"]["SUGGESTION_CO2_INITIAL_SIZE"]
+    SUGGESTION_CO2_INITIAL_LOAD = config["Carbon Footprint"]["SUGGESTION_CO2_INITIAL_LOAD"]
+    SUGGESTION_CO2_ENERGY_USE = config["Carbon Footprint"]["SUGGESTION_CO2_ENERGY_USE"]
+    SUGGESTION_CO2_EMITTED = config["Carbon Footprint"]["SUGGESTION_CO2_EMITTED"]

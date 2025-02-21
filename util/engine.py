@@ -169,7 +169,7 @@ class engine():
             tb16 = str(archive_info[0])
             tb17 = str(associated_info[0])
             tb18 = str(block_info[0])
-            tb19 = str(carbon_info)
+            tb19 = str(carbon_info[0])
             tb20 = str(crawl_info)
             tb21 = str(site_info)
             tb22 = str(dns_sec_info)
@@ -196,7 +196,7 @@ class engine():
             final_report = [summary_report.Generate_Summary_Report(self.url, tb1, tb2, tb3, tb4, tb5, tb6, tb7, tb8, tb9, tb10, tb11, tb12, tb13, tb14, tb15, 
                                          tb16, tb17, tb18, tb19, tb20, tb21, tb22, tb23, tb24, tb25, tb26, tb27, tb28, tb29), 
                             analysis_report.Generate_Analysis_Report(self.url, str(cookie[1]), str(Server_location[1]), str(Server_location[3]), str(SSL_Cert[1]),
-                                                        str(archive_info[1]), str(associated_info[1]), str(block_info[0]))]
+                                                        str(archive_info[1]), str(associated_info[1]), str(block_info[1]), str(carbon_info[1]))]
 
             await asyncio.gather(*final_report)
             
