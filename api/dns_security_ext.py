@@ -15,7 +15,6 @@ class DNS_Security_Ext:
         config = Configuration()
         self.Error_Title = config.DNS_SECURITY_EXT
         output = ""
-        headers = {'Accept': 'application/dns-json'}
 
         try:
             # print("dns_security.py: start ")
@@ -58,26 +57,34 @@ class DNS_Security_Ext:
 
 
     async def __html_table(self, data):
-
         percentage = 100
         if not data:
             report_util = Report_Utility()
             table = await report_util.Empty_Table()
         else:
+            dns_flags = [
+                ('Recursion Desired (RD)', True),
+                ('Recursion Available (RA)', True),
+                ('TrunCation (TC)', False),
+                ('Authentic Data (AD)', lambda record: ' ✅' if record['flags'] else ' ❌'),
+                ('Checking Disabled (CD)', False)
+            ]
+
             rows = [
                 f"""
                 <tr>
-                    <td>{dns_type}</td>
-                    <td>
-                        <strong><span>{'✅ Yes' if record['isFound'] else '❌ No'}</span></strong><br>
-                        <strong><span>  Recursion Desired (RD) ✅</span></strong><br>
-                        <strong><span>  Recursion Available (RA) ✅</span></strong><br>
-                        <strong><span>  TrunCation (TC) ❌</span></strong><br>
-                        <strong><span>  Authentic Data (AD){' ✅' if record['flags'] else ' ❌'}</span></strong><br>
-                        <strong><span>  Checking Disabled (CD) ❌</span></strong><br>
-                    </td>
-                </tr>"""
-                for dns_type, record in data.items()
+                    <td><h3>{dns_type}</h3></td> <td></td>
+                </tr>
+                <tr>
+                    <td>{dns_type} - Present?</td>
+                    <td>{'✅ Yes' if record['isFound'] else '❌ No'}</td>
+                </tr>
+                {''.join([f"""
+                <tr>
+                <td style="padding-left: 20px;">{description}</td>
+                <td>{status(record) if callable(status) else ('✅' if status else '❌')}</td>
+                </tr>""" for description, status in dns_flags])}
+                """ for dns_type, record in data.items()
             ]
 
             table = f"""
@@ -85,13 +92,12 @@ class DNS_Security_Ext:
                 <tr>
                     <td colspan="2">
                         <div class="progress-bar-container">
-                            <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                            <div class="progress" style="width: {str(percentage)}%;">{str(percentage)}%</div>
                         </div>
                     </td>
                 </tr>
-                    {''.join(rows)}
+                {''.join(rows)}
             </table>"""
 
         return table
-    
-    
+
