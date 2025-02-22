@@ -96,3 +96,7 @@ class Issue_Config:
     SUGGESTION_CO2_INITIAL_LOAD = config["Carbon Footprint"]["SUGGESTION_CO2_INITIAL_LOAD"]
     SUGGESTION_CO2_ENERGY_USE = config["Carbon Footprint"]["SUGGESTION_CO2_ENERGY_USE"]
     SUGGESTION_CO2_EMITTED = config["Carbon Footprint"]["SUGGESTION_CO2_EMITTED"]
+
+    "Crawl Rules" in config
+    ISSUE_CRAWL_RULES = config["Crawl Rules"]["ISSUE_CRAWL_RULES"]
+    SUGGESTION__CRAWL_RULES = config["Crawl Rules"]["SUGGESTION__CRAWL_RULES"]

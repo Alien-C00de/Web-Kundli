@@ -3,6 +3,7 @@ from colorama import Fore, Style
 from urllib.parse import urljoin
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
+from util.issue_config import Issue_Config
 
 class Crawl_Rules:
     Error_Title = None
@@ -10,6 +11,8 @@ class Crawl_Rules:
     def __init__(self, url, domain):
         self.url = url
         self.domain = domain
+
+    SENSITIVE_KEYWORDS = ['admin', 'login', 'config', 'backup', 'private', 'secret', 'data', 'password', 'upload']
 
     async def Get_Crawl_Rules(self):
         config = Configuration()
@@ -33,7 +36,7 @@ class Crawl_Rules:
                                 rule = line.split(":")[1].strip()
                                 crawl_rules.append((user_agent, rule))
 
-            output = await self.__html_table(user_agent, crawl_rules)
+            output = await self.__html_table(user_agent, crawl_rules, lines)
             return output
 
         except Exception as ex:
@@ -42,10 +45,11 @@ class Crawl_Rules:
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return output
 
-    async def __html_table(self, user_agent, data):
+    async def __html_table(self, user_agent, data, raw_rules):
+        rep_data = []
+        percentage, html = await self.__crawl_rules_score(raw_rules)
 
         if data:
-            percentage = 100
             table = (
                     """<table>
                             <tr>
@@ -67,4 +71,28 @@ class Crawl_Rules:
         else:
             report_util = Report_Utility()
             table = await report_util.Empty_Table()
-        return table
+
+        rep_data.append(table)
+        rep_data.append(html)
+        return rep_data
+
+    async def __crawl_rules_score(self, crawl_rules):
+        score = 0
+        max_score = len(crawl_rules) * len(self.SENSITIVE_KEYWORDS)
+        issues = []
+        suggestions = []
+        html_tags = ""
+
+        for rule in crawl_rules:
+            for keyword in self.SENSITIVE_KEYWORDS:
+                if keyword in rule.lower():
+                    issues.append(f"{Issue_Config.ISSUE_CRAWL_RULES} {rule}")
+                    suggestions.append(f"{Issue_Config.SUGGESTION__CRAWL_RULES} {keyword}.")
+                else:
+                    score += 1
+
+        percentage_score = (score / max_score) * 100
+        report_util = Report_Utility()
+        html_tags = await report_util.analysis_table(Configuration.MODULE_CRAWL_RULES, issues, suggestions, int(percentage_score))
+
+        return int(percentage_score), html_tags
