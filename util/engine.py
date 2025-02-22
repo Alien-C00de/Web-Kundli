@@ -114,7 +114,7 @@ class engine():
         carbon_info = []
         crawl_info = []
         site_info = ""
-        dns_sec_info = ""
+        dns_sec_info = []
         tech_stack_info = ""
         firewall_info = ""
         social_tags_info = ""
@@ -172,7 +172,7 @@ class engine():
             tb19 = str(carbon_info[0])
             tb20 = str(crawl_info[0])
             tb21 = str(site_info)
-            tb22 = str(dns_sec_info)
+            tb22 = str(dns_sec_info[0])
             tb23 = str(tech_stack_info)
             tb24 = str(firewall_info)
             tb25 = str(social_tags_info)
@@ -198,7 +198,7 @@ class engine():
                             
                             analysis_report.Generate_Analysis_Report(self.url, str(cookie[1]), str(Server_location[1]), str(Server_location[3]), 
                                         str(SSL_Cert[1]), str(archive_info[1]), str(associated_info[1]), str(block_info[1]), str(carbon_info[1]), 
-                                        str(crawl_info[1]))]
+                                        str(crawl_info[1]), str(dns_sec_info[1]))]
 
             await asyncio.gather(*final_report)
             

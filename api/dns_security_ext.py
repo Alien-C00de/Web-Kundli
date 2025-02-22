@@ -3,6 +3,7 @@ import asyncio
 from colorama import Fore, Style
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
+from util.issue_config import Issue_Config
 
 class DNS_Security_Ext:
     Error_Title = None
@@ -11,10 +12,43 @@ class DNS_Security_Ext:
         self.url = url
         self.domain = domain
 
+    dns_parameters = {
+        'DNSKEY': {
+            'present': True,
+            'flags': {
+                'RD': True,
+                'RA': True,
+                'TC': False,
+                'AD': True,
+                'CD': False
+            }
+        },
+        'DS': {
+            'present': True,
+            'flags': {
+                'RD': True,
+                'RA': True,
+                'TC': False,
+                'AD': True,
+                'CD': False
+            }
+        },
+        'RRSIG': {
+            'present': True,
+            'flags': {
+                'RD': True,
+                'RA': True,
+                'TC': False,
+                'AD': True,
+                'CD': False
+            }
+        }
+    }
+
     async def Get_DNS_Security_Ext(self):
         config = Configuration()
         self.Error_Title = config.DNS_SECURITY_EXT
-        output = ""
+        output = []
 
         try:
             # print("dns_security.py: start ")
@@ -57,7 +91,9 @@ class DNS_Security_Ext:
 
 
     async def __html_table(self, data):
-        percentage = 100
+        rep_data = []
+        # percentage = await self.__rating(cookie_info)
+        percentage, html = await self.__DNS_Sec_score()
         if not data:
             report_util = Report_Utility()
             table = await report_util.Empty_Table()
@@ -99,5 +135,42 @@ class DNS_Security_Ext:
                 {''.join(rows)}
             </table>"""
 
-        return table
+        rep_data.append(table)
+        rep_data.append(html)
+        return rep_data
 
+    async def __DNS_Sec_score(self):
+        score = 100
+        issues = []
+        suggestions = []
+        html_tags = ""
+
+        for dns_type, params in self.dns_parameters.items():
+            if not params['present']:
+                score -= 20
+                issues.append(f"{dns_type} {Issue_Config.ISSUE_DNS_SECURITY_DNS_TYPE}")
+                suggestions.append(f"{Issue_Config.SUGGESTION__DNS_SECURITY_DNS_TYPE} {dns_type}.")
+
+            flags_issues = []
+            if not params['flags']['RD']:
+                flags_issues.append(Issue_Config.ISSUE_DNS_SECURITY_RD)
+            if not params['flags']['RA']:
+                flags_issues.append(Issue_Config.ISSUE_DNS_SECURITY_RA)
+            if params['flags']['TC']:
+                flags_issues.append(Issue_Config.ISSUE_DNS_SECURITY_TC)
+            if not params['flags']['AD']:
+                flags_issues.append(Issue_Config.ISSUE_DNS_SECURITY_AD)
+            if params['flags']['CD']:
+                flags_issues.append(Issue_Config.ISSUE_DNS_SECURITY_CD)
+
+            if flags_issues:
+                score -= len(flags_issues) * 2
+                issues.append(f"{dns_type} flags issues: {', '.join(flags_issues)}.")
+                suggestions.append(f"{Issue_Config.SUGGESTION__DNS_SECURITY_DNS_FLAG} {dns_type}: {', '.join(flags_issues)}.")
+
+        percentage_score = max(score, 0)
+        
+        report_util = Report_Utility()
+        html_tags = await report_util.analysis_table(Configuration.MODULE_DNS_SECURITY, issues, suggestions, int(percentage_score))
+
+        return int(percentage_score), html_tags

@@ -100,3 +100,14 @@ class Issue_Config:
     "Crawl Rules" in config
     ISSUE_CRAWL_RULES = config["Crawl Rules"]["ISSUE_CRAWL_RULES"]
     SUGGESTION__CRAWL_RULES = config["Crawl Rules"]["SUGGESTION__CRAWL_RULES"]
+
+    "DNS Security" in config
+    ISSUE_DNS_SECURITY_DNS_TYPE = config["DNS Security"]["ISSUE_DNS_SECURITY_DNS_TYPE"]
+    ISSUE_DNS_SECURITY_RD = config["DNS Security"]["ISSUE_DNS_SECURITY_RD"]
+    ISSUE_DNS_SECURITY_RA = config["DNS Security"]["ISSUE_DNS_SECURITY_RA"]
+    ISSUE_DNS_SECURITY_TC = config["DNS Security"]["ISSUE_DNS_SECURITY_TC"]
+    ISSUE_DNS_SECURITY_AD = config["DNS Security"]["ISSUE_DNS_SECURITY_AD"]
+    ISSUE_DNS_SECURITY_CD = config["DNS Security"]["ISSUE_DNS_SECURITY_CD"]
+
+    SUGGESTION__DNS_SECURITY_DNS_TYPE = config["DNS Security"]["SUGGESTION__DNS_SECURITY_DNS_TYPE"]
+    SUGGESTION__DNS_SECURITY_DNS_FLAG = config["DNS Security"]["SUGGESTION__DNS_SECURITY_DNS_FLAG"]
