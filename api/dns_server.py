@@ -98,3 +98,7 @@ class DNS_Server():
             percentage = 0  # In case no conditions are satisfied
     
         return percentage
+
+""" * DoH Support is determined by the DNS server's response to a DoH query. 
+Sometimes this gives false negatives, and it's also possible that the DNS server supports DoH but does not respond to DoH queries. 
+If the DNS server does not support DoH, it may still be possible to use DoH by using a DoH proxy."""

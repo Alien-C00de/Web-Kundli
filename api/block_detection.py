@@ -165,15 +165,18 @@ class Block_Detection:
         html_tags = ""
 
         for block in data:
-            if not block['is_blocked']:
+            if block['is_blocked']:
                 count += 1
+
+        ser = len(self.DNS_SERVERS)
+        if ser > 0:
+            percentage = (100 * count) / ser
 
         if count > 1:
             issues.append(Issue_Config.ISSUE_COOKIES_SESSION_NAME)
             suggestions.append(Issue_Config.SUGGESTION_COOKIES_SESSION_NAME)
         else:
-            ser = len(self.DNS_SERVERS)
-            percentage = (100 * count) / ser
+            percentage = 100  # Ensure percentage is 100 if no issues are found
 
         # html_tags = await self.__analysis_table(issues, suggestions, int(percentage_score))
         report_util = Report_Utility()
