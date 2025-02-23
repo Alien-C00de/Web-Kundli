@@ -85,6 +85,7 @@ class Archive_History:
         }
 
     async def __html_table(self, data):
+        html = ""
         if data and not any(data):
             report_util = Report_Utility()
             table = await report_util.Empty_Table()

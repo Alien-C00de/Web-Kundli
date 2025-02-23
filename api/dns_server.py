@@ -2,6 +2,7 @@ import aiohttp
 import socket
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
+from util.issue_config import Issue_Config
 from colorama import Fore, Style
 
 class DNS_Server():
@@ -13,10 +14,9 @@ class DNS_Server():
         self.domain = domain
 
     async def Get_DNS_Server(self):
-        # Get the IP address
         config = Configuration()
         self.Error_Title = config.DNS_SERVER
-        DoH = None
+        DoH = "No"
         output = ""
 
         try:
@@ -27,32 +27,31 @@ class DNS_Server():
                 async with session.get(doh_url) as response:
                     if response.status == 200 : DoH = "Yes"
 
-            output = await self.__formatting_Output(self.domain, DoH)
-            # print("dns_server_info.py: output: ")
+            output = await self.__html_table(DoH)
         except (socket.herror, UnicodeError) as e:
             error_msg = e.strerror
             msg = "[-] " + self.Error_Title + " => Get_DNS_Server : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
+            output = await self.__html_table(DoH)
             return output
         except aiohttp.ClientConnectorError:
-            DoH = "No"
             output = await self.__html_table(DoH)
             return output
         except Exception as ex:
             error_msg = str(ex.args[0])
             msg = "[-] " + self.Error_Title + " => Get_DNS_Server_Info : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
+            output = await self.__html_table(DoH)
             return output
-        # finally:
-
 
     async def __html_table(self, DoH):
-
+        rep_data = []
+        html = ""
         if not DoH:
             report_util = Report_Utility()
             table = await report_util.Empty_Table()
         else:
-            percentage = await self.__rating(self.ip_address, self.domain, DoH)
+            percentage, html = await self.__DNS_Server_score(DoH)
             table = (
                 """<table>
                         <tr>
@@ -76,29 +75,27 @@ class DNS_Server():
                         </tr>
                     </table>"""
             )
-        return table
+        rep_data.append(table)
+        rep_data.append(html)
+        return rep_data
     
-    async def __rating(self, ip, domain, DoH):
+    async def __DNS_Server_score(self, DoH):
 
-        condition1 = ip != None
-        condition2 = domain != None
-        condition3 = DoH != None
+        issues = []
+        suggestions = []
+        html_tags = ""
+        percentage = 0
 
-        # Count the number of satisfied conditions
-        satisfied_conditions = sum([condition1, condition2, condition3])
-        
-        # Determine the percentage based on the number of satisfied conditions
-        if satisfied_conditions == 3:
-            percentage = 100
-        elif satisfied_conditions == 2:
-            percentage = 66
-        elif satisfied_conditions == 1:
-            percentage = 33
-        else:
-            percentage = 0  # In case no conditions are satisfied
+        if DoH:
+            # Session Name - Should not be empty or generic
+            if DoH.upper() == 'NO':
+                issues.append(Issue_Config.ISSUE_DNS_SERVER)
+                suggestions.append(Issue_Config.SUGGESTION_DNS_SERVER)
+                percentage = 50
+            else:
+                percentage = 100
     
-        return percentage
+        report_util = Report_Utility()
+        html_tags = await report_util.analysis_table(Configuration.MODULE_DNS_SERVER, issues, suggestions, int(percentage))
 
-""" * DoH Support is determined by the DNS server's response to a DoH query. 
-Sometimes this gives false negatives, and it's also possible that the DNS server supports DoH but does not respond to DoH queries. 
-If the DNS server does not support DoH, it may still be possible to use DoH by using a DoH proxy."""
+        return int(percentage), html_tags

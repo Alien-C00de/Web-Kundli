@@ -49,7 +49,7 @@ class Server_Location():
 
     async def __html_server_info_table(self, dataframe):
         rep_data = []
-
+        html = ""
         if dataframe.empty:
             percentage = 0
             report_util = Report_Utility()
@@ -89,12 +89,12 @@ class Server_Location():
                     </table>"""
 
         rep_data.append(table)
-        rep_data.append(htmltags)
+        rep_data.append(html)
         return rep_data
 
     async def __html_server_loc_table(self, dataframe):
         rep_data = []
-
+        html = ""
         if dataframe.empty:
             report_util = Report_Utility()
             table = await report_util.Empty_Table()
@@ -109,8 +109,7 @@ class Server_Location():
             currency_name = str(dataframe[0]["currency_name"])
             currency = str(dataframe[0]["currency"])
 
-            # percentage = await self.__rating_loc(city, country, timezone, languages, currency)
-            percentage, htmltags = await self.__server_Location_score(city, country, timezone, languages, currency)
+            percentage, html = await self.__server_Location_score(city, country, timezone, languages, currency)
 
             table = """<table>
                             <tr>
@@ -149,7 +148,7 @@ class Server_Location():
                         displayCountryIcon();
                     </script>"""
         rep_data.append(table)
-        rep_data.append(htmltags)
+        rep_data.append(html)
         return rep_data
 
     async def __server_Location_score(self, city, country, timezone, languages, currency):

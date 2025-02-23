@@ -129,7 +129,7 @@ class Block_Detection:
 
     async def __html_table(self, data):
         rep_data = []
-
+        html = ""
         if data and not any(data):
             report_util = Report_Utility()
             table = await report_util.Empty_Table()

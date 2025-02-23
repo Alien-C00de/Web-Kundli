@@ -92,12 +92,13 @@ class DNS_Security_Ext:
 
     async def __html_table(self, data):
         rep_data = []
-        # percentage = await self.__rating(cookie_info)
-        percentage, html = await self.__DNS_Sec_score()
+        html = ""
+        
         if not data:
             report_util = Report_Utility()
             table = await report_util.Empty_Table()
         else:
+            percentage, html = await self.__DNS_Sec_score()
             dns_flags = [
                 ('Recursion Desired (RD)', True),
                 ('Recursion Available (RA)', True),
@@ -149,7 +150,7 @@ class DNS_Security_Ext:
             if not params['present']:
                 score -= 20
                 issues.append(f"{dns_type} {Issue_Config.ISSUE_DNS_SECURITY_DNS_TYPE}")
-                suggestions.append(f"{Issue_Config.SUGGESTION__DNS_SECURITY_DNS_TYPE} {dns_type}.")
+                suggestions.append(f"{Issue_Config.SUGGESTION_DNS_SECURITY_DNS_TYPE} {dns_type}.")
 
             flags_issues = []
             if not params['flags']['RD']:
@@ -166,7 +167,7 @@ class DNS_Security_Ext:
             if flags_issues:
                 score -= len(flags_issues) * 2
                 issues.append(f"{dns_type} flags issues: {', '.join(flags_issues)}.")
-                suggestions.append(f"{Issue_Config.SUGGESTION__DNS_SECURITY_DNS_FLAG} {dns_type}: {', '.join(flags_issues)}.")
+                suggestions.append(f"{Issue_Config.SUGGESTION_DNS_SECURITY_DNS_FLAG} {dns_type}: {', '.join(flags_issues)}.")
 
         percentage_score = max(score, 0)
         

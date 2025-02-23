@@ -47,14 +47,12 @@ class Associated_Hosts:
 
     async def __html_table(self, data):
         rep_data = []
-        # percentage = await self.__rating(cookie_info)
-        percentage, html = await self.__associated_host_score(data)
-
+        html = ""
         if not data:
             report_util = Report_Utility()
             table = await report_util.Empty_Table()
         else:
-            percentage = 100
+            percentage, html = await self.__associated_host_score(data)
             table = (f"""<table>
                     <tr>
                         <td colspan="1">

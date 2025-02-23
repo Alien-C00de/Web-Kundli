@@ -100,7 +100,7 @@ class engine():
         Whois = ""
         Header = []
         cookie = []
-        dns_server_info = ""
+        dns_server_info = []
         tls_cipher_suite = ""
         dns_info = ""
         txt_info = ""
@@ -158,7 +158,7 @@ class engine():
             tb5 = str(Header[0])
             tb6 = str(Header[1])
             tb7 = str(cookie[0])
-            tb8 = str(dns_server_info)
+            tb8 = str(dns_server_info[0])
             tb9 = str(tls_cipher_suite)
             tb10 = str(dns_info)
             tb11 = str(txt_info)
@@ -184,8 +184,6 @@ class engine():
             else:
                 tb29 = []
 
-            # timestamp  =  datetime.datetime.now().strftime("%d%b%Y_%H-%M-%S")
-
             timestamp = datetime.datetime.now()
 
             await self.__create_dirs("output")
@@ -198,7 +196,7 @@ class engine():
                             
                             analysis_report.Generate_Analysis_Report(self.url, str(cookie[1]), str(Server_location[1]), str(Server_location[3]), 
                                         str(SSL_Cert[1]), str(archive_info[1]), str(associated_info[1]), str(block_info[1]), str(carbon_info[1]), 
-                                        str(crawl_info[1]), str(dns_sec_info[1]))]
+                                        str(crawl_info[1]), str(dns_sec_info[1]), str(dns_server_info[1]))]
 
             await asyncio.gather(*final_report)
             

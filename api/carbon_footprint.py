@@ -53,7 +53,7 @@ class Carbon_Footprint:
 
     async def __html_table(self, data):
         rep_data = []
-
+        html = ""
         if not data:
             report_util = Report_Utility()
             table = await report_util.Empty_Table()

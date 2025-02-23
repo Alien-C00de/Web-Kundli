@@ -79,6 +79,8 @@ class SSL_Certificate():
             connection.close()
 
     async def __html_table(self, cert_details):
+        rep_data = []
+        html = ""
         if not cert_details:
             report_util = Report_Utility()
             table = await report_util.Empty_Table()
@@ -115,18 +117,13 @@ class SSL_Certificate():
 
                 if "TLS Web Client Authentication" in cert_details["Extended Key Usage"]:
                     TLS_Web_Client = "TLS Web Client Authentication"
-                # TLS_Web_Server = cert_details["Extended Key Usage"][0]
-                # TLS_Web_Client = cert_details["Extended Key Usage"][1]
                 TLS_OK = True
             else:
                 TLS_Web_Server = ""
                 TLS_Web_Client = ""
                 TLS_OK = False
 
-            # percentage = await self.__rating(cert_details)
             percentage, html = await self.__ssl_score(subject, issuer, expires_date, renewed_date, serial_number, fingerprint, TLS_Web_Server, TLS_Web_Client)
-            rep_data = []
-
             table = (
                 """<table>
                         <tr>

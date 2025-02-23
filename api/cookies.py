@@ -38,15 +38,13 @@ class Cookies():
             return msg
 
     async def __html_cookies_table(self, cookie_info):
-
         rep_data = []
-        # percentage = await self.__rating(cookie_info)
-        percentage, html = await self.__cookies_score(cookie_info)
-
+        html = ""
         if not cookie_info:
             report_util = Report_Utility()
             table = await report_util.Empty_Table()
         else:
+            percentage, html = await self.__cookies_score(cookie_info)
             for cookie in cookie_info:
                 name  = cookie[0] 
                 value = cookie[1]

@@ -47,9 +47,9 @@ class Crawl_Rules:
 
     async def __html_table(self, user_agent, data, raw_rules):
         rep_data = []
-        percentage, html = await self.__crawl_rules_score(raw_rules)
-
+        html = ""
         if data:
+            percentage, html = await self.__crawl_rules_score(raw_rules)
             table = (
                     """<table>
                             <tr>
