@@ -16,95 +16,106 @@ class Analysis_Report:
         report_timestamp = self.timestamp.strftime("%A %d-%b-%Y %H:%M:%S")
 
         header = ("""<!DOCTYPE html>
-                    <html lang="en">
-                    <head>
-                        <meta charset="UTF-8">
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>""" + config.ANALYSIS_REPORT_HEADER + """</title>
-                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-                        <style>
-                            body {
-                                font-family: Arial, sans-serif;
-                                background-color: #1e1e1e;
-                                color: #ffffff;
-                                margin: 0;
-                                padding: 20px;
-                            }
-                            .container {
-                                max-width: 900px;
-                                margin: auto;
-                                background: #2a2a2a;
-                                padding: 20px;
-                                border-radius: 10px;
-                                box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-                            }
-                            h1 {
-                                background: #ffcc00;
-                                color: #222;
-                                padding: 15px;
-                                text-align: center;
-                                border-radius: 5px;
-                            }
-                            .section {
-                                margin-bottom: 20px;
-                                padding: 15px;
-                                border-radius: 8px;
-                            }
-                            .cookies { background: #6600cc; }
-                            .carbon { background: #0066cc; }
-                            .dns { background: #cc6600; }
-                            .issues {
-                                background: #cc3300;
-                                padding: 10px;
-                                border-radius: 5px;
-                            }
-                            .suggestions {
-                                background: #009900;
-                                padding: 10px;
-                                border-radius: 5px;
-                            }
-                            ul {
-                                margin: 5px 0 0;
-                                padding-left: 20px;
-                            }
-                            footer {
-                                text-align: center;
-                                padding: 10px;
-                                margin-top: 20px;
-                                background: #ffcc00;
-                                color: #222;
-                                border-radius: 5px;
-                            }
-                            .timestamp {
-                                text-align: right;
-                                font-size: 14px;
-                                margin-bottom: 10px;
-                            }
-                        </style>
-                    </head>""")
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>Web Health Analysis Report</title>
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+                            <style>
+                                body {
+                                    font-family: Arial, sans-serif;
+                                    background-color: #1e1e1e;
+                                    color: #ffffff;
+                                    margin: 0;
+                                    padding: 20px;
+                                }
+                                .container {
+                                    max-width: 900px;
+                                    margin: auto;
+                                    background: #444;
+                                    padding: 20px;
+                                    border-radius: 10px;
+                                    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+                                }
+                                .header {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    background: #ffcc00;
+                                    color: #222;
+                                    padding: 15px;
+                                    border-radius: 5px;
+                                }
+                                .header h1, .header h2, .header h3 {
+                                    margin: 0;
+                                }
+                                .section {
+                                    margin-bottom: 20px;
+                                    padding: 15px;
+                                    border-radius: 8px;
+                                }
+                                .cookies { background: #6600cc; }
+                                .carbon { background: #0066cc; }
+                                .dns { background: #cc6600; }
+                                .issues {
+                                    background: #e74c3c;
+                                    padding: 10px;
+                                    border-radius: 5px;
+                                }
+                                .suggestions {
+                                    background: #2ecc71;
+                                    padding: 10px;
+                                    border-radius: 5px;
+                                }
+                                ul {
+                                    margin: 5px 0 0;
+                                    padding-left: 20px;
+                                }
+                                footer {
+                                    text-align: center;
+                                    padding: 10px;
+                                    margin-top: 20px;
+                                    background: #ffcc00;
+                                    color: #222;
+                                    border-radius: 5px;
+                                }
+                                .timestamp {
+                                    text-align: right;
+                                    font-size: 14px;
+                                    margin-bottom: 10px;
+                                }
+                            </style>
+                        </head>""")
         body = ("""<body>
                     <div class="container">
-                        <h1><i class="fas fa-shield-alt"></i> Web Health Analysis Report</h1>
-                        <div class="timestamp">
-                            <i class="far fa-clock"></i> Report Generated: <span id=""" + report_timestamp + """></span>
+                        <div class="header">
+                            <h1><i class="fas fa-globe"></i>&nbsp;""" + config.REPORT_HEADER + """</h1>
+                            <h2>""" + config.ANALYSIS_REPORT_HEADER + """</h2>
+                            <h3><a href=""" + website + """ style="color: #222; text-decoration: none;">""" + website + """</a></h3>
                         </div>
-                        
-                            """ + cookies + """
-                            """ + server_location + """
-                            """ + server_info + """
-                            """ + SSL_Cert + """
-                            """ + Archive + """
-                            """ + Asso_Host + """
-                            """ + Block_Detect + """
-                            """ + CO2_print + """
-                            """ + crawl_rule + """
-                            """ + DNS_Security + """
-                            """ + DNS_Server + """
-                        
-                        
-                        <footer>
-                            """ + config.ANALYSIS_REPORT_FOOTER + """&nbsp;&nbsp;&copy;&nbsp;""" + config.YEAR + """
-                        </footer>""" )
+                        <div class="timestamp">
+                            <i class="far fa-clock"></i> Report Generated: """  + report_timestamp + """
+                        </div>
+                            
+                                """ + cookies + """
+                                """ + server_location + """
+                                """ + server_info + """
+                                """ + SSL_Cert + """
+                                """ + Archive + """
+                                """ + Asso_Host + """
+                                """ + Block_Detect + """
+                                """ + CO2_print + """
+                                """ + crawl_rule + """
+                                """ + DNS_Security + """
+                                """ + DNS_Server + """
+                            
+                            <footer>
+                                """ + config.ANALYSIS_REPORT_FOOTER + """&nbsp;&nbsp;&copy;&nbsp;""" + config.YEAR + """
+                            </footer>
+                    </div>
+                </body>
+                </html>""" )
 
         Analysis_report = "%s_%s_%s.html" % (config.ANALYSIS_REPORT_FILE_NAME.replace("/", "_"), self.domain, self.timestamp.strftime("%d%b%Y_%H-%M-%S"))
 

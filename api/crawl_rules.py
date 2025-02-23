@@ -93,6 +93,6 @@ class Crawl_Rules:
 
         percentage_score = (score / max_score) * 100
         report_util = Report_Utility()
-        html_tags = await report_util.analysis_table(Configuration.MODULE_CRAWL_RULES, issues, suggestions, int(percentage_score))
+        html_tags = await report_util.analysis_table(Configuration.ICON_CRAWL_RULES, Configuration.MODULE_CRAWL_RULES, issues, suggestions, int(percentage_score))
 
         return int(percentage_score), html_tags

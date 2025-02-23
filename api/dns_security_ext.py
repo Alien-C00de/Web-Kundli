@@ -172,6 +172,6 @@ class DNS_Security_Ext:
         percentage_score = max(score, 0)
         
         report_util = Report_Utility()
-        html_tags = await report_util.analysis_table(Configuration.MODULE_DNS_SECURITY, issues, suggestions, int(percentage_score))
+        html_tags = await report_util.analysis_table(Configuration.ICON_DNS_SECURITY, Configuration.MODULE_DNS_SECURITY, issues, suggestions, int(percentage_score))
 
         return int(percentage_score), html_tags

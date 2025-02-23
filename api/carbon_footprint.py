@@ -144,6 +144,6 @@ class Carbon_Footprint:
 
         percentage = (score / max_score) * 100
         report_util = Report_Utility()
-        html_tags = await report_util.analysis_table(Configuration.MODULE_CARBON_FOOTPRINT, issues, suggestions, int(percentage))
+        html_tags = await report_util.analysis_table(Configuration.ICON_CARBON_FOOTPRINT, Configuration.MODULE_CARBON_FOOTPRINT, issues, suggestions, int(percentage))
 
         return int(percentage), html_tags

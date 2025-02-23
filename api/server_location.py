@@ -202,7 +202,7 @@ class Server_Location():
         percentage_score = (total_score / total_weight) * 100
         # html_tags = await self.__analysis_location_table(issues, suggestions, int(security_score_percentage))
         report_util = Report_Utility()
-        html_tags = await report_util.analysis_table(Configuration.MODULE_SERVER_LOCATION, issues, suggestions, int(percentage_score))
+        html_tags = await report_util.analysis_table(Configuration.ICON_SERVER_LOCATION, Configuration.MODULE_SERVER_LOCATION, issues, suggestions, int(percentage_score))
 
         return int(percentage_score), html_tags
 
@@ -250,6 +250,6 @@ class Server_Location():
 
         # html_tags = await self.__analysis_server_table(issues, suggestions, int(server_info_score_percentage))
         report_util = Report_Utility()
-        html_tags = await report_util.analysis_table(Configuration.MODULE_SERVER_INFO, issues, suggestions, int(percentage_score))
+        html_tags = await report_util.analysis_table(Configuration.ICON_SERVER_INFO, Configuration.MODULE_SERVER_INFO, issues, suggestions, int(percentage_score))
 
         return int(percentage_score), html_tags

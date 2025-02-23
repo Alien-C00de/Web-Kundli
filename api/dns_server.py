@@ -96,6 +96,6 @@ class DNS_Server():
                 percentage = 100
     
         report_util = Report_Utility()
-        html_tags = await report_util.analysis_table(Configuration.MODULE_DNS_SERVER, issues, suggestions, int(percentage))
+        html_tags = await report_util.analysis_table(Configuration.ICON_DNS_SERVER, Configuration.MODULE_DNS_SERVER, issues, suggestions, int(percentage))
 
         return int(percentage), html_tags

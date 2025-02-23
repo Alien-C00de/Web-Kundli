@@ -6,44 +6,26 @@ class Report_Utility():
     def __init__(self):
         pass
     
-    async def analysis_table(self, module_name, issues, suggestions, percentage):
+    async def analysis_table(self, icone, module_name, issues, suggestions, percentage):
         html = ""
         if issues:
             html_template ="""
-            <div class="section cookies">
-                            <h2><i class="fas fa-cookie"></i> """ + module_name + """&nbsp; Score = """ + str(percentage) + """%</h2>
-                            <p><strong>Summary:</strong> The """ + module_name + """ used on the website meet most security standards, but some issues need attention.</p>
-                            <div class="issues">
-                                <h3>Identified Issues:</h3>
-                                <ul>
-                                    {issue_items}
-                                </ul>
-                            </div>
-                            <div class="suggestions">
-                                <h3>Suggestions for Improvement:</h3>
-                                <ul>
-                                    {suggestion_items}
-                                </ul>
-                            </div>
-                        </div>"""
-            # html_template = """<div class="module" id="cookies">
-            #                     <h2>""" + module_name + """&nbsp; Score = """ + str(percentage) + """%</h2>
-            #                     <div style="display: inline; font-weight: bold;">Summary :</div>
-            #                     <span style="display: inline;">The """ + module_name + """ used on the website meet most security standards. However, there are a couple of issues that need to be addressed.</span>
-            #                     <div class="issues">
-            #                         <h4>Identified Issues:</h4>
-            #                         <ul>
-            #                             {issue_items}
-            #                         </ul>
-            #                     </div>
-            #                     <div class="suggestions">
-            #                         <h4>Suggestions for Improvement:</h4>
-            #                         <ul>
-            #                             {suggestion_items}
-            #                         </ul>
-            #                     </div> 
-            #             </div>"""
-
+                    <div class="section cookies">
+                        <h2><i class=""" + icone + """></i> """ + module_name + """&nbsp; Score = """ + str(percentage) + """%</h2>
+                        <p><strong>Summary:</strong> The """ + module_name + """ used on the website meet most security standards, but some issues need attention.</p>
+                        <div class="issues">
+                            <h3>Identified Issues:</h3>
+                            <ul>
+                                {issue_items}
+                            </ul>
+                        </div>
+                        <div class="suggestions">
+                            <h3>Suggestions for Improvement:</h3>
+                            <ul>
+                                {suggestion_items}
+                            </ul>
+                        </div>
+                    </div>"""
             # Generate the list items for issues and suggestions
             issue_items = ''.join([f"<li>{issue}</li>" for issue in issues])
             suggestion_items = ''.join([f"<li>{suggestion}</li>" for suggestion in suggestions])

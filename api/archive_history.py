@@ -195,7 +195,7 @@ class Archive_History:
         percentage_score = (score / max_score) * 100
         # html_tags = await self.__analysis_table(issues, suggestions, int(percentage_score))
         report_util = Report_Utility()
-        html_tags = await report_util.analysis_table(Configuration.MODULE_ARCHIVE_HISTORY, issues, suggestions, int(percentage_score))
+        html_tags = await report_util.analysis_table(Configuration.ICON_ARCHIVE_HISTORY, Configuration.MODULE_ARCHIVE_HISTORY, issues, suggestions, int(percentage_score))
 
         return int(percentage_score), html_tags
 
