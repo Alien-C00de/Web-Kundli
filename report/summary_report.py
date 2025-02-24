@@ -236,6 +236,7 @@ class Summary_Report:
                         right: 10px;
                         color: #d4d4d4;
                         cursor: pointer;
+                        font-size: 30px;
                     }
                     .card table {
                         width: 100%;
@@ -309,7 +310,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_SERVER_LOCATION + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class= """ + config.ICON_SERVER_LOCATION + """ > </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + Server_Location + """</h4> 
@@ -318,7 +319,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_SSL_CERTIFICATE + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=  """ + config.ICON_SSL_CERTIFICATE + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + SSL_Cert + """</h4> 
@@ -327,7 +328,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_DOMAIN_WHOIS + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_DOMAIN_WHOIS + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + Whois + """</h4> 
@@ -336,7 +337,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_SERVER_INFO + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_SERVER_INFO + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + ser_info + """</h4> 
@@ -345,7 +346,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_HEADERS + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_HEADERS + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + headers + """</h4> 
@@ -354,7 +355,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_COOKIES + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_COOKIES + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + cookies + """</h4> 
@@ -363,7 +364,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_HTTP_SECURITY + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_HTTP_SECURITY + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + HTTP_sec + """</h4> 
@@ -372,7 +373,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_DNS_SERVER + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_DNS_SERVER + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + dns_server_info + """</h4> 
@@ -381,7 +382,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_TLS_CIPHER_SUITES + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_TLS_CIPHER_SUITES + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + tls_cipher_suite + """</h4> 
@@ -390,7 +391,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_DNS_RECORDS + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_DNS_RECORDS + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + dns_info + """</h4> 
@@ -399,7 +400,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_TXT_RECORDS + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_TXT_RECORDS + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + txt_info + """</h4> 
@@ -408,7 +409,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_SERVER_STATUS + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_SERVER_STATUS + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + server_status_info + """</h4> 
@@ -417,7 +418,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_EMAIL_CONFIGURATION + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_EMAIL_CONFIGURATION + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + mail_configuration_info + """</h4> 
@@ -426,7 +427,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_REDIRECT_CHAIN + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_REDIRECT_CHAIN + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + redirect_Record + """</h4> 
@@ -435,7 +436,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_OPEN_PORTS + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_OPEN_PORTS + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + ports + """</h4> 
@@ -444,7 +445,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_ARCHIVE_HISTORY + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_ARCHIVE_HISTORY + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + archive_info + """</h4> 
@@ -453,7 +454,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_ASSOCIATED_HOSTS + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_ASSOCIATED_HOSTS + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + associated_info + """</h4> 
@@ -462,7 +463,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_BLOCK_DETECTION + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_BLOCK_DETECTION + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + block_info + """</h4> 
@@ -471,7 +472,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_CARBON_FOOTPRINT + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_CARBON_FOOTPRINT + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + carbon_info + """</h4> 
@@ -480,7 +481,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_CRAWL_RULES + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_CRAWL_RULES + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + crawl_info + """</h4> 
@@ -489,7 +490,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_SITE_FEATURES + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_SITE_FEATURES + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + site_info + """</h4> 
@@ -498,7 +499,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_DNS_SECURITY + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_DNS_SECURITY + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + dns_sec_info + """</h4> 
@@ -507,7 +508,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_TECH_STACK + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_TECH_STACK + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + tech_stack_info + """</h4> 
@@ -516,7 +517,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_FIREWALL_DETECTION + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_FIREWALL_DETECTION + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + firewall_info + """</h4> 
@@ -525,7 +526,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_SOCIAL_TAGS + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_SOCIAL_TAGS + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + social_tag_info + """</h4> 
@@ -534,7 +535,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_THREATS + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_THREATS + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + threats_info + """</h4> 
@@ -543,7 +544,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_GLOBAL_RANK + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_GLOBAL_RANK + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + global_ranking_info + """</h4> 
@@ -552,7 +553,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_SECURITY_TXT + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.ICON_SECURITY_TXT + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + security_txt_info + """</h4> 
@@ -564,7 +565,7 @@ class Summary_Report:
                 """<div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_NMAP_OS_VERSION + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.MODULE_NMAP_OS_VERSION + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + nmap_info[0] + """</h4> 
@@ -573,7 +574,7 @@ class Summary_Report:
                     <div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_NMAP_VERSION_RESULT + """ </h2>
-                            <i class="fas fa-sync-alt refresh"> </i> 
+                            <i class=""" + config.MODULE_NMAP_VERSION_RESULT + """> </i> 
                         </div>
                         <div class="card-content">    
                             <h4>""" + nmap_info[1] + """</h4> 
