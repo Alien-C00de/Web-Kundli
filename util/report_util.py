@@ -11,7 +11,7 @@ class Report_Utility():
         if issues:
             html_template ="""
                     <div class="section cookies">
-                        <h2><i class=""" + icone + """></i> """ + module_name + """&nbsp; Score = """ + str(percentage) + """%</h2>
+                        <h2><i class=""" + icone + """></i>&nbsp;&nbsp;&nbsp;""" + module_name + """&nbsp; Score = """ + str(percentage) + """%</h2>
                         <p><strong>Summary:</strong> The """ + module_name + """ used on the website meet most security standards, but some issues need attention.</p>
                         <div class="issues">
                             <h3>Identified Issues:</h3>

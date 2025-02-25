@@ -153,7 +153,7 @@ class engine():
 
             tb1 = str(Server_location[0])
             tb2 = str(SSL_Cert[0])
-            tb3 = str(Whois)
+            tb3 = str(Whois[0])
             tb4 = str(Server_location[2])
             tb5 = str(Header[0])
             tb6 = str(Header[1])
@@ -196,7 +196,7 @@ class engine():
                             
                             analysis_report.Generate_Analysis_Report(self.url, str(cookie[1]), str(Server_location[1]), str(Server_location[3]), 
                                         str(SSL_Cert[1]), str(archive_info[1]), str(associated_info[1]), str(block_info[1]), str(carbon_info[1]), 
-                                        str(crawl_info[1]), str(dns_sec_info[1]), str(dns_server_info[1]))]
+                                        str(crawl_info[1]), str(dns_sec_info[1]), str(dns_server_info[1]), str(Whois[1]))]
 
             await asyncio.gather(*final_report)
             

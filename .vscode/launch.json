@@ -12,7 +12,7 @@
             "console": "integratedTerminal",
             "args": ["-s", "https://youbroadband.in"]
             // "args": ["-s", "https://heartfulness.org"]
-            // "args": ["-s", "https://eviden-uat.cloudnativetoolkit.com"]
+            // "args": ["-s", "https://eviden.com"]
         }
     ]
 }

@@ -10,7 +10,7 @@ class Analysis_Report:
         self.timestamp = timestamp
 
     async def Generate_Analysis_Report(self, website, cookies, server_location, server_info, SSL_Cert, Archive, Asso_Host, Block_Detect,
-                            CO2_print, crawl_rule, DNS_Security, DNS_Server):
+                            CO2_print, crawl_rule, DNS_Security, DNS_Server, whois):
 
         config = Configuration()
         report_timestamp = self.timestamp.strftime("%A %d-%b-%Y %H:%M:%S")
@@ -50,6 +50,10 @@ class Analysis_Report:
                                 .header h1, .header h2, .header h3 {
                                     margin: 0;
                                 }
+                                .header .icon {
+                                    
+                                    font-size: 40px;
+                                }
                                 .section {
                                     margin-bottom: 20px;
                                     padding: 15px;
@@ -58,6 +62,10 @@ class Analysis_Report:
                                 .cookies { background: #6600cc; }
                                 .carbon { background: #0066cc; }
                                 .dns { background: #cc6600; }
+                                .section .refresh {
+                                    color: #FFA500;
+                                    font-size: 30px;
+                                }
                                 .issues {
                                     background: #e74c3c;
                                     padding: 10px;
@@ -90,14 +98,13 @@ class Analysis_Report:
         body = ("""<body>
                     <div class="container">
                         <div class="header">
-                            <h1><i class="fas fa-globe"></i>&nbsp;""" + config.REPORT_HEADER + """</h1>
+                            <h1><i class="fas fa-globe icon"></i>&nbsp;""" + config.REPORT_HEADER + """</h1>
                             <h2>""" + config.ANALYSIS_REPORT_HEADER + """</h2>
                             <h3><a href=""" + website + """ style="color: #222; text-decoration: none;">""" + website + """</a></h3>
                         </div>
                         <div class="timestamp">
                             <i class="far fa-clock"></i> Report Generated: """  + report_timestamp + """
                         </div>
-                            
                                 """ + cookies + """
                                 """ + server_location + """
                                 """ + server_info + """
@@ -109,7 +116,7 @@ class Analysis_Report:
                                 """ + crawl_rule + """
                                 """ + DNS_Security + """
                                 """ + DNS_Server + """
-                            
+                                """ + whois + """
                             <footer>
                                 """ + config.ANALYSIS_REPORT_FOOTER + """&nbsp;&nbsp;&copy;&nbsp;""" + config.YEAR + """
                             </footer>

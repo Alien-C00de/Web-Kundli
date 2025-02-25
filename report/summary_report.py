@@ -128,6 +128,10 @@ class Summary_Report:
                         margin: 0;
                         font-size: 1em;
                     }
+                    .header .icon {
+                        color: #ffffff;
+                        font-size: 60px;
+                    }
                     .ranking-container {
                         background-color: #333;
                         display: flex;
@@ -139,7 +143,7 @@ class Summary_Report:
                     .ranking-container h1 {
                         margin: 20px;
                         padding: 5px;
-                        color: #00FF00;
+                        color: #ff00fb;
                     }
                     .ranking-container h2 {
                         font-size: 1.5em;
@@ -234,8 +238,7 @@ class Summary_Report:
                         position: absolute;
                         top: 10px;
                         right: 10px;
-                        color: #d4d4d4;
-                        cursor: pointer;
+                        color: #00FF00;
                         font-size: 30px;
                     }
                     .card table {
@@ -259,9 +262,6 @@ class Summary_Report:
                         background: url('https://placehold.co/300x200') no-repeat center center;
                         background-size: cover;
                     }
-                    .icon-color {
-                            color: #F0F8FF;
-                        }
                     .footer{
                         background-color: #333;
                         padding: 5px;
@@ -293,11 +293,11 @@ class Summary_Report:
         body = (
             """<body>
                 <div class="header">
-                    <h1> <i class="fas fa-user-secret" icon-color></i> """ + config.REPORT_HEADER + """ </h1>
+                    <h1> <i class="fas fa-user-secret icon"></i> """ + config.REPORT_HEADER + """ </h1>
                     <h2 align="right"; margin-right: 40px; style="color:#00FF00;"> <a href= """ + website + """  target="_blank"> """ + website + """ </a></h2>
                 </div>
                 <div class="date">
-                    <h3 align="right"; margin-right: 20px; style="color:blue;">""" + report_timestamp + """</h3>
+                    <h3 align="right"; margin-right: 20px; style="color:blue;"><i class="far fa-clock"></i> Report Generated: """ + report_timestamp + """</h3>
                 </div>
                 <div class="ranking-container">
                     <h1>Website Health <i class="fas fa-heartbeat"></i></h1>
