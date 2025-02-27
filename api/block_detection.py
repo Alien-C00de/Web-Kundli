@@ -1,5 +1,6 @@
 import socket
 import ipaddress
+import dns.asyncresolver
 import dns.resolver
 import asyncio
 from util.config_uti import Configuration
@@ -62,70 +63,47 @@ class Block_Detection:
     ]
 
     async def Get_Block_Detection(self):
-        config = Configuration()
-        self.Error_Title = config.BLOCK_DETECTION
+        """Optimized function to detect domain blocking."""
         output = []
         try:
-            # results = []
             results = await self.__check_domain_against_dns_servers()
-            # return {'blocklists': results}
-            output = await self.__html_table(results)
-            # print("block_detection.py: output: ")
+            output = await self.__html_table(results)  # Assuming __html_table is async
             return output
         except Exception as ex:
-            error_msg = str(ex.args[0])
-            msg = "[-] " + self.Error_Title + " => Get_Block_Detection : " + error_msg
+            msg = f"[-] {self.Error_Title} => Get_Block_Detection : {str(ex)}"
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return output
 
     async def __check_domain_against_dns_servers(self):
-        tasks = []
-        for server in self.DNS_SERVERS:
-            tasks.append(self.__check_domain_against_dns_server(server))
-        
-        results = await asyncio.gather(*tasks)
-        return results
+        """Runs DNS checks concurrently for all servers."""
+        tasks = [self.__check_domain_against_dns_server(server) for server in self.DNS_SERVERS]
+        return await asyncio.gather(*tasks)
 
     async def __check_domain_against_dns_server(self, server):
+        """Checks if a domain is blocked on a given DNS server."""
         is_blocked = await self.__is_domain_blocked(server['ip'])
-        return {
-            'server': server['name'],
-            'server_ip': server['ip'],
-            'is_blocked': is_blocked
-        }
-    
-    async def __is_domain_blocked(self, server_ip):
-        config = Configuration()
-        self.Error_Title = config.BLOCK_DETECTION
+        return {'server': server['name'], 'server_ip': server['ip'], 'is_blocked': is_blocked}
 
-        resolver = dns.resolver.Resolver()
+    async def __is_domain_blocked(self, server_ip):
+        """Optimized DNS resolver using async queries."""
+        resolver = dns.asyncresolver.Resolver()
         resolver.nameservers = [server_ip]
-        
+
+        # Run A and AAAA queries in parallel
+        tasks = [self.__resolve_dns(resolver, 'A'), self.__resolve_dns(resolver, 'AAAA')]
+        results = await asyncio.gather(*tasks)
+
+        return any(results)  # If any result is True, domain is blocked
+
+    async def __resolve_dns(self, resolver, record_type):
+        """Helper function to resolve DNS asynchronously."""
         try:
-            answers = resolver.resolve(self.domain, 'A')
-            for rdata in answers:
-                if rdata.to_text() in self.KNOWN_BLOCK_IPS:
-                    return True
-        except dns.resolver.NoAnswer:
-            pass
+            answers = await resolver.resolve(self.domain, record_type)
+            return any(rdata.to_text() in self.KNOWN_BLOCK_IPS for rdata in answers)
+        except (dns.resolver.NoAnswer, dns.resolver.Timeout):
+            return False
         except dns.resolver.NXDOMAIN:
-            return True
-        except dns.resolver.Timeout:
-            pass
-        
-        try:
-            answers = resolver.resolve(self.domain, 'AAAA')
-            for rdata in answers:
-                if rdata.to_text() in self.KNOWN_BLOCK_IPS:
-                    return True
-        except dns.resolver.NoAnswer:
-            pass
-        except dns.resolver.NXDOMAIN:
-            return True
-        except dns.resolver.Timeout:
-            pass
-        
-        return False
+            return True  # Domain blocked
 
     async def __html_table(self, data):
         rep_data = []
