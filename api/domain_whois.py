@@ -123,8 +123,8 @@ class Domain_Whois():
         days_since_update = (today.replace(tzinfo=None) - updated_dt.replace(tzinfo=None)).days
         if days_since_update > 365:
             score -= 15
-            issues.append(Issue_Config.ISSUE_WHOIS_UPDATE_FREQUNCY)
-            suggestions.append(Issue_Config.SUGGESTION_WHOIS_UPDATE_FREQUNCY)
+            issues.append(Issue_Config.ISSUE_WHOIS_UPDATE_FREQUENCY)
+            suggestions.append(Issue_Config.SUGGESTION_WHOIS_UPDATE_FREQUENCY)
         
         if registrar and "Error" not in registrar:
             registrar_result = await self.__check_registrar_reputation(registrar)

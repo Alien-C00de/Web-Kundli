@@ -2,6 +2,7 @@ import aiohttp
 from colorama import Fore, Style
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
+from util.issue_config import Issue_Config
 
 class Global_Ranking:
     Error_Title = None
@@ -12,8 +13,8 @@ class Global_Ranking:
 
     async def Get_Global_Rank(self):
         config = Configuration()
-        self.Error_Title = config.THREATS
-        output = ""
+        self.Error_Title = config.GLOBAL_RANKING
+        output = []
 
         try:
             # print("global_ranking.py: start ")
@@ -35,14 +36,15 @@ class Global_Ranking:
             return output
 
     async def __html_table(self, ranks):
-
+        rep_data = []
+        html = ""
         if ranks:
             # Find the latest date in the ranks data
             latest_rank = max(ranks, key=lambda x: x["date"])
             latest_date = latest_rank["date"]
             latest_rank_value = latest_rank["rank"]
 
-            percentage = await self.__rating(latest_date, latest_rank_value)
+            percentage, html = await self.__global_rank_score(latest_rank_value)
             table = f"""<table>
                         <tr>
                             <td colspan="2">
@@ -63,13 +65,36 @@ class Global_Ranking:
         else:
             report_util = Report_Utility()
             table = await report_util.Empty_Table()
-        return table
+        rep_data.append(table)
+        rep_data.append(html)
+        return rep_data
 
-    async def __rating(self, date, value):
+    async def __global_rank_score(self, rank):
+        max_score = 2
+        score = 0
+        issues = []
+        suggestions = []
 
-        if  value:
-            percentage = 100
+        # Thresholds for rank-based scoring
+        high_risk_threshold = 50000
+        medium_risk_threshold = 100000
+
+        # Check rank and deduct points based on thresholds
+        if rank <= high_risk_threshold:
+            issues.append(Issue_Config.ISSUE_GLOBAL_RANK_LOW)
+            suggestions.append(Issue_Config.SUGGESTION_GLOBAL_RANK_LOW)
         else:
-            percentage = 0
+            score += 1
 
-        return percentage
+        if rank <= medium_risk_threshold:
+            issues.append(Issue_Config.ISSUE_GLOBAL_RANK_MODERATE)
+            suggestions.append(Issue_Config.SUGGESTION_GLOBAL_RANK_MODERATE)
+        else:
+            score += 1
+
+        # Calculate the vulnerability score percentage
+        percentage_score = (score / max_score) * 100
+        report_util = Report_Utility()
+        html_tags = await report_util.analysis_table(Configuration.ICON_GLOBAL_RANK, Configuration.MODULE_GLOBAL_RANK, issues, suggestions, int(percentage_score))
+
+        return int(percentage_score), html_tags

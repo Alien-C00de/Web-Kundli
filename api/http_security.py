@@ -1,5 +1,6 @@
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
+from util.issue_config import Issue_Config
 from colorama import Fore, Style
 
 
@@ -19,8 +20,9 @@ class HTTP_Security:
             # print("http_security.py: start ")
             headers = self.response.headers
 
-            output.append(await self.__html_http_Sec_table(headers))
-            output.append(await self.__html_headers_table(headers))
+            http_sec = await self.__html_http_Sec_table(headers)
+            header =  await self.__html_headers_table(headers)
+            output = http_sec + header
             # print("http_security.py: output: ")
             return output
 
@@ -31,7 +33,8 @@ class HTTP_Security:
             return output
 
     async def __html_headers_table(self, data):
-
+        rep_data = []
+        html = ""
         if not data:
             report_util = Report_Utility()
             table = await report_util.Empty_Table()
@@ -45,9 +48,7 @@ class HTTP_Security:
             x_content_type_options = data.get("X-Content-Type-Options", None)
             referrer_policy = data.get("Referrer-Policy", None)
 
-
-            percentage = await self.__rating_header(x_frame_option, x_content_type_options)
-
+            percentage, html = await self.__header_score(server, content_type, transfer_encoding, connection, x_frame_option, x_content_type_options, referrer_policy)
             table = (
                 f"""<table>
                         <tr>
@@ -91,100 +92,164 @@ class HTTP_Security:
                         </tr>
                     </table>"""
             )
-        return table
+        rep_data.append(table)
+        rep_data.append(html)
+        return rep_data
 
     async def __html_http_Sec_table(self, data):
-
-        cont_sec = "No" if data.get("Content-Security-Policy", None) is None else "Yes"
-        trans_sec = (
-            "No" if data.get("Strict-Transport-Security", None) is None else "Yes"
-        )
-        cont_type = "No" if data.get("X-Content-Type-Options", None) is None else "Yes"
-        x_frame = "No" if data.get("X-Frame-Options", None) is None else "Yes"
-        x_xss = "No" if data.get("X-XSS-Protection", None) is None else "Yes"
-        # "No" if data('Connection', None) is None else "Yes"
-
-        percentage = await self.__rating(cont_sec, trans_sec, cont_type, x_frame, x_xss)
-
-        table = (
-            f"""<table>
-                    <tr>
-                        <td colspan="2">
-                            <div class="progress-bar-container">
-                                <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Content Security Policy</td>
-                        <td>""" + str(cont_sec) + """</td>
-                    </tr>
-                    <tr>
-                        <td>Strict Transport Policy</td>
-                        <td>""" + str(trans_sec) + """</td>
-                    </tr>
-                    <tr>
-                        <td>X-Content-Type-Options</td>
-                        <td>""" + str(cont_type) + """</td>
-                    </tr>
-                    <tr>
-                        <td>X-Frame-Options</td>
-                        <td>""" + str(x_frame) + """</td>
-                    </tr>
-                    <tr>
-                        <td>X-XSS-Protection</td>
-                        <td>""" + str(x_xss) + """</td>
-                    </tr>
-            </table>"""
-        )
-        return table
-
-    async def __rating(self, cont_sec, trans_sec, cont_type, x_frame, x_xss):
-
-        condition1 = cont_sec != None
-        condition2 = trans_sec != None
-        condition3 = cont_type != None
-        condition4 = x_frame != None
-        condition5 = x_xss != None
-
-        # Count the number of satisfied conditions
-        satisfied_conditions = sum([condition1, condition2, condition3, condition4, condition5])
-        
-        # Determine the percentage based on the number of satisfied conditions
-        if satisfied_conditions == 5:
-            percentage = 100
-        elif satisfied_conditions == 4:
-            percentage = 80
-        elif satisfied_conditions == 3:
-            percentage = 60
-        elif satisfied_conditions == 2:
-            percentage = 40
-        elif satisfied_conditions == 1:
-            percentage = 20
+        rep_data = []
+        html = ""
+        if not data:
+            report_util = Report_Utility()
+            table = await report_util.Empty_Table()
         else:
-            percentage = 0  # In case no conditions are satisfied
-    
-        return percentage
-    
-    async def __rating_header(self, x_frame_option, x_content_type_options):
+            cont_sec = "No" if data.get("Content-Security-Policy", None) is None else "Yes"
+            trans_sec = ("No" if data.get("Strict-Transport-Security", None) is None else "Yes")
+            cont_type = "No" if data.get("X-Content-Type-Options", None) is None else "Yes"
+            x_frame = "No" if data.get("X-Frame-Options", None) is None else "Yes"
+            x_xss = "No" if data.get("X-XSS-Protection", None) is None else "Yes"
+            # "No" if data('Connection', None) is None else "Yes"
 
-        condition1 = False
-        condition2 = False
+            percentage, html = await self.__http_security_score(cont_sec, trans_sec, cont_type, x_frame, x_xss)
 
-        if x_frame_option == "DENY" or x_frame_option == "SAMEORIGIN":
-            condition1 = True
-        if x_content_type_options == "nosniff":
-            condition2 = True
+            table = (
+                f"""<table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Content Security Policy</td>
+                            <td> {'✅ Yes' if str(cont_sec) == 'Yes'  else '❌ No'}</td>
+                        </tr>
+                        <tr>
+                            <td>Strict Transport Policy</td>
+                            <td>{'✅ Yes' if str(trans_sec) == 'Yes'  else '❌ No'}</td>
+                        </tr>
+                        <tr>
+                            <td>X-Content-Type-Options</td>
+                            <td>{'✅ Yes' if str(cont_type) == 'Yes'  else '❌ No'}</td>
+                        </tr>
+                        <tr>
+                            <td>X-Frame-Options</td>
+                            <td>{'✅ Yes' if str(x_frame) == 'Yes'  else '❌ No'}</td>
+                        </tr>
+                        <tr>
+                            <td>X-XSS-Protection</td>
+                            <td>{'✅ Yes' if str(x_xss) == 'Yes'  else '❌ No'}</td>
+                        </tr>
+                </table>"""
+            )
+        rep_data.append(table)
+        rep_data.append(html)
+        return rep_data
 
-        # Count the number of satisfied conditions
-        satisfied_conditions = sum([condition1, condition2])
-        
-        # Determine the percentage based on the number of satisfied conditions
-        if satisfied_conditions == 2:
-            percentage = 100
-        elif satisfied_conditions == 1:
-            percentage = 50
+    async def __header_score(self, server, content_type, trans_encoding, connection, x_frame, x_content, ref_policy):
+        score = 0
+        max_score = 7
+        issues = []
+        suggestions = []
+
+        if server is not None:
+            issues.append(Issue_Config.ISSUE_HEADERS_SERVER)
+            suggestions.append(Issue_Config.SUGGESTION_HEADERS_SERVER)
         else:
-            percentage = 0  # In case no conditions are satisfied
-    
-        return percentage
+            score += 1
+
+        # Check Content-Type Header
+        if 'charset' not in content_type:
+            issues.append(Issue_Config.ISSUE_HEADERS_CHARSET)
+            suggestions.append(Issue_Config.SUGGESTION_HEADERS_CHARSET)
+        else:
+            score += 1
+
+        # Check Transfer-Encoding Header
+        if trans_encoding is not None:
+            issues.append(Issue_Config.ISSUE_HEADERS_TRAN_ENCODE)
+            suggestions.append(Issue_Config.SUGGESTION_HEADERS_TRAN_ENCODE)
+        else:
+            score += 1
+
+        # Check Connection Header
+        if connection == 'Keep-Alive':
+            issues.append(Issue_Config.ISSUE_HEADERS_CONNECTION)
+            suggestions.append(Issue_Config.SUGGESTION_HEADERS_CONNECTION)
+        else:
+            score += 1
+
+        # Check X-Frame-Options Header
+        if x_frame is None:
+            issues.append(Issue_Config.ISSUE_HEADERS_X_FRAME)
+            suggestions.append(Issue_Config.SUGGESTION_HEADERS_X_FRAME)
+        else:
+            score += 1
+
+        # Check X-Content-Type-Options Header
+        if x_content != 'nosniff':
+            issues.append(Issue_Config.ISSUE_HEADERS_X_CONTENT)
+            suggestions.append(Issue_Config.SUGGESTION_HEADERS_X_CONTENT)
+        else:
+            score += 1
+
+        # Check Referrer-Policy Header
+        if ref_policy is None:
+            issues.append(Issue_Config.ISSUE_HEADERS_REF_POLICY)
+            suggestions.append(Issue_Config.SUGGESTION_HEADERS_REF_POLICY)
+        else:
+            score += 1
+
+        percentage_score = (score / max_score) * 100
+        report_util = Report_Utility()
+        html_tags = await report_util.analysis_table(Configuration.ICON_HEADERS, Configuration.MODULE_HEADERS, issues, suggestions, int(percentage_score))
+
+        return int(percentage_score), html_tags
+
+    async def __http_security_score(self, cont_sec, trans_sec, cont_type, x_frame, x_xss):
+        score = 0
+        max_score = 5
+        issues = []
+        suggestions = []
+
+        # Check Content Security Policy (CSP)
+        if cont_sec != 'Yes':
+            issues.append(Issue_Config.ISSUE_HTTP_SEC_CONTENT_SECURITY)
+            suggestions.append(Issue_Config.SUGGESTION_HTTP_SEC_CONTENT_SECURITY)
+        else:
+            score += 1
+
+        # Check Strict Transport Security (HSTS)
+        if trans_sec  != 'Yes':
+            issues.append(Issue_Config.ISSUE_HTTP_SEC_STRICT_TRANS)
+            suggestions.append(Issue_Config.SUGGESTION_HTTP_SEC_STRICT_TRANS)
+        else:
+            score += 1
+
+        # Check X-Content-Type-Options
+        if cont_type != 'Yes':
+            issues.append(Issue_Config.ISSUE_HTTP_SEC_X_TYPE)
+            suggestions.append(Issue_Config.SUGGESTION_HTTP_SEC_X_TYPE)
+        else:
+            score += 1
+
+        # Check X-Frame-Options
+        if x_frame != 'Yes':
+            issues.append(Issue_Config.ISSUE_HTTP_SEC_X_OPTIONS)
+            suggestions.append(Issue_Config.SUGGESTION_HTTP_SEC_X_OPTIONS)
+        else:
+            score += 1
+
+        # Check X-XSS-Protection
+        if x_xss != 'Yes':
+            issues.append(Issue_Config.ISSUE_HTTP_SEC_X_XSS)
+            suggestions.append(Issue_Config.SUGGESTION_HTTP_SEC_X_XSS)
+        else:
+            score += 1
+
+        percentage_score = (score / max_score) * 100
+        report_util = Report_Utility()
+        html_tags = await report_util.analysis_table(Configuration.ICON_HTTP_SECURITY, Configuration.MODULE_HTTP_SECURITY, issues, suggestions, int(percentage_score))
+
+        return int(percentage_score), html_tags

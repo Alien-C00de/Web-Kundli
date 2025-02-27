@@ -103,26 +103,34 @@ class DNS_Security_Ext:
                 ('Recursion Desired (RD)', True),
                 ('Recursion Available (RA)', True),
                 ('TrunCation (TC)', False),
-                ('Authentic Data (AD)', lambda record: ' ✅' if record['flags'] else ' ❌'),
+                ('Authentic Data (AD)', lambda record: '✅' if record['flags'] else '❌'),
                 ('Checking Disabled (CD)', False)
             ]
 
-            rows = [
-                f"""
+            rows = []
+
+            for dns_type, record in data.items():
+                rows.append(f"""
                 <tr>
-                    <td><h3>{dns_type}</h3></td> <td></td>
+                    <td><h3>{dns_type}</h3></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>{dns_type} - Present?</td>
                     <td>{'✅ Yes' if record['isFound'] else '❌ No'}</td>
                 </tr>
-                {''.join([f"""
-                <tr>
-                <td style="padding-left: 20px;">{description}</td>
-                <td>{status(record) if callable(status) else ('✅' if status else '❌')}</td>
-                </tr>""" for description, status in dns_flags])}
-                """ for dns_type, record in data.items()
-            ]
+                """)
+
+                for description, status in dns_flags:
+                    status_output = status(record) if callable(status) else ('✅' if status else '❌')
+                    rows.append(f"""
+                    <tr>
+                        <td style="padding-left: 20px;">{description}</td>
+                        <td>{status_output}</td>
+                    </tr>
+                    """)
+
+            rows = ''.join(rows)
 
             table = f"""
             <table>
@@ -133,7 +141,7 @@ class DNS_Security_Ext:
                         </div>
                     </td>
                 </tr>
-                {''.join(rows)}
+                {rows}
             </table>"""
 
         rep_data.append(table)

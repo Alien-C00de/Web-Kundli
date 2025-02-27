@@ -1,12 +1,13 @@
 import requests
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
+from util.issue_config import Issue_Config
 from colorama import Fore, Style
 
 
 class Firewall_Detection():
     Error_Title = None
-    
+
     def __init__(self, url, domain):
         self.url = url
         self.domain = domain
@@ -14,7 +15,7 @@ class Firewall_Detection():
     async def Get_Firewall_Detection(self):
         config = Configuration()
         self.Error_Title = config.FIREWALL
-        output = ""
+        output = []
         waf_identifiers = {'cloudflare': 'Cloudflare', 'aws lambda': 'AWS WAF', 'akamaighost': 'Akamai',    
                            'sucuri': 'Sucuri', 'barracudawaf': 'Barracuda WAF', 'f5 big-ip': 'F5 BIG-IP',
                             'big-ip': 'F5 BIG-IP', 'fortiweb': 'Fortinet FortiWeb WAF', 'imperva': 'Imperva SecureSphere WAF',
@@ -26,7 +27,7 @@ class Firewall_Detection():
             # print("firewall.py: start ")
             response = requests.get(self.url, timeout=10)
             headers = response.headers
-            
+
             header_checks = {
                 'server': lambda val: any(keyword in val.lower() for keyword in waf_identifiers.keys()),
                 'x-powered-by': lambda val: 'aws lambda' in val.lower(),
@@ -42,7 +43,7 @@ class Firewall_Detection():
                 'x-yd-info': lambda _: True,
                 'x-datapower-transactionid': lambda _: True,
             }
-            
+
             for header, check in header_checks.items():
                 if header in headers and check(headers[header]):
                     for key, waf in waf_identifiers.items():
@@ -53,7 +54,7 @@ class Firewall_Detection():
                     decode = {'Firewall': True, 'WAF': waf_identifiers.get(header.lower(), 'Unknown WAF')}
                     output = await self.__html_table(decode)
                     return output
-            
+
             decode = {'hasWaf': False, 'wafName': '*The domain may be protected with a proprietary or custom WAF which we were unable to identify automatically'}
             output = await self.__html_table(decode)
             # print("firewall.py: output: ")
@@ -65,12 +66,13 @@ class Firewall_Detection():
             return output
 
     async def __html_table(self, data):
-
-        percentage = 100
+        rep_data = []
+        html = ""
         if not data:
             report_util = Report_Utility()
             table = await report_util.Empty_Table()
         else:
+            percentage, html = await self.__firewall_score(data)
             rows = [
                 f"""
                 <tr>
@@ -92,4 +94,40 @@ class Firewall_Detection():
                     {''.join(rows)}
             </table>"""
 
-        return table
+        rep_data.append(table)
+        rep_data.append(html)
+        return rep_data
+
+    async def __firewall_score(self, data):
+        score = 0
+        max_score = 2  
+        issues = []
+        suggestions = []
+        html_tags = ""
+
+        # Extracting the values, considering case insensitivity
+        has_waf_key = next((key for key in data if key.lower() == 'haswaf'), None)
+        waf_name_key = next((key for key in data if key.lower() == 'wafname'), None)
+
+        hasWaf = data.get(has_waf_key, 'False')
+        wafName = data.get(waf_name_key, '*The domain may be protected with a proprietary or custom WAF which we were unable to identify automatically*')
+
+        # Session Name - Should not be empty or generic
+        if hasWaf:
+            score += 1
+        else:
+            issues.append(Issue_Config.ISSUE_FIREWALL_HAS_WAF)
+            suggestions.append(Issue_Config.SUGGESTION_FIREWALL_HAS_WAF)
+
+        # Session ID - Should not be simple (For simplicity, we will use regex)
+        if wafName.lower() == "*the domain may be protected with a proprietary or custom waf which we were unable to identify automatically":
+            issues.append(Issue_Config.ISSUE_FIREWALL_WAF_NAME)
+            suggestions.append(Issue_Config.SUGGESTION_FIREWALL_WAF_NAME)
+        else:
+            score += 1
+
+        percentage_score = (score / max_score) * 100
+        report_util = Report_Utility()
+        html_tags = await report_util.analysis_table(Configuration.ICON_FIREWALL_DETECTION, Configuration.MODULE_FIREWALL_DETECTION, issues, suggestions, int(percentage_score))
+
+        return int(percentage_score), html_tags

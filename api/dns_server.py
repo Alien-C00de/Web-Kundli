@@ -53,25 +53,25 @@ class DNS_Server():
         else:
             percentage, html = await self.__DNS_Server_score(DoH)
             table = (
-                """<table>
+                f"""<table>
                         <tr>
                             <td colspan="2">
                                 <div class="progress-bar-container">
-                                    <div class="progress" style="width: """+ str(percentage) +"""%;">"""+ str(percentage) +"""%</div>
+                                    <div class="progress" style="width: {str(percentage)}%;">{str(percentage) }%</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>IP Address</td>
-                            <td>""" + str(self.ip_address) + """</td>
+                            <td>{str(self.ip_address)}</td>
                         </tr>
                         <tr>
                             <td>Hostname</td>
-                            <td>""" + str(self.domain) + """</td>
+                            <td>{str(self.domain)}</td>
                         </tr>
                         <tr>
                             <td>DoH Support</td>
-                            <td>""" + str(DoH) + """</td>
+                            <td>{'✅ Yes' if str(DoH) == 'Yes'  else '❌ No'}</td>
                         </tr>
                     </table>"""
             )

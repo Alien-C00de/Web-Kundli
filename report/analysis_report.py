@@ -1,6 +1,4 @@
 import os
-import time
-from bs4 import BeautifulSoup
 from colorama import Back, Fore, Style
 from util.config_uti import Configuration
 
@@ -10,7 +8,8 @@ class Analysis_Report:
         self.timestamp = timestamp
 
     async def Generate_Analysis_Report(self, website, cookies, server_location, server_info, SSL_Cert, Archive, Asso_Host, Block_Detect,
-                            CO2_print, crawl_rule, DNS_Security, DNS_Server, whois):
+                            CO2_print, crawl_rule, DNS_Security, DNS_Server, whois, http_security, web_header, firewall, global_rank,
+                            open_ports):
 
         config = Configuration()
         report_timestamp = self.timestamp.strftime("%A %d-%b-%Y %H:%M:%S")
@@ -117,6 +116,12 @@ class Analysis_Report:
                                 """ + DNS_Security + """
                                 """ + DNS_Server + """
                                 """ + whois + """
+                                """ + http_security + """
+                                """ + web_header + """
+                                """ + firewall + """
+                                """ + firewall + """
+                                """ + global_rank + """
+                                """ + open_ports + """
                             <footer>
                                 """ + config.ANALYSIS_REPORT_FOOTER + """&nbsp;&nbsp;&copy;&nbsp;""" + config.YEAR + """
                             </footer>
