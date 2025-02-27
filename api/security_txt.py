@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from colorama import Fore, Style
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
+from util.issue_config import Issue_Config
 
 class Security_TXT:
     Error_Title = None
@@ -20,7 +21,10 @@ class Security_TXT:
     async def Get_Security_TXT(self):
         config = Configuration()
         self.Error_Title = config.SECURITY_TXT
-        output = ""
+        output = []
+        present = ""
+        location = ""
+        PGP = ""
 
         try:
             # print("security_TXT.py: start ")
@@ -41,8 +45,12 @@ class Security_TXT:
                                     "isPgpSigned": await self.__is_pgp_signed(result),
                                     "fields": await self.__parse_result(result),
                                 }
+            if self.dict:
+                present = self.dict["isPresent"]
+                location = self.dict["foundIn"]
+                PGP = self.dict["isPgpSigned"]
 
-            output = await self.__html_table(self.dict)
+            output = await self.__html_table(present, location, PGP)
             # print("security_TXT.py: output: ")
             return output
         except Exception as ex:
@@ -70,46 +78,67 @@ class Security_TXT:
                     output[key] = value
         return output
 
-    async def __html_table(self, result):
-        percentage = 0
-        if result:
-            if result["isPresent"]:
-                file_location = result["foundIn"]
+    async def __html_table(self, present, location, PGP):
+        rep_data = []
+        html = ""
 
-                percentage = 100
+        percentage, html = await self.__security_TXT_score(present, location, PGP)
 
-                # Build the HTML table
-                table = (f"""<table>
-                            <tr>
-                                <td colspan="2">
-                                    <div class="progress-bar-container">
-                                        <div class="progress" style="width: {str(percentage)}%;">{str(percentage)}%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td> Present </td>
-                                <td> {'✅ Yes'} </td>
-                            </tr>
-                            <tr>
-                                <td> File Location </td>
-                                <td> {file_location} </td>
-                            </tr>
-                            <tr>
-                                <td> PGP Signed </td>
-                                <td> {'✅ Yes' if result['isPgpSigned'] else '❌ No'} </td>
-                            </tr> </table>""")
-        else:
-            report_util = Report_Utility()
-            table = await report_util.Empty_Table()
+        # Build the HTML table
+        table = (f"""<table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: {str(percentage)}%;">{str(percentage)}%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Present </td>
+                        <td> {'✅ Yes' if present else '❌ No'} </td>
+                    </tr>
+                    <tr>
+                        <td> File Location </td>
+                        <td> {location} </td>
+                    </tr>
+                    <tr>
+                        <td> PGP Signed </td>
+                        <td> {'✅ Yes' if PGP else '❌ No'} </td>
+                    </tr> </table>""")
         
-        return table
+        rep_data.append(table)
+        rep_data.append(html)
+        return rep_data
 
-    async def __rating(self, phishing, malware):
+    async def __security_TXT_score(self, present, file_location, pgp_signed):
+        score = 0
+        max_score = 3
+        issues = []
+        suggestions = []
 
-        if phishing > 0 or malware > 0:
-            percentage = 0
+        # Check if security.txt is present
+        if present:
+            score += 1  # No risk if present
         else:
-            percentage = 100
+            issues.append(Issue_Config.ISSUE_SECURITY_TXT_MISSING)
+            suggestions.append(Issue_Config.SUGGESTION_SECURITY_TXT_MISSING)
 
-        return percentage
+        # Validate file location
+        if file_location == "/.well-known/security.txt":
+            score += 1  # No risk
+        else:
+            issues.append(f"{Issue_Config.ISSUE_SECURITY_TXT_LOCATION} {file_location}")
+            suggestions.append(Issue_Config.SUGGESTION_SECURITY_TXT_LOCATION)
+
+        # Check if PGP Signed
+        if pgp_signed:
+            score += 1  # No risk if signed
+        else:
+            issues.append(Issue_Config.ISSUE_SECURITY_TXT_PGP)
+            suggestions.append(Issue_Config.SUGGESTION_SECURITY_TXT_PGP)
+        
+        percentage_score = (score / max_score) * 100
+        report_util = Report_Utility()
+        html_tags = await report_util.analysis_table(Configuration.ICON_SECURITY_TXT, Configuration.MODULE_SECURITY_TXT, issues, suggestions, int(percentage_score))
+
+        return int(percentage_score), html_tags

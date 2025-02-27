@@ -9,7 +9,7 @@ class Analysis_Report:
 
     async def Generate_Analysis_Report(self, website, cookies, server_location, server_info, SSL_Cert, Archive, Asso_Host, Block_Detect,
                             CO2_print, crawl_rule, DNS_Security, DNS_Server, whois, http_security, web_header, firewall, global_rank,
-                            open_ports, redirect_chain):
+                            open_ports, redirect_chain, security_TXT):
 
         config = Configuration()
         report_timestamp = self.timestamp.strftime("%A %d-%b-%Y %H:%M:%S")
@@ -123,6 +123,7 @@ class Analysis_Report:
                                 """ + global_rank + """
                                 """ + open_ports + """
                                 """ + redirect_chain + """
+                                """ + security_TXT + """
                             <footer>
                                 """ + config.ANALYSIS_REPORT_FOOTER + """&nbsp;&nbsp;&copy;&nbsp;""" + config.YEAR + """
                             </footer>

@@ -178,7 +178,7 @@ class engine():
             tb25 = str(social_tags_info)
             tb26 = str(threats_info)
             tb27 = str(global_ranking_info[0])
-            tb28 = str(security_txt_info)
+            tb28 = str(security_txt_info[0])
             if self.isNmap:
                 tb29 = nmap_info
             else:
@@ -197,7 +197,8 @@ class engine():
                             analysis_report.Generate_Analysis_Report(self.url, str(cookie[1]), str(Server_location[1]), str(Server_location[3]), 
                                         str(SSL_Cert[1]), str(archive_info[1]), str(associated_info[1]), str(block_info[1]), str(carbon_info[1]), 
                                         str(crawl_info[1]), str(dns_sec_info[1]), str(dns_server_info[1]), str(Whois[1]), str(Header[1]),
-                                        str(Header[3]), str(firewall_info[1]), str(global_ranking_info[1]), str(port_info[1]), str(redirect_info[1]))]
+                                        str(Header[3]), str(firewall_info[1]), str(global_ranking_info[1]), str(port_info[1]), str(redirect_info[1]),
+                                        str(security_txt_info[1]))]
 
             await asyncio.gather(*final_report)
             

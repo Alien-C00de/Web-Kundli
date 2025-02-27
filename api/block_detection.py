@@ -64,6 +64,8 @@ class Block_Detection:
 
     async def Get_Block_Detection(self):
         """Optimized function to detect domain blocking."""
+        config = Configuration()
+        self.Error_Title = config.BLOCK_DETECTION
         output = []
         try:
             results = await self.__check_domain_against_dns_servers()
@@ -156,7 +158,6 @@ class Block_Detection:
         else:
             percentage = 100  # Ensure percentage is 100 if no issues are found
 
-        # html_tags = await self.__analysis_table(issues, suggestions, int(percentage_score))
         report_util = Report_Utility()
         html_tags = await report_util.analysis_table(Configuration.ICON_BLOCK_DETECTION, Configuration.MODULE_BLOCK_DETECTION, issues, suggestions, int(percentage))
 
