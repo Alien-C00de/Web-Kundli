@@ -164,7 +164,7 @@ class engine():
             tb11 = str(txt_info)
             tb12 = str(server_status_info)
             tb13 = str(mail_config_info)
-            tb14 = str(redirect_info)
+            tb14 = str(redirect_info[0])
             tb15 = str(port_info[0])
             tb16 = str(archive_info[0])
             tb17 = str(associated_info[0])
@@ -197,7 +197,7 @@ class engine():
                             analysis_report.Generate_Analysis_Report(self.url, str(cookie[1]), str(Server_location[1]), str(Server_location[3]), 
                                         str(SSL_Cert[1]), str(archive_info[1]), str(associated_info[1]), str(block_info[1]), str(carbon_info[1]), 
                                         str(crawl_info[1]), str(dns_sec_info[1]), str(dns_server_info[1]), str(Whois[1]), str(Header[1]),
-                                        str(Header[3]), str(firewall_info[1]), str(global_ranking_info[1]), str(port_info[1]))]
+                                        str(Header[3]), str(firewall_info[1]), str(global_ranking_info[1]), str(port_info[1]), str(redirect_info[1]))]
 
             await asyncio.gather(*final_report)
             
