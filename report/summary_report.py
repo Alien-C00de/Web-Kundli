@@ -263,7 +263,7 @@ class Summary_Report:
                         background-size: cover;
                     }
                     .footer{
-                        background-color: #333;
+                        background-color: #efdd94;
                         padding: 5px;
                         display: flex;
                         align-items: center;
@@ -276,7 +276,7 @@ class Summary_Report:
                         justify-content: 
                         flex-end; 
                         align-items: center;
-                        color: #00FF00;
+                        color: black;
                     }
                     a {
                         color: #00FF00;
