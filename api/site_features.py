@@ -1,7 +1,11 @@
+import aiohttp
 from colorama import Fore, Style
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
+from util.issue_config import Issue_Config
 import re
+import datetime
+
 
 class Site_Features:
     Error_Title = None
@@ -15,23 +19,15 @@ class Site_Features:
         config = Configuration()
         self.Error_Title = config.SITE_FEATURES
         output = ""
-        site_val = []
-        features = {
-                    'ssl': 'ssl',
-                    'javascript': 'javascript-library1|javascript',
-                    'framework': 'framework1',
-                    'us-hosting': 'us-hosting3',
-                    'cloud-hosting': 'cloud-hosting2',
-                    'cloud-paas': 'cloud-paas3',
-                    'server-location': 'server-location1',
-                    'application-performance': 'application-performance1',
-                    'audience-measurement': 'audience-measurement2',
-                    'dmarc': 'dmarc1' 
-                    }
+
         try:
-            # print ("site_feature.py: start")
-            output = await self.__html_table(features)
-            # print("site_feature.py: output: ")
+            api_url = config.BUILTWITH_ENDPOINT_URL.format(apiKey = config.BUILTWITH_API, url = self.domain)
+            async with aiohttp.ClientSession() as session:
+                async with session.get(api_url) as response:
+                    if 200 <= response.status <= 299:
+                        result = await response.json()  # Convert response to JSON
+                    
+            output = await self.__html_table(result)
             return output
 
         except Exception as ex:
@@ -40,50 +36,67 @@ class Site_Features:
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
             return output
 
-    async def __check_feature(self, url, feature):
-        try:
-            # response = requests.get(url)
-            if self.response.status_code == 200:
-                html_content = self.response.text
-                if re.search(feature + r'[^a-zA-Z0-9_-]', html_content, re.IGNORECASE):
-                    return 'Live'
-                else:
-                    return 'Dead'
-            else:
-                return 'Error: Unable to fetch URL'
-        except Exception as ex:
-            error_msg = ex.args[0]
-            msg = "[-] " + self.Error_Title + " => __check_feature : " + error_msg
-            print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
 
     async def __html_table(self, data):
         if not data:
             report_util = Report_Utility()
-            table = await report_util.Empty_Table()
-        else:
-            percentage = 100
-            # Step 1: Get results asynchronously
-            results = [await self.__check_feature(self.url, value) for key, value in data.items()]
-            # Step 2: Construct the HTML table
-            rows = [
-                f"""
-                <tr>
-                    <td>{key}</td>
-                    <td>{result}</td>
-                </tr>"""
-                for (key, value), result in zip(data.items(), results)
-            ]
+            return await report_util.Empty_Table()
 
-            table = f"""
-            <table>
+        # Define required categories
+        required_categories = {"javascript", "widgets", "payment"}
+        percentage = 100
+        rows = []
+        
+        for group in data.get("groups", []):
+            category_name = group["name"].lower()
+            if category_name not in required_categories:
+                continue  # Skip categories not in the required list
+            
+            # Add category header
+            rows.append(f'<tr><td><h3>{category_name.capitalize()}</h3></td><td></td></tr>')
+
+            # Add subcategories
+            for category in group.get("categories", []):
+                sub_name = category.get("name", "Unknown")
+                live_count = category.get("live", 0)
+                dead_count = category.get("dead", 0)
+                dead_text = f" ({dead_count} dead)" if dead_count > 0 else ""
+                
+                rows.append(f"""
+                <tr>
+                    <td>{sub_name}</td>
+                    <td>{live_count} Live{dead_text}</td>
+                </tr>""")
+
+
+        last_scanned = await self.__convet_epoch(data['last']) # Example, replace with actual timestamp if needed
+
+        table = (
+            f"""<table>
                 <tr>
                     <td colspan="2">
                         <div class="progress-bar-container">
-                            <div class="progress" style="width: {str(percentage) }%;">{str(percentage)}%</div>
+                            <div class="progress" style="width: {str(percentage)}%;">{str(percentage)}%</div>
                         </div>
                     </td>
                 </tr>
                     {''.join(rows)}
-            </table>"""
+                <tr>
+                    <td colspan="2" style="text-align: left;"><h4>Last scanned on {last_scanned}</h4></td>
+                </tr>
+            </table>""")
 
         return table
+
+
+    # import datetime
+
+    async def __convet_epoch(self, epoch_time):
+        # Epoch time
+        # Convert to datetime object
+        normal_time = datetime.datetime.fromtimestamp(epoch_time)
+
+        # Format the datetime object into a readable format
+        formatted_time = normal_time.strftime("%d %B %Y at %I:%M %p")
+
+        return formatted_time

@@ -117,6 +117,9 @@ class Configuration:
     "TRANCO" in config
     TRANCO_ENDPOINT_URL = config["TRANCO"]["ENDPOINT_URL"]
 
+    "BUILTWITH" in config
+    BUILTWITH_ENDPOINT_URL = config["BUILTWITH"]["ENDPOINT_URL"]
+    BUILTWITH_API = config["BUILTWITH"]["API_KEY"]
 
     "ICONS" in config
     ICON_SERVER_LOCATION  = config["ICONS"]["ICON_SERVER_LOCATION"]
