@@ -176,7 +176,7 @@ class engine():
             tb23 = str(tech_stack_info[0])
             tb24 = str(firewall_info[0])
             tb25 = str(social_tags_info[0])
-            tb26 = str(threats_info)
+            tb26 = str(threats_info[0])
             tb27 = str(global_ranking_info[0])
             tb28 = str(security_txt_info[0])
             if self.isNmap:
@@ -199,7 +199,7 @@ class engine():
                                         str(crawl_info[1]), str(dns_sec_info[1]), str(dns_server_info[1]), str(Whois[1]), str(Header[1]),
                                         str(Header[3]), str(firewall_info[1]), str(global_ranking_info[1]), str(port_info[1]), str(redirect_info[1]),
                                         str(security_txt_info[1]), str(server_status_info[1]), str(site_info[1]), str(social_tags_info[1]),
-                                        str(tech_stack_info[1]))]
+                                        str(tech_stack_info[1]), str(threats_info[1]))]
 
             await asyncio.gather(*final_report)
             

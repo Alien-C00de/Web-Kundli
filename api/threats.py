@@ -4,6 +4,7 @@ import base64
 from colorama import Fore, Style
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
+from util.issue_config import Issue_Config
 
 class Threats:
     Error_Title = None
@@ -18,7 +19,7 @@ class Threats:
         self.Error_Title = config.THREATS
         tasks = []
         decodedResponse = []
-        output = ""
+        output = []
 
         headers = {"Accept": "application/json", "x-apikey": config.VIRUS_TOTAL_API_KEY}
         try:
@@ -51,16 +52,18 @@ class Threats:
         return base64.urlsafe_b64encode(url.encode()).decode().strip("=")
 
     async def __html_table(self, decodedResponse):
+        rep_data = []
+        html = ""
 
-        if decodedResponse is not None:
+        if decodedResponse is None:
             report_util = Report_Utility()
             table = await report_util.Empty_Table()
-
+        else:
             if not 'error' in decodedResponse[0]:
                 phishing = int(decodedResponse[0]["data"]["attributes"]["last_analysis_stats"]["suspicious"])
                 malware = int(decodedResponse[0]["data"]["attributes"]["last_analysis_stats"]["malicious"])
 
-                percentage = await self.__rating(phishing, malware)
+                percentage, html = await self.__threat_score(phishing, malware)
                 table = f"""<table>
                             <tr>
                                 <td colspan="2">
@@ -78,13 +81,34 @@ class Threats:
                                 <td>{'✅ No Malwares Found' if malware == 0 else '❌ Malware Found'}</td>
                             </tr>
                         </table>"""
-        return table
+        rep_data.append(table)
+        rep_data.append(html)
+        return rep_data
 
-    async def __rating(self, phishing, malware):
+    async def __threat_score(self, phishing_status, malware_status):
+        score = 0
+        max_score = 2  # 2 parameters to evaluate
+        issues = []
+        suggestions = []
+        html_tags = ""
 
-        if phishing > 0 or malware > 0:
-            percentage = 0
+        # Check Phishing Status
+        if phishing_status == 0:
+            score += 1  # No deduction for no phishing found
         else:
-            percentage = 100
+            issues.append(Issue_Config.ISSUE_THREATS_PHISHING)
+            suggestions.append(Issue_Config.SUGGESTION_THREATS_PHISHING)
 
-        return percentage
+        # Check Malware Status
+        if malware_status == 0:
+            score += 1  # No deduction for no malware found
+        else:
+            issues.append(Issue_Config.ISSUE_THREATS_MALWARE)
+            suggestions.append(Issue_Config.SUGGESTION_THREATS_MALWARE)
+
+
+        percentage_score = (score / max_score) * 100
+        report_util = Report_Utility()
+        html_tags = await report_util.analysis_table(Configuration.ICON_THREATS, Configuration.MODULE_THREATS, issues, suggestions, int(percentage_score))
+
+        return int(percentage_score), html_tags
