@@ -173,7 +173,7 @@ class engine():
             tb20 = str(crawl_info[0])
             tb21 = str(site_info[0])
             tb22 = str(dns_sec_info[0])
-            tb23 = str(tech_stack_info)
+            tb23 = str(tech_stack_info[0])
             tb24 = str(firewall_info[0])
             tb25 = str(social_tags_info[0])
             tb26 = str(threats_info)
@@ -198,7 +198,8 @@ class engine():
                                         str(SSL_Cert[1]), str(archive_info[1]), str(associated_info[1]), str(block_info[1]), str(carbon_info[1]), 
                                         str(crawl_info[1]), str(dns_sec_info[1]), str(dns_server_info[1]), str(Whois[1]), str(Header[1]),
                                         str(Header[3]), str(firewall_info[1]), str(global_ranking_info[1]), str(port_info[1]), str(redirect_info[1]),
-                                        str(security_txt_info[1]), str(server_status_info[1]), str(site_info[1]), str(social_tags_info[1]))]
+                                        str(security_txt_info[1]), str(server_status_info[1]), str(site_info[1]), str(social_tags_info[1]),
+                                        str(tech_stack_info[1]))]
 
             await asyncio.gather(*final_report)
             
