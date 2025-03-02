@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from colorama import Fore, Style
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
+from util.issue_config import Issue_Config
 
 class Social_Tags:
     Error_Title = None
@@ -14,12 +15,10 @@ class Social_Tags:
     async def Get_Social_Tags(self):
         config = Configuration()
         self.Error_Title = config.SOCIAL_TAGS
-        output = ""
+        output = []
 
         try:
             # print("social_tag.py: start ")
-            # async with aiohttp.ClientSession() as session:
-            #     async with session.get(self.url) as response:
             if self.response.status_code == 200:
                 html = self.response.text
                 soup = BeautifulSoup(html, 'html.parser')
@@ -69,6 +68,8 @@ class Social_Tags:
             return output
 
     async def __html_table(self, metadata):
+        rep_data = []
+        html = ""
         if not metadata:
             report_util = Report_Utility()
             table = await report_util.Empty_Table()
@@ -78,10 +79,9 @@ class Social_Tags:
             keywords = str(metadata.get('keywords', 'N/A'))
             cononical = str(metadata.get('canonicalUrl', 'N/A'))
             twitter  =str(metadata.get('twitterSite', 'N/A'))
-            theme_color = metadata.get('themeColor', 'N/A')
+            author = str(metadata.get('author', 'N/A'))
 
-            percentage = await self.__rating(title, description, keywords, cononical, theme_color, twitter)
-
+            percentage, html = await self.__social_tags_score(title, description, keywords, cononical, twitter, author)
             table = (
                 f"""<table>
                         <tr>
@@ -108,43 +108,74 @@ class Social_Tags:
                             <td>{cononical}</td>
                         </tr>
                         <tr>
-                            <td>Theme Color</td>
-                            <td>{theme_color}</td>
+                            <td>Twitter Site</td>
+                            <td>{twitter}</td>
                         </tr>
                         <tr>
-                            <td>Twitter Site    </td>
-                            <td>{twitter}</td>
+                            <td>Author</td>
+                            <td>{author}</td>
                         </tr>
                     </table>"""
             )
-        return table
+        rep_data.append(table)
+        rep_data.append(html)
+        return rep_data
 
-    async def __rating(self, title, description, keywords, cononical, theme_color, twitter):
+    async def __social_tags_score(self, title, description, keywords, canonical_url, twitter_site, author):
+        score = 0
+        max_score = 6
+        issues = []
+        suggestions = []
+        html_tags = ""
 
-        condition1 = title != ""
-        condition2 = description != ""
-        condition3 = keywords != ""
-        condition4 = cononical != ""
-        condition5 = theme_color != ""
-        condition6 = twitter != ""
-
-        # Count the number of satisfied conditions
-        satisfied_conditions = sum([condition1, condition2, condition3, condition4])
-        
-        # Determine the percentage based on the number of satisfied conditions
-        if satisfied_conditions == 6:
-            percentage = 100
-        elif satisfied_conditions == 5:
-            percentage = 80
-        elif satisfied_conditions == 4:
-            percentage = 64
-        elif satisfied_conditions == 3:
-            percentage = 48
-        elif satisfied_conditions == 2:
-            percentage = 32
-        elif satisfied_conditions == 1:
-            percentage = 16
+        # Check Title
+        if not title:
+            issues.append(Issue_Config.ISSUE_SOCIAL_TAGS_TITLE)
+            suggestions.append(Issue_Config.SUGGESTION_SOCIAL_TAGS_TITLE)
         else:
-            percentage = 0  # In case no conditions are satisfied
-    
-        return percentage
+            score += 1
+
+        # Check Description
+        if not description:
+            issues.append(Issue_Config.ISSUE_SOCIAL_TAGS_DESC)
+            suggestions.append(Issue_Config.SUGGESTION_SOCIAL_TAGS_DESC)
+        elif len(description) > 160:
+            issues.append(Issue_Config.ISSUE_SOCIAL_TAGS_DESC_LONG)
+            suggestions.append(Issue_Config.SUGGESTION_SOCIAL_TAGS_DESC_LONG)
+        else:
+            score += 1
+
+        # Check Keywords
+        if not keywords:
+            issues.append(Issue_Config.ISSUE_SOCIAL_TAGS_KEYWORDS)
+            suggestions.append(Issue_Config.SUGGESTION_SOCIAL_TAGS_KEYWORDS)
+        else:
+            score += 1
+        
+        # Check Canonical URL
+        if not canonical_url:
+            issues.append(Issue_Config.ISSUE_SOCIAL_TAGS_CANONICAL)
+            suggestions.append(Issue_Config.SUGGESTION_SOCIAL_TAGS_CANONICAL)
+        else:
+            score += 1
+        
+        # Check Twitter Site
+        if not twitter_site:
+            issues.append(Issue_Config.ISSUE_SOCIAL_TAGS_TWITTER)
+            suggestions.append(Issue_Config.SUGGESTION_SOCIAL_TAGS_TWITTER)
+        else:
+            score += 1
+        
+        # Check Author
+        if not author:
+            issues.append(Issue_Config.ISSUE_SOCIAL_TAGS_AUTHOR)
+            suggestions.append(Issue_Config.SUGGESTION_SOCIAL_TAGS_AUTHOR)
+        else:
+            score += 1
+
+        percentage_score = (score / max_score) * 100
+        report_util = Report_Utility()
+        html_tags = await report_util.analysis_table(Configuration.ICON_SOCIAL_TAGS, Configuration.MODULE_SOCIAL_TAGS, issues, suggestions, int(percentage_score))
+
+        return int(percentage_score), html_tags
+
