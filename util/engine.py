@@ -158,7 +158,7 @@ class engine():
             tb6 = str(Header[2])
             tb7 = str(cookie[0])
             tb8 = str(dns_server_info[0])
-            tb9 = str(tls_cipher_suite)
+            tb9 = str(tls_cipher_suite[0])
             tb10 = str(dns_info[0])
             tb11 = str(dns_info[2])
             tb12 = str(server_status_info[0])
@@ -198,7 +198,7 @@ class engine():
                                         str(crawl_info[1]), str(dns_sec_info[1]), str(dns_server_info[1]), str(Whois[1]), str(Header[1]),
                                         str(Header[3]), str(firewall_info[1]), str(global_ranking_info[1]), str(port_info[1]), str(redirect_info[1]),
                                         str(security_txt_info[1]), str(server_status_info[1]), str(site_info[1]), str(social_tags_info[1]),
-                                        str(tech_stack_info[1]), str(threats_info[1]), str(dns_info[1]), str(dns_info[3]))]
+                                        str(tech_stack_info[1]), str(threats_info[1]), str(dns_info[1]), str(dns_info[3]), str(tls_cipher_suite[1]))]
 
             await asyncio.gather(*final_report)
             
