@@ -171,7 +171,11 @@ class TLS_Cipher_Suit:
 
         # Check Issuing Organization (Trusted CA)
         trusted_CAs = ["Amazon", "DigiCert", "GlobalSign", "Let's Encrypt"]
-        if tls_details["Issuing Organization"] in trusted_CAs:
+
+        # Convert to lowercase for case-insensitive matching
+        issuer_name = tls_details["Issuing Organization"].lower()
+        # Check if any trusted CA name is a substring of the issuer
+        if any(trusted_ca.lower() in issuer_name for trusted_ca in trusted_CAs):
             score += 1
         else:
             issues.append(Issue_Config.ISSUE_TLS_CIPHER_SUIT_TRUSTED)
