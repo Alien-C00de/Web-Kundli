@@ -14,7 +14,7 @@ class Carbon_Footprint:
     async def Get_Carbon_Footprint(self):
         config = Configuration()
         self.Error_Title = config.CARBON_FOOTPRINT
-        output = ""
+        output = []
 
         try:
             # print("carbon.py: start ")
@@ -62,7 +62,7 @@ class Carbon_Footprint:
             CO2_Load = data['statistics']['co2']['grid']['grams']
             Energy_Usage = data['statistics']['energy']
             CO2_Emitted =  data['statistics']['co2']['renewable']['grams']
-            percentage, html = await self.__calculate_carbon_footprint_score(HTML_Initial_Size, CO2_Load, Energy_Usage, CO2_Emitted)
+            percentage, html = await self.__carbon_footprint_score(HTML_Initial_Size, CO2_Load, Energy_Usage, CO2_Emitted)
 
             table = (
                 """<table>
@@ -95,7 +95,7 @@ class Carbon_Footprint:
         rep_data.append(html)
         return rep_data
 
-    async def __calculate_carbon_footprint_score(self, html_size, co2_initial_load, energy_usage, co2_emitted):
+    async def __carbon_footprint_score(self, html_size, co2_initial_load, energy_usage, co2_emitted):
         score = 0
         max_score = 4  # 6 parameters to evaluate
         issues = []

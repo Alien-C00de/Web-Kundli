@@ -18,7 +18,7 @@ class DNS_Server():
         config = Configuration()
         self.Error_Title = config.DNS_SERVER
         DoH = "No"
-        output = ""
+        output = []
 
         try:
             doh_url = f"https://{self.ip_address}/dns-query"
@@ -83,7 +83,6 @@ class DNS_Server():
         return rep_data
     
     async def __DNS_Server_score(self, DoH):
-
         issues = []
         suggestions = []
         html_tags = ""

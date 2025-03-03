@@ -37,6 +37,7 @@ class Configuration:
     HTTP_SECURITY = config['Error_Module']['HTTP_SECURITY']
     COOKIES = config['Error_Module']['COOKIES']
     DNS_SERVER = config['Error_Module']['DNS_SERVER']
+    DNS_RECORDS = config['Error_Module']['DNS_RECORDS'] 
     SERVER_LOCATION = config["Error_Module"]["SERVER_LOCATION"]
     SERVER_STATUS = config["Error_Module"]["SERVER_STATUS"]
     TLS_CIPHER_SUIT = config["Error_Module"]["TLS_CIPHER_SUIT"]

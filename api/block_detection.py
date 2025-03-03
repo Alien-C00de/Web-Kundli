@@ -1,5 +1,3 @@
-import socket
-import ipaddress
 import dns.asyncresolver
 import dns.resolver
 import asyncio
@@ -114,7 +112,7 @@ class Block_Detection:
             report_util = Report_Utility()
             table = await report_util.Empty_Table()
         else:
-            percentage, html = await self.__Block_Score(data)
+            percentage, html = await self.__block_score(data)
             table = (
             """<table>
                 <tr>
@@ -137,7 +135,7 @@ class Block_Detection:
         rep_data.append(html)
         return rep_data
 
-    async def __Block_Score(self, data):
+    async def __block_score(self, data):
         count = 0
         percentage = 0
         issues = []

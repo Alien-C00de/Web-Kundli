@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+            <html lang="en">
+            <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title> Web Kundli </title>
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+            <style>
+                    body {
+                        background-color: #1e1e1e;
+                        color: #d4d4d4;
+                        font-family: 'Cascadia Mono', 'Liberation Mono', 'Courier New', Courier, monospace;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    .header {
+                        background-color: #333;
+                        padding: 10px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-right: 20px;
+                        margin-left: 20px;
+                    }
+                    .header h1 {
+                        color: #FFA500;
+                        margin: 0;
+                        font-size: 2.5em;
+                    }
+                    .header h2 {
+                        color: #FFA500;
+                        margin: 0;
+                        font-size: 1.5em;
+                    }
+                    .header h3 {
+                        color: #FFA500;
+                        margin: 0;
+                        font-size: 1em;
+                    }
+                    .header .icon {
+                        color: #ffffff;
+                        font-size: 60px;
+                    }
+                    .ranking-container {
+                        background-color: #333;
+                        display: flex;
+                        align-items: center; /* Vertically align items */
+                        justify-content: space-between; /* Space between header and progress bar */
+                        margin-right: 20px;
+                        margin-left: 20px;
+                    }
+                    .ranking-container h1 {
+                        margin: 20px;
+                        padding: 5px;
+                        color: #ff00fb;
+                    }
+                    .ranking-container h2 {
+                        font-size: 1.5em;
+                        margin: 20px;
+                        padding: 5px;
+                    }
+                    .progress-bar-container {
+                        flex: 1; /* Allow progress bar to take available space */
+                        background-color: #A9A9A9;
+                        border-radius: 4px;
+                        margin-left: 20px; /* Space between header and progress bar */
+                        margin-right: 20px;
+                        overflow: hidden;
+                    }
+                    .progress-bar {
+                        height: 30px;
+                        color: #FFFF00;
+                        text-align: center;
+                        line-height: 30px;
+                        border-radius: 3px;
+                        background-color: #8F00FF;  /* #76c7c0 Default color, adjust as needed */
+                        transition: width 0.5s, background-color 0.5s;
+                        font-size: 20px; /* Adjust font size as needed */
+                        font-weight: bold; /* Makes the percentage text bold */
+                    }
+                    .progress {
+                        height: 20px;
+                        color: red;
+                        text-align: center;
+                        line-height: 20px;
+                        border-radius: 4px;
+                        background-color: #FFFF00; /* #76c7c0 Default color, adjust as needed */
+                        transition: width 0.5s, background-color 0.5s;
+                        font-size: 16px; /* Adjust font size as needed */
+                        font-weight: bold; /* Makes the percentage text bold */
+                    }
+                    .date {
+                        padding: 5px;
+                        margin-right: 30px;
+                    }
+                    .date h3 {
+                        color: #FFA500;
+                        margin: 0;
+                        font-size: 1em;
+                    }
+                    .content h4 {
+                        margin: 0;
+                        font-size: 0.9em;
+                    }
+                    .content {
+                        display: flex;
+                        flex-wrap: wrap;
+                        padding: 10px;
+                    }
+                    .card {
+                        background-color: #2d2d2d;
+                        margin: 10px;
+                        padding: 10px;
+                        flex: 1;
+                        min-width: 400px;
+                        max-width: 200%;
+                        border-radius: 5px;
+                        position: relative;
+                        overflow: hidden;
+                        height: 450px; 
+                        word-wrap: break-word;
+                    }
+                    .card-header {
+                        position: sticky;
+                        top: 0;
+                        background-color: #333;
+                        z-index: 1;
+                        border-bottom: 1px solid #333;
+                    }
+                    .card-content {
+                        max-height: 400px;
+                        overflow-y: auto;
+                    }
+                    .card h2 {
+                        color: #FFA500;
+                        margin-top: 0;
+                    }
+                    .card h3 {
+                        color: #FFA500;
+                        margin-top: 0;
+                        font-size: 1em;
+                    }
+                    .card flag-icon {
+                        font-size: 10px; /* Size the flag */
+                    }
+                    .card .refresh {
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        color: #00FF00;
+                        font-size: 30px;
+                    }
+                    .card table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        table-layout: fixed;
+                    }
+                    .card table td {
+                        padding: 5px;
+                        border-bottom: 1px solid #444;
+                        text-overflow: ellipsis; 
+                        overflow: hidden;
+                        word-wrap: break-word;
+                    }
+                    .card table td:last-child {
+                        text-align: right;
+                    }
+                    .card .map {
+                        width: 100%;
+                        height: 100px;
+                        background: url('https://placehold.co/300x200') no-repeat center center;
+                        background-size: cover;
+                    }
+                    .footer{
+                        background-color: #efdd94;
+                        padding: 5px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-right: 20px;
+                        margin-left: 20px;
+                    }
+                    .footer h3{
+                        display: flex; 
+                        justify-content: 
+                        flex-end; 
+                        align-items: center;
+                        color: black;
+                    }
+                    a {
+                        color: #00FF00;
+                        text-decoration: none; /* Remove underline */
+                    }
+                    /* Change color when hovering over the link */
+                    a:hover {
+                        color: red; /* Change color to red when hovered */
+                    }
+            </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h1> <i class="fas fa-user-secret icon"></i> WEB KUNDLI </h1>
+                    <h2 align="right"; margin-right: 40px; style="color:#00FF00;"> <a href= https://heartfulness.org  target="_blank"> https://heartfulness.org </a></h2>
+                </div>
+                <div class="date">
+                    <h3 align="right"; margin-right: 20px; style="color:blue;"><i class="far fa-clock"></i> Report Generated: Monday 03-Mar-2025 21:19:51</h3>
+                </div>
+                <div class="ranking-container">
+                    <h1>Website Health <i class="fas fa-heartbeat"></i></h1>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 72.71%;">72.71%</div>
+                    </div>
+                    <h2> <a href= Analysis_heartfulness.org_03Mar2025_21-19-51.html  target="_blank"> Health Analysis Report </a></h2>
+                </div>
+                <div class="content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Server Location </h2>
+                            <i class= "fas fa-map-marker-alt refresh" > </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width:100%;">100%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>City</td>
+                                <td>228599, Singapore, None</td>
+                            </tr>
+                            <tr>
+                                <td>Country</td>
+                                <td> Singapore <span id="country-icon" class="flag-icon"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Timezone</td>
+                                <td>Asia/Singapore</td>
+                            </tr>
+                            <tr>
+                                <td>Languages</td>
+                                <td>cmn,en-SG,ms-SG,ta-SG,zh-SG</td>
+                            </tr>
+                            <tr>
+                                <td>Currency</td>
+                                <td>Dollar  (SGD)</td>
+                            </tr>
+                    </table>
+                    <script>
+                        function displayCountryIcon() {
+                            const countryIconElement = document.getElementById('country-icon');
+                            countryIconElement.className = 'flag-icon flag-icon-$ sg';
+                        }
+                        displayCountryIcon();
+                    </script></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> SSL Certificate </h2>
+                            <i class=  "fas fa-lock refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Subject</td>
+                            <td>cdn-web.heartfulness.org</td>
+                        </tr>
+                        <tr>
+                            <td>Issuer</td>
+                            <td>Amazon</td>
+                        </tr>
+                        <tr>
+                            <td>Expires</td>
+                            <td>18 September 2025</td>
+                        </tr>
+                        <tr>
+                            <td>Renewed</td>
+                            <td>20 August 2024</td>
+                        </tr>
+                        <tr>
+                            <td>Serial Num</td>
+                            <td>74313D66AA0EB55C89C2DB062A083D4</td>
+                        </tr>
+                        <tr>
+                            <td>Fingerprint</td>
+                            <td>8A:FB:FB:03:7A:72:76:40:EA:6F:3C:E1:DE:DA:2F:5D:8D:0A:A9:5E</td>
+                        </tr>
+                        <tr>
+                            <td> <h3>Extended Key Usage</h3> </td>
+                            <td></td>
+                        </tr> 
+                        <tr>
+                            <td>TLS Web Server Authentication</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>TLS Web Client Authentication</td>
+                            <td></td>
+                        </tr>
+                        
+                </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Domain Whois </h2>
+                            <i class="fas fa-globe refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Registered Domain</td>
+                            <td>heartfulness.org</td>
+                        </tr>
+                        <tr>
+                            <td>Creation Date</td>
+                            <td>2014-01-28 22:54:04</td>
+                        </tr>
+                        <tr>
+                            <td>Updated Date</td>
+                            <td>2025-01-29 19:13:53</td>
+                        </tr>
+                        <tr>
+                            <td>Registry Expiry Date</td>
+                            <td>2034-01-28 22:54:04</td>
+                        </tr>
+                        <tr>
+                            <td>Registry Domain ID</td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td>Registrar WHOIS Server</td>
+                            <td>http://whois.godaddy.com</td>
+                        </tr>
+                        <tr>
+                            <td>Registrar</td>
+                            <td>GoDaddy.com, LLC</td>
+                        </tr>
+                        <tr>
+                            <td>Registrar IANA ID</td>
+                            <td>None</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Server Info </h2>
+                            <i class="fas fa-database refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width:100%;">100%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Organization</td>
+                                <td>AMAZON-02</td>
+                            </tr>
+                            <tr>
+                                <td>ASN Code</td>
+                                <td>AS16509</td>
+                            </tr>
+                            <tr>
+                                <td>IP</td>
+                                <td>18.239.153.53</td>
+                            </tr>
+                            <tr>
+                                <td>Location</td>
+                                <td>None,
+ Singapore</td>
+                            </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Headers </h2>
+                            <i class="fas fa-file-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 42%;">42%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Server</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>Date</td>
+                            <td>Mon, 03 Mar 2025 15:48:26 GMT</td>
+                        </tr>
+                        <tr>
+                            <td>Content-Type</td>
+                            <td>text/html; charset=utf-8</td>
+                        </tr>
+                        <tr>
+                            <td>transfer-encoding</td>
+                            <td>chunked</td>
+                        </tr>
+                        <tr>
+                            <td>connection</td>
+                            <td>keep-alive</td>
+                        </tr>
+                        <tr>
+                            <td>x-frame-options</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>x-content-type-options</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>referrer-policy</td>
+                            <td>None</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Cookies </h2>
+                            <i class="fas fa-cookie refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>
+                        <table>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: 0%;">0%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> HTTP Security </h2>
+                            <i class="fas fa-shield-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 0%;">0%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Content Security Policy</td>
+                            <td> ❌ No</td>
+                        </tr>
+                        <tr>
+                            <td>Strict Transport Policy</td>
+                            <td>❌ No</td>
+                        </tr>
+                        <tr>
+                            <td>X-Content-Type-Options</td>
+                            <td>❌ No</td>
+                        </tr>
+                        <tr>
+                            <td>X-Frame-Options</td>
+                            <td>❌ No</td>
+                        </tr>
+                        <tr>
+                            <td>X-XSS-Protection</td>
+                            <td>❌ No</td>
+                        </tr>
+                </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> DNS Server </h2>
+                            <i class="fas fa-network-wired refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 50%;">50%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>IP Address</td>
+                            <td>18.239.153.53</td>
+                        </tr>
+                        <tr>
+                            <td>Hostname</td>
+                            <td>heartfulness.org</td>
+                        </tr>
+                        <tr>
+                            <td>DoH Support</td>
+                            <td>❌ No</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> TLS Cipher Suites </h2>
+                            <i class="fas fa-key refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:83%;">83%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Domain Name</td>
+                            <td>heartfulness.org</td>
+                        </tr>
+                        <tr>
+                            <td>Issuing Organization</td>
+                            <td>Amazon</td>
+                        </tr>
+                        <tr>
+                            <td>Issue Date</td>
+                            <td>Aug 20 00:00:00 2024 GMT</td>
+                        </tr>
+                        <tr>
+                            <td>Expire Date</td>
+                            <td>Sep 18 23:59:59 2025 GMT</td>
+                        </tr>
+                        <tr>
+                            <td>Serial Number</td>
+                            <td>074313D66AA0EB55C89C2DB062A083D4</td>
+                        </tr>
+                        <tr>
+                            <td>Protocol Version</td>
+                            <td >TLSv1.3</td>
+                        </tr>
+                        <tr>
+                            <td>Cipher Suite</td>
+                            <td >TLS_AES_128_GCM_SHA256</td>
+                        </tr>
+                        <tr>
+                            <td>Public key length</td>
+                            <td>128</td>
+                        </tr>
+                </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> DNS Records </h2>
+                            <i class="fas fa-book refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 60%;">60%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>A RECORD</td>
+                        <td>A Records: 18.164.188.7, 18.164.188.98, 18.164.188.124, 18.164.188.83</td>
+                    </tr>
+                    <tr>
+                        <td>AAAA RECORD</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td>MX RECORD</td>
+                        <td>MX Records: 1 aspmx.l.google.com., 10 alt3.aspmx.l.google.com., 10 alt4.aspmx.l.google.com., 5 alt1.aspmx.l.google.com., 5 alt2.aspmx.l.google.com.</td>
+                    </tr>
+                    <tr>
+                        <td>NS RECORD</td>
+                        <td>NS Records: ns-1372.awsdns-43.org., ns-1831.awsdns-36.co.uk., ns-33.awsdns-04.com., ns-979.awsdns-58.net.</td>
+                    </tr>
+                    <tr>
+                        <td>CNAME RECORD</td>
+                        <td>None</td>
+                    </tr>
+                </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> TXT Records </h2>
+                            <i class="fas fa-file-alt refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Domain Name</td>
+                            <td>heartfulness.org</td>
+                        </tr>
+                        <tr>
+                            <td>TXT RECORD</td>
+                            <td>TXT Records: "amazonses:EhsdwTGtutnlk3bE7lOYqYgQo2Ja5O+j9gh1AYqlAII=", "firebase=unifiedplatform-prod", "google-site-verification=M2dPVaLDwmwmnq0u0gYAwsYLVLhnbHfWli4aQyMsa04", "google-site-verification=RjxgqSa8EVnrFICZ_cYNJWukBciyIgfP1hzNJGuKoh4", "google-site-verification=egeKgdxEDs4bduNxq5oltUtK1mtr7JHxPBqhbjghjXg", "google-site-verification=jPTZryPOnVbbUKDwPbg-xxKzh42JlL6xXODV5ZhsZlY", "google-site-verification=lPKRGS4URKt6q8L04pQ5tnXOnLSjmCrw3WrezhbRXN4", "google-site-verification=v9Xp_Y-zxMfks5rnaWEDb0Rvzctc8JnfrHZgph6qh54", "twilio-domain-verification=0f5d7b17570f32bbd690e17f2e0d790a", "v=spf1 include:_spf.firebasemail.com ~all", "v=spf1 include:_spf.google.com ~all,", "v=spf1 ip4:149.72.49.0/24 ip4:13.127.61.224 ip4:103.247.209.118 ip4:52.36.213.191 ip4:54.191.178.13 ip4:54.218.39.117 ip4:162.251.11.1/26 ip4:183.82.104.216 ip4:103.5.16.229 ipv4:13.233.251.211 include:_spf.google.com include:_spf.mlsend.com ~all", "vc-domain-verify=forms.heartfulness.org,f8eca742283f9cb559a1", "vc-domain-verify=vform.heartfulness.org,9029b7e8e4da79ea2e68", "workplace-domain-verification=653adf92-4dd1-4efc-8fd2-c61ecb088809"</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Server Status </h2>
+                            <i class="fas fa-server refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Is Up?</td>
+                            <td>✅ Online </td>
+                        </tr>
+                        <tr>
+                        <td>Status Code</td>
+                            <td >200</td>
+                        </tr>
+                        <tr>
+                        <td>Response Time</td>
+                            <td >32.23 ms</td>
+                        </tr>
+                </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Email Configuration </h2>
+                            <i class="fas fa-envelope refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width:70%;">70%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <h3>Mail Security Checklist</h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SPF:</td>
+                                <td>Not Enabled</td>
+                            </tr>
+                            <tr>
+                                <td>DKIM:</td>
+                                <td>Not Enabled</td>
+                            </tr>
+                            <tr>
+                                <td>DMARC:</td>
+                                <td>Not Enabled</td>
+                            </tr>
+                            <tr>
+                                <td>BIMI:</td>
+                                <td>Not Enabled</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <h3>MX Records</h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <ul>
+                                        <li>alt1.aspmx.l.google.com. Priority: 5</li><li>alt2.aspmx.l.google.com. Priority: 5</li><li>alt3.aspmx.l.google.com. Priority: 10</li><li>alt4.aspmx.l.google.com. Priority: 10</li><li>aspmx.l.google.com. Priority: 1</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <h3>External Mail Services</h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <ul>
+                                        
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <h3>Mail-related TXT Records</h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <ul>
+                                        
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+            </h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Redirect Chain </h2>
+                            <i class="fas fa-random refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Domain Name</td>
+                            <td>heartfulness.org</td>
+                        </tr>
+                        <tr>
+                            <td>Number of Redirects</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>Redirect Link</td>
+                            <td>https://heartfulness.org,
+https://heartfulness.org/in,
+https://heartfulness.org/in-en,
+</td>
+                        </tr>
+                        <tr>
+                            <td>Final Page</td>
+                            <td>https://heartfulness.org/in-en</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Open Ports </h2>
+                            <i class="fas fa-plug refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="1">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width:100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">80<br>443</td>
+                        </tr>
+                        <tr>
+                            <td>
+                            <h4 align="left">Unable to establish connections to:</h4>
+                            <p align="left">8080, 20, 21, 22, 23, 25, 53, 67, 68, 69, 110, 119, 123, 143, 156, 161, 162, 179, 194, 389, 587, 993, 995, 3000, 3306, 3389, 5060, 5900, 8000, 8888</p>
+                            </td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Archive History </h2>
+                            <i class="fas fa-archive refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 83%;">83%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>First Scan</td>
+                            <td>21 July 2001</td>
+                        </tr>
+                        <tr>
+                            <td>Last Scan</td>
+                            <td>22 February 2025</td>
+                        </tr>
+                        <tr>
+                            <td>Total Scans</td>
+                        <td>671</td>
+                        </tr>
+                        <tr>
+                            <td>Change Count</td>
+                            <td>347</td>
+                        </tr>
+                        <tr>
+                            <td>Avg Size</td>
+                        <td>1208</td>
+                        </tr>
+                        <tr>
+                            <td>Avg Days between Scans</td>
+                            <td>12.84</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Associated Hosts </h2>
+                            <i class="fas fa-link refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                    <tr>
+                        <td colspan="1">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 100%;">100%</div>
+                            </div>
+                        </td>
+                </tr>
+                <tr><td>*.app.staging.heartfulness.org</td></tr><tr><td>*.awtq.staging.heartfulness.org</td></tr><tr><td>*.beta.heartfulness.org</td></tr><tr><td>*.bmwforest.heartfulness.org</td></tr><tr><td>*.campus.heartfulness.org</td></tr><tr><td>*.campus.staging.heartfulness.org</td></tr><tr><td>*.conference.staging.heartfulness.org</td></tr><tr><td>*.contributions.staging.heartfulness.org</td></tr><tr><td>*.dms.heartfulness.org</td></tr><tr><td>*.dms.staging.heartfulness.org</td></tr><tr><td>*.donations.staging.heartfulness.org</td></tr><tr><td>*.emailbuilder.staging.heartfulness.org</td></tr><tr><td>*.emp-idcard.staging.heartfulness.org</td></tr><tr><td>*.eventreg.staging.heartfulness.org</td></tr><tr><td>*.eventstracker.staging.heartfulness.org</td></tr><tr><td>*.forest.staging.heartfulness.org</td></tr><tr><td>*.fpms.staging.heartfulness.org</td></tr><tr><td>*.function360.heartfulness.org</td></tr><tr><td>*.function360.staging.heartfulness.org</td></tr><tr><td>*.gurugram.staging.heartfulness.org</td></tr><tr><td>*.hddevent.staging.heartfulness.org</td></tr><tr><td>*.heartflix.heartfulness.org</td></tr><tr><td>*.heartfulness.org</td></tr><tr><td>*.heartspot.staging.heartfulness.org</td></tr><tr><td>*.heartspots.heartfulness.org</td></tr><tr><td>*.heartspots.staging.heartfulness.org</td></tr><tr><td>*.hep.heartfulness.org</td></tr><tr><td>*.het.staging.heartfulness.org</td></tr><tr><td>*.hfnapp-admin-prod.heartfulness.org</td></tr><tr><td>*.hfnapp-admin-qa.staging.heartfulness.org</td></tr><tr><td>*.hfnapp-admin.staging.heartfulness.org</td></tr><tr><td>*.hil.staging.heartfulness.org</td></tr><tr><td>*.kanhashantivanam.staging.heartfulness.org</td></tr><tr><td>*.kt.staging.heartfulness.org</td></tr><tr><td>*.m-heartspots.heartfulness.org</td></tr><tr><td>*.m.heartspots.heartfulness.org</td></tr><tr><td>*.master.heartfulness.org</td></tr><tr><td>*.meditationcenter.staging.heartfulness.org</td></tr><tr><td>*.meditationcentres.heartfulness.org</td></tr><tr><td>*.meditationplace.heartfulness.org</td></tr><tr><td>*.meditationplace.staging.heartfulness.org</td></tr><tr><td>*.meetings.dev.heartfulness.org</td></tr><tr><td>*.meetings.heartfulness.org</td></tr><tr><td>*.my.heartfulness.org</td></tr><tr><td>*.my.staging.heartfulness.org</td></tr><tr><td>*.new.staging.heartfulness.org</td></tr><tr><td>*.payments.staging.heartfulness.org</td></tr><tr><td>*.pearlsatkhol.heartfulness.org</td></tr><tr><td>*.performance.staging.heartfulness.org</td></tr><tr><td>*.preceptor-application.staging.heartfulness.org</td></tr><tr><td>*.proposalportal.staging.heartfulness.org</td></tr><tr><td>*.ptest.staging.heartfulness.org</td></tr><tr><td>*.punetest.staging.heartfulness.org</td></tr><tr><td>*.sports.heartfulness.org</td></tr><tr><td>*.sports.staging.heartfulness.org</td></tr><tr><td>*.staging-hc.heartfulness.org</td></tr><tr><td>*.staging-yoga.heartfulness.org</td></tr><tr><td>*.staging.targeted-emails.heartfulness.org</td></tr><tr><td>*.targeted-emails.heartfulness.org</td></tr><tr><td>*.transport.dev.heartfulness.org</td></tr><tr><td>*.transport.staging.heartfulness.org</td></tr><tr><td>*.uep.heartfulness.org</td></tr><tr><td>*.uep.staging.heartfulness.org</td></tr><tr><td>*.uepreg.heartfulness.org</td></tr><tr><td>*.visitor.heartfulness.org</td></tr><tr><td>*.visitor.staging.heartfulness.org</td></tr><tr><td>*.webinar.staging.heartfulness.org</td></tr><tr><td>*.wsm.staging.heartfulness.org</td></tr><tr><td>aims-static.qa.heartfulness.org</td></tr><tr><td>ancillary-cms.heartfulness.org</td></tr><tr><td>apps.heartfulness.org</td></tr><tr><td>atlanta.heartfulness.org</td></tr><tr><td>auth-prod.heartfulness.org</td></tr><tr><td>auth-staging.heartfulness.org</td></tr><tr><td>auth-stagingadmin.heartfulness.org</td></tr><tr><td>auth.dev.heartfulness.org</td></tr><tr><td>auth.qa.heartfulness.org</td></tr><tr><td>authadmin.dev.heartfulness.org</td></tr><tr><td>authadmin.heartfulness.org</td></tr><tr><td>authadmin.qa.heartfulness.org</td></tr><tr><td>awsstaging.heartfulness.org</td></tr><tr><td>beta.heartfulness.org</td></tr><tr><td>beta1.heartfulness.org</td></tr><tr><td>beta2.heartfulness.org</td></tr><tr><td>campus-api.heartfulness.org</td></tr><tr><td>care.heartfulness.org</td></tr><tr><td>careapp.heartfulness.org</td></tr><tr><td>cdn-mag.heartfulness.org</td></tr><tr><td>cdn-prod-static.heartfulness.org</td></tr><tr><td>cdn-stg.heartfulness.org</td></tr><tr><td>cdn-web.heartfulness.org</td></tr><tr><td>cdn.staging.heartfulness.org</td></tr><tr><td>cms-events-staging.heartfulness.org</td></tr><tr><td>cms.staging.heartfulness.org</td></tr><tr><td>connects.heartfulness.org</td></tr><tr><td>docs.heartfulness.org</td></tr><tr><td>docustack.staging.heartfulness.org</td></tr><tr><td>donations-cms.staging.heartfulness.org</td></tr><tr><td>donations.heartfulness.org</td></tr><tr><td>donations.staging.heartfulness.org</td></tr><tr><td>ecs-stageadmin.heartfulness.org</td></tr><tr><td>ecs.staging.heartfulness.org</td></tr><tr><td>ecsauth.staging.heartfulness.org</td></tr><tr><td>forms.heartfulness.org</td></tr><tr><td>fr.heartfulness.org</td></tr><tr><td>heartflix.heartfulness.org</td></tr><tr><td>henv.staging.heartfulness.org</td></tr><tr><td>hep.heartfulness.org</td></tr><tr><td>hep.staging.heartfulness.org</td></tr><tr><td>hfn.staging.heartfulness.org</td></tr><tr><td>hfntest.staging.heartfulness.org</td></tr><tr><td>innovationlab.heartfulness.org</td></tr><tr><td>itassets.heartfulness.org</td></tr><tr><td>itsecurity.heartfulness.org</td></tr><tr><td>keycloakadmin.dev.heartfulness.org</td></tr><tr><td>keycloakadmin.devops.heartfulness.org</td></tr><tr><td>keycloaknginx.staging.heartfulness.org</td></tr><tr><td>learning.heartfulness.org</td></tr><tr><td>m.yoga.heartfulness.org</td></tr><tr><td>myjira.heartfulness.org</td></tr><tr><td>newauth.heartfulness.org</td></tr><tr><td>newsletters.heartfulness.org</td></tr><tr><td>oneauth-devops.dev.heartfulness.org</td></tr><tr><td>oneauth.dev.heartfulness.org</td></tr><tr><td>oneauth.devops.heartfulness.org</td></tr><tr><td>oneauth.heartfulness.org</td></tr><tr><td>oneauth.qa.heartfulness.org</td></tr><tr><td>oneauth.staging.heartfulness.org</td></tr><tr><td>oneauthadmin.qa.heartfulness.org</td></tr><tr><td>payments.heartfulness.org</td></tr><tr><td>paymentsecure.heartfulness.org</td></tr><tr><td>pearl.staging.heartfulness.org</td></tr><tr><td>preceptor.heartfulness.org</td></tr><tr><td>primary-assets.heartfulness.org</td></tr><tr><td>primary-assets.staging.heartfulness.org</td></tr><tr><td>primary-cms.heartfulness.org</td></tr><tr><td>prodwritenode.heartfulness.org</td></tr><tr><td>prometheus.heartfulness.org</td></tr><tr><td>qtlymag-awsstaging.heartfulness.org</td></tr><tr><td>stagecare.heartfulness.org</td></tr><tr><td>staging.primary-cms.heartfulness.org</td></tr><tr><td>staging.primary-sub-cms.heartfulness.org</td></tr><tr><td>static-api.heartfulness.org</td></tr><tr><td>static-api.qa.heartfulness.org</td></tr><tr><td>strapi-qa.heartfulness.org</td></tr><tr><td>test.heartfulness.org</td></tr><tr><td>testone.heartfulness.org</td></tr><tr><td>track.heartfulness.org</td></tr><tr><td>uep.heartfulness.org</td></tr><tr><td>vform.heartfulness.org</td></tr><tr><td>visitorservice.heartfulness.org</td></tr><tr><td>visitorservice.qa.heartfulness.org</td></tr><tr><td>visitorservice.staging.heartfulness.org</td></tr><tr><td>wellness.heartfulness.org</td></tr><tr><td>writenode.heartfulness.org</td></tr><tr><td>writenodeedu.heartfulness.org</td></tr><tr><td>yoga.heartfulness.org</td></tr>
+            </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Block Detection </h2>
+                            <i class="fas fa-ban refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                <tr>
+                    <td colspan="2">
+                        <div class="progress-bar-container">
+                            <div class="progress" style="width: 100%;">100%</div>
+                        </div>
+                    </td>
+                </tr><tr>
+                    <td> AdGuard </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> AdGuard Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CleanBrowsing Adult </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CleanBrowsing Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CleanBrowsing Security </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CloudFlare </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> CloudFlare Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Comodo Secure </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Google DNS </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Neustar Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Neustar Protection </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Norton Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> OpenDNS </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> OpenDNS Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Quad9 </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Yandex Family </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr><tr>
+                    <td> Yandex Safe </td>
+                    <td> ✅  Not Blocked  </td>
+                </tr></table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Carbon Footprint </h2>
+                            <i class="fas fa-leaf refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 0%;">0%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>HTML Initial Size</td>
+                            <td>375324.845 bytes</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 for Initial Load:</td>
+                            <td>0.1251453543146141 grams</td>
+                        </tr>
+                        <tr>
+                            <td>Energy Usage for Load:</td>
+                            <td>0.0003 KWg</td>
+                        </tr>
+                        <tr>
+                            <td>CO2 Emitted:</td>
+                            <td>0.1084970583107695 grams</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Crawl Rules </h2>
+                            <i class="fas fa-spider refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: 100%;">100%</div>
+                                    </div>
+                                </td>
+                            </tr><tr>
+                                <td>User Agent : *</td>
+                                <td>/</td>
+                        </tr><tr>
+                                <td>User Agent : Googlebot</td>
+                                <td>/</td>
+                        </tr></table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Site Features </h2>
+                            <i class="fas fa-list refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 82%;">82%</div>
+                            </div>
+                        </td>
+                    </tr>
+                        <tr><td><h3>Widgets</h3></td><td></td></tr>
+                    <tr>
+                        <td>wordpress-plugins</td>
+                        <td>24 Live (34 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>fonts</td>
+                        <td>4 Live</td>
+                    </tr>
+                    <tr>
+                        <td>captcha</td>
+                        <td>2 Live (1 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>bookmarking</td>
+                        <td>0 Live (1 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>social-sharing</td>
+                        <td>0 Live (1 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>feedback-forms-and-surveys</td>
+                        <td>2 Live (1 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>live-chat</td>
+                        <td>1 Live (3 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>login</td>
+                        <td>2 Live (1 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>bookings</td>
+                        <td>1 Live (1 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>site-search</td>
+                        <td>1 Live (2 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>tag-management</td>
+                        <td>1 Live</td>
+                    </tr>
+                    <tr>
+                        <td>mobile</td>
+                        <td>0 Live (1 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>privacy-compliance</td>
+                        <td>2 Live (1 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>comment-system</td>
+                        <td>1 Live (1 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>image-provider</td>
+                        <td>1 Live (2 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>bot-detection</td>
+                        <td>1 Live</td>
+                    </tr>
+                    <tr>
+                        <td>translation</td>
+                        <td>0 Live (1 dead)</td>
+                    </tr><tr><td><h3>Javascript</h3></td><td></td></tr>
+                    <tr>
+                        <td>javascript-library</td>
+                        <td>6 Live (4 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>jquery-plugin</td>
+                        <td>11 Live (15 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>ui</td>
+                        <td>3 Live (2 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>animation</td>
+                        <td>1 Live (3 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>compatibility</td>
+                        <td>4 Live (4 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>framework</td>
+                        <td>3 Live (2 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>slider</td>
+                        <td>1 Live (4 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>charting</td>
+                        <td>0 Live (1 dead)</td>
+                    </tr><tr><td><h3>Payment</h3></td><td></td></tr>
+                    <tr>
+                        <td>currency</td>
+                        <td>3 Live</td>
+                    </tr>
+                    <tr>
+                        <td>payment-acceptance</td>
+                        <td>1 Live (4 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>checkout-buttons</td>
+                        <td>0 Live (1 dead)</td>
+                    </tr>
+                    <tr>
+                        <td>payments-processor</td>
+                        <td>0 Live (1 dead)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: left;"><h4>Last scanned on 27 February 2025 at 01:30 PM</h4></td>
+                    </tr>
+                </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> DNS Security </h2>
+                            <i class="fas fa-shield-virus refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <div class="progress-bar-container">
+                            <div class="progress" style="width: 100%;">100%</div>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><h3>DNSKEY</h3></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>DNSKEY - Present?</td>
+                    <td>❌ No</td>
+                </tr>
+                
+                    <tr>
+                        <td style="padding-left: 20px;">Recursion Desired (RD)</td>
+                        <td>✅</td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding-left: 20px;">Recursion Available (RA)</td>
+                        <td>✅</td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding-left: 20px;">TrunCation (TC)</td>
+                        <td>❌</td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding-left: 20px;">Authentic Data (AD)</td>
+                        <td>❌</td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding-left: 20px;">Checking Disabled (CD)</td>
+                        <td>❌</td>
+                    </tr>
+                    
+                <tr>
+                    <td><h3>DS</h3></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>DS - Present?</td>
+                    <td>❌ No</td>
+                </tr>
+                
+                    <tr>
+                        <td style="padding-left: 20px;">Recursion Desired (RD)</td>
+                        <td>✅</td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding-left: 20px;">Recursion Available (RA)</td>
+                        <td>✅</td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding-left: 20px;">TrunCation (TC)</td>
+                        <td>❌</td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding-left: 20px;">Authentic Data (AD)</td>
+                        <td>❌</td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding-left: 20px;">Checking Disabled (CD)</td>
+                        <td>❌</td>
+                    </tr>
+                    
+                <tr>
+                    <td><h3>RRSIG</h3></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>RRSIG - Present?</td>
+                    <td>❌ No</td>
+                </tr>
+                
+                    <tr>
+                        <td style="padding-left: 20px;">Recursion Desired (RD)</td>
+                        <td>✅</td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding-left: 20px;">Recursion Available (RA)</td>
+                        <td>✅</td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding-left: 20px;">TrunCation (TC)</td>
+                        <td>❌</td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding-left: 20px;">Authentic Data (AD)</td>
+                        <td>❌</td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding-left: 20px;">Checking Disabled (CD)</td>
+                        <td>❌</td>
+                    </tr>
+                    
+            </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Tech Stack </h2>
+                            <i class="fas fa-tools refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <div class="progress-bar-container">
+                            <div class="progress" style="width: 0%;">0%</div>
+                        </div>
+                    </td>
+                </tr>
+                    
+                <tr>
+                    <td>Web Server</td>
+                    <td>Unknown</td>
+                </tr>
+                <tr>
+                    <td>X-Powered-By</td>
+                    <td>Next.js</td>
+                </tr>
+                <tr>
+                    <td>X-AspNet-Version</td>
+                    <td>Not specified</td>
+                </tr>
+                <tr>
+                    <td>CMS</td>
+                    <td>Not Detected</td>
+                </tr>
+                <tr>
+                    <td>JavaScript Frameworks</td>
+                    <td>Not Detected</td>
+                </tr>
+                <tr>
+                    <td>Analytics</td>
+                    <td>Google Analytics</td>
+                </tr>
+                <tr>
+                    <td>CDN</td>
+                    <td>Not Detected</td>
+                </tr>
+                <tr>
+                    <td>Security</td>
+                    <td>Not Detected</td>
+                </tr>
+            </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Firewall Detection </h2>
+                            <i class="fas fa-fire refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <div class="progress-bar-container">
+                            <div class="progress" style="width: 0%;">0%</div>
+                        </div>
+                    </td>
+                </tr>
+                    
+                <tr>
+                    <td>hasWaf</td>
+                    <td>False</td>
+                </tr>
+                <tr>
+                    <td>wafName</td>
+                    <td>*The domain may be protected with a proprietary or custom WAF which we were unable to identify automatically</td>
+                </tr>
+            </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Social Tags </h2>
+                            <i class="fas fa-hashtag refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Title</td>
+                            <td>EXPERIENCE MEDITATION</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>"Heartfulness Is an Educational &amp; Volunteer-Based Non-Profit Organization, Focused on Meditation, Relaxation, Yoga &amp; Spirituality.</td>
+                        </tr>
+                        <tr>
+                            <td>Keywords</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>Canonical URL</td>
+                            <td>https://heartfulness.org/in-en</td>
+                        </tr>
+                        <tr>
+                            <td>Twitter Site</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>Author</td>
+                            <td>None</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Threats </h2>
+                            <i class="fas fa-exclamation-triangle refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="progress-bar-container">
+                                        <div class="progress" style="width: 100%;">100%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Phishing Status</td>
+                                <td>✅ No Phishing Found</td>
+                            </tr>
+                            <tr>
+                                <td>Malware Status</td>
+                                <td>✅ No Malwares Found</td>
+                            </tr>
+                        </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Global Rank </h2>
+                            <i class="fas fa-trophy refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: 100%;">100%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Date</td>
+                            <td>2025-03-02</td>
+                        </tr>
+                        <tr>
+                            <td>Rank</td>
+                            <td>268157</td>
+                        </tr>
+                    </table></h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> Security.Txt </h2>
+                            <i class="fas fa-file-code refresh"> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4><table>
+                    <tr>
+                        <td colspan="2">
+                            <div class="progress-bar-container">
+                                <div class="progress" style="width: 66%;">66%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Present </td>
+                        <td> ✅ Yes </td>
+                    </tr>
+                    <tr>
+                        <td> File Location </td>
+                        <td> /.well-known/security.txt </td>
+                    </tr>
+                    <tr>
+                        <td> PGP Signed </td>
+                        <td> ❌ No </td>
+                    </tr> </table></h4> 
+                        </div>
+                    </div></div><div class="footer">
+                            <h3 align="left"; margin-left: 20px;>Developed by:&nbsp;Alien C00de <h3>
+                            <h3 align="center";> <i class="far fa-envelope"></i>&nbsp;alien.c00de@gmail.com</h3>
+                            <h3 align="right"; margin-right: 20px;> <i class="fab fa-github"></i>&nbsp;https://github.com/Alien-C00de</h3>
+                        </div>
+                    </body>
+                </html>

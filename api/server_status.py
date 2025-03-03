@@ -16,7 +16,7 @@ class Server_Status():
     async def Get_Server_Status(self):
         config = Configuration()
         self.Error_Title = config.SERVER_STATUS
-        output = ""
+        output = []
         IsUp  = False
         try:
             async with aiohttp.ClientSession() as session:

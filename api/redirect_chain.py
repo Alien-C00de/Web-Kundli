@@ -1,4 +1,3 @@
-import requests
 import aiohttp
 from colorama import Fore, Style
 from util.config_uti import Configuration
@@ -68,7 +67,6 @@ class Redirect_Chain():
             report_util = Report_Utility()
             table = await report_util.Empty_Table()
         else:
-            # percentage = await self.__rating(str(self.domain), str(result[0]), str(result[1]), str(result[2]))
             percentage, html = await self.__redirect_score(result[0], str(result[1]), str(result[2]))
             table = (
                 """<table>

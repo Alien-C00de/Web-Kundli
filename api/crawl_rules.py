@@ -17,7 +17,7 @@ class Crawl_Rules:
     async def Get_Crawl_Rules(self):
         config = Configuration()
         self.Error_Title = config.CRAWL_RULES
-        output = ""
+        output = []
         robot_url = urljoin(self.url, config.CRAWL_FILE)
         try:
             # print("crawl_rules.py: start ")

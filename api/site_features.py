@@ -3,7 +3,6 @@ from colorama import Fore, Style
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
 from util.issue_config import Issue_Config
-import re
 import datetime
 
 

@@ -15,7 +15,6 @@ from api.http_security import HTTP_Security
 from api.dns_server import DNS_Server
 from api.tls_cipher_suite import TLS_Cipher_Suit
 from api.dns_records import DNS_Records
-from api.txt_records import TXT_Records
 from api.server_status import Server_Status
 from api.mail_records import Mail_Records
 from api.redirect_chain import Redirect_Chain
@@ -101,25 +100,25 @@ class engine():
         Header = []
         cookie = []
         dns_server_info = []
-        tls_cipher_suite = ""
-        dns_info = ""
-        server_status_info = ""
+        tls_cipher_suite = []
+        dns_info = []
+        server_status_info = []
         mail_config_info = ""
-        redirect_info = ""
+        redirect_info = []
         port_info = []
         archive_info = []
         associated_info = ""
         block_info = ""
         carbon_info = []
         crawl_info = []
-        site_info = ""
+        site_info = []
         dns_sec_info = []
-        tech_stack_info = ""
-        firewall_info = ""
-        social_tags_info = ""
-        threats_info = ""
-        global_ranking_info = ""
-        security_txt_info = ""
+        tech_stack_info = []
+        firewall_info = []
+        social_tags_info = []
+        threats_info = []
+        global_ranking_info = []
+        security_txt_info = []
         nmap_info = []
 
         try:
@@ -136,9 +135,6 @@ class engine():
             if self.isNmap:
                 tasks.append(nmap_scan.Get_Nmap_Scan())
 
-            # Server_location, SSL_Cert, Whois, Server_INFO, Header, cookie, DNS_Server, tls_cipher_suite, dns_info, txt_info, server_status_info, mail_config_info, redirect_info, port_info, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info, tech_stack_info, firewall_info, social_tags_info, threats_info, global_ranking_info, security_txt_info, nmap_info = (
-            #     await asyncio.gather(*tasks))
-
             results = await asyncio.gather(*tasks)
 
             (Server_location, SSL_Cert, Whois, Header, cookie, dns_server_info, tls_cipher_suite, dns_info,  
@@ -150,38 +146,10 @@ class engine():
             else:
                 nmap_info = None
 
-            tb1 = str(Server_location[0])
-            tb2 = str(SSL_Cert[0])
-            tb3 = str(Whois[0])
-            tb4 = str(Server_location[2])
-            tb5 = str(Header[0])
-            tb6 = str(Header[2])
-            tb7 = str(cookie[0])
-            tb8 = str(dns_server_info[0])
-            tb9 = str(tls_cipher_suite[0])
-            tb10 = str(dns_info[0])
-            tb11 = str(dns_info[2])
-            tb12 = str(server_status_info[0])
-            tb13 = str(mail_config_info)
-            tb14 = str(redirect_info[0])
-            tb15 = str(port_info[0])
-            tb16 = str(archive_info[0])
-            tb17 = str(associated_info[0])
-            tb18 = str(block_info[0])
-            tb19 = str(carbon_info[0])
-            tb20 = str(crawl_info[0])
-            tb21 = str(site_info[0])
-            tb22 = str(dns_sec_info[0])
-            tb23 = str(tech_stack_info[0])
-            tb24 = str(firewall_info[0])
-            tb25 = str(social_tags_info[0])
-            tb26 = str(threats_info[0])
-            tb27 = str(global_ranking_info[0])
-            tb28 = str(security_txt_info[0])
             if self.isNmap:
-                tb29 = nmap_info
+                nmap = nmap_info
             else:
-                tb29 = []
+                nmap = []
 
             timestamp = datetime.datetime.now()
 
@@ -190,15 +158,21 @@ class engine():
             summary_report = Summary_Report(self.domain, timestamp)
             analysis_report = Analysis_Report(self.domain, timestamp)
 
-            final_report = [summary_report.Generate_Summary_Report(self.url, tb1, tb2, tb3, tb4, tb5, tb6, tb7, tb8, tb9, tb10, tb11, tb12, 
-                                        tb13, tb14, tb15, tb16, tb17, tb18, tb19, tb20, tb21, tb22, tb23, tb24, tb25, tb26, tb27, tb28, tb29), 
+            final_report = [summary_report.Generate_Summary_Report(self.url, str(Server_location[0]), str(SSL_Cert[0]), str(Whois[0]), 
+                                    str(Server_location[2]), str(Header[0]), str(Header[2]), str(cookie[0]), str(dns_server_info[0]), 
+                                    str(tls_cipher_suite[0]), str(dns_info[0]), str(dns_info[2]), str(server_status_info[0]), 
+                                    str(mail_config_info), str(redirect_info[0]), str(port_info[0]), str(archive_info[0]), 
+                                    str(associated_info[0]), str(block_info[0]), str(carbon_info[0]), str(crawl_info[0]), 
+                                    str(site_info[0]), str(dns_sec_info[0]), str(tech_stack_info[0]), str(firewall_info[0]), 
+                                    str(social_tags_info[0]), str(threats_info[0]), str(global_ranking_info[0]), str(security_txt_info[0]), 
+                                    nmap), 
                             
                             analysis_report.Generate_Analysis_Report(self.url, str(cookie[1]), str(Server_location[1]), str(Server_location[3]), 
-                                        str(SSL_Cert[1]), str(archive_info[1]), str(associated_info[1]), str(block_info[1]), str(carbon_info[1]), 
-                                        str(crawl_info[1]), str(dns_sec_info[1]), str(dns_server_info[1]), str(Whois[1]), str(Header[1]),
-                                        str(Header[3]), str(firewall_info[1]), str(global_ranking_info[1]), str(port_info[1]), str(redirect_info[1]),
-                                        str(security_txt_info[1]), str(server_status_info[1]), str(site_info[1]), str(social_tags_info[1]),
-                                        str(tech_stack_info[1]), str(threats_info[1]), str(dns_info[1]), str(dns_info[3]), str(tls_cipher_suite[1]))]
+                                    str(SSL_Cert[1]), str(archive_info[1]), str(associated_info[1]), str(block_info[1]), str(carbon_info[1]), 
+                                    str(crawl_info[1]), str(dns_sec_info[1]), str(dns_server_info[1]), str(Whois[1]), str(Header[1]),
+                                    str(Header[3]), str(firewall_info[1]), str(global_ranking_info[1]), str(port_info[1]), str(redirect_info[1]),
+                                    str(security_txt_info[1]), str(server_status_info[1]), str(site_info[1]), str(social_tags_info[1]),
+                                    str(tech_stack_info[1]), str(threats_info[1]), str(dns_info[1]), str(dns_info[3]), str(tls_cipher_suite[1]))]
 
             await asyncio.gather(*final_report)
             

@@ -14,7 +14,9 @@ class DNS_Records():
 
     async def Get_DNS_Records(self):
         config = Configuration()
-        self.Error_Title = config.ICON_DNS_RECORDS
+        self.Error_Title = config.DNS_RECORDS
+        DNS_Records = []
+        TXT_Records = []
         output = []
         try:
             result = await self.__final_result(self.domain)
