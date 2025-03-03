@@ -39,4 +39,5 @@ Sr. Module Name	                    Project Module Name		    Status
 38	HTTP Strict Transport Security			
 39	Screenshot		
 40  App / Webserver details
+41  Python AI rules for Web checking
 

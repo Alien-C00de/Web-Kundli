@@ -60,7 +60,7 @@ class Server_Location():
             ip = str(dataframe[0]["ip"])
             location =  str(dataframe[0]["region"]) + ",\n " + str(dataframe[0]["country_name"])
 
-            percentage, htmltags = await self.__server_info_score(org, asn, ip, location)
+            percentage, html = await self.__server_info_score(org, asn, ip, location)
 
             table = """<table>
                             <tr>
@@ -152,103 +152,91 @@ class Server_Location():
         return rep_data
 
     async def __server_Location_score(self, city, country, timezone, languages, currency):
-
-        issue_config = Issue_Config()
-        total_score = 0
-        total_weight = 100  # Max total score
+        score = 0
+        max_score = 5 # Max total score
 
         issues = []
         suggestions = []
 
-        # Weights assigned to each parameter (equally distributed here)
-        parameter_weight = total_weight / 5  # 5 parameters: City, Country, Timezone, Languages, Currency
-
         # Check City
         if city != "Unknown" and city != "":
-            total_score += parameter_weight
+            score += 1
         else:
-            issues.append(issue_config.ISSUE_LOCATION_CITY)
-            suggestions.append(issue_config.SUGGESTION_LOCATION_CITY)
+            issues.append(Issue_Config.ISSUE_LOCATION_CITY)
+            suggestions.append(Issue_Config.SUGGESTION_LOCATION_CITY)
 
         # Check Country
         if country != "Unknown" and country != "":
-            total_score += parameter_weight
+            score += 1
         else:
-            issues.append(issue_config.ISSUE_LOCATION_COUNTRY)
-            suggestions.append(issue_config.SUGGESTION_LOCATION_COUNTRY)
+            issues.append(Issue_Config.ISSUE_LOCATION_COUNTRY)
+            suggestions.append(Issue_Config.SUGGESTION_LOCATION_COUNTRY)
 
         # Check Timezone
         if timezone != "Unknown" and timezone != "":
-            total_score += parameter_weight
+            score += 1
         else:
-            issues.append(issue_config.ISSUE_LOCATION_TIMEZONE)
+            issues.append(Issue_Config.ISSUE_LOCATION_TIMEZONE)
             suggestions.append(Issue_Config.SUGGESTION_LOCATION_TIMEZONE)
 
         # Check Languages
         if languages != "Unknown" and languages != "":
-            total_score += parameter_weight
+            score += 1
         else:
-            issues.append(issue_config.ISSUE_LOCATION_LANGUAGES)
-            suggestions.append(issue_config.SUGGESTION_LOCATION_LANGUAGES)
+            issues.append(Issue_Config.ISSUE_LOCATION_LANGUAGES)
+            suggestions.append(Issue_Config.SUGGESTION_LOCATION_LANGUAGES)
 
         # Check Currency
         if currency != "Unknown" and currency != "":
-            total_score += parameter_weight
+            score += 1
         else:
-            issues.append(issue_config.ISSUE_LOCATION_CURRENCY)
-            suggestions.append(issue_config.SUGGESTION_LOCATION_CURRENCY)
+            issues.append(Issue_Config.ISSUE_LOCATION_CURRENCY)
+            suggestions.append(Issue_Config.SUGGESTION_LOCATION_CURRENCY)
 
         # Calculate percentage score
-        percentage_score = (total_score / total_weight) * 100
-        # html_tags = await self.__analysis_location_table(issues, suggestions, int(security_score_percentage))
+        percentage_score = (score / max_score) * 100
         report_util = Report_Utility()
         html_tags = await report_util.analysis_table(Configuration.ICON_SERVER_LOCATION, Configuration.MODULE_SERVER_LOCATION, issues, suggestions, int(percentage_score))
 
         return int(percentage_score), html_tags
 
     async def __server_info_score(self, organization, asn_code, ip, location):
-        issue_config = Issue_Config()
-        total_score = 0
-        total_weight = 100  # Max total score
+        score = 0
+        max_score = 4 # Max total score
 
         issues = []
         suggestions = []
 
-        # Weights assigned to each parameter (equally distributed here)
-        parameter_weight = total_weight / 4  # 4 parameters: Organization, ASN Code, IP, Location
-
         # Check Organization
         if organization != "Unknown" and organization != "":
-            total_score += parameter_weight
+            score += 1
         else:
-            issues.append(issue_config.ISSUE_SERVER_INFO_ORGANIZATION)
-            suggestions.append(issue_config.SUGGESTION_SERVER_INFO_ORGANIZATION)
+            issues.append(Issue_Config.ISSUE_SERVER_INFO_ORGANIZATION)
+            suggestions.append(Issue_Config.SUGGESTION_SERVER_INFO_ORGANIZATION)
 
         # Check ASN Code
         if asn_code != "Unknown" and asn_code != "":
-            total_score += parameter_weight
+            score += 1
         else:
-            issues.append(issue_config.ISSUE_SERVER_INFO_ASN)
-            suggestions.append(issue_config.SUGGESTION_SERVER_INFO_ASN)
+            issues.append(Issue_Config.ISSUE_SERVER_INFO_ASN)
+            suggestions.append(Issue_Config.SUGGESTION_SERVER_INFO_ASN)
 
         # Check IP
         if ip != "Unknown" and ip != "":
-            total_score += parameter_weight
+            score += 1
         else:
-            issues.append(issue_config.ISSUE_IP)
-            suggestions.append(issue_config.SUGGESTION_SERVER_INFO_IP)
+            issues.append(Issue_Config.ISSUE_IP)
+            suggestions.append(Issue_Config.SUGGESTION_SERVER_INFO_IP)
 
         # Check Location
         if location != "Unknown" and location != "":
-            total_score += parameter_weight
+            score += 1
         else:
-            issues.append(issue_config.ISSUE_SERVER_INFO_LOCATION)
-            suggestions.append(issue_config.SUGGESTION_SERVER_INFO_LOCATION)
+            issues.append(Issue_Config.ISSUE_SERVER_INFO_LOCATION)
+            suggestions.append(Issue_Config.SUGGESTION_SERVER_INFO_LOCATION)
 
         # Calculate percentage score
-        percentage_score = (total_score / total_weight) * 100
-
-        # html_tags = await self.__analysis_server_table(issues, suggestions, int(server_info_score_percentage))
+        percentage_score = (score / max_score) * 100
         report_util = Report_Utility()
         html_tags = await report_util.analysis_table(Configuration.ICON_SERVER_INFO, Configuration.MODULE_SERVER_INFO, issues, suggestions, int(percentage_score))
 

@@ -75,7 +75,7 @@ class engine():
         dns_Server = DNS_Server(self.ip_address, self.url, self.domain)
         tls_data = TLS_Cipher_Suit(self.url, self.domain)
         dns_record_info = DNS_Records(self.url, self.domain)
-        txt_record = TXT_Records(self.url, self.domain)
+        # txt_record = TXT_Records(self.url, self.domain)
         server_status = Server_Status(self.url, response, self.domain)
         mail_config = Mail_Records(self.url, self.domain)
         redirect_Record = Redirect_Chain(self.url, self.domain)
@@ -103,7 +103,6 @@ class engine():
         dns_server_info = []
         tls_cipher_suite = ""
         dns_info = ""
-        txt_info = ""
         server_status_info = ""
         mail_config_info = ""
         redirect_info = ""
@@ -126,7 +125,7 @@ class engine():
         try:
             tasks = [ser_loc.Get_Server_Location(), ssl_cert.Get_SSL_Certificate(), whois_info.Get_Whois_Info(),
                     http_sec.Get_HTTP_Security(), cookies_info.Get_Cookies(), dns_Server.Get_DNS_Server(),
-                    tls_data.Get_TLS_Cipher_Suit(), dns_record_info.Get_DNS_Records(), txt_record.Get_TXT_Records(),
+                    tls_data.Get_TLS_Cipher_Suit(), dns_record_info.Get_DNS_Records(), 
                     server_status.Get_Server_Status(), mail_config.Get_Mail_Records(), redirect_Record.Get_Redirect_Chain(),
                     ports.Get_Open_Ports(), archive.Get_Archive_History(), associated_host.Get_Associated_Hosts(),
                     block_detect.Get_Block_Detection(), carbon_print.Get_Carbon_Footprint(), crawl_rule.Get_Crawl_Rules(),
@@ -142,12 +141,12 @@ class engine():
 
             results = await asyncio.gather(*tasks)
 
-            (Server_location, SSL_Cert, Whois, Header, cookie, dns_server_info, tls_cipher_suite, dns_info, txt_info, 
+            (Server_location, SSL_Cert, Whois, Header, cookie, dns_server_info, tls_cipher_suite, dns_info,  
             server_status_info, mail_config_info, redirect_info, port_info, archive_info, associated_info, block_info, carbon_info, 
             crawl_info, site_info, dns_sec_info, tech_stack_info, firewall_info, social_tags_info, threats_info, 
-            global_ranking_info, security_txt_info) = results[:26]
+            global_ranking_info, security_txt_info) = results[:25]
             if self.isNmap:
-                nmap_info = results[26]
+                nmap_info = results[25]
             else:
                 nmap_info = None
 
@@ -160,8 +159,8 @@ class engine():
             tb7 = str(cookie[0])
             tb8 = str(dns_server_info[0])
             tb9 = str(tls_cipher_suite)
-            tb10 = str(dns_info)
-            tb11 = str(txt_info)
+            tb10 = str(dns_info[0])
+            tb11 = str(dns_info[2])
             tb12 = str(server_status_info[0])
             tb13 = str(mail_config_info)
             tb14 = str(redirect_info[0])
@@ -199,7 +198,7 @@ class engine():
                                         str(crawl_info[1]), str(dns_sec_info[1]), str(dns_server_info[1]), str(Whois[1]), str(Header[1]),
                                         str(Header[3]), str(firewall_info[1]), str(global_ranking_info[1]), str(port_info[1]), str(redirect_info[1]),
                                         str(security_txt_info[1]), str(server_status_info[1]), str(site_info[1]), str(social_tags_info[1]),
-                                        str(tech_stack_info[1]), str(threats_info[1]))]
+                                        str(tech_stack_info[1]), str(threats_info[1]), str(dns_info[1]), str(dns_info[3]))]
 
             await asyncio.gather(*final_report)
             

@@ -1,4 +1,5 @@
 import aiohttp
+import asyncio
 import socket
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
@@ -20,21 +21,23 @@ class DNS_Server():
         output = ""
 
         try:
-            # print("dns_server_info.py: start)
             doh_url = f"https://{self.ip_address}/dns-query"
 
             async with aiohttp.ClientSession() as session:
-                async with session.get(doh_url) as response:
-                    if response.status == 200 : DoH = "Yes"
+                try:
+                    async with session.get(doh_url, timeout = 5) as response:
+                        if response.status == 200:
+                            DoH = "Yes"
+                except (aiohttp.ClientConnectorError, asyncio.TimeoutError):
+                    output = await self.__html_table(DoH)
+                    return output
 
-            output = await self.__html_table(DoH)
+            return await self.__html_table(DoH)
+
         except (socket.herror, UnicodeError) as e:
             error_msg = e.strerror
             msg = "[-] " + self.Error_Title + " => Get_DNS_Server : " + error_msg
             print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
-            output = await self.__html_table(DoH)
-            return output
-        except aiohttp.ClientConnectorError:
             output = await self.__html_table(DoH)
             return output
         except Exception as ex:
