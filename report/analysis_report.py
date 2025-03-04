@@ -10,7 +10,7 @@ class Analysis_Report:
     async def Generate_Analysis_Report(self, website, cookies, server_location, server_info, SSL_Cert, Archive, Asso_Host, Block_Detect,
                             CO2_print, crawl_rule, DNS_Security, DNS_Server, whois, http_security, web_header, firewall, global_rank,
                             open_ports, redirect_chain, security_TXT, server_status, site_feature, social_tags, tech_stack, threats,
-                            dns_records, txt_records, tls_cipher_suit):
+                            dns_records, txt_records, tls_cipher_suit, email_config):
 
         config = Configuration()
         report_timestamp = self.timestamp.strftime("%A %d-%b-%Y %H:%M:%S")
@@ -105,34 +105,34 @@ class Analysis_Report:
                         <div class="timestamp">
                             <i class="far fa-clock"></i> Report Generated: """  + report_timestamp + """
                         </div>
-                                """ + cookies + """
                                 """ + server_location + """
-                                """ + server_info + """
                                 """ + SSL_Cert + """
+                                """ + whois + """
+                                """ + server_info + """
+                                """ + web_header + """
+                                """ + cookies + """
+                                """ + http_security + """
+                                """ + DNS_Server + """
+                                """ + tls_cipher_suit + """
+                                """ + dns_records + """
+                                """ + txt_records + """ 
+                                """ + server_status + """
+                                """ + email_config + """
+                                """ + redirect_chain + """
+                                """ + open_ports + """
                                 """ + Archive + """
                                 """ + Asso_Host + """
                                 """ + Block_Detect + """
                                 """ + CO2_print + """
                                 """ + crawl_rule + """
-                                """ + DNS_Security + """
-                                """ + DNS_Server + """
-                                """ + whois + """
-                                """ + http_security + """
-                                """ + web_header + """
-                                """ + firewall + """
-                                """ + firewall + """
-                                """ + global_rank + """
-                                """ + open_ports + """
-                                """ + redirect_chain + """
-                                """ + security_TXT + """
-                                """ + server_status + """
                                 """ + site_feature + """
-                                """ + social_tags + """
+                                """ + DNS_Security + """
                                 """ + tech_stack + """
+                                """ + firewall + """
+                                """ + social_tags + """
                                 """ + threats + """
-                                """ + dns_records + """
-                                """ + txt_records + """
-                                """ + tls_cipher_suit + """
+                                """ + global_rank + """
+                                """ + security_TXT + """
                             <footer>
                                 """ + config.ANALYSIS_REPORT_FOOTER + """&nbsp;&nbsp;&copy;&nbsp;""" + config.YEAR + """
                             </footer>

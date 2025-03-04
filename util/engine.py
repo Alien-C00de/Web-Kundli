@@ -16,7 +16,7 @@ from api.dns_server import DNS_Server
 from api.tls_cipher_suite import TLS_Cipher_Suit
 from api.dns_records import DNS_Records
 from api.server_status import Server_Status
-from api.mail_records import Mail_Records
+from api.mail_record import Mail_Records
 from api.redirect_chain import Redirect_Chain
 from api.open_ports import Open_Ports
 from api.archive_history import Archive_History
@@ -101,14 +101,14 @@ class engine():
         cookie = []
         dns_server_info = []
         tls_cipher_suite = []
-        dns_info = []
+        dns_txt_email_config_info = []
         server_status_info = []
-        mail_config_info = ""
+        mail_config_info = []
         redirect_info = []
         port_info = []
         archive_info = []
-        associated_info = ""
-        block_info = ""
+        associated_info = []
+        block_info = []
         carbon_info = []
         crawl_info = []
         site_info = []
@@ -137,7 +137,7 @@ class engine():
 
             results = await asyncio.gather(*tasks)
 
-            (Server_location, SSL_Cert, Whois, Header, cookie, dns_server_info, tls_cipher_suite, dns_info,  
+            (Server_location, SSL_Cert, Whois, Header, cookie, dns_server_info, tls_cipher_suite, dns_txt_email_config_info,  
             server_status_info, mail_config_info, redirect_info, port_info, archive_info, associated_info, block_info, carbon_info, 
             crawl_info, site_info, dns_sec_info, tech_stack_info, firewall_info, social_tags_info, threats_info, 
             global_ranking_info, security_txt_info) = results[:25]
@@ -160,8 +160,8 @@ class engine():
 
             final_report = [summary_report.Generate_Summary_Report(self.url, str(Server_location[0]), str(SSL_Cert[0]), str(Whois[0]), 
                                     str(Server_location[2]), str(Header[0]), str(Header[2]), str(cookie[0]), str(dns_server_info[0]), 
-                                    str(tls_cipher_suite[0]), str(dns_info[0]), str(dns_info[2]), str(server_status_info[0]), 
-                                    str(mail_config_info), str(redirect_info[0]), str(port_info[0]), str(archive_info[0]), 
+                                    str(tls_cipher_suite[0]), str(dns_txt_email_config_info[0]), str(dns_txt_email_config_info[2]), str(server_status_info[0]), 
+                                    str(mail_config_info[0]), str(redirect_info[0]), str(port_info[0]), str(archive_info[0]), 
                                     str(associated_info[0]), str(block_info[0]), str(carbon_info[0]), str(crawl_info[0]), 
                                     str(site_info[0]), str(dns_sec_info[0]), str(tech_stack_info[0]), str(firewall_info[0]), 
                                     str(social_tags_info[0]), str(threats_info[0]), str(global_ranking_info[0]), str(security_txt_info[0]), 
@@ -172,7 +172,8 @@ class engine():
                                     str(crawl_info[1]), str(dns_sec_info[1]), str(dns_server_info[1]), str(Whois[1]), str(Header[1]),
                                     str(Header[3]), str(firewall_info[1]), str(global_ranking_info[1]), str(port_info[1]), str(redirect_info[1]),
                                     str(security_txt_info[1]), str(server_status_info[1]), str(site_info[1]), str(social_tags_info[1]),
-                                    str(tech_stack_info[1]), str(threats_info[1]), str(dns_info[1]), str(dns_info[3]), str(tls_cipher_suite[1]))]
+                                    str(tech_stack_info[1]), str(threats_info[1]), str(dns_txt_email_config_info[1]), 
+                                    str(dns_txt_email_config_info[3]), str(tls_cipher_suite[1]), str(mail_config_info[1]))]
 
             await asyncio.gather(*final_report)
             
