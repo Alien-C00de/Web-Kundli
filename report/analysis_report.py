@@ -55,25 +55,28 @@ class Analysis_Report:
                                     font-size: 40px;
                                 }
                                 .section {
-                                    margin-bottom: 20px;
-                                    padding: 15px;
-                                    border-radius: 8px;
+                                    margin-bottom: 15px;
+                                    padding: 10px;
+                                    border-radius: 4px;
                                 }
                                 .cookies { background: #6600cc; }
                                 .carbon { background: #0066cc; }
                                 .dns { background: #cc6600; }
+                                .report { background: #656563; }
                                 .section .refresh {
-                                    color: #FFA500;
+                                    color: #00FF00;
                                     font-size: 30px;
                                 }
                                 .issues {
                                     background: #e74c3c;
                                     padding: 10px;
+                                    margin-bottom: 5px;
                                     border-radius: 5px;
                                 }
                                 .suggestions {
                                     background: #2ecc71;
                                     padding: 10px;
+                                    margin-top: 5px; 
                                     border-radius: 5px;
                                 }
                                 ul {
@@ -91,11 +94,69 @@ class Analysis_Report:
                                 .timestamp {
                                     text-align: right;
                                     font-size: 14px;
+                                    margin-top: 10px;
                                     margin-bottom: 10px;
                                 }
+                                .score-container {
+                                    font-family: Arial, sans-serif;
+                                    font-size: 20px;
+                                    text-align: center;
+                                    padding: 10px;
+                                    width: 90%;
+                                    margin: auto;
+                                    border-radius: 10px;
+                                    color: white;
+                                    font-weight: bold;
+                                }   
+                                .excellent { background-color: green; }
+                                .moderate { background-color: orange; }
+                                .poor { background-color: red; }
+                                .very-poor { background-color: darkred; }
                             </style>
                         </head>""")
-        body = ("""<body>
+        script = ("""<script>
+                    function getURLParameter(name) {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        return urlParams.get(name);
+                    }
+
+                    function displayValueAndCategorize() {
+                        const reportValue = getURLParameter('report');  // Fetch 'report' parameter
+                        let scoreValue = document.getElementById('passedValue');
+                        let scoreDisplay = document.getElementById("scoreDisplay");
+                        let healthStatus = document.getElementById("healthStatus");
+
+                        if (reportValue) {
+                            let numericScore = parseFloat(reportValue); // Convert to float for decimal support
+                            scoreValue.innerText = numericScore.toFixed(2);
+                            categorizeHealth(numericScore);
+                        } else {
+                            scoreValue.innerText = 'No value passed';
+                            healthStatus.innerText = "N/A";
+                            scoreDisplay.className = "score-container";
+                        }
+                    }
+
+                    function categorizeHealth(score) {
+                        let container = document.getElementById("scoreDisplay");
+                        let statusText = document.getElementById("healthStatus");
+
+                        if (score >= 80) {
+                            statusText.innerText = "Excellent";
+                            container.className = "score-container excellent";
+                        } else if (score >= 60) {
+                            statusText.innerText = "Moderate";
+                            container.className = "score-container moderate";
+                        } else if (score >= 40) {
+                            statusText.innerText = "Poor";
+                            container.className = "score-container poor";
+                        } else {
+                            statusText.innerText = "Very Poor";
+                            container.className = "score-container very-poor";
+                        }
+                    }
+                </script>""")
+        body = ("""<body onload="displayValueAndCategorize()">
                     <div class="container">
                         <div class="header">
                             <h1><i class="fas fa-user-secret icon"></i>&nbsp;""" + config.REPORT_HEADER + """</h1>
@@ -104,6 +165,16 @@ class Analysis_Report:
                         </div>
                         <div class="timestamp">
                             <i class="far fa-clock"></i> Report Generated: """  + report_timestamp + """
+                        </div>
+                        <div class="section report">
+                            <h2><i class="fas fa-chart-bar refresh"></i>&nbsp;&nbsp;&nbsp;Final Score&nbsp;= <span id="passedValue"></span>%</h2>
+                            <p style="padding-left: 50px;"><strong>80%+ → Excellent : ✅ </strong> Well-optimized with minimal issues.</p>
+                            <p style="padding-left: 50px;"><strong>60-79% → Moderate : ⚠️  </strong> Needs some improvements.</p>
+                            <p style="padding-left: 50px;"><strong>40-59% → Poor ❌ </strong> Several issues require attention.</p>
+                            <p style="padding-left: 50px;"><strong>Below 40% → Very Poor 🚨 </strong> Critical issues, urgent action needed.</p>
+                            <div id="scoreDisplay" class="score-container">
+                                Health Status: <span id="healthStatus"></span>
+                            </div>
                         </div>
                                 """ + server_location + """
                                 """ + SSL_Cert + """
@@ -146,4 +217,5 @@ class Analysis_Report:
 
         with open(Analysis_report, "a", encoding="UTF-8") as f:
             f.write(header)
+            f.write(script)
             f.write(body)

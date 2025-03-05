@@ -35,57 +35,18 @@ class Report_Utility():
         return html
     
 
-    async def Empty_Table(self):
-        percentage = 0
-        table = f"""
-                        <table>
-                            <tr>
-                                <td colspan="1">
-                                    <div class="progress-bar-container">
-                                        <div class="progress" style="width: {str(percentage)}%;">{str(percentage)}%</div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>"""
-
-        return table
-
-    async def Generate_Table(self, data, tls_data=None, tls_ok=False):
-        # Start of the table
-        table = """<table>
-                    <tr>
-                        <td colspan="2">
-                            <div class="progress-bar-container">
-                                <div class="progress" style="width: """ + str(data.get('percentage', 0)) + """%;">""" + str(data.get('percentage', 0)) + """%</div>
-                            </div>
-                        </td>
-                    </tr>"""
-        
-        # Loop through each header-value pair in the data list
-        for header, value in data.items():
-            table += f"""
-                    <tr>
-                        <td>{header}</td>
-                        <td>{str(value)}</td>
-                    </tr>"""
-
-        # Conditionally add TLS data if TLS_OK is True
-        if tls_ok and tls_data:
-            table += """
-                    <tr>
-                        <td><h3>Extended Key Usage</h3></td>
-                        <td></td>
-                    </tr>"""
-            
-            for key, value in tls_data.items():
-                table += f"""
-                    <tr>
-                        <td>{key}</td>
-                        <td>{str(value)}</td>
-                    </tr>"""
-
-        # End of the table
-        table += """
-                </table>"""
-        
+    async def Empty_Table(self, warning = "", percentage = 0):
+        table = f"""<table>
+                        <tr>
+                            <td colspan="2">
+                                <div class="progress-bar-container">
+                                    <div class="progress" style="width: {str(percentage)}%;">{str(percentage)}%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: left;">{warning}</td>
+                        </tr>
+                        <tr>
+                    </table>"""
         return table

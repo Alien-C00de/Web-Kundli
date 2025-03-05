@@ -42,7 +42,7 @@ class Cookies():
         html = ""
         if not cookie_info:
             report_util = Report_Utility()
-            table = await report_util.Empty_Table()
+            table = await report_util.Empty_Table("This website does not use cookies.", 100)
         else:
             percentage, html = await self.__cookies_score(cookie_info)
             for cookie in cookie_info:

@@ -93,7 +93,9 @@ class Domain_Whois():
         return rep_data
 
     async def __whois_score(self, registrar, creation_date, updated_date, expiry_date):
-        score = 100  # Start with full score
+        # score = 100  # Start with full score
+        score = 0
+        max_score = 5  # 6 parameters to evaluate
         issues = []
         suggestions = []
         
@@ -108,39 +110,44 @@ class Domain_Whois():
         # Check domain age (older is better)
         domain_age = (today.replace(tzinfo=None) - creation_dt.replace(tzinfo=None)).days
         if domain_age < 365:
-            score -= 20
             issues.append(Issue_Config.ISSUE_WHOIS_DOMAIN_AGE)
             suggestions.append(Issue_Config.SUGGESTION_WHOIS_DOMAIN_AGE)
+        else:
+            score += 1
         
         # Check time to expiration (short expiry can be a red flag)
         days_to_expiry = (expiry_dt.replace(tzinfo=None) - today.replace(tzinfo=None)).days
         if days_to_expiry < 180:
-            score -= 30
             issues.append(Issue_Config.ISSUE_WHOIS_EXPIRY)
             suggestions.append(Issue_Config.SUGGESTION_WHOIS_EXPIRY)
+        else:
+            score += 1
         
         # Check update frequency (recent updates are better)
         days_since_update = (today.replace(tzinfo=None) - updated_dt.replace(tzinfo=None)).days
         if days_since_update > 365:
-            score -= 15
             issues.append(Issue_Config.ISSUE_WHOIS_UPDATE_FREQUENCY)
             suggestions.append(Issue_Config.SUGGESTION_WHOIS_UPDATE_FREQUENCY)
+        else:
+            score += 1
         
         if registrar and "Error" not in registrar:
             registrar_result = await self.__check_registrar_reputation(registrar)
-            score = min(score, registrar_result['score'])
+            score += 1
             if registrar_result['status'] != "Trusted":
                 issues.append(f"Registrar '{registrar}' is {registrar_result['status']}.")
                 suggestions.append(registrar_result['suggestion'])
+            else:
+                score += 1
         else:
             issues.append(Issue_Config.ISSUE_WHOIS_REGISTRAR)
             suggestions.append(Issue_Config.SUGGESTION_WHOIS_REGISTRAR)
         
         # Ensure score remains within bounds
-        score = max(0, min(100, score))
+        percentage_score = (score / max_score) * 100
         report_util = Report_Utility()
-        html_tags = await report_util.analysis_table(Configuration.ICON_DOMAIN_WHOIS, Configuration.MODULE_DOMAIN_WHOIS, issues, suggestions, int(score))
-        return int(score), html_tags
+        html_tags = await report_util.analysis_table(Configuration.ICON_DOMAIN_WHOIS, Configuration.MODULE_DOMAIN_WHOIS, issues, suggestions, int(percentage_score))
+        return int(percentage_score), html_tags
     
     
     async def __get_date(self, creation_date_str):
