@@ -94,50 +94,50 @@ class Mail_Records:
                                 </td>
                             </tr>
                             <tr>
-                                <td><h3>Mail Security Checklist</h3></td><td></td>
+                                <td colspan="3" style="text-align: left;"><h3>Mail Security Checklist</h3></td>
                             </tr>
                             <tr>
-                                <td>SPF</td>
+                                <td colspan="2" style="text-align: left;">SPF</td>
                                 <td>{"✅ Enabled" if spf == "Enabled" else "❌ Not Enabled"}</td>
                             </tr>
                             <tr>
-                                <td>DKIM</td>
+                                <td colspan="2" style="text-align: left;">DKIM</td>
                                 <td>{"✅ Enabled" if dkim  == "Enabled" else "❌ Not Enabled"}</td>
                             </tr>
                             <tr>
-                                <td>DMARC</td>
+                                <td colspan="2" style="text-align: left;">DMARC</td>
                                 <td>{"✅ Enabled" if dmarc == "Enabled" else "❌ Not Enabled"}</td>
                             </tr>
                             <tr>
-                                <td>BIMI</td>
+                                <td colspan="2" style="text-align: left;">BIMI</td>
                                 <td>{"✅ Enabled" if bimi == "Enabled" else "❌ Not Enabled"}</td>
                             </tr>
                             <tr>
-                                <td><h3>MX Records</h3></td><td></td>
+                                <td colspan="3" style="text-align: left;"><h3>MX Records</h3></td>
                             </tr>
                         """
             # Add MX Records
             if mx_records:
                 for mx in mx_records:
-                    table += f"<tr><td>{mx[0]}</td><td>Priority: {mx[1]}</td></tr>"
+                    table += f"""<tr><td colspan="2" style="text-align: left;">{mx[0]}</td><td>Priority: {mx[1]}</td></tr>"""
             else:
-                table += "<tr><td>No MX records found.</td></tr>"
+                table += """<tr><td colspan="2" style="text-align: left;">No MX records found.</td></tr>"""
 
             # Add External Mail Services
-            table += """<tr><td><h3>External Mail Services</h3></td><td></td></tr>"""
+            table += """<tr><td colspan="3" style="text-align: left;"><h3>External Mail Services</h3></td></tr>"""
             if external_services:
                 for service in external_services:
-                    table += f"<tr><td>{service}</td><td>External Mail Provider</td></tr>"
+                    table += f"""<tr><td colspan="2" style="text-align: left;">{service}</td><td>External Mail Provider</td></tr>"""
             else:
-                table += "<tr><td>No external mail services detected.</td></tr>"
+                table += """<tr><td colspan="3" style="text-align: left;">No external mail services detected.</td></tr>"""
 
             # Add Mail-related TXT Records
-            table += """<tr><td><h3>Mail-related TXT Records</h3></td><td></td></tr>"""
+            table += """<tr><td colspan="3" style="text-align: left;"><h3>Mail-related TXT Records</h3></td></tr>"""
             if txt_records:
                 for txt in txt_records:
-                    table += f"<tr><td>{txt}</td></tr>"
+                    table += f"""<tr><td colspan="3" style="text-align: left;">{txt}</td></tr>"""
             else:
-                table += "<tr><td colspan='1'>No mail-related TXT records found.</td></tr>"
+                table += """<tr><td colspan="3" style="text-align: left;">No mail-related TXT records found.</td></tr>"""
 
             table += "</table>"
 
@@ -156,26 +156,26 @@ class Mail_Records:
         if spf == "Enabled": 
             score += 1
         else: 
-            issues.append("SPF is missing.")
-            suggestions.append("Implement an SPF record to prevent spoofing.")
+            issues.append(Issue_Config.ISSUE_EMAIL_CONFIG_SPF)
+            suggestions.append(Issue_Config.SUGGESTION_EMAIL_CONFIG_SPF)
 
         if dkim == "Enabled": 
             score += 1
         else: 
-            issues.append("DKIM is not configured.")
-            suggestions.append("Set up DKIM signatures to validate outgoing emails.")
+            issues.append(Issue_Config.ISSUE_EMAIL_CONFIG_DKIM)
+            suggestions.append(Issue_Config.SUGGESTION_EMAIL_CONFIG_DKIM)
 
         if dmarc == "Enabled": 
             score += 1
         else: 
-            issues.append("DMARC is missing.")
-            suggestions.append("Enable DMARC to prevent phishing attacks.")
+            issues.append(Issue_Config.ISSUE_EMAIL_CONFIG_DMARC)
+            suggestions.append(Issue_Config.SUGGESTION_EMAIL_CONFIG_DMARC)
 
-        if bimi: 
+        if bimi == "Enabled": 
             score += 1
         else: 
-            issues.append("BIMI is not enabled.")
-            suggestions.append("Implement BIMI to display your logo in email clients.")
+            issues.append(Issue_Config.ISSUE_EMAIL_CONFIG_BIMI)
+            suggestions.append(Issue_Config.SUGGESTION_EMAIL_CONFIG_BIMI)
 
         percentage_score = (score / max_score) * 100
 

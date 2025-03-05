@@ -98,7 +98,7 @@ class Analysis_Report:
         body = ("""<body>
                     <div class="container">
                         <div class="header">
-                            <h1><i class="fas fa-globe icon"></i>&nbsp;""" + config.REPORT_HEADER + """</h1>
+                            <h1><i class="fas fa-user-secret icon"></i>&nbsp;""" + config.REPORT_HEADER + """</h1>
                             <h2>""" + config.ANALYSIS_REPORT_HEADER + """</h2>
                             <h3><a href=""" + website + """ style="color: #222; text-decoration: none;">""" + website + """</a></h3>
                         </div>

@@ -22,6 +22,9 @@ class Configuration:
     REPORT_SUB_TITLE = config['Report']['REPORT_SUB_TITLE']
     REPORT_FILE_NAME = config['Report']['REPORT_FILE_NAME']
     REPORT_FOOTER = config['Report']['REPORT_FOOTER']
+    SUMMARY_REPORT_FOTTER = config['Report']['SUMMARY_REPORT_FOTTER']
+    SUMMARY_REPORT_TAG_LINE = config['Report']['SUMMARY_REPORT_TAG_LINE']
+    REPORT_RANK_PANAL = config['Report']['REPORT_RANK_PANAL']
 
     'Analysis Report' in config
     ANALYSIS_REPORT_HEADER = config['Analysis Report']['ANALYSIS_REPORT_HEADER']

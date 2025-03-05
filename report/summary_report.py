@@ -112,6 +112,7 @@ class Summary_Report:
                         justify-content: space-between;
                         margin-right: 20px;
                         margin-left: 20px;
+                        border-radius: 10px;
                     }
                     .header h1 {
                         color: #FFA500;
@@ -139,6 +140,7 @@ class Summary_Report:
                         justify-content: space-between; /* Space between header and progress bar */
                         margin-right: 20px;
                         margin-left: 20px;
+                        border-radius: 10px;
                     }
                     .ranking-container h1 {
                         margin: 20px;
@@ -157,6 +159,7 @@ class Summary_Report:
                         margin-left: 20px; /* Space between header and progress bar */
                         margin-right: 20px;
                         overflow: hidden;
+                        border-radius: 5px;
                     }
                     .progress-bar {
                         height: 30px;
@@ -179,6 +182,7 @@ class Summary_Report:
                         transition: width 0.5s, background-color 0.5s;
                         font-size: 16px; /* Adjust font size as needed */
                         font-weight: bold; /* Makes the percentage text bold */
+                        border-radius: 5px;
                     }
                     .date {
                         padding: 5px;
@@ -197,6 +201,7 @@ class Summary_Report:
                         display: flex;
                         flex-wrap: wrap;
                         padding: 10px;
+                        border-radius: 10px;
                     }
                     .card {
                         background-color: #2d2d2d;
@@ -210,6 +215,7 @@ class Summary_Report:
                         overflow: hidden;
                         height: 450px; 
                         word-wrap: break-word;
+                        border-radius: 10px;
                     }
                     .card-header {
                         position: sticky;
@@ -263,17 +269,18 @@ class Summary_Report:
                         background-size: cover;
                     }
                     .footer{
-                        background-color: #efdd94;
-                        padding: 5px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
+                        background-color: #333; 
+                        text-align: center; 
+                        font-size: 14px; 
+                        color: #ddd; 
+                        border-top: 1px solid #383434;
+                        border-bottom: 1px solid #383434;
                         margin-right: 20px;
                         margin-left: 20px;
-                    }
+                        border-radius: 10px;
+                     }
                     .footer h3{
                         display: flex; 
-                        justify-content: 
                         flex-end; 
                         align-items: center;
                         color: black;
@@ -300,7 +307,7 @@ class Summary_Report:
                     <h3 align="right"; margin-right: 20px; style="color:blue;"><i class="far fa-clock"></i> Report Generated: """ + report_timestamp + """</h3>
                 </div>
                 <div class="ranking-container">
-                    <h1>Website Health <i class="fas fa-heartbeat"></i></h1>
+                    <h1> """ + config.REPORT_RANK_PANAL + """ <i class="fas fa-heartbeat"></i></h1>
                     <div class="progress-bar-container">
                         <div class="progress-bar" style="width: """ + str(percent) + """%;">""" + str(percent) + """%</div>
                     </div>
@@ -586,13 +593,22 @@ class Summary_Report:
         body += """</div>"""
 
         # save html closing </ body> and </ html> tags to a variable named "footer"
-        footer = ("""<div class="footer">
-                            <h3 align="left"; margin-left: 20px;>""" + config.FOOTER_OWNER_TITLE + "&nbsp;" + config.AUTHOR + """ <h3>
-                            <h3 align="center";> <i class="far fa-envelope"></i>&nbsp;""" + config.EMAIL + """</h3>
-                            <h3 align="right"; margin-right: 20px;> <i class="fab fa-github"></i>&nbsp;""" + config.GITHUB + """</h3>
-                        </div>
-                    </body>
+        # footer = ("""<div class="footer">
+        #                     <h3 align="left"; margin-left: 20px;>""" + config.FOOTER_OWNER_TITLE + "&nbsp;" + config.AUTHOR + """ <h3>
+        #                     <h3 align="center";> <i class="far fa-envelope"></i>&nbsp;""" + config.EMAIL + """</h3>
+        #                     <h3 align="right"; margin-right: 20px;> <i class="fab fa-github"></i>&nbsp;""" + config.GITHUB + """</h3>
+        #                 </div>
+        #             </body>
+        #         </html>""")
+        
+        footer = (f"""<footer class="footer">
+                            <p>&copy; {config.YEAR} {config.SUMMARY_REPORT_FOTTER} </p>
+                            <p>Generated by: <strong>{config.TOOL_NAME}</strong> | {config.SUMMARY_REPORT_TAG_LINE}</p>
+                            <p>For more details, visit <a href={config.EMAIL} target="_blank" style="color: #007bff; text-decoration: none;">{config.EMAIL}</a></p>
+                    </footer>
+                  </body>
                 </html>""")
+                 
         # Close the Body & Main if Footer is not selected
         No_footer = ("""
                     </body>
