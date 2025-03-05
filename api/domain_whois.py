@@ -132,7 +132,7 @@ class Domain_Whois():
             score += 1
         
         if registrar and "Error" not in registrar:
-            registrar_result = await self.__check_registrar_reputation(registrar)
+            registrar_result = await self.__check_registrar_reputation(str(registrar).strip())
             score += 1
             if registrar_result['status'] != "Trusted":
                 issues.append(f"Registrar '{registrar}' is {registrar_result['status']}.")
