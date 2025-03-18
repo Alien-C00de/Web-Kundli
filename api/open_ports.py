@@ -49,6 +49,7 @@ class Open_Ports():
                     closed_ports.append(port)
 
             output = await self.__html_table(open_ports, closed_ports)
+            print(f"✅ {config.MODULE_OPEN_PORTS} has successfully completed.")
             return output
 
         except Exception as ex:

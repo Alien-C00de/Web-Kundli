@@ -38,7 +38,7 @@ class Server_Location():
             location = await self.__html_server_loc_table(dataframe)
             info = await self.__html_server_info_table(dataframe)
             output = location + info
-            # print("server_location.py: output: ")
+            print(f"✅ {config.MODULE_SERVER_LOCATION} has successfully completed.")
             return output
 
         except Exception as ex:

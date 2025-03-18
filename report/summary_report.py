@@ -73,7 +73,8 @@ class Summary_Report:
     async def Generate_Summary_Report(self, website, Server_Location, SSL_Cert, Whois, ser_info, HTTP_sec, headers, cookies, dns_server_info, 
                          tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record, 
                          ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info,
-                         tech_stack_info, firewall_info, social_tag_info, threats_info, global_ranking_info, security_txt_info, nmap_info):
+                         tech_stack_info, firewall_info, social_tag_info, threats_info, global_ranking_info, security_txt_info, 
+                         nmap_ops1, nmap_ops2, nmap_ops3, nmap_ops4, nmap_ops5, nmap_ops6, nmap_ops7, nmap_ops8, nmap_info):
 
         config = Configuration()
         # report_timestamp = str(time.strftime("%A %d-%b-%Y %H:%M:%S", self.timestamp))
@@ -565,6 +566,78 @@ class Summary_Report:
                         <div class="card-content">    
                             <h4>""" + security_txt_info + """</h4> 
                         </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_NMAP_OS_DETECT + """ </h2>
+                            <i class=""" + config.ICON_NMAP_OS_DETECT + """> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + nmap_ops1 + """</h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_NMAP_PORT_SCAN + """ </h2>
+                            <i class=""" + config.ICON_NMAP_PORT_SCAN + """> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + nmap_ops2 + """</h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_NMAP_HTTP_VULN + """ </h2>
+                            <i class=""" + config.ICON_NMAP_HTTP_VULN + """> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + nmap_ops3 + """</h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_NMAP_SQL_INJECTION + """ </h2>
+                            <i class=""" + config.ICON_NMAP_SQL_INJECTION + """> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + nmap_ops4 + """</h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_NMAP_XSS + """ </h2>
+                            <i class=""" + config.ICON_NMAP_XSS + """> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + nmap_ops5 + """</h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_NMAP_SHELLSHOCK + """ </h2>
+                            <i class=""" + config.ICON_NMAP_SHELLSHOCK + """> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + nmap_ops6 + """</h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_NMAP_RCE_EXPLOITS + """ </h2>
+                            <i class=""" + config.ICON_NMAP_RCE_EXPLOITS + """> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + nmap_ops7 + """</h4> 
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2> """ + config.MODULE_NMAP_WEB_SERVER_CHECK + """ </h2>
+                            <i class=""" + config.ICON_NMAP_WEB_SERVER_CHECK + """> </i> 
+                        </div>
+                        <div class="card-content">    
+                            <h4>""" + nmap_ops8 + """</h4> 
+                        </div>
                     </div>""" )
         # Conditionally add NMAP section
         if nmap_info:
@@ -625,7 +698,7 @@ class Summary_Report:
             os.system(f'xdg-open "{html_report}"')
 
         print(
-            Fore.GREEN + Style.BRIGHT + f"\n[+] HTML" + Fore.WHITE + Style.BRIGHT,
+            Fore.GREEN + Style.BRIGHT + f"\n📂 HTML" + Fore.WHITE + Style.BRIGHT,
             filenameH,
             Fore.GREEN + Style.BRIGHT + f"File Is Ready",
             Fore.RESET,

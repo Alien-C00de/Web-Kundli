@@ -17,6 +17,7 @@ class Redirect_Chain():
             # print("redirect_fetch.py: start")
             result = await self.__final_result()
             output = await self.__html_table(result)
+            print(f"✅ {config.MODULE_REDIRECT_CHAIN} has successfully completed.")
             return output
 
         except Exception as ex:

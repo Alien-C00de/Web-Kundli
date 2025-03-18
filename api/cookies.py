@@ -30,6 +30,7 @@ class Cookies():
                     cookie_info.append((cookie.name, cookie.value, cookie.domain, cookie.path, cookie.expires, cookie.secure))
 
             output = await self.__html_cookies_table(cookie_info)
+            print(f"✅ {config.MODULE_COOKIES} has successfully completed.")
             return output
         except Exception as ex:
             error_msg = str(ex.args[0])

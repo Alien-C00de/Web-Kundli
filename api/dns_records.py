@@ -27,6 +27,7 @@ class DNS_Records():
             # Email_Records = await self.__html_email_table(email_result)
 
             output = DNS_Records + TXT_Records #+ Email_Records
+            print(f"✅ {config.MODULE_DNS_RECORDS} has successfully completed.")
             return output
         except Exception as e:
             error_msg = str(e.args[0])

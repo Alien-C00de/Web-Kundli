@@ -63,6 +63,7 @@ class DNS_Security_Ext:
                 records[dns_type] = result
 
             output = await self.__html_table(records)
+            print(f"✅ {config.MODULE_DNS_SECURITY} has successfully completed.")
             return output
 
         except Exception as ex:

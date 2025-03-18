@@ -35,7 +35,7 @@ class Threats:
                     decodedResponse.append(await response.json())
 
             output = await self.__html_table(decodedResponse)
-            # print("Threats.py: output: ")
+            print(f"✅ {config.MODULE_THREATS} has successfully completed.")
             return output
 
         except Exception as ex:

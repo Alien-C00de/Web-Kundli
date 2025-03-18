@@ -23,6 +23,7 @@ class Mail_Records:
             # print("mail_configration_fetch.py: start")
             result = await self.__fetch_dns_records(self.domain)
             output = await self.__html_table(result)
+            print(f"✅ {config.MODULE_EMAIL_CONFIGURATION} has successfully completed.")
             return output
 
         except Exception as ex:
@@ -87,7 +88,7 @@ class Mail_Records:
             percentage, html = await self.__security_score(spf, dkim, dmarc, bimi)
             table = f"""<table>
                             <tr>
-                                <td colspan="2">
+                                <td colspan="3">
                                     <div class="progress-bar-container">
                                         <div class="progress" style="width: {percentage}%;">{percentage}%</div>
                                     </div>

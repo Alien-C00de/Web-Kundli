@@ -30,6 +30,7 @@ class DNS_Server():
                             DoH = "Yes"
                 except (aiohttp.ClientConnectorError, asyncio.TimeoutError):
                     output = await self.__html_table(DoH)
+                    print(f"✅ {config.MODULE_DNS_SERVER} has successfully completed.")
                     return output
 
             return await self.__html_table(DoH)

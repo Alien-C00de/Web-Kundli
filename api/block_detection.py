@@ -68,6 +68,7 @@ class Block_Detection:
         try:
             results = await self.__check_domain_against_dns_servers()
             output = await self.__html_table(results)  # Assuming __html_table is async
+            print(f"✅ {config.MODULE_BLOCK_DETECTION} has successfully completed.")
             return output
         except Exception as ex:
             msg = f"[-] {self.Error_Title} => Get_Block_Detection : {str(ex)}"

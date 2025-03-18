@@ -78,6 +78,7 @@ class Tech_Stack:
 
             # Generate HTML Table Output
             output = await self.__html_table(technologies)
+            print(f"✅ {config.MODULE_TECH_STACK} has successfully completed.")
             return output
 
         except Exception as ex:

@@ -38,6 +38,7 @@ class Archive_History:
                     decodedResponse.append(await response.json())
 
             output = await self.__html_table(decodedResponse)
+            print(f"✅ {config.MODULE_ARCHIVE_HISTORY} has successfully completed.")
             return output
 
         except Exception as ex:

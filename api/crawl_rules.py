@@ -37,6 +37,7 @@ class Crawl_Rules:
                                 crawl_rules.append((user_agent, rule))
 
             output = await self.__html_table(user_agent, crawl_rules, lines)
+            print(f"✅ {config.MODULE_CRAWL_RULES} has successfully completed.")
             return output
 
         except Exception as ex:

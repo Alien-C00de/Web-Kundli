@@ -57,7 +57,7 @@ class Firewall_Detection():
 
             decode = {'hasWaf': False, 'wafName': '*The domain may be protected with a proprietary or custom WAF which we were unable to identify automatically'}
             output = await self.__html_table(decode)
-            # print("firewall.py: output: ")
+            print(f"✅ {config.MODULE_FIREWALL_DETECTION} has successfully completed.")
             return output
         except Exception as ex:
             error_msg = str(ex.args[0])

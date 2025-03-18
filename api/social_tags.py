@@ -58,7 +58,7 @@ class Social_Tags:
             }
 
             output = await self.__html_table(metadata)
-            # print("social_tag.py: output: ")
+            print(f"✅ {config.MODULE_SOCIAL_TAGS} has successfully completed.")
             return output
 
         except Exception as ex:

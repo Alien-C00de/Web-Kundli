@@ -27,6 +27,7 @@ class Site_Features:
                         result = await response.json()  # Convert response to JSON
                     
             output = await self.__html_table(result)
+            print(f"✅ {config.MODULE_SITE_FEATURES} has successfully completed.")
             return output
 
         except Exception as ex:

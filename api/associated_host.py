@@ -33,6 +33,7 @@ class Associated_Hosts:
                             subdomains.add(subdomain)
 
             output = await self.__html_table(subdomains)
+            print(f"✅ {config.MODULE_ASSOCIATED_HOSTS} has successfully completed.")
             return output
 
         except Exception as ex:

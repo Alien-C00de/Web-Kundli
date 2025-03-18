@@ -24,6 +24,7 @@ class NMap_Scan:
 
             # print("nmap_scan.py: output: ")
             output = await self.__html_table(version_result, os_results)
+            print(f"✅ {config.MODULE_NMAP_OS_VERSION} has successfully completed.")
             return list(output)
 
         except Exception as ex:

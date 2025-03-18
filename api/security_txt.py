@@ -51,7 +51,7 @@ class Security_TXT:
                 PGP = self.dict["isPgpSigned"]
 
             output = await self.__html_table(present, location, PGP)
-            # print("security_TXT.py: output: ")
+            print(f"✅ {config.MODULE_SECURITY_TXT} has successfully completed.")
             return output
         except Exception as ex:
             error_msg = str(ex.args[0])

@@ -69,6 +69,7 @@ class SSL_Certificate():
 
             cert_details["Extended Key Usage"] = ext_key_usage
             output = await self.__html_table(cert_details)
+            print(f"✅ {config.MODULE_SSL_CERTIFICATE} has successfully completed.")
             return output
         except Exception as ex:
             error_msg = str(ex.args[0])

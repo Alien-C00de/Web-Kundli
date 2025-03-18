@@ -21,7 +21,7 @@ class Domain_Whois():
             # print("domain_whois.py: start")
             domain_info =  whois.whois(self.domain)
             output = await self.__html_table(domain_info)
-            # print("domain_whois.py: output: ")
+            print(f"✅ {config.MODULE_DOMAIN_WHOIS} has successfully completed.")
             return output
         except Exception as ex:
             if len(ex.args) > 1 and ex.args[1]:

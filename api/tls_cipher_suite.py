@@ -22,7 +22,7 @@ class TLS_Cipher_Suit:
             # print("tls_cipher_suite.py: start")
             res = await self.__final_result(self.domain)
             output = await self.__html_table(res)
-            # print("tls_cipher_suite.py: output: ")
+            print(f"✅ {config.MODULE_TLS_CIPHER_SUITES} has successfully completed.")
             return output
 
         except Exception as ex:

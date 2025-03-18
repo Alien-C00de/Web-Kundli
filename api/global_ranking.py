@@ -26,7 +26,7 @@ class Global_Ranking:
                         ranks = data.get("ranks", [])
 
             output = await self.__html_table(ranks)
-            # print("global_ranking.py: output: ")
+            print(f"✅ {config.MODULE_GLOBAL_RANK} has successfully completed.")
             return output
 
         except Exception as ex:

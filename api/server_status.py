@@ -27,6 +27,7 @@ class Server_Status():
                     IsUp = True
 
             output = await self.__html_table(IsUp, response.status, response_time)
+            print(f"✅ {config.MODULE_SERVER_STATUS} has successfully completed.")
             return output
         except Exception as ex:
             error_msg = str(ex.args[0])

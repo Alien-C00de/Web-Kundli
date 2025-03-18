@@ -26,7 +26,7 @@ class Carbon_Footprint:
                     decodedResponse = await response.json()
 
             output = await self.__html_table(decodedResponse)
-            # print("carbon.py: output: ")
+            print(f"✅ {config.MODULE_CARBON_FOOTPRINT} has successfully completed.")
             return output
 
         except Exception as ex:
