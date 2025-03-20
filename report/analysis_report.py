@@ -10,7 +10,8 @@ class Analysis_Report:
     async def Generate_Analysis_Report(self, website, cookies, server_location, server_info, SSL_Cert, Archive, Asso_Host, Block_Detect,
                             CO2_print, crawl_rule, DNS_Security, DNS_Server, whois, http_security, web_header, firewall, global_rank,
                             open_ports, redirect_chain, security_TXT, server_status, site_feature, social_tags, tech_stack, threats,
-                            dns_records, txt_records, tls_cipher_suit, email_config):
+                            dns_records, txt_records, tls_cipher_suit, email_config, os_detection, port_scan, gen_vuln, 
+                            sql_injection, xss, shellshock, rce_exploits, web_server_checks):
 
         config = Configuration()
         report_timestamp = self.timestamp.strftime("%A %d-%b-%Y %H:%M:%S")
@@ -204,6 +205,14 @@ class Analysis_Report:
                                 """ + threats + """
                                 """ + global_rank + """
                                 """ + security_TXT + """
+                                """ + os_detection + """
+                                """ + port_scan + """
+                                """ + gen_vuln + """
+                                """ + sql_injection + """
+                                """ + xss + """
+                                """ + shellshock + """
+                                """ + rce_exploits + """
+                                """ + web_server_checks + """
                             <footer>
                                 """ + config.ANALYSIS_REPORT_FOOTER + """&nbsp;&nbsp;&copy;&nbsp;""" + config.YEAR + """
                             </footer>

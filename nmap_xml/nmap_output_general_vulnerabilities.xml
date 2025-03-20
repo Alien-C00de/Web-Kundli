@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE nmaprun>
 <?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
-<!-- Nmap 7.94SVN scan initiated Tue Mar 18 20:39:46 2025 as: nmap -sT -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-vuln* -oX nmap_xml/nmap_output_general_vulnerabilities.xml 192.168.0.178 -->
-<nmaprun scanner="nmap" args="nmap -sT -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-vuln* -oX nmap_xml/nmap_output_general_vulnerabilities.xml 192.168.0.178" start="1742310586" startstr="Tue Mar 18 20:39:46 2025" version="7.94SVN" xmloutputversion="1.05">
+<!-- Nmap 7.94SVN scan initiated Thu Mar 20 19:45:04 2025 as: nmap -sT -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-vuln* -oX nmap_xml/nmap_output_general_vulnerabilities.xml 192.168.0.178 -->
+<nmaprun scanner="nmap" args="nmap -sT -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-vuln* -oX nmap_xml/nmap_output_general_vulnerabilities.xml 192.168.0.178" start="1742480104" startstr="Thu Mar 20 19:45:04 2025" version="7.94SVN" xmloutputversion="1.05">
 <scaninfo type="connect" protocol="tcp" numservices="14" services="21-22,25,53,80,110,143,443,465,587,993,995,8080,8443"/>
 <verbose level="0"/>
 <debugging level="0"/>
-<host starttime="1742310587" endtime="1742310595"><status state="up" reason="arp-response" reason_ttl="0"/>
+<host starttime="1742480105" endtime="1742480115"><status state="up" reason="arp-response" reason_ttl="0"/>
 <address addr="192.168.0.178" addrtype="ipv4"/>
 <address addr="08:00:27:95:33:BA" addrtype="mac" vendor="Oracle VirtualBox virtual NIC"/>
 <hostnames>
@@ -15,7 +15,7 @@
 <port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
 <port protocol="tcp" portid="25"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="smtp" method="table" conf="3"/></port>
 <port protocol="tcp" portid="53"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="domain" method="table" conf="3"/></port>
-<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" method="table" conf="3"/><script id="http-vuln-cve2011-3192" output="&#xa;  VULNERABLE:&#xa;  Apache byterange filter DoS&#xa;    State: VULNERABLE&#xa;    IDs:  CVE:CVE-2011-3192  BID:49303&#xa;      The Apache web server is vulnerable to a denial of service attack when numerous&#xa;      overlapping byte ranges are requested.&#xa;    Disclosure date: 2011-08-19&#xa;    References:&#xa;      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-3192&#xa;      https://seclists.org/fulldisclosure/2011/Aug/175&#xa;      https://www.securityfocus.com/bid/49303&#xa;      https://www.tenable.com/plugins/nessus/55976&#xa;"><table key="CVE-2011-3192">
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" method="table" conf="3"/><script id="http-vuln-cve2011-3192" output="&#xa;  VULNERABLE:&#xa;  Apache byterange filter DoS&#xa;    State: VULNERABLE&#xa;    IDs:  CVE:CVE-2011-3192  BID:49303&#xa;      The Apache web server is vulnerable to a denial of service attack when numerous&#xa;      overlapping byte ranges are requested.&#xa;    Disclosure date: 2011-08-19&#xa;    References:&#xa;      https://www.securityfocus.com/bid/49303&#xa;      https://www.tenable.com/plugins/nessus/55976&#xa;      https://seclists.org/fulldisclosure/2011/Aug/175&#xa;      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-3192&#xa;"><table key="CVE-2011-3192">
 <elem key="title">Apache byterange filter DoS</elem>
 <elem key="state">VULNERABLE</elem>
 <table key="ids">
@@ -27,17 +27,17 @@
 </table>
 <table key="dates">
 <table key="disclosure">
+<elem key="day">19</elem>
 <elem key="year">2011</elem>
 <elem key="month">08</elem>
-<elem key="day">19</elem>
 </table>
 </table>
 <elem key="disclosure">2011-08-19</elem>
 <table key="refs">
-<elem>https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-3192</elem>
-<elem>https://seclists.org/fulldisclosure/2011/Aug/175</elem>
 <elem>https://www.securityfocus.com/bid/49303</elem>
 <elem>https://www.tenable.com/plugins/nessus/55976</elem>
+<elem>https://seclists.org/fulldisclosure/2011/Aug/175</elem>
+<elem>https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-3192</elem>
 </table>
 </table>
 </script></port>
@@ -51,8 +51,8 @@
 <port protocol="tcp" portid="8080"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http-proxy" method="table" conf="3"/></port>
 <port protocol="tcp" portid="8443"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="https-alt" method="table" conf="3"/></port>
 </ports>
-<times srtt="1287" rttvar="1824" to="400000"/>
+<times srtt="664" rttvar="712" to="400000"/>
 </host>
-<runstats><finished time="1742310595" timestr="Tue Mar 18 20:39:55 2025" summary="Nmap done at Tue Mar 18 20:39:55 2025; 1 IP address (1 host up) scanned in 8.89 seconds" elapsed="8.89" exit="success"/><hosts up="1" down="0" total="1"/>
+<runstats><finished time="1742480115" timestr="Thu Mar 20 19:45:15 2025" summary="Nmap done at Thu Mar 20 19:45:15 2025; 1 IP address (1 host up) scanned in 11.62 seconds" elapsed="11.62" exit="success"/><hosts up="1" down="0" total="1"/>
 </runstats>
 </nmaprun>

@@ -1,5 +1,7 @@
 import aiohttp
 from colorama import Fore, Style
+from time import perf_counter
+import traceback
 from util.config_uti import Configuration
 from util.issue_config import Issue_Config
 from util.report_util import Report_Utility
@@ -17,7 +19,7 @@ class Carbon_Footprint:
         output = []
 
         try:
-            # print("carbon.py: start ")
+            start_time = perf_counter()
             async with aiohttp.ClientSession() as session:
                 size_in_bytes = await self.__get_html_size(self.url)
                 api_url = config.CARBON_API_ENDPOINT_URL.replace("{size_in_bytes}", str(size_in_bytes))
@@ -26,14 +28,24 @@ class Carbon_Footprint:
                     decodedResponse = await response.json()
 
             output = await self.__html_table(decodedResponse)
-            print(f"✅ {config.MODULE_CARBON_FOOTPRINT} has successfully completed.")
+            print(f"✅ {config.MODULE_CARBON_FOOTPRINT} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
             return output
 
         except Exception as ex:
-            error_msg = str(ex.args[0])
-            msg = "[-] " + self.Error_Title + " => Get_Carbon_Footprint : " + error_msg
-            print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
+            error_type, error_message, tb = ex.__class__.__name__, str(ex), traceback.extract_tb(ex.__traceback__)
+            error_details = tb[-1]  # Get the last traceback entry (most recent call)
+            file_name = error_details.filename
+            method_name = error_details.name
+            line_number = error_details.lineno
+
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
+
+            # error_msg = str(ex.args[0])
+            # msg = "[-] " + self.Error_Title + " => Get_Carbon_Footprint : " + error_msg
+            # print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
+            # return output
 
     async def __get_html_size(self, url):
         try:

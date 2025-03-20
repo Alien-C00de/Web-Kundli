@@ -1,10 +1,13 @@
 import aiohttp
 import asyncio
 import socket
+from colorama import Fore, Style
+from time import perf_counter
+import traceback
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
 from util.issue_config import Issue_Config
-from colorama import Fore, Style
+
 
 class DNS_Server():
     Error_Title = None
@@ -21,6 +24,7 @@ class DNS_Server():
         output = []
 
         try:
+            start_time = perf_counter()
             doh_url = f"https://{self.ip_address}/dns-query"
 
             async with aiohttp.ClientSession() as session:
@@ -30,23 +34,43 @@ class DNS_Server():
                             DoH = "Yes"
                 except (aiohttp.ClientConnectorError, asyncio.TimeoutError):
                     output = await self.__html_table(DoH)
-                    print(f"✅ {config.MODULE_DNS_SERVER} has successfully completed.")
+                    print(f"✅ {config.MODULE_DNS_SERVER} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
                     return output
 
             return await self.__html_table(DoH)
 
-        except (socket.herror, UnicodeError) as e:
-            error_msg = e.strerror
-            msg = "[-] " + self.Error_Title + " => Get_DNS_Server : " + error_msg
-            print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
-            output = await self.__html_table(DoH)
+        except (socket.herror, UnicodeError) as ex:
+            error_type, error_message, tb = ex.__class__.__name__, str(ex), traceback.extract_tb(ex.__traceback__)
+            error_details = tb[-1]  # Get the last traceback entry (most recent call)
+            file_name = error_details.filename
+            method_name = error_details.name
+            line_number = error_details.lineno
+
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
+        
+            # error_msg = e.strerror
+            # msg = "[-] " + self.Error_Title + " => Get_DNS_Server : " + error_msg
+            # print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
+            # output = await self.__html_table(DoH)
+            # return output
         except Exception as ex:
-            error_msg = str(ex.args[0])
-            msg = "[-] " + self.Error_Title + " => Get_DNS_Server_Info : " + error_msg
-            print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
-            output = await self.__html_table(DoH)
+            error_type, error_message, tb = ex.__class__.__name__, str(ex), traceback.extract_tb(ex.__traceback__)
+            error_details = tb[-1]  # Get the last traceback entry (most recent call)
+            file_name = error_details.filename
+            method_name = error_details.name
+            line_number = error_details.lineno
+
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
+        
+            # error_msg = str(ex.args[0])
+            # msg = "[-] " + self.Error_Title + " => Get_DNS_Server_Info : " + error_msg
+            # print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
+            # output = await self.__html_table(DoH)
+            # return output
 
     async def __html_table(self, DoH):
         rep_data = []

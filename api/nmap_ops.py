@@ -3,6 +3,8 @@ import xml.etree.ElementTree as ET
 import subprocess
 import os
 import re
+import traceback
+from time import perf_counter
 from colorama import Fore, Style
 from util.config_uti import Configuration
 from util.issue_config import Issue_Config
@@ -35,6 +37,7 @@ class Nmap_Ops:
         self.Error_Title = config.NMAP_OPERATION
         output = []
         try:
+            start_time = perf_counter()
             tasks = [self.__os_detection(self.target_ip), self.__port_scan(self.target_ip)]
             for category, script in self.nmap_scripts.items():
                 tasks.append(self.__run_nmap(self.target_ip, category, script))
@@ -50,15 +53,25 @@ class Nmap_Ops:
                 scan_data[category] = await self.__parse_nmap_xml(f"{self.xml_folder}/nmap_output_{category}.xml", category)
 
             output = await asyncio.gather(*(self.__html_table(category, data) for category, data in scan_data.items()))
-            print(f"✅ {config.MODULE_NMAP_OPERATION} has successfully completed.")
+            print(f"✅ {config.MODULE_NMAP_OPERATION} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
             return [table for sublist in output for table in sublist]  # Flatten list
             # return output
 
         except Exception as ex:
-            error_msg = str(ex.args[0])
-            msg = "[-] " + self.Error_Title + " => Get_Nmap_Ops : " + error_msg
-            print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
+            error_type, error_message, tb = ex.__class__.__name__, str(ex), traceback.extract_tb(ex.__traceback__)
+            error_details = tb[-1]  # Get the last traceback entry (most recent call)
+            file_name = error_details.filename
+            method_name = error_details.name
+            line_number = error_details.lineno
+
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
+        
+            # error_msg = str(ex.args[0])
+            # msg = "[-] " + self.Error_Title + " => Get_Nmap_Ops : " + error_msg
+            # print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
+            # return output
 
     async def __html_table(self, category, scan_data):
         rep_data = []
@@ -67,16 +80,20 @@ class Nmap_Ops:
 
         if not scan_data:
             report_util = Report_Utility()
-            table = await report_util.Empty_Table()
+            table = await report_util.Empty_Table(f"Couldn't find any {category} vulnerabilities.", 100)
         else:
-            percentage, html = await self.__nmap_score(scan_data)
+            percentage, html = await self.__nmap_score(category, scan_data)
             table_parts = [
-                '<table>',
-                '<tr>',
-                f'<td colspan="2"><div class="progress-bar-container">'
-                f'<div class="progress" style="width: {percentage}%;">{percentage}%</div></div></td>',
-                '</tr>'
-            ]
+                        '<table>',
+                        '<tr>',
+                        f'<td colspan="2"><div class="progress-bar-container">'
+                        f'<div class="progress" style="width: {percentage}%;">{percentage}%</div></div></td>',
+                        '</tr>'
+                    ]
+            if category == "port_scan":
+                table_parts.append(
+                    f'<tr><td colspan="2" style="text-align: left;"><h3>Open Ports</h3></td></tr>'
+                    )
 
             for data in scan_data:
                 if category == "os_detection":
@@ -93,57 +110,151 @@ class Nmap_Ops:
                         f'<tr><td colspan="3" style="text-align: left;">{data["output"]}</td></tr>'
                     )
 
-        table_parts.append("</table>")
-        table = "".join(table_parts)  # Combine all parts into a single string
+            table_parts.append("</table>")
+            table = "".join(table_parts)  # Combine all parts into a single string
 
         rep_data.append(table.replace("\n", ""))  # Remove all newline characters
         rep_data.append(html.replace("\n", ""))   # Ensure the report does not contain newlines
         return rep_data
 
-    async def __nmap_score(self, scan_data):
+    async def __nmap_score(self, category, scan_data):
         issues = []
         suggestions = []
         score = 0
         max_score = 2
+        icon = ""
+        module  = ""
         
         for data in scan_data:
-            score = 0  # Reset score for each entry
+            # score = 0  # Reset score for each entry
+            if category == "os_detection":
+                if "os" in data and data["os"] != "Unknown":
+                    issues.append(f"Detected OS: {data['os']} can be exploited by attackers.")
+                    suggestions.append("Use network security tools to mask OS details (e.g., OS fingerprinting protection).")
+                else:
+                    score += 1  # If OS is not detected, it’s more secure.
+                icon = Configuration.ICON_NMAP_OS_DETECT
+                module = Configuration.MODULE_NMAP_OS_DETECT
+            elif category == "port_scan":
+                if "port" in data and "state" in data and data["state"].lower() == "open":
+                    issues.append(f"Port {data['port']} ({data.get('service', 'unknown service')}) is open, which can be exploited.")
+                    suggestions.append(f"Restrict access or close port {data['port']} if not necessary.")
+                else:
+                    score += 1
+                icon = Configuration.ICON_NMAP_PORT_SCAN
+                module = Configuration.MODULE_NMAP_PORT_SCAN
+            else:  # Check for vulnerabilities in script output
+                script_id = data.get('script_id', 'unknown script')
+            output = data.get('output', '').lower()
+
+            if category == "sql_injection":
+                if "sql injection" in output or "sql-injection" in script_id:
+                    issues.append(f"SQL Injection detected via {script_id}")
+                    suggestions.append("Sanitize user inputs and use prepared statements.")
+                else:
+                    score += 1
+
+                icon = Configuration.ICON_NMAP_SQL_INJECTION
+                module = Configuration.MODULE_NMAP_SQL_INJECTION
+
+            if category == "xss":
+                if (
+                    script_id in ["http-stored-xss", "http-dombased-xss"]
+                    and (
+                        "couldn't find any stored xss vulnerabilities." in output
+                        or "couldn't find any dom based xss." in output
+                    )
+                ):
+                    # No XSS vulnerabilities found; skip adding issues
+                    score += 1
+                
+                elif "xss" in output or "cross-site scripting" in output:
+                    issues.append(f"XSS vulnerability detected via {script_id}")
+                    suggestions.append("Implement input validation and Content Security Policy (CSP).")
+                else:
+                    score += 1
+
+                icon = Configuration.ICON_NMAP_XSS
+                module = Configuration.MODULE_NMAP_XSS
+                
+            if category == "shellshock":
+                if "shellshock" in output:
+                    issues.append(f"Shellshock vulnerability detected via {script_id}")
+                    suggestions.append("Update and patch vulnerable Bash versions.")
+                else:
+                    score += 1
+
+                icon = Configuration.ICON_NMAP_SHELLSHOCK
+                module = Configuration.MODULE_NMAP_SHELLSHOCK
             
-            if 'port' in data and data['port'] not in ["80", "443"]:
-                issues.append(f"Non-standard port {data['port']} open")
-                suggestions.append("Restrict access or close unnecessary ports")
-            else:
-                score += 1
-            
-            if 'output' in data and "vulnerable" in data['output'].lower():
-                issues.append(f"Potential vulnerability detected in {data.get('script_id', 'unknown script')}")
-                suggestions.append("Apply patches & security updates")
-            else:
-                score += 1
-        
-        percentage_score = (score / max_score) * 100
+            if category == "rce_exploits":
+                if "remote code execution" in output or "rce" in output:
+                    issues.append(f"Possible RCE exploit detected via {script_id}")
+                    suggestions.append("Restrict code execution permissions and use Web Application Firewalls.")
+                else:
+                    score += 1
+
+                icon = Configuration.ICON_NMAP_RCE_EXPLOITS
+                module = Configuration.MODULE_NMAP_RCE_EXPLOITS
+
+            if category == "web_server_checks":
+                if "server misconfiguration" in output or "http-headers" in script_id or "http-methods" in script_id:
+                    issues.append(f"Web server security issues detected via {script_id}")
+                    suggestions.append("Restrict unnecessary HTTP methods and secure headers.")
+
+                elif "enumeration" in output or "http-enum" in script_id:
+                    issues.append(f"Potential information disclosure via {script_id}")
+                    suggestions.append("Disable directory listing and minimize exposed information.")
+
+                else:
+                    score += 1
+                
+                icon = Configuration.ICON_NMAP_WEB_SERVER_CHECK
+                module = Configuration.MODULE_NMAP_WEB_SERVER_CHECK
+
+            # Handling general vulnerabilities (http-vuln*)
+            if category == "general_vulnerabilities*":
+                if "http-vuln" in script_id:
+                    issues.append(f"Detected HTTP vulnerability via {script_id}")
+                    suggestions.append("Apply security patches and use a Web Application Firewall (WAF).")
+
+                elif "csrf" in output or "cross-site request forgery" in output:
+                    issues.append(f"CSRF vulnerability detected via {script_id}")
+                    suggestions.append("Use anti-CSRF tokens and validate user sessions.")
+
+                elif "open redirect" in output:
+                    issues.append(f"Open Redirect vulnerability detected via {script_id}")
+                    suggestions.append("Restrict redirect URLs to trusted domains.")
+                
+                else:
+                    score += 1
+
+                icon = Configuration.ICON_NMAP_HTTP_VULN
+                module = Configuration.MODULE_NMAP_HTTP_VULN
+
+        percentage_score = (score / len(scan_data)) * 100
         report_util = Report_Utility()
-        html_tags = await report_util.analysis_table(Configuration.ICON_NMAP_OPERATION, Configuration.MODULE_NMAP_OPERATION, issues, suggestions, int(percentage_score))
+        html_tags = await report_util.analysis_table(icon, module, issues, suggestions, int(percentage_score))
         return int(percentage_score), html_tags
 
     async def __run_nmap(self, target_ip, script_category, nmap_script):
         output_file = f"{self.xml_folder}/nmap_output_{script_category}.xml"
         command = ["sudo", "nmap", "-sT", "-T2", "-p", self.ports_to_scan, "--script", nmap_script, "-oX", output_file, target_ip]
-        print(f"    ⚙️  Running NMAP script : {nmap_script}")
+        # print(f"    ⚙️  Running NMAP script : {nmap_script}")
         process = await asyncio.create_subprocess_exec(*command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         await process.communicate()
 
     async def __os_detection(self, target_ip):
         output_file = f"{self.xml_folder}/nmap_output_os_detection.xml"
         command = ["sudo", "nmap", "-O", "-oX", output_file, target_ip]
-        print(f"    ⚙️  Running NMAP OS Detection.")
+        # print(f"    ⚙️  Running NMAP OS Detection.")
         process = await asyncio.create_subprocess_exec(*command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         await process.communicate()
 
     async def __port_scan(self, target_ip):
         output_file = f"{self.xml_folder}/nmap_output_port_scan.xml"
         command = ["sudo", "nmap", "-p-", "-oX", output_file, target_ip]
-        print(f"    ⚙️  Running NMAP Port Scan.")
+        # print(f"    ⚙️  Running NMAP Port Scan.")
         process = await asyncio.create_subprocess_exec(*command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         await process.communicate()
 
@@ -153,8 +264,6 @@ class Nmap_Ops:
             root = tree.getroot()
             scan_data = []
             for host in root.findall('host'):
-                # host_ip = host.find('address').get('addr')
-                # host_status = host.find('status').get('state')
 
                 if category == "os_detection":
                     os_info = host.find(".//osmatch")

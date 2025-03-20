@@ -5,6 +5,7 @@ import datetime
 import socket
 import requests
 import os
+import traceback
 from urllib.parse import urlparse
 from util.URL_Verifier import URL_Verifier
 from api.server_location import Server_Location 
@@ -170,7 +171,7 @@ class engine():
                                     str(site_info[0]), str(dns_sec_info[0]), str(tech_stack_info[0]), str(firewall_info[0]), 
                                     str(social_tags_info[0]), str(threats_info[0]), str(global_ranking_info[0]), str(security_txt_info[0]), 
                                     str(nmap_ops_data[0]), str(nmap_ops_data[2]), str(nmap_ops_data[4]), str(nmap_ops_data[6]),
-                                    str(nmap_ops_data[8]), str(nmap_ops_data[10]), str(nmap_ops_data[11]), str(nmap_ops_data[14]), nmap), 
+                                    str(nmap_ops_data[8]), str(nmap_ops_data[10]), str(nmap_ops_data[12]), str(nmap_ops_data[14]), nmap), 
                             
                             analysis_report.Generate_Analysis_Report(self.url, str(cookie[1]), str(Server_location[1]), str(Server_location[3]), 
                                     str(SSL_Cert[1]), str(archive_info[1]), str(associated_info[1]), str(block_info[1]), str(carbon_info[1]), 
@@ -178,14 +179,25 @@ class engine():
                                     str(Header[3]), str(firewall_info[1]), str(global_ranking_info[1]), str(port_info[1]), str(redirect_info[1]),
                                     str(security_txt_info[1]), str(server_status_info[1]), str(site_info[1]), str(social_tags_info[1]),
                                     str(tech_stack_info[1]), str(threats_info[1]), str(dns_txt_email_config_info[1]), 
-                                    str(dns_txt_email_config_info[3]), str(tls_cipher_suite[1]), str(mail_config_info[1]))]
+                                    str(dns_txt_email_config_info[3]), str(tls_cipher_suite[1]), str(mail_config_info[1]), 
+                                    str(nmap_ops_data[1]), str(nmap_ops_data[3]), str(nmap_ops_data[5]), str(nmap_ops_data[7]),
+                                    str(nmap_ops_data[9]), str(nmap_ops_data[11]), str(nmap_ops_data[13]), str(nmap_ops_data[15]))]
 
             await asyncio.gather(*final_report)
             
         except Exception as ex:
-            error_msg = ex.args[0]
-            msg = "[-] " + self.Error_Title + " => Start Process : " + error_msg
-            print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
+            error_type, error_message, tb = ex.__class__.__name__, str(ex), traceback.extract_tb(ex.__traceback__)
+            error_details = tb[-1]  # Get the last traceback entry (most recent call)
+            file_name = error_details.filename
+            method_name = error_details.name
+            line_number = error_details.lineno
+
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
+                    
+            # error_msg = ex.args[0]
+            # msg = "[-] " + self.Error_Title + " => Start Process : " + error_msg
+            # print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
 
     # Is the given URL is valid or not
     async def __Is_Valid_Site(self):

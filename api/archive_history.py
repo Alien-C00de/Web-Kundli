@@ -1,11 +1,13 @@
 import aiohttp
 import asyncio
+from colorama import Fore, Style
+from datetime import datetime
+from time import perf_counter
+import traceback
+from statistics import mean
 from util.config_uti import Configuration
 from util.issue_config import Issue_Config
 from util.report_util import Report_Utility
-from colorama import Fore, Style
-from datetime import datetime, timedelta
-from statistics import mean
 
 class Archive_History:
     Error_Title = None
@@ -26,6 +28,7 @@ class Archive_History:
 
         try:
             # print("archive_history.py: start ")
+            start_time = perf_counter()
             async with aiohttp.ClientSession(headers=headers) as session:
                 url = config.ARCHIVE_ENDPOINT_URL.replace("{url}", self.url)
 
@@ -38,14 +41,24 @@ class Archive_History:
                     decodedResponse.append(await response.json())
 
             output = await self.__html_table(decodedResponse)
-            print(f"✅ {config.MODULE_ARCHIVE_HISTORY} has successfully completed.")
+            print(f"✅ {config.MODULE_ARCHIVE_HISTORY} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
             return output
 
         except Exception as ex:
-            error_msg = str(ex.args[0])
-            msg = "[-] " + self.Error_Title + " => Get_Archive_History : " + error_msg
-            print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
+            error_type, error_message, tb = ex.__class__.__name__, str(ex), traceback.extract_tb(ex.__traceback__)
+            error_details = tb[-1]  # Get the last traceback entry (most recent call)
+            file_name = error_details.filename
+            method_name = error_details.name
+            line_number = error_details.lineno
+
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
+        
+            # error_msg = str(ex.args[0])
+            # msg = "[-] " + self.Error_Title + " => Get_Archive_History : " + error_msg
+            # print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
+            # return output
 
     async def __convert_timestamp_to_date(self, timestamp):
         year = int(timestamp[0:4])

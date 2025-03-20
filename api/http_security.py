@@ -1,8 +1,10 @@
+from colorama import Fore, Style
+from time import perf_counter
+import traceback
+
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
 from util.issue_config import Issue_Config
-from colorama import Fore, Style
-
 
 class HTTP_Security:
     Error_Title = None
@@ -17,20 +19,30 @@ class HTTP_Security:
         self.Error_Title = config.HTTP_SECURITY
         output = []
         try:
-            # print("http_security.py: start ")
+            start_time = perf_counter()
             headers = self.response.headers
 
             http_sec = await self.__html_http_Sec_table(headers)
             header =  await self.__html_headers_table(headers)
             output = http_sec + header
-            print(f"✅ {config.MODULE_HTTP_SECURITY} has successfully completed.")
+            print(f"✅ {config.MODULE_HTTP_SECURITY} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
             return output
 
         except Exception as ex:
-            error_msg = str(ex.args[0])
-            msg = "[-] " + self.Error_Title + " => Get_HTTP_Security : " + error_msg
-            print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
+            error_type, error_message, tb = ex.__class__.__name__, str(ex), traceback.extract_tb(ex.__traceback__)
+            error_details = tb[-1]  # Get the last traceback entry (most recent call)
+            file_name = error_details.filename
+            method_name = error_details.name
+            line_number = error_details.lineno
+
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
+        
+            # error_msg = str(ex.args[0])
+            # msg = "[-] " + self.Error_Title + " => Get_HTTP_Security : " + error_msg
+            # print(Fore.RED + Style.BRIGHT + msg + Fore.RESET + Style.RESET_ALL)
+            # return output
 
     async def __html_headers_table(self, data):
         rep_data = []
