@@ -1,6 +1,7 @@
 import aiohttp
 from colorama import Fore, Style
 import datetime
+import traceback
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
 from util.issue_config import Issue_Config
@@ -21,7 +22,7 @@ class Site_Features:
         output = []
 
         try:
-            start_time = perf_counter()
+            # start_time = perf_counter()
             api_url = config.BUILTWITH_ENDPOINT_URL.format(apiKey = config.BUILTWITH_API, url = self.domain)
             async with aiohttp.ClientSession() as session:
                 async with session.get(api_url) as response:
@@ -29,7 +30,8 @@ class Site_Features:
                         result = await response.json()  # Convert response to JSON
                     
             output = await self.__html_table(result)
-            print(f"✅ {config.MODULE_SITE_FEATURES} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            # print(f"✅ {config.MODULE_SITE_FEATURES} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            print(f"✅ {config.MODULE_SITE_FEATURES} has been successfully completed.")
             return output
 
         except Exception as ex:
@@ -39,7 +41,7 @@ class Site_Features:
             method_name = error_details.name
             line_number = error_details.lineno
 
-            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
             print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
         

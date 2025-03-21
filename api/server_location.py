@@ -28,7 +28,7 @@ class Server_Location():
         headers = {'Accept': 'application/json',}
 
         try:
-            start_time = perf_counter()
+            # start_time = perf_counter()
             async with aiohttp.ClientSession(headers=headers) as session:
                 url = config.IPAPI_IO_ENDPOINT_URL + self.ip_address + "/json/"
                 tasks.append(asyncio.create_task(session.request(method="GET", url=url)))
@@ -41,7 +41,8 @@ class Server_Location():
             location = await self.__html_server_loc_table(dataframe)
             info = await self.__html_server_info_table(dataframe)
             output = location + info
-            print(f"✅ {config.MODULE_SERVER_LOCATION} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            # print(f"✅ {config.MODULE_SERVER_LOCATION} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            print(f"✅ {config.MODULE_SERVER_LOCATION} has been successfully completed.")
             return output
 
         except Exception as ex:
@@ -51,7 +52,7 @@ class Server_Location():
             method_name = error_details.name
             line_number = error_details.lineno
 
-            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
             print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
         

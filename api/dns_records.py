@@ -22,7 +22,7 @@ class DNS_Records():
         TXT_Records = []
         output = []
         try:
-            start_time = perf_counter()
+            # start_time = perf_counter()
             result = await self.__final_result(self.domain)
             # email_result = await self.__fetch_email_result(result[2], result[5])
             
@@ -31,7 +31,8 @@ class DNS_Records():
             # Email_Records = await self.__html_email_table(email_result)
 
             output = DNS_Records + TXT_Records #+ Email_Records
-            print(f"✅ {config.MODULE_DNS_RECORDS} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            # print(f"✅ {config.MODULE_DNS_RECORDS} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            print(f"✅ {config.MODULE_DNS_RECORDS} has been successfully completed")
             return output
         except Exception as ex:
             error_type, error_message, tb = ex.__class__.__name__, str(ex), traceback.extract_tb(ex.__traceback__)
@@ -40,7 +41,7 @@ class DNS_Records():
             method_name = error_details.name
             line_number = error_details.lineno
 
-            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
             print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
         

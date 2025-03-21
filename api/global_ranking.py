@@ -19,7 +19,7 @@ class Global_Ranking:
         output = []
 
         try:
-            start_time = perf_counter()
+            # start_time = perf_counter()
             async with aiohttp.ClientSession() as session:
                 endpoint = f"{config.TRANCO_ENDPOINT_URL}{self.domain}"
                 async with session.get(endpoint) as response:
@@ -28,7 +28,8 @@ class Global_Ranking:
                         ranks = data.get("ranks", [])
 
             output = await self.__html_table(ranks)
-            print(f"✅ {config.MODULE_GLOBAL_RANK} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            # print(f"✅ {config.MODULE_GLOBAL_RANK} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            print(f"✅ {config.MODULE_GLOBAL_RANK} has been successfully completed.")
             return output
 
         except Exception as ex:
@@ -38,7 +39,7 @@ class Global_Ranking:
             method_name = error_details.name
             line_number = error_details.lineno
 
-            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
             print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
         

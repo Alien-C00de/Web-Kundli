@@ -25,7 +25,7 @@ class Threats:
 
         headers = {"Accept": "application/json", "x-apikey": config.VIRUS_TOTAL_API_KEY}
         try:
-            start_time = perf_counter()
+            # start_time = perf_counter()
             encoded_url = await self.__url_to_base64(self.url)
             async with aiohttp.ClientSession(headers = headers) as session:
                 url = config.VIRUS_TOTAL_ENDPOINT_URL + encoded_url
@@ -37,7 +37,8 @@ class Threats:
                     decodedResponse.append(await response.json())
 
             output = await self.__html_table(decodedResponse)
-            print(f"✅ {config.MODULE_THREATS} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            # print(f"✅ {config.MODULE_THREATS} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            print(f"✅ {config.MODULE_THREATS} has been successfully completed.")
             return output
 
         except Exception as ex:
@@ -47,7 +48,7 @@ class Threats:
             method_name = error_details.name
             line_number = error_details.lineno
 
-            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
             print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
         

@@ -21,10 +21,11 @@ class TLS_Cipher_Suit:
         self.Error_Title = config.TLS_CIPHER_SUIT
         output = []
         try:
-            start_time = perf_counter()
+            # start_time = perf_counter()
             res = await self.__final_result(self.domain)
             output = await self.__html_table(res)
-            print(f"✅ {config.MODULE_TLS_CIPHER_SUITES} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            # print(f"✅ {config.MODULE_TLS_CIPHER_SUITES} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            print(f"✅ {config.MODULE_TLS_CIPHER_SUITES} has been successfully completed.")
             return output
 
         except Exception as ex:
@@ -34,7 +35,7 @@ class TLS_Cipher_Suit:
             method_name = error_details.name
             line_number = error_details.lineno
 
-            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
             print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
         

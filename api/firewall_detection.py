@@ -27,7 +27,7 @@ class Firewall_Detection():
                             'safe3waf': 'Safe3 Web Application Firewall', 'naxsi': 'NAXSI WAF','ibm websphere datapower': 'IBM WebSphere DataPower',
                         }
         try:
-            start_time = perf_counter()
+            # start_time = perf_counter()
             response = requests.get(self.url, timeout=10)
             headers = response.headers
 
@@ -60,7 +60,8 @@ class Firewall_Detection():
 
             decode = {'hasWaf': False, 'wafName': '*The domain may be protected with a proprietary or custom WAF which we were unable to identify automatically'}
             output = await self.__html_table(decode)
-            print(f"✅ {config.MODULE_FIREWALL_DETECTION} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            # print(f"✅ {config.MODULE_FIREWALL_DETECTION} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            print(f"✅ {config.MODULE_FIREWALL_DETECTION} has been successfully completed.")
             return output
         except Exception as ex:
             error_type, error_message, tb = ex.__class__.__name__, str(ex), traceback.extract_tb(ex.__traceback__)
@@ -69,7 +70,7 @@ class Firewall_Detection():
             method_name = error_details.name
             line_number = error_details.lineno
 
-            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
             print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
         

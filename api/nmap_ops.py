@@ -28,16 +28,21 @@ class Nmap_Ops:
         'web_server_checks': 'http-enum,http-headers,http-methods',
     }
 
-    target_ip = "192.168.0.178"
+    # target_ip = "192.168.0.178"
     ports_to_scan = "21,22,25,53,80,110,143,443,465,587,993,995,8080,8443"
     xml_folder = "nmap_xml"
 
+    @property
+    def target_ip(self):
+        # return "192.168.0.178"
+        return self.ip_address 
+    
     async def Get_Nmap_Ops(self):
         config = Configuration()
         self.Error_Title = config.NMAP_OPERATION
         output = []
         try:
-            start_time = perf_counter()
+            # start_time = perf_counter()
             tasks = [self.__os_detection(self.target_ip), self.__port_scan(self.target_ip)]
             for category, script in self.nmap_scripts.items():
                 tasks.append(self.__run_nmap(self.target_ip, category, script))
@@ -53,7 +58,8 @@ class Nmap_Ops:
                 scan_data[category] = await self.__parse_nmap_xml(f"{self.xml_folder}/nmap_output_{category}.xml", category)
 
             output = await asyncio.gather(*(self.__html_table(category, data) for category, data in scan_data.items()))
-            print(f"✅ {config.MODULE_NMAP_OPERATION} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            # print(f"✅ {config.MODULE_NMAP_OPERATION} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            print(f"✅ {config.MODULE_NMAP_OPERATION} has been successfully completed.")
             return [table for sublist in output for table in sublist]  # Flatten list
             # return output
 
@@ -64,7 +70,7 @@ class Nmap_Ops:
             method_name = error_details.name
             line_number = error_details.lineno
 
-            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
             print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
         
@@ -90,6 +96,7 @@ class Nmap_Ops:
                         f'<div class="progress" style="width: {percentage}%;">{percentage}%</div></div></td>',
                         '</tr>'
                     ]
+            
             if category == "port_scan":
                 table_parts.append(
                     f'<tr><td colspan="2" style="text-align: left;"><h3>Open Ports</h3></td></tr>'
@@ -101,9 +108,10 @@ class Nmap_Ops:
                         f'<tr><td>OS Details</td><td>{data["os"]}</td></tr>'
                     )
                 elif category == "port_scan":
-                    table_parts.append(
-                        f'<tr><td>{data["port"]}</td><td>{data["service"]}</td></tr>'
-                    )
+                    if data["state"].lower() == "open":
+                        table_parts.append(
+                            f'<tr><td>{data["port"]}</td><td>{data["service"]}</td></tr>'
+                        )
                 else:
                     table_parts.append(
                         f'<tr><td colspan="3" style="text-align: left;"><h3>{data["script_id"]}</h3></td></tr>'
@@ -121,7 +129,6 @@ class Nmap_Ops:
         issues = []
         suggestions = []
         score = 0
-        max_score = 2
         icon = ""
         module  = ""
         
@@ -129,28 +136,38 @@ class Nmap_Ops:
             # score = 0  # Reset score for each entry
             if category == "os_detection":
                 if "os" in data and data["os"] != "Unknown":
-                    issues.append(f"Detected OS: {data['os']} can be exploited by attackers.")
-                    suggestions.append("Use network security tools to mask OS details (e.g., OS fingerprinting protection).")
+                    issues.append(Issue_Config.ISSUE_NMAP_OS_DETECT.format(data['os']))
+                    suggestions.append(Issue_Config.SUGGESTION_NMAP_OS_DETECT)
                 else:
                     score += 1  # If OS is not detected, it’s more secure.
                 icon = Configuration.ICON_NMAP_OS_DETECT
                 module = Configuration.MODULE_NMAP_OS_DETECT
             elif category == "port_scan":
                 if "port" in data and "state" in data and data["state"].lower() == "open":
-                    issues.append(f"Port {data['port']} ({data.get('service', 'unknown service')}) is open, which can be exploited.")
-                    suggestions.append(f"Restrict access or close port {data['port']} if not necessary.")
+                    port_number = int(data["port"])  # Convert to integer for comparison
+                    if port_number not in [80, 443]:  # Skip ports 80 and 443
+                        issues.append(Issue_Config.ISSUE_NMAP_PORT_SCAN.format(port_number, data.get('service', 'unknown service')))
+                        suggestions.append(Issue_Config.SUGGESTION_NMAP_PORT_SCAN.format(port_number))
+                    else:
+                        score += 1  # If it's port 80 or 443, increase score (indicating it's not a critical issue)
                 else:
                     score += 1
+
+                # if "port" in data and "state" in data and data["state"].lower() == "open":
+                #     issues.append(Issue_Config.ISSUE_NMAP_PORT_SCAN.format(data['port'], (data.get('service', 'unknown service'))))
+                #     suggestions.append(Issue_Config.SUGGESTION_NMAP_PORT_SCAN.format(data['port']))
+                # else:
+                #     score += 1
                 icon = Configuration.ICON_NMAP_PORT_SCAN
                 module = Configuration.MODULE_NMAP_PORT_SCAN
             else:  # Check for vulnerabilities in script output
                 script_id = data.get('script_id', 'unknown script')
-            output = data.get('output', '').lower()
+                output = data.get('output', '').lower()
 
             if category == "sql_injection":
                 if "sql injection" in output or "sql-injection" in script_id:
-                    issues.append(f"SQL Injection detected via {script_id}")
-                    suggestions.append("Sanitize user inputs and use prepared statements.")
+                    issues.append(Issue_Config.ISSUE_NMAP_SQL_INJECTION.format(script_id))
+                    suggestions.append(Issue_Config.SUGGESTION_NMAP_SQL_INJECTION)
                 else:
                     score += 1
 
@@ -169,8 +186,8 @@ class Nmap_Ops:
                     score += 1
                 
                 elif "xss" in output or "cross-site scripting" in output:
-                    issues.append(f"XSS vulnerability detected via {script_id}")
-                    suggestions.append("Implement input validation and Content Security Policy (CSP).")
+                    issues.append(Issue_Config.ISSUE_NMAP_XSS.format(script_id))
+                    suggestions.append(Issue_Config.SUGGESTION_NMAP_XSS)
                 else:
                     score += 1
 
@@ -179,8 +196,8 @@ class Nmap_Ops:
                 
             if category == "shellshock":
                 if "shellshock" in output:
-                    issues.append(f"Shellshock vulnerability detected via {script_id}")
-                    suggestions.append("Update and patch vulnerable Bash versions.")
+                    issues.append(Issue_Config.ISSUE_NMAP_SHELLSHOCK.format(script_id))
+                    suggestions.append(Issue_Config.SUGGESTION_NMAP_SHELLSHOCK)
                 else:
                     score += 1
 
@@ -189,8 +206,8 @@ class Nmap_Ops:
             
             if category == "rce_exploits":
                 if "remote code execution" in output or "rce" in output:
-                    issues.append(f"Possible RCE exploit detected via {script_id}")
-                    suggestions.append("Restrict code execution permissions and use Web Application Firewalls.")
+                    issues.append(Issue_Config.ISSUE_NMAP_RCE_EXPLOITS.format(script_id))
+                    suggestions.append(Issue_Config.SUGGESTION_NMAP_RCE_EXPLOITS)
                 else:
                     score += 1
 
@@ -199,12 +216,12 @@ class Nmap_Ops:
 
             if category == "web_server_checks":
                 if "server misconfiguration" in output or "http-headers" in script_id or "http-methods" in script_id:
-                    issues.append(f"Web server security issues detected via {script_id}")
-                    suggestions.append("Restrict unnecessary HTTP methods and secure headers.")
+                    issues.append(Issue_Config.ISSUE_NMAP_WEB_CHECK_MISCONFIG.format(script_id))
+                    suggestions.append(Issue_Config.SUGGESTION_NMAP_WEB_CHECK_MISCONFIG)
 
                 elif "enumeration" in output or "http-enum" in script_id:
-                    issues.append(f"Potential information disclosure via {script_id}")
-                    suggestions.append("Disable directory listing and minimize exposed information.")
+                    issues.append(Issue_Config.ISSUE_NMAP_WEB_CHECK_ENUM.format(script_id))
+                    suggestions.append(Issue_Config.SUGGESTION_NMAP_WEB_CHECK_ENUM)
 
                 else:
                     score += 1
@@ -215,16 +232,16 @@ class Nmap_Ops:
             # Handling general vulnerabilities (http-vuln*)
             if category == "general_vulnerabilities*":
                 if "http-vuln" in script_id:
-                    issues.append(f"Detected HTTP vulnerability via {script_id}")
-                    suggestions.append("Apply security patches and use a Web Application Firewall (WAF).")
+                    issues.append(Issue_Config.ISSUE_NMAP_HTTP_VULN.format(script_id))
+                    suggestions.append(Issue_Config.SUGGESTION_NMAP_HTTP_VULN)
 
                 elif "csrf" in output or "cross-site request forgery" in output:
-                    issues.append(f"CSRF vulnerability detected via {script_id}")
-                    suggestions.append("Use anti-CSRF tokens and validate user sessions.")
+                    issues.append(Issue_Config.ISSUE_NMAP_CSRF.format(script_id))
+                    suggestions.append(Issue_Config.SUGGESTION_NMAP_CSRF)
 
                 elif "open redirect" in output:
-                    issues.append(f"Open Redirect vulnerability detected via {script_id}")
-                    suggestions.append("Restrict redirect URLs to trusted domains.")
+                    issues.append(Issue_Config.ISSUE_NMAP_OPEN_REDIRECT.format(script_id))
+                    suggestions.append(Issue_Config.SUGGESTION_NMAP_OPEN_REDIRECT)
                 
                 else:
                     score += 1

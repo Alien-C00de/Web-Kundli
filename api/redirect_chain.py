@@ -16,10 +16,11 @@ class Redirect_Chain():
         self.Error_Title = config.REDIRECT_FETCH
         output = []
         try:
-            start_time = perf_counter()
+            # start_time = perf_counter()
             result = await self.__final_result()
             output = await self.__html_table(result)
-            print(f"✅ {config.MODULE_REDIRECT_CHAIN} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            # print(f"✅ {config.MODULE_REDIRECT_CHAIN} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            print(f"✅ {config.MODULE_REDIRECT_CHAIN} has been successfully completed.")
             return output
 
         except Exception as ex:
@@ -29,7 +30,7 @@ class Redirect_Chain():
             method_name = error_details.name
             line_number = error_details.lineno
 
-            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
             print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
         

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.94SVN scan initiated Fri Mar 21 16:52:31 2025 as: nmap -sT -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-enum,http-headers,http-methods -oX nmap_xml/nmap_output_web_server_checks.xml 203.187.192.6 -->
+<nmaprun scanner="nmap" args="nmap -sT -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-enum,http-headers,http-methods -oX nmap_xml/nmap_output_web_server_checks.xml 203.187.192.6" start="1742556151" startstr="Fri Mar 21 16:52:31 2025" version="7.94SVN" xmloutputversion="1.05">
+<scaninfo type="connect" protocol="tcp" numservices="14" services="21-22,25,53,80,110,143,443,465,587,993,995,8080,8443"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<hosthint><status state="up" reason="unknown-response" reason_ttl="0"/>
+<address addr="203.187.192.6" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<host starttime="1742556156" endtime="1742556418"><status state="up" reason="syn-ack" reason_ttl="58"/>
+<address addr="203.187.192.6" addrtype="ipv4"/>
+<hostnames>
+<hostname name="www.youbroadband.in" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="21"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ftp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="22"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+<port protocol="tcp" portid="25"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="smtp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="53"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="domain" method="table" conf="3"/></port>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" method="table" conf="3"/><script id="http-methods" output="&#xa;  Supported Methods: GET HEAD POST OPTIONS"><table key="Supported Methods">
+<elem>GET</elem>
+<elem>HEAD</elem>
+<elem>POST</elem>
+<elem>OPTIONS</elem>
+</table>
+</script><script id="http-headers" output="&#xa;  Date: Fri, 21 Mar 2025 11:22:56 GMT&#xa;  Server: Apache&#xa;  Location: https://youbroadband.in/&#xa;  Cache-Control: max-age=2592000&#xa;  Expires: Sun, 20 Apr 2025 11:22:56 GMT&#xa;  Content-Length: 232&#xa;  Connection: close&#xa;  Content-Type: text/html; charset=iso-8859-1&#xa;  &#xa;  (Request type: GET)&#xa;"/><script id="http-enum" output="&#xa;  /icons/: Potentially interesting folder w/ directory listing&#xa;"/></port>
+<port protocol="tcp" portid="110"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="pop3" method="table" conf="3"/></port>
+<port protocol="tcp" portid="143"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="imap" method="table" conf="3"/></port>
+<port protocol="tcp" portid="443"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="https" method="table" conf="3"/><script id="http-methods" output="&#xa;  Supported Methods: GET HEAD POST OPTIONS"><table key="Supported Methods">
+<elem>GET</elem>
+<elem>HEAD</elem>
+<elem>POST</elem>
+<elem>OPTIONS</elem>
+</table>
+</script><script id="http-enum" output="&#xa;  /icons/: Potentially interesting folder w/ directory listing&#xa;"/><script id="http-headers" output="&#xa;  Date: Fri, 21 Mar 2025 11:22:56 GMT&#xa;  Server: Apache&#xa;  Location: https://youbroadband.in/&#xa;  Cache-Control: max-age=2592000&#xa;  Expires: Sun, 20 Apr 2025 11:22:56 GMT&#xa;  Content-Length: 232&#xa;  Connection: close&#xa;  Content-Type: text/html; charset=iso-8859-1&#xa;  &#xa;  (Request type: GET)&#xa;"/></port>
+<port protocol="tcp" portid="465"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="smtps" method="table" conf="3"/></port>
+<port protocol="tcp" portid="587"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="submission" method="table" conf="3"/></port>
+<port protocol="tcp" portid="993"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="imaps" method="table" conf="3"/></port>
+<port protocol="tcp" portid="995"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="pop3s" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8080"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="http-proxy" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8443"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="https-alt" method="table" conf="3"/></port>
+</ports>
+<times srtt="23586" rttvar="7552" to="400000"/>
+</host>
+<runstats><finished time="1742556418" timestr="Fri Mar 21 16:56:58 2025" summary="Nmap done at Fri Mar 21 16:56:58 2025; 1 IP address (1 host up) scanned in 266.38 seconds" elapsed="266.38" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

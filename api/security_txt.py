@@ -27,7 +27,7 @@ class Security_TXT:
         PGP = ""
 
         try:
-            start_time = perf_counter()
+            # start_time = perf_counter()
             for path in self.SECURITY_TXT_PATHS:
                 url = f"{self.url}{path}"
                 async with aiohttp.ClientSession() as session:
@@ -50,7 +50,8 @@ class Security_TXT:
                 PGP = self.dict["isPgpSigned"]
 
             output = await self.__html_table(present, location, PGP)
-            print(f"✅ {config.MODULE_SECURITY_TXT} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            # print(f"✅ {config.MODULE_SECURITY_TXT} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            print(f"✅ {config.MODULE_SECURITY_TXT} has been successfully completed.")
             return output
         except Exception as ex:
             error_type, error_message, tb = ex.__class__.__name__, str(ex), traceback.extract_tb(ex.__traceback__)
@@ -59,7 +60,7 @@ class Security_TXT:
             method_name = error_details.name
             line_number = error_details.lineno
 
-            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
             print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
         

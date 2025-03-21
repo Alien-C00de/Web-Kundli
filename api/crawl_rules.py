@@ -22,7 +22,7 @@ class Crawl_Rules:
         output = []
         robot_url = urljoin(self.url, config.CRAWL_FILE)
         try:
-            start_time = perf_counter()
+            # start_time = perf_counter()
             async with aiohttp.ClientSession() as session:
                 async with session.get(robot_url) as response:
                     crawl_rules = []
@@ -39,7 +39,8 @@ class Crawl_Rules:
                                 crawl_rules.append((user_agent, rule))
 
             output = await self.__html_table(user_agent, crawl_rules, lines)
-            print(f"✅ {config.MODULE_CRAWL_RULES} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            # print(f"✅ {config.MODULE_CRAWL_RULES} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            print(f"✅ {config.MODULE_CRAWL_RULES} has been successfully completed.")
             return output
 
         except Exception as ex:
@@ -49,7 +50,7 @@ class Crawl_Rules:
             method_name = error_details.name
             line_number = error_details.lineno
 
-            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
             print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
 

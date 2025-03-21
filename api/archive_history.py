@@ -28,7 +28,7 @@ class Archive_History:
 
         try:
             # print("archive_history.py: start ")
-            start_time = perf_counter()
+            # start_time = perf_counter()
             async with aiohttp.ClientSession(headers=headers) as session:
                 url = config.ARCHIVE_ENDPOINT_URL.replace("{url}", self.url)
 
@@ -41,7 +41,8 @@ class Archive_History:
                     decodedResponse.append(await response.json())
 
             output = await self.__html_table(decodedResponse)
-            print(f"✅ {config.MODULE_ARCHIVE_HISTORY} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            # print(f"✅ {config.MODULE_ARCHIVE_HISTORY} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            print(f"✅ {config.MODULE_ARCHIVE_HISTORY} has been successfully completed.")
             return output
 
         except Exception as ex:
@@ -51,7 +52,7 @@ class Archive_History:
             method_name = error_details.name
             line_number = error_details.lineno
 
-            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
             print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
         

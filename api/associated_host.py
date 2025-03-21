@@ -20,7 +20,7 @@ class Associated_Hosts:
         output = []
 
         try:
-            start_time = perf_counter()
+            # start_time = perf_counter()
             subdomains = set()
             async with aiohttp.ClientSession() as session:
                 url = config.ASSOCIATED_ENDPOINT_URL.replace("{domain}", self.domain)
@@ -35,7 +35,8 @@ class Associated_Hosts:
                             subdomains.add(subdomain)
 
             output = await self.__html_table(subdomains)
-            print(f"✅ {config.MODULE_ASSOCIATED_HOSTS} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            # print(f"✅ {config.MODULE_ASSOCIATED_HOSTS} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            print(f"✅ {config.MODULE_ASSOCIATED_HOSTS} has been successfully completed.")
             return output
 
         except Exception as ex:
@@ -45,7 +46,7 @@ class Associated_Hosts:
             method_name = error_details.name
             line_number = error_details.lineno
 
-            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
             print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
         

@@ -24,7 +24,7 @@ class DNS_Server():
         output = []
 
         try:
-            start_time = perf_counter()
+            # start_time = perf_counter()
             doh_url = f"https://{self.ip_address}/dns-query"
 
             async with aiohttp.ClientSession() as session:
@@ -34,7 +34,8 @@ class DNS_Server():
                             DoH = "Yes"
                 except (aiohttp.ClientConnectorError, asyncio.TimeoutError):
                     output = await self.__html_table(DoH)
-                    print(f"✅ {config.MODULE_DNS_SERVER} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+                    # print(f"✅ {config.MODULE_DNS_SERVER} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+                    print(f"✅ {config.MODULE_DNS_SERVER} has been successfully completed.")
                     return output
 
             return await self.__html_table(DoH)
@@ -46,7 +47,7 @@ class DNS_Server():
             method_name = error_details.name
             line_number = error_details.lineno
 
-            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
             print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
         

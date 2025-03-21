@@ -1,6 +1,7 @@
 import aiohttp
 from time import perf_counter
 from colorama import Fore, Style
+import traceback
 from util.config_uti import Configuration
 from util.report_util import Report_Utility
 from util.issue_config import Issue_Config
@@ -27,7 +28,8 @@ class Server_Status():
                     IsUp = True
 
             output = await self.__html_table(IsUp, response.status, response_time)
-            print(f"✅ {config.MODULE_SERVER_STATUS} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            # print(f"✅ {config.MODULE_SERVER_STATUS} has been successfully completed in {round(perf_counter() - start_time, 2)} seconds.")
+            print(f"✅ {config.MODULE_SERVER_STATUS} has been successfully completed.")
             return output
         except Exception as ex:
             error_type, error_message, tb = ex.__class__.__name__, str(ex), traceback.extract_tb(ex.__traceback__)
@@ -36,7 +38,7 @@ class Server_Status():
             method_name = error_details.name
             line_number = error_details.lineno
 
-            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
             print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
             return output
         
