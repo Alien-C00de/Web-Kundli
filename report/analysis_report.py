@@ -10,8 +10,7 @@ class Analysis_Report:
     async def Generate_Analysis_Report(self, website, cookies, server_location, server_info, SSL_Cert, Archive, Asso_Host, Block_Detect,
                             CO2_print, crawl_rule, DNS_Security, DNS_Server, whois, http_security, web_header, firewall, global_rank,
                             open_ports, redirect_chain, security_TXT, server_status, site_feature, social_tags, tech_stack, threats,
-                            dns_records, txt_records, tls_cipher_suit, email_config, os_detection, port_scan, gen_vuln, 
-                            sql_injection, xss, shellshock, rce_exploits, web_server_checks):
+                            dns_records, txt_records, tls_cipher_suit, email_config, nmap_ops):
 
         config = Configuration()
         report_timestamp = self.timestamp.strftime("%A %d-%b-%Y %H:%M:%S")
@@ -204,15 +203,18 @@ class Analysis_Report:
                                 """ + social_tags + """
                                 """ + threats + """
                                 """ + global_rank + """
-                                """ + security_TXT + """
-                                """ + os_detection + """
-                                """ + port_scan + """
-                                """ + gen_vuln + """
-                                """ + sql_injection + """
-                                """ + xss + """
-                                """ + shellshock + """
-                                """ + rce_exploits + """
-                                """ + web_server_checks + """
+                                """ + security_TXT + """ """)
+        if nmap_ops:
+            body += (f"""
+                                """ + nmap_ops[1] + """
+                                """ + nmap_ops[3] + """
+                                """ + nmap_ops[5] + """
+                                """ + nmap_ops[7] + """
+                                """ + nmap_ops[9] + """
+                                """ + nmap_ops[11] + """
+                                """ + nmap_ops[13] + """
+                                """ + nmap_ops[15] + """ """)
+        body += ("""
                             <footer>
                                 """ + config.ANALYSIS_REPORT_FOOTER + """&nbsp;&nbsp;&copy;&nbsp;""" + config.YEAR + """
                             </footer>
@@ -220,7 +222,10 @@ class Analysis_Report:
                 </body>
                 </html>""" )
 
-        Analysis_report = "%s_%s_%s.html" % (config.ANALYSIS_REPORT_FILE_NAME.replace("/", "_"), self.domain, self.timestamp.strftime("%d%b%Y_%H-%M-%S"))
+        if nmap_ops:
+            Analysis_report = "%s_%s_%s_%s.html" % (config.ANALYSIS_REPORT_FILE_NAME, self.domain, 'nmap', self.timestamp.strftime("%d%b%Y_%H-%M-%S"))
+        else:    
+            Analysis_report = "%s_%s_%s.html" % (config.ANALYSIS_REPORT_FILE_NAME, self.domain, self.timestamp.strftime("%d%b%Y_%H-%M-%S"))
 
         Analysis_report = os.path.join("./output", Analysis_report)
 

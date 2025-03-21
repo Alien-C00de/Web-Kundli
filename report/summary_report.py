@@ -9,10 +9,61 @@ class Summary_Report:
         self.domain = domain
         self.timestamp = timestamp
 
+    # async def __ranking_percentage(self, Server_Location, SSL_Cert, Whois, ser_info, HTTP_sec, headers, cookies, dns_server_info, 
+    #                          tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record, 
+    #                          ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info,
+    #                          tech_stack_info, firewall_info, social_tag_info, threats_info, global_ranking_info, security_txt_info):
+    #     # List of parameters
+    #     params = {
+    #         'Server_Location': Server_Location,
+    #         'SSL_Cert': SSL_Cert,
+    #         'Whois': Whois,
+    #         'ser_info': ser_info,
+    #         'HTTP_sec': HTTP_sec,
+    #         'headers': headers,
+    #         'cookies': cookies,
+    #         'DNS_Server': dns_server_info,
+    #         'tls_cipher_suite': tls_cipher_suite,
+    #         'dns_info': dns_info,
+    #         'txt_info': txt_info,
+    #         'server_status_info': server_status_info,
+    #         'mail_configuration_info': mail_configuration_info,
+    #         'redirect_Record': redirect_Record,
+    #         'ports': ports,
+    #         'archive_info': archive_info,
+    #         'associated_info': associated_info,
+    #         'block_info': block_info,
+    #         'carbon_info': carbon_info,
+    #         'crawl_info': crawl_info,
+    #         'site_info': site_info,
+    #         'dns_sec_info': dns_sec_info,
+    #         'tech_stack_info': tech_stack_info,
+    #         'firewall_info': firewall_info,
+    #         'social_tag_info': social_tag_info,
+    #         'threats_info': threats_info,
+    #         'global_ranking_info': global_ranking_info,
+    #         'security_txt_info': security_txt_info
+    #     }
+
+    #     percent = 0
+    #     # Loop through parameters
+    #     for name, value in params.items():
+    #         if isinstance(value, str):
+    #             progress = await self._extract_progress_from_html(value)
+    #             if progress:
+    #                 no_percent_strip = progress.rstrip('%')
+    #                 percent += int(no_percent_strip)
+    #                 # print(f"{name}: Progress - {progress}")
+
+    #     final = (percent / len(params)) 
+    #     # print(f"Params {len(params)}: Percent - {percent} Final {final}")
+    #     return round(final, 2)
+
     async def __ranking_percentage(self, Server_Location, SSL_Cert, Whois, ser_info, HTTP_sec, headers, cookies, dns_server_info, 
                              tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record, 
                              ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info,
-                             tech_stack_info, firewall_info, social_tag_info, threats_info, global_ranking_info, security_txt_info):
+                             tech_stack_info, firewall_info, social_tag_info, threats_info, global_ranking_info, security_txt_info, nmap_ops):
+
         # List of parameters
         params = {
             'Server_Location': Server_Location,
@@ -46,18 +97,32 @@ class Summary_Report:
         }
 
         percent = 0
-        # Loop through parameters
+        total_items = len(params)
+
+        # Process regular params
         for name, value in params.items():
             if isinstance(value, str):
                 progress = await self._extract_progress_from_html(value)
                 if progress:
-                    no_percent_strip = progress.rstrip('%')
-                    percent += int(no_percent_strip)
-                    # print(f"{name}: Progress - {progress}")
+                    percent += int(progress.rstrip('%'))
 
-        final = (percent / len(params)) 
-        # print(f"Params {len(params)}: Percent - {percent} Final {final}")
+        # Process nmap_ops if it's not None
+        if nmap_ops:
+            selected_indices = {0, 2, 4, 6, 8, 10, 12, 14}
+            filtered_nmap_ops = [nmap_ops[i] for i in selected_indices if i < len(nmap_ops)]
+
+            for item in filtered_nmap_ops:
+                if isinstance(item, str):
+                    progress = await self._extract_progress_from_html(item)
+                    if progress:
+                        percent += int(progress.rstrip('%'))
+
+            total_items += len(filtered_nmap_ops)  # Adjust total count for averaging
+
+        # Calculate final percentage
+        final = percent / total_items if total_items else 0
         return round(final, 2)
+
 
     async def _extract_progress_from_html(self, html_content):
         """Extract the progress percentage from HTML content."""
@@ -74,17 +139,20 @@ class Summary_Report:
                          tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record, 
                          ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info,
                          tech_stack_info, firewall_info, social_tag_info, threats_info, global_ranking_info, security_txt_info, 
-                         nmap_ops1, nmap_ops2, nmap_ops3, nmap_ops4, nmap_ops5, nmap_ops6, nmap_ops7, nmap_ops8, nmap_info):
+                         nmap_ops):
 
         config = Configuration()
         # report_timestamp = str(time.strftime("%A %d-%b-%Y %H:%M:%S", self.timestamp))
         report_timestamp = self.timestamp.strftime("%A %d-%b-%Y %H:%M:%S")
-        Analysis_report = "%s_%s_%s.html" % (config.ANALYSIS_REPORT_FILE_NAME.replace("/", "_"), self.domain, self.timestamp.strftime("%d%b%Y_%H-%M-%S"))
+        if nmap_ops:
+            Analysis_report = "%s_%s_%s_%s.html" % (config.ANALYSIS_REPORT_FILE_NAME, self.domain, 'nmap', self.timestamp.strftime("%d%b%Y_%H-%M-%S"))
+        else:    
+            Analysis_report = "%s_%s_%s.html" % (config.ANALYSIS_REPORT_FILE_NAME, self.domain, self.timestamp.strftime("%d%b%Y_%H-%M-%S"))
 
         percent = await self.__ranking_percentage(Server_Location, SSL_Cert, Whois, ser_info, HTTP_sec, headers, cookies, dns_server_info, 
                          tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record, 
                          ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info,
-                         tech_stack_info, firewall_info, social_tag_info, threats_info, global_ranking_info, security_txt_info)
+                         tech_stack_info, firewall_info, social_tag_info, threats_info, global_ranking_info, security_txt_info, nmap_ops)
         header = (
             """<!DOCTYPE html>
             <html lang="en">
@@ -567,13 +635,17 @@ class Summary_Report:
                             <h4>""" + security_txt_info + """</h4> 
                         </div>
                     </div>
-                    <div class="card">
+                    """ )
+        # Conditionally add NMAP section
+        if nmap_ops:
+            body += (
+                """<div class="card">
                         <div class="card-header">
                             <h2> """ + config.MODULE_NMAP_OS_DETECT + """ </h2>
                             <i class=""" + config.ICON_NMAP_OS_DETECT + """> </i> 
                         </div>
                         <div class="card-content">    
-                            <h4>""" + nmap_ops1 + """</h4> 
+                            <h4>""" + nmap_ops[0] + """</h4> 
                         </div>
                     </div>
                     <div class="card">
@@ -582,7 +654,7 @@ class Summary_Report:
                             <i class=""" + config.ICON_NMAP_PORT_SCAN + """> </i> 
                         </div>
                         <div class="card-content">    
-                            <h4>""" + nmap_ops2 + """</h4> 
+                            <h4>""" + nmap_ops[2] + """</h4> 
                         </div>
                     </div>
                     <div class="card">
@@ -591,7 +663,7 @@ class Summary_Report:
                             <i class=""" + config.ICON_NMAP_HTTP_VULN + """> </i> 
                         </div>
                         <div class="card-content">    
-                            <h4>""" + nmap_ops3 + """</h4> 
+                            <h4>""" + nmap_ops[4] + """</h4> 
                         </div>
                     </div>
                     <div class="card">
@@ -600,7 +672,7 @@ class Summary_Report:
                             <i class=""" + config.ICON_NMAP_SQL_INJECTION + """> </i> 
                         </div>
                         <div class="card-content">    
-                            <h4>""" + nmap_ops4 + """</h4> 
+                            <h4>""" + nmap_ops[6] + """</h4> 
                         </div>
                     </div>
                     <div class="card">
@@ -609,7 +681,7 @@ class Summary_Report:
                             <i class=""" + config.ICON_NMAP_XSS + """> </i> 
                         </div>
                         <div class="card-content">    
-                            <h4>""" + nmap_ops5 + """</h4> 
+                            <h4>""" + nmap_ops[8] + """</h4> 
                         </div>
                     </div>
                     <div class="card">
@@ -618,7 +690,7 @@ class Summary_Report:
                             <i class=""" + config.ICON_NMAP_SHELLSHOCK + """> </i> 
                         </div>
                         <div class="card-content">    
-                            <h4>""" + nmap_ops6 + """</h4> 
+                            <h4>""" + nmap_ops[10] + """</h4> 
                         </div>
                     </div>
                     <div class="card">
@@ -627,7 +699,7 @@ class Summary_Report:
                             <i class=""" + config.ICON_NMAP_RCE_EXPLOITS + """> </i> 
                         </div>
                         <div class="card-content">    
-                            <h4>""" + nmap_ops7 + """</h4> 
+                            <h4>""" + nmap_ops[12] + """</h4> 
                         </div>
                     </div>
                     <div class="card">
@@ -636,28 +708,7 @@ class Summary_Report:
                             <i class=""" + config.ICON_NMAP_WEB_SERVER_CHECK + """> </i> 
                         </div>
                         <div class="card-content">    
-                            <h4>""" + nmap_ops8 + """</h4> 
-                        </div>
-                    </div>""" )
-        # Conditionally add NMAP section
-        if nmap_info:
-            body += (
-                """<div class="card">
-                        <div class="card-header">
-                            <h2> """ + config.MODULE_NMAP_OS_VERSION + """ </h2>
-                            <i class=""" + config.MODULE_NMAP_OS_VERSION + """> </i> 
-                        </div>
-                        <div class="card-content">    
-                            <h4>""" + nmap_info[0] + """</h4> 
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h2> """ + config.MODULE_NMAP_VERSION_RESULT + """ </h2>
-                            <i class=""" + config.MODULE_NMAP_VERSION_RESULT + """> </i> 
-                        </div>
-                        <div class="card-content">    
-                            <h4>""" + nmap_info[1] + """</h4> 
+                            <h4>""" + nmap_ops[14] + """</h4> 
                         </div>
                     </div>"""
             )
@@ -678,7 +729,10 @@ class Summary_Report:
                 </html>""")
 
         # create and open the new WebKundli.html file
-        html_report = "%s_%s_%s.html" % (config.REPORT_FILE_NAME.replace("/", "_"), self.domain, self.timestamp.strftime("%d%b%Y_%H-%M-%S"))
+        if nmap_ops:
+            html_report = "%s_%s_%s_%s.html" % (config.REPORT_FILE_NAME, self.domain, 'nmap', self.timestamp.strftime("%d%b%Y_%H-%M-%S"))
+        else:    
+            html_report = "%s_%s_%s.html" % (config.REPORT_FILE_NAME, self.domain, self.timestamp.strftime("%d%b%Y_%H-%M-%S"))
 
         html_report = os.path.join("./output", html_report)
 

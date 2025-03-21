@@ -33,7 +33,6 @@ from api.social_tags import Social_Tags
 from api.threats import Threats
 from api.global_ranking import Global_Ranking
 from api.security_txt import Security_TXT
-from api.nmap_scan import NMap_Scan
 from api.nmap_ops import Nmap_Ops
 from report.summary_report import Summary_Report
 from report.analysis_report import Analysis_Report
@@ -94,7 +93,7 @@ class engine():
         threats = Threats(self.ip_address, self.url, self.domain)
         global_rank = Global_Ranking(self.url, self.domain)
         security_txt = Security_TXT(self.url, self.domain)
-        nmap_scan = NMap_Scan(self.ip_address, self.url, self.domain)
+        # nmap_scan = NMap_Scan(self.ip_address, self.url, self.domain)
         nmap_ops  = Nmap_Ops(self.ip_address, self.url, self.domain)
 
         Server_location = []
@@ -122,7 +121,6 @@ class engine():
         threats_info = []
         global_ranking_info = []
         security_txt_info = []
-        nmap_info = []
         nmap_ops_data = []
 
         try:
@@ -134,31 +132,30 @@ class engine():
                     block_detect.Get_Block_Detection(), carbon_print.Get_Carbon_Footprint(), crawl_rule.Get_Crawl_Rules(),
                     site_feat.Get_Site_Features(), dns_security.Get_DNS_Security_Ext(), tech_stack.Get_Tech_Stack(),
                     firewall.Get_Firewall_Detection(), social_tags.Get_Social_Tags(),  threats.Get_Threats(),         
-                    global_rank.Get_Global_Rank(), security_txt.Get_Security_TXT(), nmap_ops.Get_Nmap_Ops()]
+                    global_rank.Get_Global_Rank(), security_txt.Get_Security_TXT()]
 
             if self.isNmap:
-                tasks.append(nmap_scan.Get_Nmap_Scan())
+                tasks.append(nmap_ops.Get_Nmap_Ops())
 
             results = await asyncio.gather(*tasks)
 
             (Server_location, SSL_Cert, Whois, Header, cookie, dns_server_info, tls_cipher_suite, dns_txt_email_config_info,  
             server_status_info, mail_config_info, redirect_info, port_info, archive_info, associated_info, block_info, carbon_info, 
             crawl_info, site_info, dns_sec_info, tech_stack_info, firewall_info, social_tags_info, threats_info, 
-            global_ranking_info, security_txt_info, nmap_ops_data) = results[:26]
+            global_ranking_info, security_txt_info) = results[:25]
             if self.isNmap:
-                nmap_info = results[26]
+                nmap_ops_data = results[25]
             else:
-                nmap_info = None
+                nmap_ops_data = None
 
             if self.isNmap:
-                nmap = nmap_info
+                nmap = nmap_ops_data
             else:
                 nmap = []
 
             timestamp = datetime.datetime.now()
 
             await self.__create_dirs("output")
-            # await self.__create_dirs("nmap_xml")
 
             summary_report = Summary_Report(self.domain, timestamp)
             analysis_report = Analysis_Report(self.domain, timestamp)
@@ -170,8 +167,7 @@ class engine():
                                     str(associated_info[0]), str(block_info[0]), str(carbon_info[0]), str(crawl_info[0]), 
                                     str(site_info[0]), str(dns_sec_info[0]), str(tech_stack_info[0]), str(firewall_info[0]), 
                                     str(social_tags_info[0]), str(threats_info[0]), str(global_ranking_info[0]), str(security_txt_info[0]), 
-                                    str(nmap_ops_data[0]), str(nmap_ops_data[2]), str(nmap_ops_data[4]), str(nmap_ops_data[6]),
-                                    str(nmap_ops_data[8]), str(nmap_ops_data[10]), str(nmap_ops_data[12]), str(nmap_ops_data[14]), nmap), 
+                                    nmap), 
                             
                             analysis_report.Generate_Analysis_Report(self.url, str(cookie[1]), str(Server_location[1]), str(Server_location[3]), 
                                     str(SSL_Cert[1]), str(archive_info[1]), str(associated_info[1]), str(block_info[1]), str(carbon_info[1]), 
@@ -180,8 +176,7 @@ class engine():
                                     str(security_txt_info[1]), str(server_status_info[1]), str(site_info[1]), str(social_tags_info[1]),
                                     str(tech_stack_info[1]), str(threats_info[1]), str(dns_txt_email_config_info[1]), 
                                     str(dns_txt_email_config_info[3]), str(tls_cipher_suite[1]), str(mail_config_info[1]), 
-                                    str(nmap_ops_data[1]), str(nmap_ops_data[3]), str(nmap_ops_data[5]), str(nmap_ops_data[7]),
-                                    str(nmap_ops_data[9]), str(nmap_ops_data[11]), str(nmap_ops_data[13]), str(nmap_ops_data[15]))]
+                                    nmap)]
 
             await asyncio.gather(*final_report)
             
@@ -192,7 +187,7 @@ class engine():
             method_name = error_details.name
             line_number = error_details.lineno
 
-            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} in file '{file_name}': {error_type}: {error_message}"
+            error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
             print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
                     
             # error_msg = ex.args[0]

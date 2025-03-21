@@ -153,11 +153,6 @@ class Nmap_Ops:
                 else:
                     score += 1
 
-                # if "port" in data and "state" in data and data["state"].lower() == "open":
-                #     issues.append(Issue_Config.ISSUE_NMAP_PORT_SCAN.format(data['port'], (data.get('service', 'unknown service'))))
-                #     suggestions.append(Issue_Config.SUGGESTION_NMAP_PORT_SCAN.format(data['port']))
-                # else:
-                #     score += 1
                 icon = Configuration.ICON_NMAP_PORT_SCAN
                 module = Configuration.MODULE_NMAP_PORT_SCAN
             else:  # Check for vulnerabilities in script output

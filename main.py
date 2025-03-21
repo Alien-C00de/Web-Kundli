@@ -51,7 +51,7 @@ async def Main():
             url = args.With_NMAP.strip()
             if not (url.startswith("http://")) and not (url.startswith('https://')):
                 url = "https://" + url
-            print(f"[+] Searching Details For : {url}", flush=True)
+            print(f"📡 Searching Details For : {url}", flush=True)
             addr = str(url)
             eng = engine.engine(addr, True)
             await eng.Start_Engine()

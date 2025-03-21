@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE nmaprun>
 <?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
-<!-- Nmap 7.94SVN scan initiated Fri Mar 21 16:52:31 2025 as: nmap -sT -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-sql-injection -oX nmap_xml/nmap_output_sql_injection.xml 203.187.192.6 -->
-<nmaprun scanner="nmap" args="nmap -sT -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-sql-injection -oX nmap_xml/nmap_output_sql_injection.xml 203.187.192.6" start="1742556151" startstr="Fri Mar 21 16:52:31 2025" version="7.94SVN" xmloutputversion="1.05">
+<!-- Nmap 7.94SVN scan initiated Fri Mar 21 18:48:35 2025 as: nmap -sT -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-sql-injection -oX nmap_xml/nmap_output_sql_injection.xml 203.187.192.6 -->
+<nmaprun scanner="nmap" args="nmap -sT -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-sql-injection -oX nmap_xml/nmap_output_sql_injection.xml 203.187.192.6" start="1742563115" startstr="Fri Mar 21 18:48:35 2025" version="7.94SVN" xmloutputversion="1.05">
 <scaninfo type="connect" protocol="tcp" numservices="14" services="21-22,25,53,80,110,143,443,465,587,993,995,8080,8443"/>
 <verbose level="0"/>
 <debugging level="0"/>
@@ -11,7 +11,7 @@
 <hostnames>
 </hostnames>
 </hosthint>
-<host starttime="1742556155" endtime="1742556206"><status state="up" reason="syn-ack" reason_ttl="58"/>
+<host starttime="1742563119" endtime="1742563160"><status state="up" reason="syn-ack" reason_ttl="58"/>
 <address addr="203.187.192.6" addrtype="ipv4"/>
 <hostnames>
 <hostname name="www.youbroadband.in" type="PTR"/>
@@ -31,8 +31,8 @@
 <port protocol="tcp" portid="8080"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="http-proxy" method="table" conf="3"/></port>
 <port protocol="tcp" portid="8443"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="https-alt" method="table" conf="3"/></port>
 </ports>
-<times srtt="24014" rttvar="8144" to="400000"/>
+<times srtt="23203" rttvar="7712" to="400000"/>
 </host>
-<runstats><finished time="1742556206" timestr="Fri Mar 21 16:53:26 2025" summary="Nmap done at Fri Mar 21 16:53:26 2025; 1 IP address (1 host up) scanned in 55.10 seconds" elapsed="55.10" exit="success"/><hosts up="1" down="0" total="1"/>
+<runstats><finished time="1742563160" timestr="Fri Mar 21 18:49:20 2025" summary="Nmap done at Fri Mar 21 18:49:20 2025; 1 IP address (1 host up) scanned in 45.85 seconds" elapsed="45.85" exit="success"/><hosts up="1" down="0" total="1"/>
 </runstats>
 </nmaprun>
