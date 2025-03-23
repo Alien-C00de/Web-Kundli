@@ -83,7 +83,8 @@ class Block_Detection:
             line_number = error_details.lineno
 
             error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
-            print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
+            print(Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
+            output = await self.__empty_output(error_message, 100)
             return output
         
             # msg = f"[-] {self.Error_Title} => Get_Block_Detection : {str(ex)}"
@@ -176,5 +177,17 @@ class Block_Detection:
         html_tags = await report_util.analysis_table(Configuration.ICON_BLOCK_DETECTION, Configuration.MODULE_BLOCK_DETECTION, issues, suggestions, int(percentage))
 
         return int(percentage), html_tags
+    
+    async def __empty_output(self, error, percentage):
+        rep_data = []
+        html = ""
+
+        report_util = Report_Utility()
+        table = await report_util.Empty_Table(f"Error : {error}", 100)
+
+        rep_data.append(table)
+        rep_data.append(html)
+        return rep_data
+
 
     

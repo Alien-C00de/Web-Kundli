@@ -71,7 +71,8 @@ class Nmap_Ops:
             line_number = error_details.lineno
 
             error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
-            print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
+            print(Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
+            output = await self.__empty_output(error_message, 100)
             return output
         
             # error_msg = str(ex.args[0])
@@ -251,21 +252,28 @@ class Nmap_Ops:
 
     async def __run_nmap(self, target_ip, script_category, nmap_script):
         output_file = f"{self.xml_folder}/nmap_output_{script_category}.xml"
-        command = ["sudo", "nmap", "-sT", "-T2", "-p", self.ports_to_scan, "--script", nmap_script, "-oX", output_file, target_ip]
+        # command = ["sudo", "nmap", "-sT", "-T2", "-p", self.ports_to_scan, "--script", nmap_script, "-oX", output_file, target_ip]
+        command = ["sudo", "nmap", "-sS", "-T2", "-p", self.ports_to_scan, "--script", nmap_script, "-oX", output_file, target_ip]
+        # command = ["sudo", "nmap", "-sS", "-T1", "-p", self.ports_to_scan, "--script", nmap_script, 
+        #            "-f", "--spoof-mac", "00:11:22:33:44:55", "-D", "RND:2", "-oX", output_file, target_ip]
         # print(f"    ⚙️  Running NMAP script : {nmap_script}")
         process = await asyncio.create_subprocess_exec(*command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         await process.communicate()
 
     async def __os_detection(self, target_ip):
         output_file = f"{self.xml_folder}/nmap_output_os_detection.xml"
-        command = ["sudo", "nmap", "-O", "-oX", output_file, target_ip]
+        # command = ["sudo", "nmap", "-O", "-oX", output_file, target_ip]
+        command = ["sudo", "nmap", "-sS", "-O", "-T2", "-oX", output_file, target_ip]
+        # command = ["sudo", "nmap", "-sS", "-O", "-T2", "--scan-delay", "1s", "-D", "RND:2", "-oX", output_file, target_ip]
         # print(f"    ⚙️  Running NMAP OS Detection.")
         process = await asyncio.create_subprocess_exec(*command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         await process.communicate()
 
     async def __port_scan(self, target_ip):
         output_file = f"{self.xml_folder}/nmap_output_port_scan.xml"
-        command = ["sudo", "nmap", "-p-", "-oX", output_file, target_ip]
+        # command = ["sudo", "nmap", "-p-", "-oX", output_file, target_ip]
+        command = ["sudo", "nmap", "-sS", "--top-ports", "1000", "-T2", "-oX", output_file, target_ip]
+        # command = ["sudo", "nmap", "-sS", "--top-ports", "1000", "-T2", "--scan-delay", "1s", "-D", "RND:2", "-oX", output_file, target_ip]
         # print(f"    ⚙️  Running NMAP Port Scan.")
         process = await asyncio.create_subprocess_exec(*command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         await process.communicate()
@@ -303,3 +311,14 @@ class Nmap_Ops:
         except Exception as e:
             print(f"Error parsing XML {xml_file}: {e}")
             return []
+
+    async def __empty_output(self, error, percentage):
+        rep_data = []
+        html = ""
+
+        report_util = Report_Utility()
+        table = await report_util.Empty_Table(f"Error : {error}", 100)
+
+        rep_data.append(table)
+        rep_data.append(html)
+        return rep_data

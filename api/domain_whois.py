@@ -34,7 +34,8 @@ class Domain_Whois():
             line_number = error_details.lineno
 
             error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
-            print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
+            print(Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
+            output = await self.__empty_output(error_message, 100)
             return output
 
             # if len(ex.args) > 1 and ex.args[1]:
@@ -193,3 +194,14 @@ class Domain_Whois():
             return {"score": 50, "status": Issue_Config.ISSUE_WHOIS_REGISTRAR_FLAGGED, "suggestion": Issue_Config.SUGGESTION_WHOIS_REGISTRAR_FLAGGED}
         else:
             return {"score": 70, "status": Issue_Config.ISSUE_WHOIS_REGISTRAR_NEUTRAL, "suggestion": Issue_Config.SUGGESTION_WHOIS_REGISTRAR_NEUTRAL}
+    
+    async def __empty_output(self, error, percentage):
+        rep_data = []
+        html = ""
+
+        report_util = Report_Utility()
+        table = await report_util.Empty_Table(f"Error : {error}", 100)
+
+        rep_data.append(table)
+        rep_data.append(html)
+        return rep_data

@@ -1,41 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE nmaprun>
 <?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
-<!-- Nmap 7.94SVN scan initiated Fri Mar 21 18:48:35 2025 as: nmap -sT -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-enum,http-headers,http-methods -oX nmap_xml/nmap_output_web_server_checks.xml 203.187.192.6 -->
-<nmaprun scanner="nmap" args="nmap -sT -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-enum,http-headers,http-methods -oX nmap_xml/nmap_output_web_server_checks.xml 203.187.192.6" start="1742563115" startstr="Fri Mar 21 18:48:35 2025" version="7.94SVN" xmloutputversion="1.05">
-<scaninfo type="connect" protocol="tcp" numservices="14" services="21-22,25,53,80,110,143,443,465,587,993,995,8080,8443"/>
+<!-- Nmap 7.94SVN scan initiated Sun Mar 23 21:04:00 2025 as: nmap -sS -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-enum,http-headers,http-methods -oX nmap_xml/nmap_output_web_server_checks.xml 76.76.21.21 -->
+<nmaprun scanner="nmap" args="nmap -sS -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-enum,http-headers,http-methods -oX nmap_xml/nmap_output_web_server_checks.xml 76.76.21.21" start="1742744040" startstr="Sun Mar 23 21:04:00 2025" version="7.94SVN" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="14" services="21-22,25,53,80,110,143,443,465,587,993,995,8080,8443"/>
 <verbose level="0"/>
 <debugging level="0"/>
 <hosthint><status state="up" reason="unknown-response" reason_ttl="0"/>
-<address addr="203.187.192.6" addrtype="ipv4"/>
+<address addr="76.76.21.21" addrtype="ipv4"/>
 <hostnames>
 </hostnames>
 </hosthint>
-<host starttime="1742563119" endtime="1742563139"><status state="up" reason="syn-ack" reason_ttl="58"/>
-<address addr="203.187.192.6" addrtype="ipv4"/>
+<host starttime="1742744041" endtime="1742744208"><status state="up" reason="echo-reply" reason_ttl="243"/>
+<address addr="76.76.21.21" addrtype="ipv4"/>
 <hostnames>
-<hostname name="www.youbroadband.in" type="PTR"/>
 </hostnames>
 <ports><port protocol="tcp" portid="21"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ftp" method="table" conf="3"/></port>
 <port protocol="tcp" portid="22"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
 <port protocol="tcp" portid="25"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="smtp" method="table" conf="3"/></port>
 <port protocol="tcp" portid="53"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="domain" method="table" conf="3"/></port>
-<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" method="table" conf="3"/><script id="http-headers" output="&#xa;  Date: Fri, 21 Mar 2025 13:18:53 GMT&#xa;  Server: Apache&#xa;  Location: https://youbroadband.in/&#xa;  Cache-Control: max-age=2592000&#xa;  Expires: Sun, 20 Apr 2025 13:18:53 GMT&#xa;  Content-Length: 232&#xa;  Connection: close&#xa;  Content-Type: text/html; charset=iso-8859-1&#xa;  &#xa;  (Request type: GET)&#xa;"/><script id="http-methods" output="&#xa;  Supported Methods: GET HEAD POST OPTIONS"><table key="Supported Methods">
-<elem>GET</elem>
-<elem>HEAD</elem>
-<elem>POST</elem>
-<elem>OPTIONS</elem>
-</table>
-</script><script id="http-enum" output="&#xa;  /icons/: Potentially interesting folder w/ directory listing&#xa;"/></port>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="243"/><service name="http" method="table" conf="3"/><script id="http-headers" output="&#xa;  Cache-Control: private, no-store, max-age=0&#xa;  Content-Type: text/html; charset=utf-8&#xa;  Server: Vercel&#xa;  X-Vercel-Challenge-Token: 2.1742744055.60.MWY3ZTZkMzg0YjE3YTZhZDYwMzUyODI3ZGYxZmZiMDI7ZWEyOTI3YTA7ODE5NWY1ZTRmMDhkZmU3NGU4ODJlMDg5Y2JlMWNkNmUwZWJiOTlkMDszOxYcyKRLzBK3TnHlBp9TS9IUZCaRePX+gm7aPCLu8zidOJ7aVowT80nmNGjKolcz0SsIY1wig0iPCq9NKtqQQLY=.21b27b0cdb7a7ce69cf8a103950ad5b2&#xa;  X-Vercel-Mitigated: challenge&#xa;  Date: Sun, 23 Mar 2025 15:34:15 GMT&#xa;  Connection: close&#xa;  Transfer-Encoding: chunked&#xa;  &#xa;  (Request type: GET)&#xa;"/></port>
 <port protocol="tcp" portid="110"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="pop3" method="table" conf="3"/></port>
 <port protocol="tcp" portid="143"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="imap" method="table" conf="3"/></port>
-<port protocol="tcp" portid="443"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="https" method="table" conf="3"/><script id="http-methods" output="&#xa;  Supported Methods: GET HEAD POST OPTIONS"><table key="Supported Methods">
-<elem>GET</elem>
-<elem>HEAD</elem>
-<elem>POST</elem>
-<elem>OPTIONS</elem>
-</table>
-</script><script id="http-enum" output="&#xa;  /icons/: Potentially interesting folder w/ directory listing&#xa;"/><script id="http-headers" output="&#xa;  Date: Fri, 21 Mar 2025 13:18:53 GMT&#xa;  Server: Apache&#xa;  Location: https://youbroadband.in/&#xa;  Cache-Control: max-age=2592000&#xa;  Expires: Sun, 20 Apr 2025 13:18:53 GMT&#xa;  Content-Length: 232&#xa;  Connection: close&#xa;  Content-Type: text/html; charset=iso-8859-1&#xa;  &#xa;  (Request type: GET)&#xa;"/></port>
+<port protocol="tcp" portid="443"><state state="open" reason="syn-ack" reason_ttl="242"/><service name="https" method="table" conf="3"/><script id="http-headers" output="&#xa;  Cache-Control: public, max-age=0, must-revalidate&#xa;  Content-Type: text/plain&#xa;  Date: Sun, 23 Mar 2025 15:34:14 GMT&#xa;  Location: https://vercel.com/&#xa;  Refresh: 0;url=https://vercel.com/&#xa;  Server: Vercel&#xa;  Strict-Transport-Security: max-age=63072000&#xa;  X-Vercel-Id: bom1::s8d8j-1742744054371-501d01262d19&#xa;  Connection: close&#xa;  Transfer-Encoding: chunked&#xa;  &#xa;  (Request type: GET)&#xa;"/></port>
 <port protocol="tcp" portid="465"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="smtps" method="table" conf="3"/></port>
 <port protocol="tcp" portid="587"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="submission" method="table" conf="3"/></port>
 <port protocol="tcp" portid="993"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="imaps" method="table" conf="3"/></port>
@@ -43,8 +30,8 @@
 <port protocol="tcp" portid="8080"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="http-proxy" method="table" conf="3"/></port>
 <port protocol="tcp" portid="8443"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="https-alt" method="table" conf="3"/></port>
 </ports>
-<times srtt="23432" rttvar="7946" to="400000"/>
+<times srtt="16771" rttvar="13242" to="400000"/>
 </host>
-<runstats><finished time="1742563139" timestr="Fri Mar 21 18:48:59 2025" summary="Nmap done at Fri Mar 21 18:48:59 2025; 1 IP address (1 host up) scanned in 24.25 seconds" elapsed="24.25" exit="success"/><hosts up="1" down="0" total="1"/>
+<runstats><finished time="1742744208" timestr="Sun Mar 23 21:06:48 2025" summary="Nmap done at Sun Mar 23 21:06:48 2025; 1 IP address (1 host up) scanned in 167.29 seconds" elapsed="167.29" exit="success"/><hosts up="1" down="0" total="1"/>
 </runstats>
 </nmaprun>

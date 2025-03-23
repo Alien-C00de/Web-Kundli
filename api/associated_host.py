@@ -47,7 +47,8 @@ class Associated_Hosts:
             line_number = error_details.lineno
 
             error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
-            print(Fore.RED + Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
+            print(Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
+            output = await self.__empty_output(error_message, 100)
             return output
         
             # error_msg = str(ex.args[0])
@@ -104,3 +105,14 @@ class Associated_Hosts:
         html_tags = await report_util.analysis_table(Configuration.ICON_ASSOCIATED_HOSTS, Configuration.MODULE_ASSOCIATED_HOSTS, issues, suggestions, int(percentage_score))
 
         return int(percentage_score), html_tags
+    
+    async def __empty_output(self, error, percentage):
+        rep_data = []
+        html = ""
+
+        report_util = Report_Utility()
+        table = await report_util.Empty_Table(f"Error : {error}", 100)
+
+        rep_data.append(table)
+        rep_data.append(html)
+        return rep_data

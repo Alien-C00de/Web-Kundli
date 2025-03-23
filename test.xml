@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.94SVN scan initiated Sun Mar 23 20:44:21 2025 as: nmap -sS -T2 -p 21,22,25,53,80,110 -&#45;script http-vuln* -oX test.xml 203.187.192.6 -->
+<nmaprun scanner="nmap" args="nmap -sS -T2 -p 21,22,25,53,80,110 -&#45;script http-vuln* -oX test.xml 203.187.192.6" start="1742742861" startstr="Sun Mar 23 20:44:21 2025" version="7.94SVN" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="6" services="21-22,25,53,80,110"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<hosthint><status state="up" reason="unknown-response" reason_ttl="0"/>
+<address addr="203.187.192.6" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<host starttime="1742742865" endtime="1742742873"><status state="up" reason="syn-ack" reason_ttl="58"/>
+<address addr="203.187.192.6" addrtype="ipv4"/>
+<hostnames>
+<hostname name="www.youbroadband.in" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="21"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ftp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="22"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+<port protocol="tcp" portid="25"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="smtp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="53"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="domain" method="table" conf="3"/></port>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="58"/><service name="http" method="table" conf="3"/></port>
+<port protocol="tcp" portid="110"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="pop3" method="table" conf="3"/></port>
+</ports>
+<times srtt="25174" rttvar="14262" to="400000"/>
+</host>
+<runstats><finished time="1742742873" timestr="Sun Mar 23 20:44:33 2025" summary="Nmap done at Sun Mar 23 20:44:33 2025; 1 IP address (1 host up) scanned in 11.18 seconds" elapsed="11.18" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>
