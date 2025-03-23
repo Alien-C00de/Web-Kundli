@@ -11,7 +11,7 @@ from util.URL_Verifier import URL_Verifier
 from api.server_location import Server_Location 
 from api.ssl_certificate import SSL_Certificate
 from api.domain_whois import Domain_Whois
-from api.cookies import Cookies
+from api.cookies import Cookies 
 from api.http_security import HTTP_Security
 from api.dns_server import DNS_Server
 from api.tls_cipher_suite import TLS_Cipher_Suit

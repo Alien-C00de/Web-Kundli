@@ -223,7 +223,7 @@ class Analysis_Report:
                 </html>""" )
 
         if nmap_ops:
-            Analysis_report = "%s_%s_%s_%s.html" % (config.ANALYSIS_REPORT_FILE_NAME, self.domain, 'nmap', self.timestamp.strftime("%d%b%Y_%H-%M-%S"))
+            Analysis_report = "%s_%s_%s_%s.html" % (config.ANALYSIS_REPORT_FILE_NAME, self.domain, config.REPORT_NMAP_FILE_NAME, self.timestamp.strftime("%d%b%Y_%H-%M-%S"))
         else:    
             Analysis_report = "%s_%s_%s.html" % (config.ANALYSIS_REPORT_FILE_NAME, self.domain, self.timestamp.strftime("%d%b%Y_%H-%M-%S"))
 

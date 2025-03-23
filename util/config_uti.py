@@ -21,6 +21,7 @@ class Configuration:
     REPORT_HEADER = config['Report']['REPORT_HEADER']
     REPORT_SUB_TITLE = config['Report']['REPORT_SUB_TITLE']
     REPORT_FILE_NAME = config['Report']['REPORT_FILE_NAME']
+    REPORT_NMAP_FILE_NAME = config['Report']['REPORT_NMAP_FILE_NAME']
     REPORT_FOOTER = config['Report']['REPORT_FOOTER']
     SUMMARY_REPORT_FOTTER = config['Report']['SUMMARY_REPORT_FOTTER']
     SUMMARY_REPORT_TAG_LINE = config['Report']['SUMMARY_REPORT_TAG_LINE']
