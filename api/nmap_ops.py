@@ -71,8 +71,8 @@ class Nmap_Ops:
             line_number = error_details.lineno
 
             error_msg = f"❌ {self.Error_Title} => ERROR in method '{method_name}' at line {line_number} : {error_type}: {error_message}"
-            print(Style.BRIGHT + error_msg + Fore.RESET + Style.RESET_ALL)
-            output = await self.__empty_output(error_message, 100)
+            print(error_msg)
+            output = await self.__empty_output(error_message)
             return output
         
             # error_msg = str(ex.args[0])
@@ -312,13 +312,8 @@ class Nmap_Ops:
             print(f"Error parsing XML {xml_file}: {e}")
             return []
 
-    async def __empty_output(self, error, percentage):
-        rep_data = []
-        html = ""
-
+    async def __empty_output(self, error):
         report_util = Report_Utility()
-        table = await report_util.Empty_Table(f"Error : {error}", 100)
-
-        rep_data.append(table)
-        rep_data.append(html)
-        return rep_data
+        table = await report_util.Empty_Table(f"Error: {error}", 100)
+        
+        return [table, "", table, "", table, "", table, "", table, "", table, "", table, "", table, ""]
