@@ -46,8 +46,9 @@ class engine():
     def __init__(self) -> None:
         pass
 
-    def __init__(self, url, isNmap):
+    def __init__(self, url, mode, isNmap):
         self.url = url
+        self.mode = mode
         self.isNmap = isNmap
 
     # Global function to start the engine
@@ -167,7 +168,7 @@ class engine():
                                     str(associated_info[0]), str(block_info[0]), str(carbon_info[0]), str(crawl_info[0]), 
                                     str(site_info[0]), str(dns_sec_info[0]), str(tech_stack_info[0]), str(firewall_info[0]), 
                                     str(social_tags_info[0]), str(threats_info[0]), str(global_ranking_info[0]), str(security_txt_info[0]), 
-                                    nmap), 
+                                    nmap, int(self.mode)), 
                             
                             analysis_report.Generate_Analysis_Report(self.url, str(cookie[1]), str(Server_location[1]), str(Server_location[3]), 
                                     str(SSL_Cert[1]), str(archive_info[1]), str(associated_info[1]), str(block_info[1]), str(carbon_info[1]), 

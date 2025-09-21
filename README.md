@@ -1,7 +1,7 @@
-# Web Kundli - Unveil the Secrets of the Website!
+# Web Matrix - Unveil the Secrets of the Website!
 
 ### Unveil the Secrets of Your Website: Secure, Analyze, Optimize.
-- Web Kundli is a comprehensive tool designed to uncover details about a website.
+- Web Matrix is a comprehensive tool designed to uncover details about a website.
 - The main idea is straightforward: provide URL to the tool, and it will collect, organize, and display a wide range of open data for you to explore.
 - This data helps identify potential vulnerabilities in the website and help optimizing its configurations. Further fine-tuning reduces the website’s potential risks.
 
@@ -10,7 +10,7 @@
 - Developed using **asynchronous programming**, allowing modules to run in parallel and achieve faster results.
 - The **NMAP scan feature** is also available. Reports can be generated with or without the NMAP scan.
 - Based on the output of each module, it calculates the percentage for that module and then calculate the overall performance across all modules. This data is used to **display Website Health**.
-- At present, the HTML report dashboard **supports 30 modules**. More features will be added soon! 
+- At present, the HTML report dashboard **supports 36 modules**. More features will be added soon! 
   
   `1. SSL certificates`
   `2. DNS Records`
@@ -40,11 +40,17 @@
   `26. Block Detection`
   `27. Malware & Phishing Detection`
   `28. TLS Cipher Suites`  
-  `29. Nmap Scan OS Detection`
-  `30. Nmap_Scan Version Result`      
+  `29. NMAP OS Detect`
+  `30. NMAP Port Scan`   
+  `31. NMAP HTTP Vulenrability`
+  `32. NMAP SQL Injection`
+  `33. NMAP XSS Vulnerability`
+  `34. NMAP ShellShock`  
+  `35. NMAP RCE Exploit`
+  `36. NMAP Web Server Check`      
 
 ## Installation
-To install and run the Web Kundli Tool, follow these steps:
+To install and run the Web Matrix Tool, follow these steps:
 
 Install the required Python libraries:
 1. `pip install python-whois`
@@ -85,7 +91,7 @@ Execute the tool using the following commands:
 
 HTML report files are located under the `./output` directory:
 
-`e.g. WebKundli_google.com_21Sep2024_12-13-55.html`
+`e.g. WebMatrix_google.com_21Sep2024_12-13-55.html`
 
 ## Image
 - **Input Screen:**

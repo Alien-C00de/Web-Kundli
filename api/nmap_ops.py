@@ -253,7 +253,7 @@ class Nmap_Ops:
     async def __run_nmap(self, target_ip, script_category, nmap_script):
         output_file = f"{self.xml_folder}/nmap_output_{script_category}.xml"
         # command = ["sudo", "nmap", "-sT", "-T2", "-p", self.ports_to_scan, "--script", nmap_script, "-oX", output_file, target_ip]
-        command = ["sudo", "nmap", "-sS", "-T2", "-p", self.ports_to_scan, "--script", nmap_script, "-oX", output_file, target_ip]
+        command = ["sudo", "nmap", "-sS", "-T3", "-p", self.ports_to_scan, "--script", nmap_script, "--min-parallelism 10", "-oX", output_file, target_ip]
         # command = ["sudo", "nmap", "-sS", "-T1", "-p", self.ports_to_scan, "--script", nmap_script, 
         #            "-f", "--spoof-mac", "00:11:22:33:44:55", "-D", "RND:2", "-oX", output_file, target_ip]
         # print(f"    ⚙️  Running NMAP script : {nmap_script}")
@@ -262,8 +262,8 @@ class Nmap_Ops:
 
     async def __os_detection(self, target_ip):
         output_file = f"{self.xml_folder}/nmap_output_os_detection.xml"
-        # command = ["sudo", "nmap", "-O", "-oX", output_file, target_ip]
-        command = ["sudo", "nmap", "-sS", "-O", "-T2", "-oX", output_file, target_ip]
+        command = ["sudo", "nmap", "-O", "-oX", output_file, target_ip]
+        # command = ["sudo", "nmap", "-sS", "-O", "--osscan-guess", "-oX", output_file, target_ip]
         # command = ["sudo", "nmap", "-sS", "-O", "-T2", "--scan-delay", "1s", "-D", "RND:2", "-oX", output_file, target_ip]
         # print(f"    ⚙️  Running NMAP OS Detection.")
         process = await asyncio.create_subprocess_exec(*command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

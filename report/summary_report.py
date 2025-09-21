@@ -9,56 +9,6 @@ class Summary_Report:
         self.domain = domain
         self.timestamp = timestamp
 
-    # async def __ranking_percentage(self, Server_Location, SSL_Cert, Whois, ser_info, HTTP_sec, headers, cookies, dns_server_info, 
-    #                          tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record, 
-    #                          ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info,
-    #                          tech_stack_info, firewall_info, social_tag_info, threats_info, global_ranking_info, security_txt_info):
-    #     # List of parameters
-    #     params = {
-    #         'Server_Location': Server_Location,
-    #         'SSL_Cert': SSL_Cert,
-    #         'Whois': Whois,
-    #         'ser_info': ser_info,
-    #         'HTTP_sec': HTTP_sec,
-    #         'headers': headers,
-    #         'cookies': cookies,
-    #         'DNS_Server': dns_server_info,
-    #         'tls_cipher_suite': tls_cipher_suite,
-    #         'dns_info': dns_info,
-    #         'txt_info': txt_info,
-    #         'server_status_info': server_status_info,
-    #         'mail_configuration_info': mail_configuration_info,
-    #         'redirect_Record': redirect_Record,
-    #         'ports': ports,
-    #         'archive_info': archive_info,
-    #         'associated_info': associated_info,
-    #         'block_info': block_info,
-    #         'carbon_info': carbon_info,
-    #         'crawl_info': crawl_info,
-    #         'site_info': site_info,
-    #         'dns_sec_info': dns_sec_info,
-    #         'tech_stack_info': tech_stack_info,
-    #         'firewall_info': firewall_info,
-    #         'social_tag_info': social_tag_info,
-    #         'threats_info': threats_info,
-    #         'global_ranking_info': global_ranking_info,
-    #         'security_txt_info': security_txt_info
-    #     }
-
-    #     percent = 0
-    #     # Loop through parameters
-    #     for name, value in params.items():
-    #         if isinstance(value, str):
-    #             progress = await self._extract_progress_from_html(value)
-    #             if progress:
-    #                 no_percent_strip = progress.rstrip('%')
-    #                 percent += int(no_percent_strip)
-    #                 # print(f"{name}: Progress - {progress}")
-
-    #     final = (percent / len(params)) 
-    #     # print(f"Params {len(params)}: Percent - {percent} Final {final}")
-    #     return round(final, 2)
-
     async def __ranking_percentage(self, Server_Location, SSL_Cert, Whois, ser_info, HTTP_sec, headers, cookies, dns_server_info, 
                              tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record, 
                              ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info,
@@ -123,7 +73,6 @@ class Summary_Report:
         final = percent / total_items if total_items else 0
         return round(final, 2)
 
-
     async def _extract_progress_from_html(self, html_content):
         """Extract the progress percentage from HTML content."""
         # Simulate an asynchronous operation if needed
@@ -139,7 +88,7 @@ class Summary_Report:
                          tls_cipher_suite, dns_info, txt_info, server_status_info, mail_configuration_info, redirect_Record, 
                          ports, archive_info, associated_info, block_info, carbon_info, crawl_info, site_info, dns_sec_info,
                          tech_stack_info, firewall_info, social_tag_info, threats_info, global_ranking_info, security_txt_info, 
-                         nmap_ops):
+                         nmap_ops, mode = 1):
 
         config = Configuration()
         # report_timestamp = str(time.strftime("%A %d-%b-%Y %H:%M:%S", self.timestamp))
@@ -164,210 +113,10 @@ class Summary_Report:
             + config.TOOL_NAME
             + """ </title>
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
-            <style>
-                    body {
-                        background-color: #1e1e1e;
-                        color: #d4d4d4;
-                        font-family: 'Cascadia Mono', 'Liberation Mono', 'Courier New', Courier, monospace;
-                        margin: 0;
-                        padding: 0;
-                    }
-                    .header {
-                        background-color: #333;
-                        padding: 10px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        margin-right: 20px;
-                        margin-left: 20px;
-                        border-radius: 10px;
-                    }
-                    .header h1 {
-                        color: #FFA500;
-                        margin: 0;
-                        font-size: 2.5em;
-                    }
-                    .header h2 {
-                        color: #FFA500;
-                        margin: 0;
-                        font-size: 1.5em;
-                    }
-                    .header h3 {
-                        color: #FFA500;
-                        margin: 0;
-                        font-size: 1em;
-                    }
-                    .header .icon {
-                        color: #ffffff;
-                        font-size: 60px;
-                    }
-                    .ranking-container {
-                        background-color: #333;
-                        display: flex;
-                        align-items: center; /* Vertically align items */
-                        justify-content: space-between; /* Space between header and progress bar */
-                        margin-right: 20px;
-                        margin-left: 20px;
-                        border-radius: 10px;
-                    }
-                    .ranking-container h1 {
-                        margin: 20px;
-                        padding: 5px;
-                        color: #ff00fb;
-                    }
-                    .ranking-container h2 {
-                        font-size: 1.5em;
-                        margin: 20px;
-                        padding: 5px;
-                    }
-                    .progress-bar-container {
-                        flex: 1; /* Allow progress bar to take available space */
-                        background-color: #A9A9A9;
-                        border-radius: 4px;
-                        margin-left: 20px; /* Space between header and progress bar */
-                        margin-right: 20px;
-                        overflow: hidden;
-                        border-radius: 5px;
-                    }
-                    .progress-bar {
-                        height: 30px;
-                        color: #FFFF00;
-                        text-align: center;
-                        line-height: 30px;
-                        border-radius: 3px;
-                        background-color: #8F00FF;  /* #76c7c0 Default color, adjust as needed */
-                        transition: width 0.5s, background-color 0.5s;
-                        font-size: 20px; /* Adjust font size as needed */
-                        font-weight: bold; /* Makes the percentage text bold */
-                    }
-                    .progress {
-                        height: 20px;
-                        color: red;
-                        text-align: center;
-                        line-height: 20px;
-                        border-radius: 4px;
-                        background-color: #FFFF00; /* #76c7c0 Default color, adjust as needed */
-                        transition: width 0.5s, background-color 0.5s;
-                        font-size: 16px; /* Adjust font size as needed */
-                        font-weight: bold; /* Makes the percentage text bold */
-                        border-radius: 5px;
-                    }
-                    .date {
-                        padding: 5px;
-                        margin-right: 30px;
-                    }
-                    .date h3 {
-                        color: #FFA500;
-                        margin: 0;
-                        font-size: 1em;
-                    }
-                    .content h4 {
-                        margin: 0;
-                        font-size: 0.9em;
-                    }
-                    .content {
-                        display: flex;
-                        flex-wrap: wrap;
-                        padding: 10px;
-                        border-radius: 10px;
-                    }
-                    .card {
-                        background-color: #2d2d2d;
-                        margin: 10px;
-                        padding: 10px;
-                        flex: 1;
-                        min-width: 400px;
-                        max-width: 200%;
-                        border-radius: 5px;
-                        position: relative;
-                        overflow: hidden;
-                        height: 450px; 
-                        word-wrap: break-word;
-                        border-radius: 10px;
-                    }
-                    .card-header {
-                        position: sticky;
-                        top: 0;
-                        background-color: #333;
-                        z-index: 1;
-                        border-bottom: 1px solid #333;
-                    }
-                    .card-content {
-                        max-height: 400px;
-                        overflow-y: auto;
-                    }
-                    .card h2 {
-                        color: #FFA500;
-                        margin-top: 0;
-                    }
-                    .card h3 {
-                        color: #FFA500;
-                        margin-top: 0;
-                        font-size: 1em;
-                    }
-                    .card flag-icon {
-                        font-size: 10px; /* Size the flag */
-                    }
-                    .card .refresh {
-                        position: absolute;
-                        top: 10px;
-                        right: 10px;
-                        color: #00FF00;
-                        font-size: 30px;
-                    }
-                    .card table {
-                        width: 100%;
-                        border-collapse: collapse;
-                        table-layout: fixed;
-                    }
-                    .card table td {
-                        padding: 5px;
-                        border-bottom: 1px solid #444;
-                        text-overflow: ellipsis; 
-                        overflow: hidden;
-                        word-wrap: break-word;
-                    }
-                    .card table td:last-child {
-                        text-align: right;
-                    }
-                    .card .map {
-                        width: 100%;
-                        height: 100px;
-                        background: url('https://placehold.co/300x200') no-repeat center center;
-                        background-size: cover;
-                    }
-                    .footer{
-                        background-color: #333; 
-                        text-align: center; 
-                        font-size: 14px; 
-                        color: #ddd; 
-                        border-top: 1px solid #383434;
-                        border-bottom: 1px solid #383434;
-                        margin-right: 20px;
-                        margin-left: 20px;
-                        border-radius: 10px;
-                     }
-                    .footer h3{
-                        display: flex; 
-                        flex-end; 
-                        align-items: center;
-                        color: black;
-                    }
-                    a {
-                        color: #00FF00;
-                        text-decoration: none; /* Remove underline */
-                    }
-                    /* Change color when hovering over the link */
-                    a:hover {
-                        color: red; /* Change color to red when hovered */
-                    }
-            </style>
-            </head>
-            """
-        )
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">""")
         body = (
-            f"""<body>
+            f"""</head>
+                <body>
                 <div class="header">
                     <h1> <i class="fas fa-user-secret icon"></i> {config.REPORT_HEADER} </h1>
                     <h2 align="right"; margin-right: 40px; style="color:#00FF00;"> <a href= "{website}" target="_blank"> {website} </a></h2>
@@ -739,6 +488,13 @@ class Summary_Report:
         with open(html_report, "a", encoding="UTF-8") as f:
             f.write(header)
             f.write(body)
+
+            if mode == 1:
+                CSS = await self.dark_mode()
+            else:
+                CSS = await self.light_mode()
+            f.write(CSS)
+            
             if config.REPORT_FOOTER.upper() == "YES":
                 f.write(footer)
             else:
@@ -757,3 +513,397 @@ class Summary_Report:
             Fore.GREEN + Style.BRIGHT + f"File Is Ready",
             Fore.RESET,
         )
+
+    async def dark_mode(self):
+        CSS = """<style>
+                        body {
+                            background-color: #1e1e1e;
+                            color: #d4d4d4;
+                            font-family: 'Cascadia Mono', 'Liberation Mono', 'Courier New', Courier, monospace;
+                            margin: 0;
+                            padding: 0;
+                        }
+                        .header {
+                            background-color: #333;
+                            padding: 10px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            margin-right: 20px;
+                            margin-left: 20px;
+                            border-radius: 10px;
+                        }
+                        .header h1 {
+                            color: #FFA500;
+                            margin: 0;
+                            font-size: 2.5em;
+                        }
+                        .header h2 {
+                            color: #FFA500;
+                            margin: 0;
+                            font-size: 1.5em;
+                        }
+                        .header h3 {
+                            color: #FFA500;
+                            margin: 0;
+                            font-size: 1em;
+                        }
+                        .header .icon {
+                            color: #ffffff;
+                            font-size: 60px;
+                        }
+                        .ranking-container {
+                            background-color: #333;
+                            display: flex;
+                            align-items: center; /* Vertically align items */
+                            justify-content: space-between; /* Space between header and progress bar */
+                            margin-right: 20px;
+                            margin-left: 20px;
+                            border-radius: 10px;
+                        }
+                        .ranking-container h1 {
+                            margin: 20px;
+                            padding: 5px;
+                            color: #ff00fb;
+                        }
+                        .ranking-container h2 {
+                            font-size: 1.5em;
+                            margin: 20px;
+                            padding: 5px;
+                        }
+                        .progress-bar-container {
+                            flex: 1; /* Allow progress bar to take available space */
+                            background-color: #A9A9A9;
+                            border-radius: 4px;
+                            margin-left: 20px; /* Space between header and progress bar */
+                            margin-right: 20px;
+                            overflow: hidden;
+                            border-radius: 5px;
+                        }
+                        .progress-bar {
+                            height: 30px;
+                            color: #FFFF00;
+                            text-align: center;
+                            line-height: 30px;
+                            border-radius: 3px;
+                            background-color: #8F00FF;  /* #76c7c0 Default color, adjust as needed */
+                            transition: width 0.5s, background-color 0.5s;
+                            font-size: 20px; /* Adjust font size as needed */
+                            font-weight: bold; /* Makes the percentage text bold */
+                        }
+                        .progress {
+                            height: 20px;
+                            color: red;
+                            text-align: center;
+                            line-height: 20px;
+                            border-radius: 4px;
+                            background-color: #FFFF00; /* #76c7c0 Default color, adjust as needed */
+                            transition: width 0.5s, background-color 0.5s;
+                            font-size: 16px; /* Adjust font size as needed */
+                            font-weight: bold; /* Makes the percentage text bold */
+                            border-radius: 5px;
+                        }
+                        .date {
+                            padding: 5px;
+                            margin-right: 30px;
+                        }
+                        .date h3 {
+                            color: #FFA500;
+                            margin: 0;
+                            font-size: 1em;
+                        }
+                        .content h4 {
+                            margin: 0;
+                            font-size: 0.9em;
+                        }
+                        .content {
+                            display: flex;
+                            flex-wrap: wrap;
+                            padding: 10px;
+                            border-radius: 10px;
+                        }
+                        .card {
+                            background-color: #2d2d2d;
+                            margin: 10px;
+                            padding: 10px;
+                            flex: 1;
+                            min-width: 400px;
+                            max-width: 200%;
+                            border-radius: 5px;
+                            position: relative;
+                            overflow: hidden;
+                            height: 450px; 
+                            word-wrap: break-word;
+                            border-radius: 10px;
+                        }
+                        .card-header {
+                            position: sticky;
+                            background-color: #333;
+                            border-radius: 5px;
+                            height: 50px;
+                            text-align: center; 
+                            border-top: 1px solid #333;
+                            border-bottom: 0.5px solid #333;
+                        }
+                        .card-content {
+                            max-height: 400px;
+                            overflow-y: auto;
+                        }
+                        .card h2 {
+                            color: #FFA500;
+                            margin-top: 0;
+                        }
+                        .card h3 {
+                            color: #FFA500;
+                            margin-top: 0;
+                            font-size: 1em;
+                        }
+                        .card flag-icon {
+                            font-size: 10px; /* Size the flag */
+                        }
+                        .card .refresh {
+                            position: absolute;
+                            top: 10px;
+                            right: 10px;
+                            color: #00FF00;
+                            font-size: 30px;
+                        }
+                        .card table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            table-layout: fixed;
+                        }
+                        .card table td {
+                            padding: 5px;
+                            border-bottom: 1px solid #444;
+                            text-overflow: ellipsis; 
+                            overflow: hidden;
+                            word-wrap: break-word;
+                        }
+                        .card table td:last-child {
+                            text-align: right;
+                        }
+                        .card .map {
+                            width: 100%;
+                            height: 100px;
+                            background: url('https://placehold.co/300x200') no-repeat center center;
+                            background-size: cover;
+                        }
+                        .footer{
+                            background-color: #333; 
+                            text-align: center; 
+                            font-size: 14px; 
+                            color: #ddd; 
+                            border-top: 1px solid #383434;
+                            border-bottom: 1px solid #383434;
+                            margin-right: 20px;
+                            margin-left: 20px;
+                            border-radius: 10px;
+                        }
+                        .footer h3{
+                            display: flex; 
+                            flex-end; 
+                            align-items: center;
+                            color: black;
+                        }
+                        a {
+                            color: #00FF00;
+                            text-decoration: none; /* Remove underline */
+                        }
+                        /* Change color when hovering over the link */
+                        a:hover {
+                            color: red; /* Change color to red when hovered */
+                        }
+                </style> """
+        return CSS
+
+    async def light_mode(self):
+        CSS = """<style>
+                body {
+                    background-color: #f9f9f9;
+                    color: #1a1a1a;
+                    font-family: 'Cascadia Mono', 'Liberation Mono', 'Courier New', Courier, monospace;
+                    margin: 0;
+                    padding: 0;
+                }
+                .header {
+                    background-color: #ffffff;
+                    padding: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-right: 20px;
+                    margin-left: 20px;
+                    border-radius: 10px;
+                    border: 1px solid #ddd;
+                }
+                .header h1, .header h2, .header h3 {
+                    color: #2c3e50;
+                    margin: 0;
+                }
+                .header h1 { font-size: 2.5em; }
+                .header h2 { font-size: 1.5em; }
+                .header h3 { font-size: 1em; }
+                .header .icon {
+                    color: #06334c;
+                    font-size: 60px;
+                }
+                .ranking-container {
+                    background-color: #ffffff;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin: 20px;
+                    border-radius: 10px;
+                    border: 1px solid #ddd;
+                }
+                .ranking-container h1 {
+                    margin: 20px;
+                    padding: 5px;
+                    color: #0f0f10;
+                }
+                .ranking-container h2 {
+                    font-size: 1.5em;
+                    margin: 20px;
+                    padding: 5px;
+                }
+                .progress-bar-container {
+                    flex: 1;
+                    background-color: #e0e0e0;
+                    border-radius: 5px;
+                    margin-left: 20px;
+                    margin-right: 20px;
+                    overflow: hidden;
+                }
+                .progress-bar {
+                    height: 30px;
+                    color: #fff;
+                    text-align: center;
+                    line-height: 30px;
+                    border-radius: 3px;
+                    background-color: #4caf50;
+                    transition: width 0.5s, background-color 0.5s;
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+                .progress {
+                    height: 20px;
+                    color: #fff;
+                    text-align: center;
+                    line-height: 20px;
+                    border-radius: 5px;
+                    background-color: #515153;
+                    transition: width 0.5s, background-color 0.5s;
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+                .date {
+                    padding: 5px;
+                    margin-right: 30px;
+                }
+                .date h3 {
+                    color: #333;
+                    margin: 0;
+                    font-size: 1em;
+                }
+                .content h4 {
+                    margin: 0;
+                    font-size: 0.9em;
+                }
+                .content {
+                    display: flex;
+                    flex-wrap: wrap;
+                    padding: 10px;
+                    border-radius: 10px;
+                }
+                .card {
+                    background-color: #fdfcfc;
+                    margin: 10px;
+                    padding: 10px;
+                    flex: 1;
+                    min-width: 400px;
+                    max-width: 200%;
+                    border-radius: 10px;
+                    position: relative;
+                    overflow: hidden;
+                    height: 450px;
+                    word-wrap: break-word;
+                    border: 1px solid #ccc;
+                }
+                .card-header {
+                    position: sticky;
+                    background-color: #e9e1e1;
+                    border-radius: 5px;
+                    height: 50px;
+                    text-align: center; 
+                    border-top: 1px solid #ccc;
+                    border-bottom: 0.5px solid #ccc;
+                }
+                .card-content {
+                    max-height: 400px;
+                    overflow-y: auto;
+                }
+                .card h2, .card h3 {
+                    color: #0e0e12;
+                    margin-bottom: 10px;
+                    margin-top: 10px;
+                }
+                .card h3 {
+                    font-size: 1em;
+                }
+                .card flag-icon {
+                    font-size: 10px;
+                }
+                .card .refresh {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    color: #388e3c;
+                    font-size: 30px;
+                }
+                .card table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    table-layout: fixed;
+                }
+                .card table td {
+                    padding: 5px;
+                    border-bottom: 1px solid #e0e0e0;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    word-wrap: break-word;
+                }
+                .card table td:last-child {
+                    text-align: right;
+                }
+                .card .map {
+                    width: 100%;
+                    height: 100px;
+                    background: url('https://placehold.co/300x200?text=Map') no-repeat center center;
+                    background-size: cover;
+                }
+                .footer {
+                    background-color: #f0f0f0;
+                        text-align: center;
+                        font-size: 14px;
+                        color: #666;
+                        border-top: 1px solid #ccc;
+                        border-bottom: 1px solid #ccc;
+                    margin-right: 20px;
+                    margin-left: 20px;
+                    border-radius: 10px;
+                }
+                .footer h3 {
+                    display: flex;
+                    align-items: center;
+                    color: #555;
+                }
+                a {
+                    color: #1e88e5;
+                    text-decoration: none;
+                }
+                a:hover {
+                    color: #1565c0;
+                }
+            </style>"""
+        return CSS

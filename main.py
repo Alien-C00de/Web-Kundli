@@ -15,7 +15,8 @@ async def Main():
     parser = argparse.ArgumentParser(description="Python Tool: WebSite Details")
     parser.add_argument("-s", "--Single_Site", help="Option To Search Single Website Details e.g. python main.py -s website_name")
     parser.add_argument("-sn", "--With_NMAP", help="Option To Search Single Website Details With Nmap e.g. python main.py -sn website_name")
-    parser.add_argument("-m", "--Multi_Site", help="Option To Search Multiple Website Details e.g. python main.py -m Site_list.txt")
+    parser.add_argument("-m", "--Mode", help="Option To Select Report Display Mode e.g. python main.py -sn website_name")
+    parser.add_argument("-md", "--Multi_Site", help="Option To Search Multiple Website Details e.g. python main.py -m Site_list.txt")
     parser.add_argument("-v", "--version", help="Show Tool Version", action="store_true")
     args = parser.parse_args()
 
@@ -38,13 +39,14 @@ async def Main():
     # \n""" + Fore.RESET + Style.RESET_ALL)
 
     try:
-        if args.Single_Site:
+        if args.Single_Site and args.Mode:
             url = args.Single_Site.strip()
             if not (url.startswith("http://")) and not (url.startswith('https://')):
                 url = "https://" + url
             print(f"📡 Searching Details For : {url}", flush=True)
             addr = str(url)
-            eng = engine.engine(addr, False)
+            mode = args.Mode.strip()
+            eng = engine.engine(addr, mode, False)
             await eng.Start_Engine()
         
         elif args.With_NMAP:
@@ -53,7 +55,8 @@ async def Main():
                 url = "https://" + url
             print(f"📡 Searching Details For : {url}", flush=True)
             addr = str(url)
-            eng = engine.engine(addr, True)
+            mode = args.Mode.strip()
+            eng = engine.engine(addr, mode, True)
             await eng.Start_Engine()
 
         elif args.Multi_Site:

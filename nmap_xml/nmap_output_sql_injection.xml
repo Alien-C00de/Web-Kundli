@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE nmaprun>
 <?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
-<!-- Nmap 7.94SVN scan initiated Mon Mar 24 14:46:38 2025 as: nmap -sS -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-sql-injection -oX nmap_xml/nmap_output_sql_injection.xml 203.187.192.6 -->
-<nmaprun scanner="nmap" args="nmap -sS -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-sql-injection -oX nmap_xml/nmap_output_sql_injection.xml 203.187.192.6" start="1742807798" startstr="Mon Mar 24 14:46:38 2025" version="7.94SVN" xmloutputversion="1.05">
-<scaninfo type="syn" protocol="tcp" numservices="14" services="21-22,25,53,80,110,143,443,465,587,993,995,8080,8443"/>
+<!-- Nmap 7.94SVN scan initiated Mon Mar 24 19:38:11 2025 as: nmap -sT -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-sql-injection -oX nmap_xml/nmap_output_sql_injection.xml 203.187.192.6 -->
+<nmaprun scanner="nmap" args="nmap -sT -T2 -p 21,22,25,53,80,110,143,443,465,587,993,995,8080,8443 -&#45;script http-sql-injection -oX nmap_xml/nmap_output_sql_injection.xml 203.187.192.6" start="1742825291" startstr="Mon Mar 24 19:38:11 2025" version="7.94SVN" xmloutputversion="1.05">
+<scaninfo type="connect" protocol="tcp" numservices="14" services="21-22,25,53,80,110,143,443,465,587,993,995,8080,8443"/>
 <verbose level="0"/>
 <debugging level="0"/>
 <hosthint><status state="up" reason="unknown-response" reason_ttl="0"/>
@@ -11,7 +11,7 @@
 <hostnames>
 </hostnames>
 </hosthint>
-<host starttime="1742807802" endtime="1742807852"><status state="up" reason="syn-ack" reason_ttl="58"/>
+<host starttime="1742825295" endtime="1742825350"><status state="up" reason="syn-ack" reason_ttl="58"/>
 <address addr="203.187.192.6" addrtype="ipv4"/>
 <hostnames>
 <hostname name="www.youbroadband.in" type="PTR"/>
@@ -20,10 +20,10 @@
 <port protocol="tcp" portid="22"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
 <port protocol="tcp" portid="25"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="smtp" method="table" conf="3"/></port>
 <port protocol="tcp" portid="53"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="domain" method="table" conf="3"/></port>
-<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="58"/><service name="http" method="table" conf="3"/></port>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
 <port protocol="tcp" portid="110"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="pop3" method="table" conf="3"/></port>
 <port protocol="tcp" portid="143"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="imap" method="table" conf="3"/></port>
-<port protocol="tcp" portid="443"><state state="open" reason="syn-ack" reason_ttl="58"/><service name="https" method="table" conf="3"/></port>
+<port protocol="tcp" portid="443"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="https" method="table" conf="3"/></port>
 <port protocol="tcp" portid="465"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="smtps" method="table" conf="3"/></port>
 <port protocol="tcp" portid="587"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="submission" method="table" conf="3"/></port>
 <port protocol="tcp" portid="993"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="imaps" method="table" conf="3"/></port>
@@ -31,8 +31,8 @@
 <port protocol="tcp" portid="8080"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="http-proxy" method="table" conf="3"/></port>
 <port protocol="tcp" portid="8443"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="https-alt" method="table" conf="3"/></port>
 </ports>
-<times srtt="16003" rttvar="8504" to="400000"/>
+<times srtt="25609" rttvar="8375" to="400000"/>
 </host>
-<runstats><finished time="1742807852" timestr="Mon Mar 24 14:47:32 2025" summary="Nmap done at Mon Mar 24 14:47:32 2025; 1 IP address (1 host up) scanned in 54.37 seconds" elapsed="54.37" exit="success"/><hosts up="1" down="0" total="1"/>
+<runstats><finished time="1742825350" timestr="Mon Mar 24 19:39:10 2025" summary="Nmap done at Mon Mar 24 19:39:10 2025; 1 IP address (1 host up) scanned in 59.20 seconds" elapsed="59.20" exit="success"/><hosts up="1" down="0" total="1"/>
 </runstats>
 </nmaprun>
