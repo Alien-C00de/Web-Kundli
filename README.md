@@ -96,20 +96,14 @@ HTML report files are located under the `./output` directory:
 ## Image
 - **Input Screen:**
   
-
-<img width="1239" height="913" alt="Screenshot from 2025-09-21 21-53-10" src="https://github.com/user-attachments/assets/42a1d14a-a965-4b88-ac91-401fa4fa9310" />
-
+![input](https://github.com/user-attachments/assets/44bf5af3-13aa-4b29-9636-fc3d5010bc3a)
 
 - **Output HTML Summary Report Screenshot:**
   
-
-<img width="1829" height="961" alt="Screenshot from 2025-09-21 21-44-28" src="https://github.com/user-attachments/assets/b8568673-22f3-408f-b6cf-6774964aa333" />
-
+![Summary_report](https://github.com/user-attachments/assets/2d1b28cb-9294-472c-9363-5ea33406d3cd)
 
 - **Output HTML Analysis Report Screenshot:**
   
-
-<img width="1220" height="961" alt="Screenshot from 2025-09-21 21-44-10" src="https://github.com/user-attachments/assets/7a374db8-7aa2-454c-8849-e23ed59de547" />
-
+![analysis_Report](https://github.com/user-attachments/assets/7d8bc306-a43f-4714-9140-a6b2b71f3e49)
 
 🚀 Happy Website analysis! 🚀
