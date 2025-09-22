@@ -1,4 +1,4 @@
-Python library used for developing Web Kundli program.
+Python library used for developing Web Matrix program.
 
 1.  pip install python-whois
 2.  pip install requests
@@ -12,3 +12,4 @@ Python library used for developing Web Kundli program.
 10. pip install python3-nmap - Ensure that the `nmap` software is installed on your machine.
 11. pip install pybase64
 12.  pip install dnspython
+13. pip install pyOpenSSL
